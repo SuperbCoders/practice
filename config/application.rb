@@ -38,7 +38,10 @@ module Practice
     config.generators.views = false
     config.generators.controller_specs = false
     config.generators.views_specs = false
-
     config.active_record.raise_in_transactional_callbacks = true
+
+
+    # Avatar upload path
+    config.upload_path = Rails.root.join('public', 'upload').to_s
   end
 end

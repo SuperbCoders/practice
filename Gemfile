@@ -49,8 +49,11 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.1'
   gem 'rb-fsevent' # if `uname` =~ /Darwin/
   gem 'guard-rspec', require: false
+  gem 'mongoid-rspec'
+  gem 'guard-bundler', require: false
   gem 'shoulda'
   gem 'shoulda-matchers'
+  gem 'factory_girl'
   gem 'quiet_assets'
 end
 
