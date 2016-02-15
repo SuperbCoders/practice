@@ -1,6 +1,8 @@
 class BaseProfile < BaseModel
   include Attachable
 
+  # – пол
+  as_enum :gender, [:male, :female], source: :gender, map: :string
   # - Фамилия
   # - Имя
   field :first_name

@@ -11,6 +11,16 @@ RSpec.describe BaseProfile, type: :model do
   it { is_expected.to validate_presence_of(:first_name) }
   it { is_expected.to validate_presence_of(:last_name) }
 
+  it 'can be male' do
+    base_profile.male!
+    expect(base_profile).to be_male
+  end
+
+  it 'can be female' do
+    base_profile.female!
+    expect(base_profile).to be_female
+  end
+
   it 'should return name' do
     expect(base_profile.name).eql? 'Test Test'
   end

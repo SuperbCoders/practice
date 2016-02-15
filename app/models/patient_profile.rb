@@ -1,8 +1,5 @@
 class PatientProfile < BaseProfile
 
-  # – пол
-  as_enum :gender, [:male, :female], source: :gender, map: :string
-
   # – вес
   field :weight, type: Float
 
