@@ -1,0 +1,28 @@
+.box
+  .box-header.with-border
+    %h3.box-title.lead Пациент
+    .box-tools.pull-right
+      %button.btn.btn-box-tool{"data-widget" => "collapse", :type => "button"}
+        %i.fa.fa-minus
+  .box-body.no-padding
+    .row
+      .col-xs-12
+        %table.table.table-condensed.table-striped.table-hover.table-bordered
+          %thead
+            %td Имя
+            %td email
+            %td Дата регистрации
+            %td
+          %tbody
+            %tr{'dir-paginate' => "patient in vm.patients| itemsPerPage: vm.items_limit"}
+              %td {{patient.name}}
+              %td {{patient.email}}
+              %td {{patient.c_at | date}}
+              %td
+                %a
+                  %i.fa.fa-pencil
+                %a
+                  %i.fa.fa-trash
+  .box-footer
+    .col-xs-12
+      %dir-pagination-controls

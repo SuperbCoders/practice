@@ -1,0 +1,49 @@
+%aside.main-sidebar
+  %section.sidebar
+    %ul.sidebar-menu
+
+      / Объекты Врачи
+      %li{'ui-sref-active' => 'active'}
+        %a{:href => "", 'ui-sref' => 'doctors'}
+          %i.fa.fa-users
+          %span Врачи
+
+      / Пациенты
+      %li{'ui-sref-active' => 'active'}
+        %a{:href => "", 'ui-sref' => 'patients'}
+          %i.fa.fa-users
+          %span Пациенты
+
+      / Статистика
+      %li{'ui-sref-active' => 'active'}
+        %a{:href => "", 'ui-sref' => 'statistic'}
+          %i.fa.fa-line-chart
+          %span Статистика
+
+      / Текстовый контент
+      %li{'ui-sref-active' => 'active'}
+        %a{:href => "", 'ui-sref' => 'static'}
+          %i.fa.fa-file-text
+          %span Текстовый контент
+
+      / Деньги
+      %li{'ui-sref-active' => 'active'}
+        %a{:href => "", 'ui-sref' => 'billing'}
+          %i.fa.fa-money
+          %span Биллинг
+
+      / Настройки
+      %li.treeview
+        %a{:href => ""}
+          %i.fa.fa-dashboard
+          %span Настройки
+          %i.fa.fa-angle-left.pull-right
+        %ul.treeview-menu{:style => "display: block;"}
+          %li
+            %a{:href => "", 'ui-sref' => "settings.system"}
+              %i.fa.fa-circle-o
+              Настройки системы
+          %li
+            %a{:href => "", 'ui-sref' => "settings.tags"}
+              %i.fa.fa-circle-o
+              Тэги

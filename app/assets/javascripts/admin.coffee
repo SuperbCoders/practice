@@ -1,0 +1,21 @@
+#= require jquery
+#= require jquery-ui
+#= require bootstrap
+#= require lodash/lodash
+#= require moment
+#= require angular
+#= require angular-bootstrap/ui-bootstrap-tpls
+#= require angular-loading-bar/build/loading-bar
+#= require angular-ui-router
+#= require angular-resource
+#= require angular-confirm-modal/angular-confirm
+#= require angular-utils-pagination
+#= require angular-ui-notification
+#= require angular-moment
+#= require angular-base64-upload
+#= require admin-lte/dist/js/app
+#= require jquery.slimscroll/jquery.slimscroll
+#= require ion-checkradio/js/ion.checkRadio
+
+#= require ./admin/application
+#= require_tree ./admin/
