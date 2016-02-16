@@ -21,7 +21,7 @@ class Visit < BaseModel
   validates_presence_of :date
   validates_numericality_of :duration, greater_than: 0
 
-  before_save :check_visit_uniqueness
+  before_create :check_visit_uniqueness
 
   private
 
