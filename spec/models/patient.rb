@@ -5,4 +5,3 @@ RSpec.describe Patient, type: :model do
 
   it 'has profile'
 end
-

@@ -1,5 +1,5 @@
-guard :rspec, cmd: "bundle exec rspec" do
-  require "guard/rspec/dsl"
+guard :rspec, cmd: 'bundle exec rspec' do
+  require 'guard/rspec/dsl'
   dsl = Guard::RSpec::Dsl.new(self)
 
   # Feel free to open issues for suggestions and improvements
@@ -21,9 +21,9 @@ guard :rspec, cmd: "bundle exec rspec" do
 
   watch(rails.controllers) do |m|
     [
-        rspec.spec.("routing/#{m[1]}_routing"),
-        rspec.spec.("controllers/#{m[1]}_controller"),
-        rspec.spec.("acceptance/#{m[1]}")
+      rspec.spec.("routing/#{m[1]}_routing"),
+      rspec.spec.("controllers/#{m[1]}_controller"),
+      rspec.spec.("acceptance/#{m[1]}")
     ]
   end
 
@@ -45,6 +45,10 @@ guard :rspec, cmd: "bundle exec rspec" do
   watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$}) do |m|
     Dir[File.join("**/#{m[1]}.feature")][0] || "spec/acceptance"
   end
+end
+
+guard :rubocop, all_on_start: false, cli: ['--out', 'log/rubocop.log'] do
+  watch(%r{^(.+)\.rb$}) { |m| "#{m[1]}.rb" }
 end
 
 guard :bundler do

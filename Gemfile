@@ -1,19 +1,18 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '4.2.3'
 gem 'sqlite3'
 gem 'cancancan'
 gem 'hirb-unicode'
 gem 'sass-rails'
-gem "less-rails"
+gem 'less-rails'
 gem 'coffee-rails', '~> 4.0.0'
-gem 'spring',        group: :development
+gem 'spring', group: :development
 gem 'uglifier', '>= 1.3.0'
 gem 'rolify'
 gem 'barby'
 gem 'chunky_png'
-gem 'rack-cors', :require => 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 gem 'rails_best_practices'
 gem 'digest'
 gem 'thin'
@@ -29,17 +28,14 @@ gem 'erb2haml'
 gem 'devise_lastseenable'
 gem 'faker'
 gem 'mongoid', '~> 5.0.0'
-gem 'simple_enum', '~> 2.1.1' , require: 'simple_enum/mongoid'
+gem 'simple_enum', '~> 2.1.1', require: 'simple_enum/mongoid'
 gem 'therubyracer'
-gem 'validates_timeliness' , '3.0.14'# Нужна была валидация datetime при добавлении акций
+gem 'validates_timeliness', '3.0.14'
 gem 'devise'
-
-# Sidekiq
 gem 'sinatra'
 gem 'sidekiq'
 gem 'clockwork'
 gem 'httpclient'
-
 gem 'redis'
 gem 'figaro'
 
@@ -55,6 +51,13 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'factory_girl'
   gem 'quiet_assets'
+
+  # Checks ruby code grammar
+  gem 'rubocop', require: false
+  # With rspec
+  gem 'rubocop-rspec'
+  # With guard
+  gem 'guard-rubocop'
 end
 
 group :test do
@@ -64,4 +67,3 @@ group :test do
   gem 'timecop'
   gem 'launchy'
 end
-
