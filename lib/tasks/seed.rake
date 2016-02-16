@@ -7,8 +7,8 @@ namespace :seed do
   desc 'seed doctors'
   task :doctors => :environment do
     [
-        {email: 'corehook@gmail.com', password: 'corehook'},
-        {email: 'doctor@gmail.com', password: 'doctorpassword'}
+      {email: 'corehook@gmail.com', password: 'corehook'},
+      {email: 'doctor@gmail.com', password: 'doctorpassword'}
     ].map { |u|
       User.find_or_create_by(u) do |doctor|
         puts "Doctor #{doctor.email} created"
@@ -19,7 +19,7 @@ namespace :seed do
 
   task :patients => :environment do
     [
-        {email: 'patient@gmail.com', password: 'patientpatient'}
+      {email: 'patient@gmail.com', password: 'patientpatient'}
     ].map { |u|
       User.find_or_create_by(u) do |patient|
         puts "Patient #{patient.email} created"

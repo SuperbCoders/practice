@@ -1,21 +1,48 @@
 # Common configuration.
+#AllCops:
+#  Include:
+#    - Rakefile
+#    - app/**/*
+#    - lib/**/*
+#    - spec/models/*
+#    - spec/factories/*
+#  Exclude:
+#    - bin/**/*
+#    - db/**/*
+#    - vendor/**/*
+#    - node_modules/**/*
+#    - config/**/*
+#    - script/**/*
+#    - spec/*.rb
+#    - features/**/*
+#    - ansible/**/*
 AllCops:
   Include:
     - Rakefile
   Exclude:
+    - Guardfile
     - bin/**/*
     - db/**/*
     - vendor/**/*
     - node_modules/**/*
     - config/**/*
+    - config/initializers/*.rb
     - script/**/*
-    - spec/**/*
+    - spec/*.rb
     - features/**/*
-    - ansible/**/*
+    - spec/rails_helper.rb
+    - spec/spec_helper.rb
 
-  RunRailsCops: true
+  Rails:
+    Enabled: true
 
 Style/LambdaCall:
+  Enabled: false
+
+Style/Encoding:
+  Enabled: false
+
+Style/AlignHash:
   Enabled: false
 
 # Avoid long parameter lists
@@ -27,4 +54,4 @@ ClassLength:
   Max: 100
 
 LineLength:
-  Max: 80  # TODO: Lower to 100
+  Max: 80
