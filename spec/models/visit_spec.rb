@@ -34,7 +34,7 @@ RSpec.describe Visit, type: :model do
     expect(visit).not_to be_valid
   end
 
-  it 'it can be one patient per visit' do
+  it 'can not be crossed with another visit' do
     visit = FactoryGirl.create(:visit,doctor: doctor,
         type: :unsigned,
         unsigned_patient: {name: Faker::Name.name},

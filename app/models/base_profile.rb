@@ -26,9 +26,7 @@ class BaseProfile < BaseModel
   end
 
   def destroy_avatar
-    if avatar and destroy_file(avatar)
-      update_attributes(avatar: nil)
-    end
+    detach(:avatar)
   end
 
   def name

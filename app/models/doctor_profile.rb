@@ -22,9 +22,7 @@ class DoctorProfile < BaseProfile
   end
 
   def destroy_public_avatar
-    if public_avatar and destroy_file(public_avatar)
-      update_attributes(public_avatar: nil)
-    end
+    detach(:public_avatar)
   end
 
 
