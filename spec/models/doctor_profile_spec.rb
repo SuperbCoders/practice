@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe DoctorProfile, type: :model do
   let(:doctor) { FactoryGirl.build(:doctor_profile) }
 
-  pending 'belong to user'
+  it { is_expected.to belong_to(:doctor).of_type(Doctor) }
 
   it 'should respond to change_public_avatar' do
     expect(doctor).respond_to? :change_public_avatar
@@ -42,6 +42,8 @@ RSpec.describe DoctorProfile, type: :model do
   end
 
   it { is_expected.to have_fields(:specialty, :education, :experience, :about, :public_avatar) }
+
+  it { is_expected.to have_many(:contacts) }
 
   [:profile, :office].map { |status_type|
     [:open, :closed].map { |status|

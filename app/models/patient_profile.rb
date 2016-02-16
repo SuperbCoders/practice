@@ -29,6 +29,8 @@ class PatientProfile < BaseProfile
 
   before_create :set_register_date
 
+  belongs_to :patient, class_name: 'Patient'
+
   private
 
   def set_register_date

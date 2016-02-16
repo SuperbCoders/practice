@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   namespace :patient do
     get 'cabinet/index'
   end

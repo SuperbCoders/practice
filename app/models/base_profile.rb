@@ -17,10 +17,9 @@ class BaseProfile < BaseModel
   # телефон/email (может быть несколько)
   has_many :contacts, dependent: :destroy
 
-
   validates_presence_of :first_name, :last_name
 
-  before_destroy :delete_avatar_file
+  before_destroy :destroy_avatar
 
   def change_avatar(file_params)
     attach(:avatar, file_params)

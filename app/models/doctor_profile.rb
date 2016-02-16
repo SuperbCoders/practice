@@ -15,7 +15,7 @@ class DoctorProfile < BaseProfile
   as_enum :profile, [:profile_open, :profile_closed], map: :string, source: :profile
 
   embeds_one :setting, class_name: 'GlobalSetting'
-
+  belongs_to :doctor, class_name: 'Doctor'
 
   def change_public_avatar(file_params)
     attach(:public_avatar, file_params)
