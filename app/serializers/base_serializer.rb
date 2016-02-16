@@ -1,7 +1,6 @@
 class BaseSerializer < ActiveModel::Serializer
   attributes :id, :errors, :valid, :messages
 
-
   def messages
     object.try(:messages)
   end
@@ -17,5 +16,4 @@ class BaseSerializer < ActiveModel::Serializer
   def id
     object.id.to_s
   end
-
 end

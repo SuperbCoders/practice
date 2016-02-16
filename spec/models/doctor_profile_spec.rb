@@ -11,9 +11,9 @@ RSpec.describe DoctorProfile, type: :model do
 
   it 'can upload public_avatar' do
     avatar_params = {
-        filename: 'test_avatar.png',
-        base64: Base64::encode64(SecureRandom.hex),
-        filetype: 'image/png'
+      filename: 'test_avatar.png',
+      base64: Base64.encode64(SecureRandom.hex),
+      filetype: 'image/png'
     }
 
     expect(doctor.change_public_avatar(avatar_params)).to be_truthy
@@ -26,9 +26,9 @@ RSpec.describe DoctorProfile, type: :model do
 
   it 'can destroy public_avatar' do
     avatar_params = {
-        filename: 'test_avatar.png',
-        base64: Base64::encode64(SecureRandom.hex),
-        filetype: 'image/png'
+      filename: 'test_avatar.png',
+      base64: Base64.encode64(SecureRandom.hex),
+      filetype: 'image/png'
     }
 
     expect(doctor.change_public_avatar(avatar_params)).to be_truthy
@@ -41,19 +41,21 @@ RSpec.describe DoctorProfile, type: :model do
     expect(File.exist?(avatar_path)).not_to be_truthy
   end
 
-  it { is_expected.to have_fields(:specialty, :education, :experience, :about, :public_avatar) }
+  it do
+    is_expected.to have_fields(:specialty, :education,
+        :experience, :about, :public_avatar)
+  end
 
   it { is_expected.to have_many(:contacts) }
 
-  [:profile, :office].map { |status_type|
-    [:open, :closed].map { |status|
+  [:profile, :office].map do |status_type|
+    [:open, :closed].map do |status|
       it "can #{status} #{status_type}" do
         doctor.send("#{status_type}_#{status}!")
         expect(doctor[:status_type]).eql? "#{status_type}_#{status}"
       end
-    }
-
-  }
+    end
+  end
 
   it { is_expected.to embed_one(:setting).of_type(GlobalSetting) }
 end
