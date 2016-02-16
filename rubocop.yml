@@ -1,0 +1,30 @@
+# Common configuration.
+AllCops:
+  Include:
+    - Rakefile
+  Exclude:
+    - bin/**/*
+    - db/**/*
+    - vendor/**/*
+    - node_modules/**/*
+    - config/**/*
+    - script/**/*
+    - spec/**/*
+    - features/**/*
+    - ansible/**/*
+
+  RunRailsCops: true
+
+Style/LambdaCall:
+  Enabled: false
+
+# Avoid long parameter lists
+ParameterLists:
+  Max: 4
+  CountKeywordArgs: true
+
+ClassLength:
+  Max: 100
+
+LineLength:
+  Max: 80  # TODO: Lower to 100
