@@ -90,6 +90,6 @@
     angular.element(document.querySelector("html")).removeClass 'menu_open'
     return
 
-  $rootScope.regDate = -> moment('2016-01-12')
+  $rootScope.regDate = -> moment(Date.new)
 
 ]

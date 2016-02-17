@@ -125,23 +125,17 @@ $(function ($) {
     });
 
     $('.openRegSuccess').on('click', function () {
-
         reg_success_form.dialog('open');
-
         return false;
     });
 
     $('.openRecovery').on('click', function () {
-
         recovery_form.dialog('open');
-
         return false;
     });
 
     $('.openRecoverySuccess').on('click', function () {
-
         recovery_success_form.dialog('open');
-
         return false;
     });
 
@@ -163,16 +157,7 @@ $(function ($) {
     });
 
     notificationDropdown.on('mousemove', function () {
-        //clearTimeout(notificationTimer);
-        //notificationBtn.parent().removeClass('notification_open');
-        //notificationDropdown.addClass('open');
     }).on('mouseleave', function () {
-        //clearTimeout(notificationTimer);
-        //
-        //notificationTimer = setTimeout(function () {
-        //    notificationDropdown.removeClass('open');
-        //}, 300);
-
     });
 
     $('.passBtn').on('click', function () {

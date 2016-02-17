@@ -1,20 +1,5 @@
 #calendar.calendar_v1.fc.fc-ltr.fc-unthemed
 .day_info_block.dayInfoBlock
-  /
-    \.patient_card
-    +patient_status()
-    +patient_menu()
-    a.patient_avatar(href='#'): img(src='i/user_2.png')
-    \.patient_info
-    \.patient_name: a.gl_link.gray_link(href='#'): span Осинцев Константин
-    p Краткая информация о пациенте Первичный прием, возможно анализы...
-    +patient_info_table()
-
-    \.patient_card_controls.skipOpen.patient_warn: .patient_info_table
-    \.controls_cell
-    a.btn_v2.patient_btn.white_white_btn(href='#'): span.mb Подтвердить прием на 29 декабря в 12:00
-    p: a.gl_link(href='#') Изменить время приема
-    +patient_overview()
   .ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.dialog_v1.no_close_mod.no_title_mod.ui-draggable.ui-resizable{"aria-describedby" => "patient_info_form", "aria-labelledby" => "ui-id-6", :role => "dialog", :style => "display: none; position: absolute;", :tabindex => "-1"}
     .ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix.ui-draggable-handle
       %span#ui-id-6.ui-dialog-title &nbsp;
