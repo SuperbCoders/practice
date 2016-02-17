@@ -18,4 +18,5 @@
 #= require ion-checkradio/js/ion.checkRadio
 
 #= require ./admin/application
+#= require_tree ./shared
 #= require_tree ./admin/

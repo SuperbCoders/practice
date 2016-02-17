@@ -1,0 +1,21 @@
+$develop : false;
+$production : true;
+$all : true;
+$ie9 : false;
+$ie8 : false;
+$ie7 : false;
+$doc : false;
+$local_var : global;
+$holydat_var : none;
+
+@import "includes/global_var";
+@import "reset";
+@import "fonts";
+@import "font_icons";
+@import "datapicker";
+@import "main";
+@import "dialog_global";
+@import "fullcalendar";
+@import "fullcalendar_custom";
+@import "notify_custom";
+@import "fancybox_custom";

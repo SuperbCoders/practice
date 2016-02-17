@@ -1,1 +1,27 @@
-Hello docta!
+!!!
+%html{:lang => "ru", 'ng-app' => "practice.doctor"}
+  %head
+    %title Practic профиль
+
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+
+    = stylesheet_link_tag    'doctor', media: 'all', 'data-turbolinks-track' => false
+    = javascript_include_tag 'doctor', 'data-turbolinks-track' => false
+    = csrf_meta_tags
+
+  %body.cal_header_mod.cal_body_mod
+    .wrapper
+      .base.controls_mod
+        = render 'doctor/shared/header'
+
+        .calendar_header_holder.calendarSubHeader
+        .main_content
+          .section_inner.calendarHolder.day_mode
+            %div(ui-view)
+
+
+        = render 'doctor/shared/aside_menu'
+
+      = render 'doctor/shared/popups/add_patient_form'
+      = render 'doctor/shared/popups/patient_info_form'

@@ -1,0 +1,27 @@
+#add_patient_form.popup_form{:style => "display:none"}
+  .form_corner
+  %form{:action => "#", :novalidate => "novalidate"}
+    .patient_status_w.chosen_v2.no_search.skipOpen.right_mod
+      %select.chosen-select.newPatientState
+        %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
+        %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
+        %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
+        %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
+    .form_row
+      .input_w.placeholder_mod
+        %input#new_patient_name.form_input.input_v4.checkEmpty{:name => "new_patient_name", :type => "text", :value => ""}/
+        %label.form_label.fz_20_{:for => "new_patient_name"} Имя пациента
+    .form_row
+      .input_w.placeholder_mod
+        %input#new_patient_phone.form_input.input_v4.checkEmpty{:name => "new_patient_phone", :type => "tel"}/
+        %label.form_label{:for => "new_patient_phone"} Телефон
+    .form_row
+      .input_w.placeholder_mod
+        %input#new_patient_email.form_input.input_v4.checkEmpty{:name => "new_patient_email", :type => "email"}/
+        %label.form_label{:for => "new_patient_email"} Email
+    .form_row
+      .input_w.placeholder_mod
+        %input#new_patient_describe.form_input.input_v4.checkEmpty{:name => "new_patient_describe", :type => "email"}/
+        %label.form_label{:for => "new_patient_describe"} Краткое описание (только для вас)
+    %button.btn_v2.new_patient_btn.newPatientBtn.yellow_black_btn
+      %span.mb Записать на 30 декабря, в 12:00

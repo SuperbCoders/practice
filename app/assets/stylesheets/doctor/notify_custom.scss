@@ -1,0 +1,40 @@
+.notifyjs-corner {
+  padding: 85px 5px 0 0;
+}
+
+.notifyjs-attach-removed {
+  max-width: 280px;
+  padding: 20px;
+  background: rgba(76, 136, 253, .9);
+  font: 14px/18px $HelveticaNeueReg;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.notifyjs-wrapper {
+  @include transition_all(transform .5s, opacity .5s);
+  @include transform_translate(0, 50px);
+  opacity: 0;
+  height: auto !important;
+  width: auto !important;
+
+  .notifyjs-container {
+    height: auto !important;
+    width: auto !important;
+    display: block !important;
+  }
+
+  &.opened {
+    opacity: 1;
+    @include transform_translate(0, 0);
+  }
+
+  &.closed {
+    opacity: 0;
+  }
+
+  &:nth-last-child(n+4) {
+    //display: none !important;
+  }
+
+}

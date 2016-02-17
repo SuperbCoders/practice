@@ -1,0 +1,59 @@
+.fancybox-overlay {
+  background: rgba(11, 11, 11, .94);
+}
+
+.fancybox-nav {
+
+}
+
+.fancybox-skin {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.fancybox-title {
+  text-align: center;
+  color: #fff;
+  font: 14px $HelveticaNeueReg;
+  pointer-events: none;
+}
+
+.fancybox-nav {
+  z-index: 1;
+  top: auto;
+  bottom: -70px;
+  height: 30px;
+  width: 30px;
+  background: #000;
+  border-radius: 100%;
+
+  &:before {
+    @extend .icon-before;
+    @extend %hor_vert_centr;
+    position: absolute;
+    color: #fff;
+  }
+
+  &.fancybox-next {
+    @extend .icon-chevron_right;
+    right: 77px;
+
+    @include respond-to-min($desktop) {
+      right: 177px;
+    }
+  }
+
+  &.fancybox-prev {
+    @extend .icon-chevron_left;
+    left: 77px;
+
+    @include respond-to-min($desktop) {
+      left: 177px;
+    }
+  }
+
+}
+
+.fancybox-title-inside-wrap {
+  padding-top: 47px;
+}

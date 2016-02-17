@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :authenticate_user!
   before_action { @response = {success: false, messages: [], errors: []} }
 
   def serialize_resources(resources, serializer)

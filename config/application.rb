@@ -31,6 +31,7 @@ module Practice
 
     config.templates_path = Rails.root.join('app', 'views', 'templates')
     config.assets.paths << Rails.root.join("vendor", "assets", "bower_components")
+    config.assets.paths << Rails.root.join("vendor", "assets", "fonts")
     config.assets.paths << Rails.root.join("vendor", "assets", "bower_components", "bootstrap", "assets", "fonts")
 
     config.generators.assets = false

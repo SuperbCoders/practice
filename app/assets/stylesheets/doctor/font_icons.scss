@@ -1,0 +1,114 @@
+@font-face {
+  font-family: 'practic_icons';
+  src: url('../fonts/practic_icons.eot?dutye1');
+  src: url('../fonts/practic_icons.eot?dutye1#iefix') format('embedded-opentype'),
+  url('../fonts/practic_icons.ttf?dutye1') format('truetype'),
+  url('../fonts/practic_icons.woff?dutye1') format('woff'),
+  url('../fonts/practic_icons.svg?dutye1#practic_icons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"], .icon-before {
+
+  &:before {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'practic_icons' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.icon-after {
+
+  &:after {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'practic_icons' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.icon-pencil:before {
+  content: "\e900";
+}
+
+.icon-fb:before {
+  content: "\e901";
+}
+
+.icon-vk:before {
+  content: "\e902";
+}
+
+.icon-plus:before {
+  content: "\e903";
+}
+
+.icon-minus:before {
+  content: "\e90e";
+}
+
+.icon-tw:before {
+  content: "\e904";
+}
+
+.icon-photo:before {
+  content: "\e905";
+}
+
+.icon-chevron_right:before {
+  content: "\e910";
+}
+
+.icon-chevron_left:before {
+  content: "\e601";
+}
+
+.icon-checkmark:before {
+  content: "\e906";
+}
+
+.icon-logogray:before {
+  content: "\e907";
+}
+
+.icon-close:before {
+  content: "\e908";
+}
+
+.icon-search:before {
+  content: "\e909";
+}
+
+.icon-calendar_icon:before {
+  content: "\e90a";
+}
+
+.icon-calendar_icon:after {
+  content: "\e90b";
+}
+
+.icon-map_pin:before {
+  content: "\e90c";
+}
+
+.icon-attach:before {
+  content: "\e90d";
+}

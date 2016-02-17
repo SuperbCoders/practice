@@ -1,0 +1,109 @@
+#calendar.calendar_v1.fc.fc-ltr.fc-unthemed
+.day_info_block.dayInfoBlock
+  /
+    \.patient_card
+    +patient_status()
+    +patient_menu()
+    a.patient_avatar(href='#'): img(src='i/user_2.png')
+    \.patient_info
+    \.patient_name: a.gl_link.gray_link(href='#'): span Осинцев Константин
+    p Краткая информация о пациенте Первичный прием, возможно анализы...
+    +patient_info_table()
+
+    \.patient_card_controls.skipOpen.patient_warn: .patient_info_table
+    \.controls_cell
+    a.btn_v2.patient_btn.white_white_btn(href='#'): span.mb Подтвердить прием на 29 декабря в 12:00
+    p: a.gl_link(href='#') Изменить время приема
+    +patient_overview()
+  .ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.dialog_v1.no_close_mod.no_title_mod.ui-draggable.ui-resizable{"aria-describedby" => "patient_info_form", "aria-labelledby" => "ui-id-6", :role => "dialog", :style => "display: none; position: absolute;", :tabindex => "-1"}
+    .ui-dialog-titlebar.ui-widget-header.ui-corner-all.ui-helper-clearfix.ui-draggable-handle
+      %span#ui-id-6.ui-dialog-title &nbsp;
+      %button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui-dialog-titlebar-close{:role => "button", :title => "Close", :type => "button"}
+        %span.ui-button-icon-primary.ui-icon.ui-icon-closethick
+        %span.ui-button-text Close
+    #patient_info_form.popup_form.popup_v2.ui-dialog-content.ui-widget-content{:style => ""}
+      .form_corner
+      %form{:action => "#", :novalidate => "novalidate"}
+        .patient_card.cardOverview
+          .patient_status_w.chosen_v2.no_search.skipOpen
+            %select.chosen-select{:style => "display: none;"}
+              %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
+              %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
+              %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
+              %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
+            .chzn-container.chzn-container-single{:style => "width: 100%;", :title => ""}
+              %a.chzn-single
+                %span.state_pin.status_blue 1
+                %div
+                  %b
+              .chzn-drop
+                .chzn-search
+                  %input{:autocomplete => "off", :type => "text"}/
+                %ul.chzn-results
+          .patient_menu_w.skipOpen
+            .drop_down_btn
+              %span
+            .drop_down_w
+              %ul.drop_down_menu
+                %li.drop_down_item.active
+                  %a.gl_link{:href => "#"}
+                    %span Подтвердить прием
+                %li.drop_down_item
+                  %a.gl_link{:href => "#"}
+                    %span Отказать в  приёме
+                %li.drop_down_item
+                  %a.gl_link{:href => "#"}
+                    %span Добавить запись в карту
+                %li.drop_down_item
+                  %a.gl_link{:href => "#"}
+                    %span Редактировать
+                %li.drop_down_item
+                  %a.gl_link{:href => "#"}
+                    %span Отправить в архив
+                %li.drop_down_item
+                  %a.gl_link{:href => "#"}
+                    %span Удалить
+          %a.patient_avatar{:href => "#"}
+            %img{:src => "i/user_2.png"}/
+          .patient_info
+            .patient_name
+              %a.gl_link.gray_link{:href => "#"}
+                %span Осинцев Константин
+            %textarea.input_v5.form_input.skipOpen Болят карманы, ломит штаны, от водки тошнит, вылечите скорей меня
+          .patient_info_table
+            .other_info_cell
+              %p +7 927 026 10 22
+              %p yaosamo@gmail.com
+          .patient_card_controls.skipOpen.patient_warn
+            .patient_info_table
+              .controls_cell
+                %a.btn_v2.patient_btn.white_white_btn{:href => "#"}
+                  %span.mb Подтвердить прием на 29 декабря в 12:00
+                %p
+                  %a.gl_link{:href => "#"} Изменить время приема
+          .patient_overview
+            %a.btn_v3.add_patient_line.white__btn{:href => "#"} Добавить запись в карту
+            %ul.patient_overview_list
+              %li.patient_overview_line
+                .overview_caption ПОРТРЕТ ПАЦИЕНТА
+                %dl.overview_info
+                  %dt Рост:
+                  %dd 185
+                  %dt Вес
+                  %dd 78 кг
+                  %dt Возраст
+                  %dd 18 лет
+              %li.patient_overview_line
+                .overview_caption МЕДИЦИНСКИЕ ОСОБЕННОСТИ
+                %p Есть хвост
+              %li.patient_overview_line
+                .overview_caption ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ
+                %p Договор №000099
+    .ui-resizable-handle.ui-resizable-n{:style => "z-index: 90; display: block;"}
+    .ui-resizable-handle.ui-resizable-e{:style => "z-index: 90; display: block;"}
+    .ui-resizable-handle.ui-resizable-s{:style => "z-index: 90; display: block;"}
+    .ui-resizable-handle.ui-resizable-w{:style => "z-index: 90; display: block;"}
+    .ui-resizable-handle.ui-resizable-se.ui-icon.ui-icon-gripsmall-diagonal-se{:style => "z-index: 90; display: block;"}
+    .ui-resizable-handle.ui-resizable-sw{:style => "z-index: 90; display: block;"}
+    .ui-resizable-handle.ui-resizable-ne{:style => "z-index: 90; display: block;"}
+    .ui-resizable-handle.ui-resizable-nw{:style => "z-index: 90; display: block;"}
