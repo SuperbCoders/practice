@@ -1,0 +1,34 @@
+.sub_header_holder
+  .section_inner.clearfix
+    .fl.header_search_form_holder
+      .header_search_form
+        %form{:action => "#", :novalidate => "novalidate"}
+          %label.input_w.search_input_w
+            %input.input_v2.form_input{:placeholder => "Поиск пациента", 'ng-model' => "vm.filters.name"}/
+            %button.search_btn
+    .fl.mob_hidden.read_mode
+      %a.btn_v1.add_card_btn.yellow_black_btn{:href => "add_patient.html"} Создать новую карточку
+    .patient_edit_controls.edit_mode
+      %a.btn_v1.green_btn.save_card_btn.saveCard_{:href => "card_edit.html"} Написать в карту
+    .fr.filter_toggle_holder
+      .mb.read_mode
+        %form{:action => "#", :novalidate => "novalidate"}
+          %ul.filter_toggle.filter_toggle_v1
+            %li.filter_t_item
+              %label.filter_t_box
+                %input.hidden_input{:checked => "checked", :name => "patient_filter", :type => "radio"}/
+                %span.filter_t_name
+                  Все
+                  %span.dt_hidden пациенты
+            %li.filter_t_item
+              %label.filter_t_box
+                %input.hidden_input{:name => "patient_filter", :type => "radio"}/
+                %span.filter_t_name
+                  %span.dt_hidden Не подтвержденые
+                  %span.mob_hidden Ожидают подтверждения
+            %li.filter_t_item.mob_hidden
+              %label.filter_t_box
+                %input.hidden_input{:name => "patient_filter", :type => "radio"}/
+                %span.filter_t_name В архиве
+      .mb.edit_mode
+        %ul.avatar_catcher.avatarCatcher
