@@ -1,0 +1,44 @@
+class Patient < ActiveRecord::Base
+  include Attachable
+  include Alertable
+
+  devise :database_authenticatable, :registerable,
+      :recoverable, :rememberable, :trackable, :validatable
+
+  enum gender: [:male, :female]
+
+
+  has_many :contacts, as: :contactable, dependent: :destroy
+  has_many :appointments
+
+  before_destroy :destroy_avatar
+
+  [:avatar].map do |attribute_name|
+    define_method "change_#{attribute_name}" do |file_params|
+      attach(attribute_name, file_params)
+    end
+
+    define_method "destroy_#{attribute_name}" do
+      detach(attribute_name)
+    end
+  end
+
+  def self.create(params = {})
+    p_params = {
+        register_date: DateTime.now,
+        email: temporary_email,
+        password: temporary_password
+    }.merge!(params)
+    super(p_params)
+  end
+
+  private
+
+  def self.temporary_password
+    SecureRandom.hex.to_s
+  end
+
+  def self.temporary_email
+    "#{temporary_password}@practice.com"
+  end
+end

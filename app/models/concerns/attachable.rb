@@ -4,7 +4,10 @@ module Attachable
   extend ActiveSupport::Concern
 
   included do
+
   end
+
+
 
   # Attach one base64 file and save path to array attr
   def attach_to_array(attribute_name, base64_file)

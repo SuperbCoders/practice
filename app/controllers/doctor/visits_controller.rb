@@ -6,7 +6,7 @@ class Doctor::VisitsController < Doctor::BaseController
   before_action :find_resource, only: %w(show update destroy edit)
 
   def resource_scope
-    Visit
+    current_doctor.visits
   end
 
   def resource_serializer

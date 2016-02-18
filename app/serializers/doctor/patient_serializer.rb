@@ -1,4 +1,4 @@
-class Doctor::PatientSerializer < Admin::BaseSerializer
+class Doctor::PatientSerializer < Doctor::BaseSerializer
   attributes :name
 
   def name

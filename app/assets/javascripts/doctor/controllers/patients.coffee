@@ -2,7 +2,7 @@ class PatientsController
   constructor: (@rootScope, @scope, @Patients) ->
     vm = @
     vm.items_limit = 30
-    vm.filters = {name: '123'}
+    vm.filters = {}
     vm.Patients = @Patients
 
     @scope.$watch('vm.filters', (a, b) ->

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, path: 'auth'
-
+  devise_for :doctors, path: 'auth'
   get 'templates(/*url)' => 'application#templates'
   root 'doctor/cabinet#index'
 
