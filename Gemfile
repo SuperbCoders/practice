@@ -21,7 +21,6 @@ gem 'json'
 gem 'logger'
 gem 'bower-rails'
 gem 'haml-rails'
-
 gem 'haml'
 gem 'exception_notification'
 gem 'erb2haml'
@@ -38,8 +37,10 @@ gem 'clockwork'
 gem 'httpclient'
 gem 'redis'
 gem 'figaro'
+gem 'unicorn'
 
 group :development, :test do
+  gem 'better_errors'
   gem 'guard'
   gem 'spring-commands-rspec'
   gem 'rspec-rails', '~> 3.1'
@@ -51,13 +52,12 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'factory_girl'
   gem 'quiet_assets'
-
-  # Checks ruby code grammar
   gem 'rubocop', require: false
-  # With rspec
   gem 'rubocop-rspec'
-  # With guard
   gem 'guard-rubocop'
+  gem 'capistrano-rvm'
+  gem 'capistrano-rails'
+  gem 'capistrano3-unicorn'
 end
 
 group :test do

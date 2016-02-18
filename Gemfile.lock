@@ -45,10 +45,29 @@ GEM
     ast (2.2.0)
     barby (0.6.2)
     bcrypt (3.1.10)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
     bower-rails (0.10.0)
     bson (4.0.1)
     builder (3.2.2)
     cancancan (1.13.1)
+    capistrano (3.4.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (~> 1.3)
+    capistrano-bundler (1.1.4)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
+    capistrano-rails (1.1.6)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
+    capistrano3-unicorn (0.2.1)
+      capistrano (~> 3.1, >= 3.1.0)
     capybara (2.6.2)
       addressable
       mime-types (>= 1.16)
@@ -152,6 +171,7 @@ GEM
     httpclient (2.7.1)
     i18n (0.7.0)
     json (1.8.3)
+    kgio (2.10.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     less (2.6.0)
@@ -187,6 +207,9 @@ GEM
       rake
       rspec (~> 3.3)
     nenv (0.2.0)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (3.0.2)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     notiffany (0.0.8)
@@ -243,6 +266,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
+    raindrops (0.15.0)
     rake (10.5.0)
     rb-fsevent (0.9.7)
     rb-inotify (0.9.5)
@@ -320,6 +344,9 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.3.11)
+    sshkit (1.8.1)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -338,6 +365,10 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicode-display_width (0.1.1)
+    unicorn (5.0.1)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
     validates_timeliness (3.0.14)
       timeliness (~> 0.3.6)
     warden (1.2.6)
@@ -351,8 +382,12 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.0.rc4)
   barby
+  better_errors
   bower-rails
   cancancan
+  capistrano-rails
+  capistrano-rvm
+  capistrano3-unicorn
   capybara
   chunky_png
   clockwork
@@ -404,4 +439,5 @@ DEPENDENCIES
   thin
   timecop
   uglifier (>= 1.3.0)
+  unicorn
   validates_timeliness (= 3.0.14)
