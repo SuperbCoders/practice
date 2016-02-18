@@ -7,38 +7,11 @@ class ScheduleController
     vm.win = $(window)
     vm.timelineInterval = undefined
     vm.calendarHolder = $('.calendarHolder')
+    vm.events ||= []
 
-    vm.add_patient_form = $('#add_patient_form').dialog(
-      autoOpen: false
-      modal: true
-      width: 360
-      dialogClass: 'dialog_v1 no_close_mod')
-
-    vm.events = [
-      {
-        title: 'All Day Event'
-        start: '2016-01-01'
-      }
-      {
-        title: 'Long Event'
-        start: '2016-01-07'
-        end: '2016-01-10'
-      }
-      {
-        id: 999
-        title: 'Repeating Event'
-        start: '2016-01-09T16:00:00'
-      }
-      {
-        id: 999
-        title: 'Repeating Event'
-        start: '2016-01-16T16:00:00'
-      }
-    ]
-
-    vm.calendar ||= $('#calendar').fullCalendar(
+    vm.calendar_options =
+      events: vm.events
       firstDay: 1
-      height: @getCalendarHeight()
       monthNames: [
         'Январь'
         'Февраль'
@@ -110,47 +83,21 @@ class ScheduleController
       timezone: 'local'
       defaultView: 'agendaDay'
       weekMode: 'fixed'
-      defaultDate: @rootScope.regDate()
+
       editable: true
       allDaySlot: false
+      eventOverlap: false
       slotLabelFormat: 'H:mm'
       timeFormat: 'H:mm'
       defaultEventMinutes: 60
-      viewRender: (view, element) ->
-        vm.calendarHolder.toggleClass 'day_mode', 'agendaDay' == view.name
-        if vm.timelineInterval != undefined
-          @setTimeline()
-        return
-      eventMouseover: (event, jsEvent, view) ->
-        console.log(event, jsEvent, view);
-        return
-      dayClick: (date, jsEvent, view) ->
-        console.log(date, jsEvent, view);
-#        $(add_patient_form[0]).find('form')[0].reset()
-#        $(add_patient_form[0]).find('.newPatientBtn span').text 'Записать на ' + date.format('DD') + ' ' + date.format('MMMM').toString().toLowerCase().replace(/.$/, 'я') + ', в ' + date.format('HH:mm')
-        newEventDate = date
-        console.log jsEvent
-        vm.add_patient_form.dialog('option', 'position',
-          my: 'left+15 top-150'
-          of: jsEvent
-          collision: 'flip fit'
-          within: '.fc-view-container'
-          using: (obj, info) ->
-            dialog_form = $(this)
-            cornerY = jsEvent.pageY - (obj.top) - 40
-            if info.horizontal != 'left'
-              dialog_form.addClass 'flipped_left'
-            else
-              dialog_form.removeClass 'flipped_left'
-            dialog_form.css(
-              left: obj.left + 'px'
-              top: obj.top + 'px').find('.form_corner').css top: Math.min(Math.max(cornerY, -20), dialog_form.height() - 55) + 'px'
-            return
-        ).dialog 'open'
-        return
-      events: vm.events)
+      defaultDate: vm.rootScope.regDate()
+      height: vm.getCalendarHeight()
+      eventMouseover: @event_mouse_over
+      eventResize: @event_resize
+      eventDrop: @event_drop
+      dayClick: @day_click
+      viewRender: @view_render
 
-    console.log vm.calendar
     @fetch()
 
   setTimeline: ->
@@ -187,10 +134,73 @@ class ScheduleController
 
   fetch: () ->
     vm = @
+
+
     @Visits.query(vm.filters).$promise.then((events) ->
-      vm.events = events
+      for event in events
+        vm.events.push event
+
+      vm.calendar_params = _.merge(vm.calendar_controllers, vm.calendar_options)
+      vm.calendar ||= $('#calendar').fullCalendar(vm.calendar_params)
+
     )
     return
 
+  event_resize: ( event, delta, revertFunc ) ->
+    console.log "Event #{event.id} resized to #{delta}"
+    console.log event.start.format()
+    console.log event.end.format()
+    return
+
+  event_drop: ( event, delta, revertFunc, jsEvent, ui, view ) ->
+    console.log "Event #{event.id} dropped to #{delta}"
+    console.log event.start.format()
+    console.log event.end.format()
+    return
+
+  day_click: (date, jsEvent, view) ->
+    vm = @
+
+    vm.add_patient_form ||= $('#add_patient_form').dialog(
+      autoOpen: false
+      modal: true
+      width: 360
+      dialogClass: 'dialog_v1 no_close_mod')
+
+    $(vm.add_patient_form[0]).find('form')[0].reset()
+    $(vm.add_patient_form[0]).find('.newPatientBtn span').text 'Записать на ' + date.format('DD') + ' ' + date.format('MMMM').toString().toLowerCase().replace(/.$/, 'я') + ', в ' + date.format('HH:mm')
+    newEventDate = date
+    vm.add_patient_form.dialog('option', 'position',
+      my: 'left+15 top-150'
+      of: jsEvent
+      collision: 'flip fit'
+      within: '.fc-view-container'
+      using: (obj, info) ->
+        dialog_form = $(this)
+        cornerY = jsEvent.pageY - (obj.top) - 40
+        if info.horizontal != 'left'
+          dialog_form.addClass 'flipped_left'
+        else
+          dialog_form.removeClass 'flipped_left'
+        dialog_form.css(
+          left: obj.left + 'px'
+          top: obj.top + 'px').find('.form_corner').css top: Math.min(Math.max(cornerY, -20), dialog_form.height() - 55) + 'px'
+        return
+    ).dialog 'open'
+    return
+
+  event_save: ( event ) ->
+    console.log "Save event #{event.id}"
+    return
+
+  view_render: (view, element) ->
+    vm = @
+    $('.calendarHolder').toggleClass 'day_mode', 'agendaDay' == view.name
+    if vm.timelineInterval != undefined
+      @setTimeline()
+    return
+
+  event_mouse_over: (event, jsEvent, view) ->
+    return
 
 @application.controller 'ScheduleController', ['$rootScope','$scope', 'Visits', ScheduleController]

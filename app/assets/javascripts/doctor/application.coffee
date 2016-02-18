@@ -3,6 +3,7 @@
     'ui-notification',
     'naif.base64',
     'ngResource',
+    'angularUtils.directives.dirPagination',
     'angularMoment'])
 
 @application.config ['$httpProvider', '$stateProvider', '$urlRouterProvider', 'NotificationProvider', ($httpProvider, $stateProvider, $urlRouterProvider, NotificationProvider) ->
@@ -60,6 +61,7 @@
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
 
+  $rootScope.state_is = (name) -> $rootScope.$state.current.name is name
   $rootScope.el_show = (name) ->
     angular.element(document.querySelector("##{name}")).show()
     return
@@ -90,6 +92,6 @@
     angular.element(document.querySelector("html")).removeClass 'menu_open'
     return
 
-  $rootScope.regDate = -> moment('2016-01-12')
+  $rootScope.regDate = -> moment(Date.new)
 
 ]

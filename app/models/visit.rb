@@ -23,6 +23,14 @@ class Visit < BaseModel
 
   before_create :check_visit_uniqueness
 
+  def start
+    date.iso8601
+  end
+
+  def end
+    (date + duration.minutes).iso8601
+  end
+
   private
 
   def check_visit_uniqueness
