@@ -19,9 +19,21 @@ module Attachable
 
   # Attach one base64 file and save path to attribute_name
   def attach(attribute_name, base64_file)
+    begin
+      resource = self
+      resource[attribute_name] = write_base64_file(base64_file)
+      resource.save
+    rescue ActiveModel::MissingAttributeError => e
+      logger.debug "Attachable excepted #{e.inspect}"
+    end
+  end
+
+  # Deattach attachment and delete file
+  def detach(attribute_name)
     resource = self
-    resource[attribute_name] = write_base64_file(base64_file)
-    resource.save
+    if resource[attribute_name] and destroy_file(self[attribute_name])
+      self.update_attributes(attribute_name => nil)
+    end
   end
 
   # Deattach from array
@@ -59,14 +71,6 @@ module Attachable
     end
   end
 
-  # Deattach attachment and delete file
-  def detach(attribute_name)
-    resource = self
-    if resource[attribute_name] and destroy_file(self[attribute_name])
-      self.update_attributes(attribute_name => nil)
-    end
-  end
-
   def destroy_file(file_path)
     result = false
     begin
@@ -85,18 +89,18 @@ module Attachable
     # file[:filetype] = image/jpeg
     upload_file_path = nil
     begin
-
       upload_file_path = file_path(file)
 
       File.open(upload_file_path, "wb") { |f|
         if File.writable? upload_file_path and f.write(Base64.decode64(file[:base64]))
-          return upload_file_path
+          return upload_file_path.split('/')[-1]
         end
       }
 
     rescue
       upload_file_path = nil
     end
+
     upload_file_path
   end
 

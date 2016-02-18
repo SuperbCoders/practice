@@ -9,6 +9,16 @@ class ScheduleController
     vm.calendarHolder = $('.calendarHolder')
     vm.events ||= []
 
+    # Из-за верстки нужно добавлять классы к body
+    # в зависимости от страницы
+    $('body').addClass 'cal_header_mod'
+    $('body').addClass 'cal_body_mod'
+
+    @scope.$on('$destroy', ->
+      $('body').removeClass 'cal_header_mod'
+      $('body').removeClass 'cal_body_mod'
+    )
+
     vm.calendar_options =
       events: vm.events
       firstDay: 1

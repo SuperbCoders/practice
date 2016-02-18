@@ -1,5 +1,6 @@
 @application = angular.module('practice.doctor',
   [ 'ui.router',
+    'ngMask',
     'ui-notification',
     'naif.base64',
     'ngResource',
@@ -8,7 +9,7 @@
 
 @application.config ['$httpProvider', '$stateProvider', '$urlRouterProvider', 'NotificationProvider', ($httpProvider, $stateProvider, $urlRouterProvider, NotificationProvider) ->
   NotificationProvider.setOptions({
-    delay: 4000,
+    delay: 3000,
     startTop: 20,
     startRight: 10,
     verticalSpacing: 20,
@@ -27,6 +28,10 @@
   .state 'patients',
     url: '/patients',
     templateUrl: '/templates/doctor/patients/index.html'
+
+  .state 'patients.list',
+    url: '/list',
+    templateUrl: '/templates/doctor/patients/list.html'
     controller: 'PatientsController',
     controllerAs: 'vm',
     resolve:
@@ -36,7 +41,29 @@
         ]
       ]
 
+  .state 'patients.add',
+    url: '/add',
+    templateUrl: '/templates/doctor/patients/add.html',
+    controller: 'AddPatientsController',
+    controllerAs: 'vm',
+    resolve:
+      Patients: ['Resources', (Resources) ->
+        Resources '/doctor/patients/:id', {id: '@id'}, [
+          {method: 'GET', isArray: true}
+        ]
+      ]
 
+  .state 'journal.add_record',
+    url: '/:patient_id/journal',
+    templateurl: '/templates/doctor/patients/add_journal_record.html',
+    controller: 'JournalController',
+    controllerAs: 'vm'
+    resolve:
+      Patients: ['Resources', (Resources) ->
+        Resources '/doctor/patients/:id', {id: '@id'}, [
+          {method: 'GET', isArray: true}
+        ]
+      ]
   # Doctors
   .state 'schedule',
     url: '/schedule',

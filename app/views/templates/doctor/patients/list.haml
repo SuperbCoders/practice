@@ -1,0 +1,147 @@
+= render 'templates/doctor/patients/search'
+.main_content
+  .section_inner.calendarHolder.day_mode
+
+    .tabListScroller.hidden_tab_controls
+      %ul#tab_list.tab_list
+        %li.tab_item
+          %a#open_read.tab_link{:href => "#tab_1"}
+            %span.mb Сохранить
+        %li.tab_item
+          %a#open_edit.tab_link{:href => "#tab_2"}
+            %span.mb Редактировать
+    .tabBlock{"data-tab-context" => "#tab_list"}
+      #tab_1
+        %ul.patients_list
+          %li.patient_unit{'dir-paginate' => "patient in vm.patients | filter: vm.filters |itemsPerPage: vm.items_limit"}
+            .patient_card.cardAsideOverview
+              .patient_status_w.chosen_v2.no_search.skipOpen
+                %select.chosen-select
+                  %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
+                  %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
+                  %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
+                  %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
+              .patient_menu_w.skipOpen
+                .drop_down_btn
+                  %span
+                .drop_down_w
+                  %ul.drop_down_menu
+                    %li.drop_down_item.active
+                      %a.gl_link{:href => ""}
+                        %span Подтвердить прием
+                    %li.drop_down_item
+                      %a.gl_link{:href => ""}
+                        %span Отказать в  приёме
+                    %li.drop_down_item
+                      %a.gl_link{:href => ""}
+                        %span Добавить запись в карту
+                    %li.drop_down_item
+                      %a.gl_link{:href => ""}
+                        %span Редактировать
+                    %li.drop_down_item
+                      %a.gl_link{:href => ""}
+                        %span Отправить в архив
+                    %li.drop_down_item
+                      %a.gl_link{:href => ""}
+                        %span Удалить
+              .patient_info
+                .patient_name
+                  %a.skipOpen.gl_link.gray_link.write2Card{:href => ""}
+                    %span {{patient.name}}
+                %p {{patient.comment}}
+              .patient_info_table
+                .other_info_cell
+                  .p{'ng-repeat' => "contact in patient.contacts"}
+                    {{contact.data}}
+              .patient_card_controls.skipOpen.patient_ready
+                .patient_info_table
+                  .controls_cell
+                    %a.btn_v2.patient_btn.green_btn{:href => ""}
+                      %span.mb Начать прием
+            / +patient_overview()
+            .avatar_clone
+              %a.patient_avatar.skipOpen.write2Card{:href => ""}
+                %img{'ng-src' => "{{patient.avatar}}"}/
+
+        / Pagination
+        .pagination_holder.read_mode
+          %ul.pagination_list
+            %li.pagination_item.pagination_prev
+              %a.gl_link{:href => ""}
+            %li.pagination_item
+              %a.gl_link{:href => ""} 1
+            %li.pagination_item.active
+              %a.gl_link{:href => ""} 2
+            %li.pagination_item
+              %a.gl_link{:href => ""} 3
+            %li.pagination_item
+              %a.gl_link{:href => ""} 4
+            %li.pagination_item
+              %a.gl_link{:href => ""} 5
+            %li.pagination_item
+              %a.gl_link{:href => ""} ...304
+            %li.pagination_item.pagination_next
+              %a.gl_link{:href => ""}
+
+
+
+
+
+      -##tab_2
+      -#  .patient_edit_block
+      -#    %ul.patient_notes
+      -#      %li.patient_note
+      -#        .patient_note_date 12 ЯНВАРЯ 2015
+      -#        .patient_note_block
+      -#          .card_menu_w
+      -#            .drop_down_btn
+      -#              %span
+      -#            .drop_down_w
+      -#              %ul.drop_down_menu
+      -#                %li.drop_down_item
+      -#                  %a.gl_link{:href => ""}
+      -#                    %span Редактировать
+      -#                %li.drop_down_item
+      -#                  %a.gl_link{:href => ""}
+      -#                    %span Добавить файл
+      -#                %li.drop_down_item
+      -#                  %a.gl_link{:href => ""}
+      -#                    %span Удалить
+      -#          %dl.note_lines
+      -#            %dt Совет
+      -#            %dd
+      -#              %p Покурить
+      -#            %dt Анамнез
+      -#            %dd
+      -#              %p Заболел дома ребенок, на работе все чихают, ноги промочила пока шла домой накануне с работы
+      -#      %li.patient_note
+      -#        .patient_note_date 20 ДЕКАБРЯ 2015
+      -#        .patient_note_block
+      -#          .card_menu_w
+      -#            .drop_down_btn
+      -#              %span
+      -#            .drop_down_w
+      -#              %ul.drop_down_menu
+      -#                %li.drop_down_item
+      -#                  %a.gl_link{:href => ""}
+      -#                    %span Редактировать
+      -#                %li.drop_down_item
+      -#                  %a.gl_link{:href => ""}
+      -#                    %span Добавить файл
+      -#                %li.drop_down_item
+      -#                  %a.gl_link{:href => ""}
+      -#                    %span Удалить
+      -#          %dl.note_lines
+      -#            %dt Анализы
+      -#            %dd
+      -#              %p Заболел дома ребенок, на работе все чихают, ноги промочила пока шла домой накануне с работыЗаболел дома ребенок, на работе все чихают, ноги промочила пока шла домой накануне с работыЗаболел дома ребенок, на работе все чихают, ноги промочила пока шла домой накануне с работы
+      -#              %ul.note_img_list
+      -#                %li
+      -#                  %a.note_img.fancybox{:href => "i/big_note_img_1.jpg", :rel => "gallery1"}
+      -#                    %img{:src => "i/note_img_1.jpg"}/
+      -#                %li
+      -#                  %a.note_img.fancybox{:href => "i/big_note_img_1.jpg", :rel => "gallery1"}
+      -#                    %img{:src => "i/note_img_1.jpg"}/
+      -#                %li
+      -#                  %a.note_img.fancybox{:href => "i/big_note_img_1.jpg", :rel => "gallery1"}
+      -#                    %img{:src => "i/note_img_1.jpg"}/

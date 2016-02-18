@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
     ActiveModel::SerializableResource.new(
         resources,
         each_serializer: serializer,
+        scope: current_doctor,
         root: false
     ).serializable_hash
   end
@@ -14,6 +15,7 @@ class ApplicationController < ActionController::Base
     ActiveModel::SerializableResource.new(
         resource,
         serializer: serializer,
+        scope: current_doctor,
         root: false
     ).serializable_hash
   end

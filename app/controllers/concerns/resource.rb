@@ -64,6 +64,10 @@ module Concerns::Resource
   end
 
   # Actions
+  def send_response(response)
+    render json: response, status: response[:success] ? 200 : 403
+  end
+
   def send_json(obj, success)
     render json: obj, status: success ? 200 : 403
   end

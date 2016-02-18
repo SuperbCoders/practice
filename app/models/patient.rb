@@ -23,15 +23,6 @@ class Patient < ActiveRecord::Base
     end
   end
 
-  def self.create(params = {})
-    p_params = {
-        register_date: DateTime.now,
-        email: temporary_email,
-        password: temporary_password
-    }.merge!(params)
-    super(p_params)
-  end
-
   private
 
   def self.temporary_password

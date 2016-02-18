@@ -4,5 +4,5 @@ class Contact < ActiveRecord::Base
 
   belongs_to :contactable, polymorphic: true
 
-  validates_presence_of :contact_type, :data_type, :data
+  validates_presence_of :contact_type, :data
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218096960) do
+ActiveRecord::Schema.define(version: 20160218123450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,11 @@ ActiveRecord::Schema.define(version: 20160218096960) do
   create_table "appointments", force: :cascade do |t|
     t.integer  "patient_id"
     t.integer  "doctor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "archivated",  default: false
+    t.boolean  "approved",    default: false
+    t.datetime "approved_at"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "appointments", ["doctor_id"], name: "index_appointments_on_doctor_id", using: :btree
@@ -80,6 +83,8 @@ ActiveRecord::Schema.define(version: 20160218096960) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.string   "first_name"
+    t.string   "last_name"
     t.integer  "gender"
     t.float    "weight"
     t.float    "height"
@@ -92,6 +97,7 @@ ActiveRecord::Schema.define(version: 20160218096960) do
     t.datetime "register_date"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.text     "avatar"
   end
 
   add_index "patients", ["email"], name: "index_patients_on_email", unique: true, using: :btree
