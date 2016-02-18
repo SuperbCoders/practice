@@ -47,9 +47,9 @@ guard :rspec, cmd: 'bundle exec rspec' do
   end
 end
 
-guard :rubocop, all_on_start: false, cli: ['--out', 'log/rubocop.log'] do
-  watch(%r{^(.+)\.rb$}) { |m| "#{m[1]}.rb" }
-end
+# guard :rubocop, all_on_start: false, cli: ['--out', 'log/rubocop.log'] do
+#   watch(%r{^(.+)\.rb$}) { |m| "#{m[1]}.rb" }
+# end
 
 guard :bundler do
   require 'guard/bundler'

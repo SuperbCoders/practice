@@ -6,6 +6,7 @@ class CreateAppointments < ActiveRecord::Migration
       t.boolean :archivated, default: false
       t.boolean :approved, default: false
       t.datetime :approved_at, default: nil
+      t.datetime :archivated_at, default: nil
       t.timestamps null: false
     end
   end

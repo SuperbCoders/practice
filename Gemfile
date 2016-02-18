@@ -46,8 +46,7 @@ group :development, :test do
   gem 'rb-fsevent' # if `uname` =~ /Darwin/
   gem 'guard-rspec', require: false
   gem 'guard-bundler', require: false
-  gem 'shoulda'
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
   gem 'factory_girl'
   gem 'quiet_assets'
   gem 'rubocop', require: false

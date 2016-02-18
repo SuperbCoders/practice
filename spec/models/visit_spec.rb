@@ -1,5 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe Visit, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { is_expected.to respond_to(:visit_type) }
+  it { is_expected.to respond_to(:start) }
+  it { is_expected.to respond_to(:start_at) }
+  it { is_expected.to respond_to(:end) }
+  it { is_expected.to belong_to(:doctor) }
+  it { is_expected.to belong_to(:patient) }
+  it { is_expected.to validate_presence_of(:visit_type) }
+  it { is_expected.to validate_presence_of(:doctor) }
+  it { is_expected.to validate_presence_of(:patient) }
+  it { is_expected.to validate_presence_of(:start_at) }
+  it { is_expected.to validate_numericality_of(:duration).is_greater_than(0) }
 end

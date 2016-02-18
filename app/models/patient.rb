@@ -7,7 +7,7 @@ class Patient < ActiveRecord::Base
 
   enum gender: [:male, :female]
 
-
+  has_many :visits, dependent: :destroy
   has_many :contacts, as: :contactable, dependent: :destroy
   has_many :appointments
 
