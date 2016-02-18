@@ -1,6 +1,5 @@
 module Alertable
   extend ActiveSupport::Concern
-  include Mongoid::Document
 
   included do
     attr_accessor :messages
@@ -11,7 +10,6 @@ module Alertable
         message = "#{self.class.name} - #{I18n.t('concerns.alertable.succefull_updated')}"
         self.messages << message
       end
-
     }
   end
 

@@ -178,12 +178,14 @@ $(function ($) {
         return false;
     });
 
-    $('.closeMenu').on('click', function () {
-        html_var.removeClass('menu_open aside_open');
-        console.log('closeMenu');
-
-        return false;
-    });
+    //$('.closeMenu').on('click', function (event, element) {
+    //    console.log(event);
+    //    console.log(element);
+    //    html_var.removeClass('menu_open aside_open');
+    //    console.log('closeMenu');
+    //
+    //    return false;
+    //});
 
     all_dialog_close();
 

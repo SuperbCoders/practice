@@ -14,7 +14,7 @@ module Attachable
     resource.save
   end
 
-  # Attach one base64 file and save path to attr
+  # Attach one base64 file and save path to attribute_name
   def attach(attribute_name, base64_file)
     resource = self
     resource[attribute_name] = write_base64_file(base64_file)
@@ -110,7 +110,4 @@ module Attachable
   def random_string
     "#{rand(2**256).to_s(36)[0..32]}"
   end
-
-
 end
-
