@@ -28,12 +28,14 @@ class Visit < ActiveRecord::Base
       visit_start = visit.start_at
       visit_end = visit.start_at + visit.duration.minute
 
-      if visit_start < start_at && visit_end > start_at
+
+      if visit_start <= start_at && visit_end >= start_at
         errors.add(:start_at, I18n.t('visit.errors.visit_can_not_be_crossed_with_another_visit'))
         return false
-        # else
-        # logger.info "Uncrossed visit #{visit_start.to_datetime} <>
-        # #{visit_end.to_datetime} : #{start_at.to_datetime}"
+      else
+        logger.info "#{visit_start} <= #{start_at} : #{visit_start < start_at}"
+        logger.info "#{visit_end} >= #{start_at} : #{visit_end < start_at}"
+        logger.info "Uncrossed visit #{visit_start.to_datetime} <> #{visit_end.to_datetime} : #{start_at.to_datetime}"
       end
     }
   end

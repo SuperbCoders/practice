@@ -42,7 +42,10 @@ class Doctor::VisitsController < Doctor::BaseController
       end
     end
 
-    if @response[:visit] and @response[:visit].valid?
+    if @response[:visit] and @response[:visit].id
+      logger.info "->>"
+      logger.info "#{@response[:visit].valid?}"
+      logger.info "#{@response[:visit].errors.full_messages}"
       @response[:messages]<< t('visit.messages.visit_succefully_created')
       @response[:success] = true
     else

@@ -20,7 +20,6 @@ class ScheduleController
       $('body').removeClass 'cal_body_mod'
     )
 
-
     vm.calendar_options =
       events: vm.visits_by_date
       firstDay: 1
@@ -177,15 +176,15 @@ class ScheduleController
     return
 
   event_resize: ( event, delta, revertFunc ) ->
-    console.log "Event #{event.id} resized to #{delta}"
-    console.log event.start.format()
-    console.log event.end.format()
+    event.start_at = event.start
+    event.duration = (event.end - event.start)/60/1000
+    event.$save()
     return
 
   event_drop: ( event, delta, revertFunc, jsEvent, ui, view ) ->
-    console.log "Event #{event.id} dropped to #{delta}"
-    console.log event.start.format()
-    console.log event.end.format()
+    event.start_at = event.start
+    event.duration = (event.end - event.start)/60/1000
+    event.$save()
     return
 
 
