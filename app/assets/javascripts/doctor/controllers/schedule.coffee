@@ -5,6 +5,7 @@ class ScheduleController
     vm.filters = {}
     vm.Visits = @Visits
     vm.win = $(window)
+    vm.new_patient = {}
     vm.timelineInterval = undefined
     vm.calendarHolder = $('.calendarHolder')
     vm.events ||= []
@@ -19,8 +20,9 @@ class ScheduleController
       $('body').removeClass 'cal_body_mod'
     )
 
+
     vm.calendar_options =
-      events: vm.events
+      events: vm.visits_by_date
       firstDay: 1
       monthNames: [
         'Январь'
@@ -93,7 +95,7 @@ class ScheduleController
       timezone: 'local'
       defaultView: 'agendaDay'
       weekMode: 'fixed'
-
+      vm: vm
       editable: true
       allDaySlot: false
       eventOverlap: false
@@ -108,7 +110,21 @@ class ScheduleController
       dayClick: @day_click
       viewRender: @view_render
 
-    @fetch()
+    vm.calendar_params = _.merge(vm.calendar_controllers, vm.calendar_options)
+    vm.calendar ||= $('#calendar').fullCalendar(vm.calendar_params)
+
+  visits_by_date: (start, end, timezone, callback) ->
+    vm = @options.vm
+
+    paket =
+      start: start.format()
+      end: end.format()
+
+    vm.Visits.query(paket).$promise.then((events) -> callback(events))
+
+  add_record: ->
+    vm = @
+    return
 
   setTimeline: ->
     parentDiv = $('.fc-agenda-view')
@@ -145,13 +161,17 @@ class ScheduleController
   fetch: () ->
     vm = @
 
-
     @Visits.query(vm.filters).$promise.then((events) ->
+      console.log 'Old visits'
+      console.log vm.events
+
+      vm.events = []
       for event in events
         vm.events.push event
 
-      vm.calendar_params = _.merge(vm.calendar_controllers, vm.calendar_options)
-      vm.calendar ||= $('#calendar').fullCalendar(vm.calendar_params)
+      console.log 'New Visits'
+      console.log vm.events
+
 
     )
     return
@@ -168,6 +188,7 @@ class ScheduleController
     console.log event.end.format()
     return
 
+
   day_click: (date, jsEvent, view) ->
     vm = @
 
@@ -178,6 +199,7 @@ class ScheduleController
       dialogClass: 'dialog_v1 no_close_mod')
 
     $(vm.add_patient_form[0]).find('form')[0].reset()
+    $(vm.add_patient_form[0]).find('#visit_date').val(date.format())
     $(vm.add_patient_form[0]).find('.newPatientBtn span').text 'Записать на ' + date.format('DD') + ' ' + date.format('MMMM').toString().toLowerCase().replace(/.$/, 'я') + ', в ' + date.format('HH:mm')
     newEventDate = date
     vm.add_patient_form.dialog('option', 'position',

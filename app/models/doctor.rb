@@ -28,6 +28,10 @@ class Doctor < ActiveRecord::Base
     end
   end
 
+  def default_visit_duration
+    30
+  end
+
   def destroy_avatars
     destroy_avatar
     destroy_public_avatar

@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   namespace :doctor do
     resources :patients
     resources :visits
+    resources :journal do
+      resources :journal_records
+    end
   end
 
   namespace :admin do

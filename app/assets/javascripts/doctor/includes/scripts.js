@@ -197,10 +197,14 @@ function all_dialog_close() {
 }
 
 function all_dialog_close_gl() {
-    $(".ui-dialog-content").each(function () {
-        var $this = $(this);
-        if (!$this.parent().hasClass('always_open')) {
-            $this.dialog("close");
-        }
-    });
+    add_patient_form = $("#add_patient_form");
+    if (add_patient_form && add_patient_form.length === 1 && add_patient_form.dialog('isOpen')) {
+        add_patient_form.dialog('close');
+    }
+    //$(".ui-dialog-content").each(function () {
+    //    var $this = $(this);
+    //    if (!$this.parent().hasClass('always_open')) {
+    //        $this.dialog("close");
+    //    }
+    //});
 }

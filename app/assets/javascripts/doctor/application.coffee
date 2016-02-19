@@ -23,7 +23,6 @@
   $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
   delete $httpProvider.defaults.headers.common['X-Requested-With']
 
-  # Patients
   $stateProvider
   .state 'patients',
     url: '/patients',
@@ -64,7 +63,7 @@
           {method: 'GET', isArray: true}
         ]
       ]
-  # Doctors
+
   .state 'schedule',
     url: '/schedule',
     templateUrl: '/templates/doctor/schedule/index.html'
@@ -77,7 +76,6 @@
         ]
       ]
 
-  # Default route to main page
   $urlRouterProvider.otherwise '/schedule'
 
   return

@@ -4,7 +4,7 @@ class Visit < ActiveRecord::Base
   belongs_to :doctor
   belongs_to :patient
 
-  validates_presence_of :visit_type
+  # validates_presence_of :visit_type
   validates_presence_of :doctor
   validates_presence_of :patient
   validates_presence_of :start_at

@@ -1,7 +1,7 @@
 class JournalController
-  constructor: (@rootScope, @scope, @Patients, @Alerts) ->
+  constructor: (@rootScope, @scope, @Journals, @Alerts) ->
     vm = @
-    vm.Patients = @Patients
+    vm.Journals = @Journals
     vm.Alerts = @Alerts
 
-@application.controller 'JournalController', ['$rootScope','$scope', 'Patients', 'Alerts', JournalController]
+@application.controller 'JournalController', ['$rootScope','$scope', 'Journals', 'Alerts', JournalController]

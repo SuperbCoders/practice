@@ -11,5 +11,4 @@ RSpec.describe Visit, type: :model do
   it { is_expected.to validate_presence_of(:doctor) }
   it { is_expected.to validate_presence_of(:patient) }
   it { is_expected.to validate_presence_of(:start_at) }
-  it { is_expected.to validate_numericality_of(:duration).is_greater_than(0) }
 end
