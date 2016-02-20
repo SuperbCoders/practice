@@ -1,6 +1,6 @@
 #= require jquery
 #= require jquery-ui
-#= require chosen/chosen.jquery.min
+#= require chosen/chosen.jquery
 #= require swiper
 #= require jquery.nicescroll
 #= require moment
