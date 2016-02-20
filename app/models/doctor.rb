@@ -28,6 +28,14 @@ class Doctor < ActiveRecord::Base
     end
   end
 
+  def name
+    if first_name or last_name
+      [first_name, last_name].join ' '
+    else
+      email
+    end
+  end
+
   def default_visit_duration
     30
   end

@@ -1,3 +1,3 @@
 class Admin::BaseSerializer < BaseSerializer
-  attributes :c_at, :u_at
+  attributes :created_at, :created_at
 end

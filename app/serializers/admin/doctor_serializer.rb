@@ -1,5 +1,4 @@
 class Admin::DoctorSerializer < Admin::BaseSerializer
-  attributes :email
+  attributes :email, :first_name, :last_name, :name
 
-  has_one :doctor_profile, serializer: Admin::DoctorProfileSerializer
 end
