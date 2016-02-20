@@ -15,7 +15,8 @@ development:
   database: practice_dev
 
 production:
-  user: pract_dev
+  <<: *defaults
+  username: pract_dev
   database: pract_dev
   host: 89.208.147.167
   password: WigtotEughWyroj1

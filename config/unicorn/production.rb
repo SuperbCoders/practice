@@ -11,7 +11,7 @@ timeout 30
 preload_app true
 
 # Если юникорн работает через порт
-listen 8080, tcp_nopush: true # порт может быть другой
+listen 8091, tcp_nopush: true # порт может быть другой
 
 # Если юникорн работает через сокет
 # socket_file= "#{deploy_to}/shared/unicorn.sock"
