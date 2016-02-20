@@ -23,8 +23,8 @@ set :repo_url, 'git@github.com:SuperbCoders/practice.git'
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/mongoid.yml', 'config/application.yml')
-before :finishing, 'linked_files:upload'
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+# before :finishing, 'linked_files:upload'
 
 # Default value for linked_dirs is []
 # set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
@@ -41,7 +41,9 @@ namespace :deploy do
     invoke 'unicorn:restart'
 
     on roles(:app), in: :sequence, wait: 5 do
-
+      within release_path do
+        execute :rake, 'cache:clear'
+      end
     end
 
     on roles(:web), in: :groups, limit: 3, wait: 10 do
@@ -60,3 +62,17 @@ namespace :deploy do
   end
 
 end
+
+
+namespace :bower do
+  desc 'Install bower'
+  task :install do
+    on roles(:web) do
+      within release_path do
+        execute :rake, "bower:cache:clean"
+        execute :rake, "bower:install['-f']"
+      end
+    end
+  end
+end
+before 'deploy:compile_assets', 'bower:install'

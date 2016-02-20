@@ -1,10 +1,11 @@
-role :app, %w{myuser@server:port}
-role :web, %w{myuser@server:port}
-role :db,  %w{myuser@server:port}
+role :app, %w{w3dev-pract@ono.rrv.ru:2223}
+role :web, %w{w3dev-pract@ono.rrv.ru:2223}
+role :db,  %w{w3dev-pract@ono.rrv.ru:2223}
 
-set :application, 'practice' # или project-name
-set :deploy_to, '/www/path/to/deploy'
-set :branch, 'master' # или production
+set :application, 'dev-practice' # или project-name
+set :deploy_to, '/www/dev-pract.onomnenado.ru'
+set :branch, 'staging' # или production
+
 
 # server-based syntax
 # ======================

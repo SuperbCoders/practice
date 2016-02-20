@@ -1,10 +1,21 @@
-role :app, %w{myuser@server:port}
-role :web, %w{myuser@server:port}
-role :db,  %w{myuser@server:port}
+role :app, %w{w3dev-pract@ono.rrv.ru:2223}
+role :web, %w{w3dev-pract@ono.rrv.ru:2223}
+role :db,  %w{w3dev-pract@ono.rrv.ru:2223}
 
-set :application, 'practice' # или project-name
-set :deploy_to, '/www/path/to/deploy'
+set :application, 'dev-practice' # или project-name
+set :deploy_to, '/www/dev-pract.onomnenado.ru'
 set :branch, 'staging' # или production
+
+# server 'ono.rrv.ru',
+#   user: 'w3dev-pract',
+#   roles: %w{web app db},
+#   ssh_options: {
+#     user: 'w3dev-pract', # overrides user setting above
+#     keys: %w(/Users/corehook/.ssh/id_rsa),
+#     forward_agent: false,
+#     auth_methods: %w(publickey password)
+#     # password: 'please use keys'
+#   }
 
 # server-based syntax
 # ======================
@@ -57,13 +68,4 @@ set :branch, 'staging' # или production
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
-# server 'example.com',
-#   user: 'user_name',
-#   roles: %w{web app},
-#   ssh_options: {
-#     user: 'user_name', # overrides user setting above
-#     keys: %w(/home/user_name/.ssh/id_rsa),
-#     forward_agent: false,
-#     auth_methods: %w(publickey password)
-#     # password: 'please use keys'
-#   }
+

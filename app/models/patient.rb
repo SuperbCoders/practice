@@ -26,7 +26,7 @@ class Patient < ActiveRecord::Base
   private
 
   def self.temporary_password
-    SecureRandom.hex.to_s
+    SecureRandom.hex.to_s[0..8]
   end
 
   def self.temporary_email

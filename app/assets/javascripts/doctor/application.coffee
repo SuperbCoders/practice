@@ -113,6 +113,11 @@
     angular.element(document.querySelector("html")).addClass 'menu_open'
     return
 
+  $('html').on('click', (event, ui) ->
+    if event.toElement.id != 'menu_button'
+      $('html').removeClass('menu_open')
+    console.log event.toElement.id
+  )
   $rootScope.menu_close = ->
     angular.element(document.querySelector("html")).removeClass 'menu_open'
     return
