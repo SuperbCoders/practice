@@ -170,9 +170,8 @@ class ScheduleController
 
       console.log 'New Visits'
       console.log vm.events
-
-
     )
+
     return
 
   event_resize: ( event, delta, revertFunc ) ->
