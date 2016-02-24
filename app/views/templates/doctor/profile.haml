@@ -22,9 +22,9 @@
   .profile_tab_holder
     .tabBlock{"data-tab-context" => "#tab_list"}
       %div(ui-view)
-    .debug
-      %pre
-        {{vm.doctor | json}}
+    -#.debug
+    -#  %pre
+    -#    {{vm.doctor | json}}
 
   .profile_tab_controls
     .section_inner
