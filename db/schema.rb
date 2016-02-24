@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219060351) do
+ActiveRecord::Schema.define(version: 20160224092911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,11 @@ ActiveRecord::Schema.define(version: 20160219060351) do
   create_table "appointments", force: :cascade do |t|
     t.integer  "patient_id"
     t.integer  "doctor_id"
-    t.boolean  "archivated",    default: false
-    t.boolean  "approved",      default: false
+    t.boolean  "archivated",  default: false
+    t.boolean  "approved",    default: false
     t.datetime "approved_at"
-    t.datetime "archivated_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "appointments", ["doctor_id"], name: "index_appointments_on_doctor_id", using: :btree
@@ -78,6 +77,9 @@ ActiveRecord::Schema.define(version: 20160219060351) do
     t.integer  "profile"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "vk_id"
+    t.string   "fb_id"
+    t.string   "twitter_id"
   end
 
   add_index "doctors", ["email"], name: "index_doctors_on_email", unique: true, using: :btree
@@ -86,7 +88,6 @@ ActiveRecord::Schema.define(version: 20160219060351) do
   create_table "journal_records", force: :cascade do |t|
     t.integer  "journal_id"
     t.string   "tag"
-    t.text     "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

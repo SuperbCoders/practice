@@ -1,0 +1,83 @@
+#tab_3
+  .tab_inner.form_row_v1
+    .form_row
+      .label_holder
+        %label.form_label{:for => "doctor_public_photo"} Фото на сайт
+      .input_w.size_59
+        %input#doctor_public_photo.hidden_input{:type => "file", 'ng-model' => "vm.doctor.public_avatar"}(base-sixty-four-input)/
+        .doctor_public_photo
+          %img.doctor_img{'ng-src' => "data:{{vm.doctor.public_avatar.filetype}};base64,{{vm.doctor.public_avatar.base64}}", 'ng-if' => 'vm.doctor.public_avatar'}
+          %img.doctor_img{'ng-src' => "{{vm.doctor.public_avatar}}", 'ng-show' => "!vm.doctor.public_avatar.filetype"}/
+          %label.change_photo_btn.btn_v1{:for => "doctor_public_photo"}
+    .form_row
+      .label_holder
+        %label.form_label{:for => "doctor_specialty"} Специальность
+      .input_w.size_59
+        %input#doctor_specialty.form_input.input_v1{'ng-model' => "vm.doctor.specialty"}/
+    .form_row
+      .label_holder
+        %label.form_label{:for => "doctor_education"} Образование
+      .input_w.size_59
+        %input#doctor_education.form_input.input_v1{'ng-model' => "vm.doctor.education"}/
+    .form_row
+      .label_holder
+        %label.form_label{:for => "doctor_experience"} Опыт работы
+      .input_w.size_59
+        %textarea#doctor_experience.form_input.input_v1{'ng-model' => "vm.doctor.experience"}
+    .form_row
+      .label_holder
+        %label.form_label{:for => "doctor_about"} О себе
+      .input_w.size_59
+        %textarea#doctor_about.form_input.input_v1{'ng-model' => "vm.doctor.about"}
+  .tab_inner.form_row_v1
+    .form_row
+      .label_holder
+        %label.form_label{:for => "doctor_contact"} Контакты
+      .input_w.size_59
+        %input#doctor_contact.form_input.input_v1/
+  .tab_inner.form_row_v1
+    .form_row.lh_32
+      .label_holder
+        %label.form_label{:for => "doctor_allow_que"} Разрешить запись на прием
+      .input_w.size_8
+        %label.toggle_emul.toggle_v1
+          %input.hidden_input{:type => "checkbox", 'ng-model' => "vm.doctor.office"}/
+          .toggle_box
+            %span.toggle_text.toggle_true Да
+            %span.toggle_text.toggle_false Нет
+  .tab_inner.form_row_v1
+    .form_row.lh_32
+      .label_holder
+        %label.form_label{:for => "doctor_profile_vis"} Профиль опубликован
+      .input_w.size_8
+        %label.toggle_emul.toggle_v1
+          %input.hidden_input{:type => "checkbox",  'ng-model' => "vm.doctor.profile"}/
+          .toggle_box
+            %span.toggle_text.toggle_true Да
+            %span.toggle_text.toggle_false Нет
+      .input_w.size_52
+        %p
+          %a.gl_link.blue_link{:href => ""}
+            %span Посмотреть страницу
+        %p Вы можете временно выключить профиль и тогда никто не сможет заходить на страницу врача кроме вас
+  .tab_inner.form_row_v1
+    .form_row
+      .label_holder
+        .form_label Социальные сети
+      %label.input_w.size_59.soc_input.soc_i_vk
+        %input.form_input.input_v1.socPrefix{"data-prefix" => "vk.com/", :value => "vk.com/", 'ng-model' => "vm.doctor.vk_id"}/
+    .form_row
+      .mob_hidden.label_holder
+        .form_label
+      %label.input_w.size_59.soc_input.soc_i_tw
+        %input.form_input.input_v1.socPrefix{"data-prefix" => "twitter.com/", :value => "twitter.com/", 'ng-model' => "vm.doctor.twitter_id"}/
+    .form_row
+      .mob_hidden.label_holder
+        .form_label
+      %label.input_w.size_59.soc_input.soc_i_fb
+        %input.form_input.input_v1.socPrefix{"data-prefix" => "facebook.com/", :value => "facebook.com/", 'ng-model' => "vm.doctor.fb_id"}/
+    .form_row
+      .label_holder
+        .form_label
+      .input_w.size_59
+        %p Введите названия профилей из ваших соц. сетей, чтобы пациенты могли вас найти и на других ресурсах

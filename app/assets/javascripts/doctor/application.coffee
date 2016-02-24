@@ -24,6 +24,34 @@
   delete $httpProvider.defaults.headers.common['X-Requested-With']
 
   $stateProvider
+  .state 'doctor',
+    url: '/doctor',
+    templateUrl: '/templates/doctor/profile.html',
+    controller: 'DoctorProfileController',
+    controllerAs: 'vm',
+    resolve:
+      Doctor: ['Resource', (Resource) ->
+        Resource '/doctor/profile', {id: @id}, [ {method: 'GET', isArray: false} ]
+      ]
+
+  .state 'doctor.profile',
+    url: '/profile',
+    templateUrl: '/templates/doctor/profile/profile.haml'
+
+  .state 'doctor.public',
+    url: '/public',
+    templateUrl: '/templates/doctor/profile/public.haml'
+
+  .state 'doctor.settings',
+    url: '/settings',
+    templateUrl: '/templates/doctor/profile/settings.haml'
+
+  .state 'doctor.subscription',
+    url: '/subscription',
+    templateUrl: '/templates/doctor/profile/subscription.haml'
+
+
+
   .state 'patients',
     url: '/patients',
     templateUrl: '/templates/doctor/patients/index.html'

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'doctor/cabinet#index'
 
   namespace :doctor do
+    resource :profile, only: [:show, :update]
     resources :patients
     resources :visits
     resources :journal do

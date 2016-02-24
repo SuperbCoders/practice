@@ -1,0 +1,35 @@
+#tab_4
+  .tab_inner.form_row_v1
+    .form_row.lh_norm
+      .label_holder
+        .form_label Оплата
+      %ul.input_w.size_59.payment_list.mob_pt_5
+        %li.payment_item
+          %label.radio_emul.radio_v1
+            %input.hidden_input{:checked => "checked", :name => "payment", :type => "radio"}/
+            %span.check_text 1000 ₽ Месячная
+        %li.payment_item
+          %label.radio_emul.radio_v1
+            %input.hidden_input{:name => "payment", :type => "radio"}/
+            %span.check_text
+              10 000₽ Годовая,
+              %span.color_green скидка 20%
+  .tab_inner.form_row_v1
+    .form_row.lh_norm
+      .label_holder
+        .form_label Способ оплаты
+      .input_w.size_59
+        %p
+          Карта Visa, номер заканчивается на 0128
+          %a.gl_link.blue_link{:href => "#"}
+            %span Изменить
+          = succeed "\u{412}\u{44b}" do
+            %br/
+          %br/
+          31 января 2016 года
+        %p
+          %a.gl_link.blue_link{:href => "#"}
+            %span Посмотреть история платежей
+        %p
+          %a.gl_link.blue_link{:href => "#"}
+            %span Отменить подписку

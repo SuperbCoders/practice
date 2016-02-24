@@ -1,0 +1,57 @@
+#tab_2
+  .tab_inner.form_row_v1
+    .form_row
+      .label_holder
+        %label.form_label{:for => "doctor_work_days"} Время работы врача
+      .input_w.size_27.chosen_v1.no_search.chosen_multiple_v1
+        %select#doctor_work_days.chosen-select{"data-placeholder" => "Выберите день", :multiple => "multiple"}
+          %option{:value => "0"}
+          %option{"data-short" => "Пн", "data-title" => "Понедельник", :value => "1"} Понедельник
+          %option{"data-short" => "В", "data-title" => "Вторник", :value => "2"} Вторник
+          %option{"data-short" => "С", "data-title" => "Среда", :value => "3"} Среда
+          %option{"data-short" => "Ч", "data-title" => "Четверг", :value => "4"} Четверг
+          %option{"data-short" => "П", "data-title" => "Пятница", :value => "5"} Пятница
+          %option{"data-short" => "Сб", "data-title" => "Суббота", :value => "6"} Суббота
+          %option{"data-short" => "Вс", "data-title" => "Воскресенье", :value => "7"} Воскресенье
+      .input_w.size_15.mob_size_43.mob_pt_5
+        %input.form_input.input_v1{:placeholder => "С"}/
+      .input_w.size_15.mob_size_43.mob_pt_5
+        %input.form_input.input_v1{:placeholder => "До"}/
+    .form_row.mt_-10
+      .label_holder
+        .form_label
+      .input_w.size_27.chosen_v1.no_search.chosen_multiple_v1
+        %select.chosen-select{"data-placeholder" => "Выберите день", :multiple => "multiple"}
+          %option{:value => "0"}
+          %option{"data-short" => "Пн", "data-title" => "Понедельник", :value => "1"} Понедельник
+          %option{"data-short" => "В", "data-title" => "Вторник", :value => "2"} Вторник
+          %option{"data-short" => "С", "data-title" => "Среда", :value => "3"} Среда
+          %option{"data-short" => "Ч", "data-title" => "Четверг", :value => "4"} Четверг
+          %option{"data-short" => "П", "data-title" => "Пятница", :value => "5"} Пятница
+          %option{"data-short" => "Сб", "data-title" => "Суббота", :value => "6"} Суббота
+          %option{"data-short" => "Вс", "data-title" => "Воскресенье", :value => "7"} Воскресенье
+      .input_w.size_15.mob_size_43.mob_pt_5
+        %input.form_input.input_v1{:placeholder => "С"}/
+      .input_w.size_15.mob_size_43.mob_pt_5
+        %input.form_input.input_v1{:placeholder => "До"}/
+      .fl.mob_right.mob_pt_5
+        .mb
+          %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "#"}
+    .form_row
+      .label_holder
+        %label.form_label{:for => "doctor_stand_time"} Стаднартное время приема
+      .input_w.size_27.chosen_v1.no_search
+        %select#doctor_stand_time.chosen-select{"data-placeholder" => "Выберите время приема"}
+          %option{"data-title" => "", :value => ""}
+          %option{"data-title" => "40 минут", :value => "0"} 40 минут
+          %option{"data-title" => "60 минут", :value => "1"} 60 минут
+          %option{"data-title" => "80 минут", :value => "2"} 80 минут
+    .form_row
+      .label_holder
+        %label.form_label{:for => "doctor_before_schedule"} Время записи до приема
+      .input_w.size_27.chosen_v1.no_search
+        %select#doctor_before_schedule.chosen-select{"data-placeholder" => "Выберите время записи"}
+          %option{"data-title" => "", :value => ""}
+          %option{"data-title" => "4 часа до приема", :value => "0"} 4 часа до приема
+          %option{"data-title" => "6 часа до приема", :value => "1"} 6 часа до приема
+          %option{"data-title" => "8 часа до приема", :value => "2"} 8 часа до приема

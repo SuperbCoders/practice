@@ -1,0 +1,64 @@
+#tab_1
+  .tab_inner.form_row_v1
+
+    / Name
+    .form_row
+      .label_holder
+        %label.form_label{:for => "doctor_name"} Имя врача
+      .input_w.size_59
+        %input#doctor_name.form_input.input_v1{'ng-model' => "vm.doctor.first_name"}/
+
+    / Phone number
+    .form_row{'ng-repeat' => "phone in vm.doctor.phones track by $index"}
+      .label_holder
+        %label.form_label{:for => "doctor_phone"} Телефон
+      .input_w.size_59.mob_size_85
+        %input#doctor_phone.form_input.input_v1{'ng-model' => "phone.data"}/
+      .fl.mob_right
+        .mb
+          %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => "vm.add_contact('phone')"}
+
+    / Email
+    .form_row
+      .label_holder
+        %label.form_label{:for => "doctor_email"} Email
+      .input_w.size_59.mob_size_85
+        %input#doctor_email.form_input.input_v1{'ng-model' => "vm.doctor.email", type: 'email'}(disabled)/
+      .fl.mob_right
+        .mb
+          %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => "vm.add_contact('email')"}
+
+    .form_row{'ng-repeat' => "email in vm.doctor.emails track by $index"}
+      .label_holder
+        %label.form_label{:for => "doctor_email"} Email
+      .input_w.size_59.mob_size_85
+        %input#doctor_email.form_input.input_v1{'ng-model' => "email.data", type: 'email'}/
+      .fl.mob_right
+        .mb
+          %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => "vm.add_contact('email')"}
+
+    / Password
+    .form_row
+      .label_holder
+        %label.form_label{:for => "doctor_pass"} Пароль
+      .input_w.size_27
+        %a.btn_v2.black_blue_btn.change_btn.passBtn{:href => "", 'ng-click' => "vm.show_pass_form()"} Изменить
+      .pass_change_form.passForm
+        %form{:action => "", :novalidate => ""}
+          .input_w.size_27
+            %input.form_input.input_v1.passInput{:type => "password", "ng-model" => "vm.doctor.password"}/
+          .input_w.mob_size_43
+            %button.btn_v2.black_blue_btn.change_btn.passSaveBtn{'ng-click' => "vm.update_password()"} Сохранить
+          .input_w.mob_size_43
+            %a.btn_v2.black_blue_btn.change_btn.passCancelBtn{:href => "", 'ng-click' => "vm.hide_pass_form()"} Отмена
+
+    / AVatar
+    .form_row
+      .label_holder
+        %label.form_label{:for => "doctor_photo"} Портрет врача
+      .input_w
+        %input#doctor_photo.hidden_input{:type => "file", 'ng-model' => "vm.doctor.avatar"}(base-sixty-four-input)/
+        .doctor_photo
+          %img{'ng-src' => "data:{{vm.doctor.avatar.filetype}};base64,{{vm.doctor.avatar.base64}}", 'ng-if' => 'vm.doctor.avatar'}
+          %img.doctor_img{'ng-src' => "{{vm.doctor.avatar}}", 'ng-show' => "!vm.doctor.avatar.filetype"}/
+          %label.change_photo_btn.btn_v1{:for => "doctor_photo"}
