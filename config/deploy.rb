@@ -63,16 +63,15 @@ namespace :deploy do
 
 end
 
-
 namespace :bower do
   desc 'Install bower'
   task :install do
     on roles(:web) do
       within release_path do
-        # execute :rake, "bower:cache:clean"
         execute :rake, "bower:install['-f']"
       end
     end
   end
 end
+
 before 'deploy:compile_assets', 'bower:install'

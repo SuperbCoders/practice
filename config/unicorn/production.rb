@@ -6,16 +6,10 @@ err_log    = "#{rails_root}/log/unicorn_error.log"
 old_pid    = pid_file + '.oldbin'
 
 
-worker_processes 1 # может быть больше для продакшена
+worker_processes 1
 timeout 30
 preload_app true
-
-# Если юникорн работает через порт
 listen 8091, tcp_nopush: true # порт может быть другой
-
-# Если юникорн работает через сокет
-# socket_file= "#{deploy_to}/shared/unicorn.sock"
-# listen socket_file, backlog: 1024
 
 pid pid_file
 stderr_path err_log
