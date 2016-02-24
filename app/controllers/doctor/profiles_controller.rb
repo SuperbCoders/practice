@@ -26,7 +26,6 @@ class Doctor::ProfilesController < Doctor::BaseController
 
       # Avatar
       [:avatar, :public_avatar].map do |av_type|
-        logger.info "Avatar #{av_type} - #{params[:doctor][av_type].class.name}"
         if not params[:doctor][av_type].is_a? String
           @resource.attach(av_type, params[:doctor][av_type])
         end
@@ -35,10 +34,11 @@ class Doctor::ProfilesController < Doctor::BaseController
 
       # Phones & Emails
       ['phone', 'email'].map do |c_type|
-        if doctor_params[c_type.pluralize.to_sym]
-          doctor_params[c_type.pluralize.to_sym].map { |c_data|
+        logger.info "#{c_type} -> #{params[:doctor][c_type.pluralize.to_sym]}"
+        if params[:doctor][c_type.pluralize.to_sym]
+          params[:doctor][c_type.pluralize.to_sym].map { |c_data|
             logger.info "Add #{c_type.to_sym} with #{c_data}"
-            @resource.contacts.find_or_create_by(contact_type: c_type.to_sym, data: c_data['data'])
+            @resource.contacts.find_or_create_by(contact_type: Contact.contact_types[c_type.to_sym], data: c_data['data'])
           }
         end
 
@@ -81,7 +81,7 @@ class Doctor::ProfilesController < Doctor::BaseController
   end
 
   def doctor_params
-    params.fetch(:doctor).permit(permitted_params + [:avatar, :public_avatar,:emails, :phones, :office, :profile])
+    params.fetch(:doctor).permit([:avatar, :public_avatar, :emails, :phones, :office, :profile] + permitted_params)
   end
 
   def doctor_password_params
