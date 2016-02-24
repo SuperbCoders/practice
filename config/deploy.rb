@@ -43,6 +43,7 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
         execute :rake, 'cache:clear'
+        execute :rake, 'seed:all'
       end
     end
 
