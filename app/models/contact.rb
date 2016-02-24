@@ -1,6 +1,6 @@
 class Contact < ActiveRecord::Base
-  enum contact_type: [:phone, :social, :email]
-  enum data_type: [:mobile, :work, :home, :vk, :fb, :twitter]
+  enum contact_type: Practice::Static::CONTACT_TYPES
+  enum data_type: Practice::Static::CONTACT_DATA_TYPES
 
   belongs_to :contactable, polymorphic: true
 

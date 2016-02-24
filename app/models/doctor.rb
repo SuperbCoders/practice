@@ -15,6 +15,7 @@ class Doctor < ActiveRecord::Base
   has_many :visits, dependent: :destroy
   has_many :appointments
   has_many :patients, through: :appointments
+  has_many :work_schedules, dependent: :destroy
 
   before_destroy :destroy_avatars
 

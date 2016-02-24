@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224092911) do
+ActiveRecord::Schema.define(version: 20160224150544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,15 @@ ActiveRecord::Schema.define(version: 20160224092911) do
   add_index "contacts", ["contact_type"], name: "index_contacts_on_contact_type", using: :btree
   add_index "contacts", ["data_type"], name: "index_contacts_on_data_type", using: :btree
 
+  create_table "dicts", force: :cascade do |t|
+    t.integer  "dict_type"
+    t.text     "dict_value"
+    t.integer  "dictable_id"
+    t.string   "dictable_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "doctors", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -80,6 +89,8 @@ ActiveRecord::Schema.define(version: 20160224092911) do
     t.string   "vk_id"
     t.string   "fb_id"
     t.string   "twitter_id"
+    t.integer  "before_schedule"
+    t.integer  "stand_time"
   end
 
   add_index "doctors", ["email"], name: "index_doctors_on_email", unique: true, using: :btree
@@ -149,6 +160,17 @@ ActiveRecord::Schema.define(version: 20160224092911) do
   add_index "visits", ["doctor_id"], name: "index_visits_on_doctor_id", using: :btree
   add_index "visits", ["patient_id"], name: "index_visits_on_patient_id", using: :btree
 
+  create_table "work_schedules", force: :cascade do |t|
+    t.integer  "doctor_id"
+    t.integer  "day"
+    t.string   "start_at"
+    t.string   "finish_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "work_schedules", ["doctor_id"], name: "index_work_schedules_on_doctor_id", using: :btree
+
   add_foreign_key "appointments", "doctors"
   add_foreign_key "appointments", "patients"
   add_foreign_key "journal_records", "journals"
@@ -156,4 +178,5 @@ ActiveRecord::Schema.define(version: 20160224092911) do
   add_foreign_key "journals", "patients"
   add_foreign_key "visits", "doctors"
   add_foreign_key "visits", "patients"
+  add_foreign_key "work_schedules", "doctors"
 end

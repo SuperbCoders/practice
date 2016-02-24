@@ -5,6 +5,7 @@ class DoctorProfileController
     vm.Doctor = @Doctor
     vm.doctor = undefined
 
+
     @init_chosen()
 
     if not vm.doctor
@@ -16,13 +17,19 @@ class DoctorProfileController
         vm.doctor.twitter_id = 'twitter.com/' if not vm.doctor.twitter_id
 
         vm.add_contact('phone') if vm.doctor.phones.length <= 0
+
+        vm.new_schedule() if vm.doctor.work_schedules.length <= 0
       )
 
     return
 
-
+  new_schedule: ->
+    vm = @
+    vm.doctor.work_schedules.push {days: [], start_at: '08:00', finish_at: '20:00'}
+    return
 
   updateDaysRow: (slct) ->
+    console.log 'updateDaysRow'
     slct_val = slct.val()
     chzn_container = slct.next('.chzn-container').find('.chzn-choices')
     days = ''
@@ -51,8 +58,13 @@ class DoctorProfileController
 
   init_chosen: ->
     vm = @
+
+    $('#doctor_stand_time').chosen()
+    $("#doctor_work_days").chosen()
+
     if $('.chosen-select').length
-      $('body').delegate '.chosen_multiple_v1 .extra_control', 'click', (e) ->
+      $('body').delegate '.chosen_multiple_v1', 'click', (e) ->
+        console.log 'init_chosen'
         firedEl = $(this)
         e.preventDefault()
         chzn_container = firedEl.closest('.chzn-container ')
@@ -60,6 +72,7 @@ class DoctorProfileController
         firedEl.closest('.chzn-container').prev('.chosen-select').find('option[value=' + option_ind + ']').removeAttr 'selected'
         vm.updateDaysRow chzn_container.prev('.chosen-select').trigger('chosen:updated')
         false
+
       $('.chosen-select').on('chosen:ready', (evt, params) ->
         if params.chosen.is_multiple
           $(params.chosen.container).find('.chzn-choices').append $('<li class="chzn-choices-arrow" />')
@@ -127,7 +140,6 @@ class DoctorProfileController
     return
 
   add_contact: (type) ->
-    console.log type
     vm = @
     switch type
       when 'phone' then vm.doctor.phones.push {data: ''}
@@ -136,7 +148,9 @@ class DoctorProfileController
 
   save: ->
     vm = @
-    vm.Doctor.save({doctor: vm.doctor})
+    vm.Doctor.save({doctor: vm.doctor}).$promise.then((response) ->
+      vm.Alerts.messages response.messages
+    )
     return
 
 @application.controller 'DoctorProfileController', ['$rootScope','$scope', 'Alerts', '$state', 'Doctor', DoctorProfileController]
