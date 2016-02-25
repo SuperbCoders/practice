@@ -4,9 +4,9 @@ class DoctorProfileController
     vm.Alerts = @Alerts
     vm.Doctor = @Doctor
     vm.doctor = undefined
+    vm.rootScope = @rootScope
 
 
-    @init_chosen()
 
     if not vm.doctor
       @Doctor.get().$promise.then( (response) ->
@@ -19,13 +19,17 @@ class DoctorProfileController
         vm.add_contact('phone') if vm.doctor.phones.length <= 0
 
         vm.new_schedule() if vm.doctor.work_schedules.length <= 0
+
       )
+
+    @init_chosen()
 
     return
 
   new_schedule: ->
     vm = @
     vm.doctor.work_schedules.push {days: [], start_at: '08:00', finish_at: '20:00'}
+    $("#doctor_work_days").chosen()
     return
 
   updateDaysRow: (slct) ->
@@ -44,7 +48,7 @@ class DoctorProfileController
       else
         chzn_container.prepend $('<li class="chzn_rzlts" />').text(days)
     else
-      chzn_container.find('.chzn_rzlts').remove()
+      chzn_container. find('.chzn_rzlts').remove()
     return
 
   fix_tab_header: ->
@@ -58,12 +62,9 @@ class DoctorProfileController
 
   init_chosen: ->
     vm = @
-
-    $('#doctor_stand_time').chosen()
-    $("#doctor_work_days").chosen()
-
+    vm.rootScope.init_chosen()
     if $('.chosen-select').length
-      $('body').delegate '.chosen_multiple_v1', 'click', (e) ->
+      $('body').delegate '.chosen_multiple_v1 .extra_control', 'click', (e) ->
         console.log 'init_chosen'
         firedEl = $(this)
         e.preventDefault()
@@ -112,7 +113,6 @@ class DoctorProfileController
         autohide_results_multiple: false
         allow_single_deselect: true
         width: '100%'
-        className: 'form_o_b_item form_o_b_value_edit_mode'
     return
 
   update_password: ->

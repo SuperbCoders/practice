@@ -1,7 +1,6 @@
 namespace :seed do
   task :all => :environment do
     Rake::Task['seed:doctors'].execute
-    Rake::Task['seed:patients'].execute
     Rake::Task['seed:dicts'].execute
   end
 
@@ -25,18 +24,8 @@ namespace :seed do
       {email: 'corehook@gmail.com', password: 'corehook'},
       {email: 'doctor@gmail.com', password: 'doctorpassword'}
     ].map { |u|
-      Doctor.find_or_create_by(u) do |doctor|
+      Doctor.find_or_create_by(email: u[:email], password: u[:password]) do |doctor|
         puts "Doctor #{doctor.email} created"
-      end
-    }
-  end
-
-  task :patients => :environment do
-    [
-      {email: 'patient@gmail.com', password: 'patientpatient'}
-    ].map { |u|
-      Patient.find_or_create_by(u) do |patient|
-        puts "Patient #{patient.email} created"
       end
     }
   end

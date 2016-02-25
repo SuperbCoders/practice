@@ -152,4 +152,16 @@
 
   $rootScope.regDate = -> moment(Date.new)
 
+  $rootScope.init_chosen = ->
+    console.log 'inited'
+    $('#doctor_stand_time').chosen()
+    $("#doctor_work_days").chosen()
+    $('.chosen-select').chosen({
+      autohide_results_multiple: false,
+      allow_single_deselect: true,
+      width: "100%",
+      className: "form_o_b_item form_o_b_value_edit_mode"
+    })
+
+  $rootScope.init_chosen()
 ]
