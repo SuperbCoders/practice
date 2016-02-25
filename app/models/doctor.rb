@@ -29,6 +29,20 @@ class Doctor < ActiveRecord::Base
     end
   end
 
+  def public_visits(date_from, date_to)
+    public_visits = []
+    visits.where("start_at > ?", date_from).map { |visit|
+      if visit.end < date_to.to_datetime
+        public_visits << {start: visit.start, end: visit.end, duration: visit.duration }
+      end
+    }
+    public_visits
+  end
+
+  def phone
+    contacts.phone.first.data
+  end
+
   def name
     if first_name or last_name
       [first_name, last_name].join ' '

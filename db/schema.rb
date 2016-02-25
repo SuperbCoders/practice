@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160224150544) do
+ActiveRecord::Schema.define(version: 20160225104918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20160224150544) do
     t.string   "twitter_id"
     t.integer  "before_schedule"
     t.integer  "stand_time"
+    t.string   "username"
   end
 
   add_index "doctors", ["email"], name: "index_doctors_on_email", unique: true, using: :btree

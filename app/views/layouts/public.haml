@@ -1,0 +1,46 @@
+!!!
+%html{:lang => "ru"}
+  %head
+    %title Practic паблик профиль
+
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %meta{:content => "#{@doctor.username}", :name => "doctor_username"}
+    = stylesheet_link_tag    'public', media: 'all', 'data-turbolinks-track' => false
+    = javascript_include_tag 'public', 'data-turbolinks-track' => false
+    = csrf_meta_tags
+
+  %body.overlay_v1{'ng-app' => "practice.public"}
+    %div(ui-view)
+
+    %script{'type'=>"text/ng-template", 'id'=>"appointments_form"}
+      .popup_form.popup_v1
+        .stage_1{'ng-show' => "vm.stage == 1"}
+          .form_caption
+            Для записи заполните
+            %br/
+            три поля ниже
+          .form_content
+            .form_row
+              .input_w.placeholder_mod
+                %input.form_input.input_v4.checkEmpty{:type => "text", 'ng-model' => "vm.patient.name"}/
+                %label.form_label.fz_20 Введите имя и фамилию
+            .form_row
+              .input_w.placeholder_mod
+                %input.form_input.input_v4.checkEmpty{:type => "tel", 'ng-model' => "vm.patient.phone"}/
+                %label.form_label Телефон
+            .form_row
+              .input_w.placeholder_mod
+                %input.form_input.input_v4.checkEmpty{"ng-model" => "vm.patient.email"}/
+                %label.form_label Email (если есть, чтобы получить мед. карту)
+          .form_footer
+            %a.btn_v4.appointment_btn.appointmentTimeBtn.yellow_black_btn{"ng-click" => "vm.next_stage()"} Выбрать время записи
+        .stage_2{'ng-show' => "vm.stage == 2"}
+          .form_caption_holder
+            .form_caption Выберите день и время приема
+            .form_tip Кликните в свободную ячейку
+          .form_content
+            .popup_calendar_holder
+              #popup_calendar.calendar_v2
+          .form_footer
+            %button.btn_v4.doctor_btn.appointmentTimeBtn.appointmentTimeBtn2.yellow_black_btn{'ng-click' => "vm.create_visit()"} Записаться

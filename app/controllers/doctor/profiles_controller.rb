@@ -101,6 +101,7 @@ class Doctor::ProfilesController < Doctor::BaseController
 
   def permitted_params
     [   :first_name,
+        :username,
         :last_name,
         :email,
         :before_schedule,

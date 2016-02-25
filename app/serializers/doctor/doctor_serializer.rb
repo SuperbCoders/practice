@@ -2,7 +2,8 @@ class Doctor::DoctorSerializer < Doctor::BaseSerializer
   attributes :email, :first_name, :last_name, :name, :avatar, :public_avatar,
       :gender, :birthday, :specialty, :education, :experience, :about, :office,
       :profile, :vk_id, :fb_id, :twitter_id, :phones, :emails, :doctor_stand_times,
-      :doctor_before_schedule, :before_schedule, :stand_time, :work_schedules
+      :doctor_before_schedule, :before_schedule, :stand_time, :work_schedules, :phone,
+      :username
 
   def work_schedules
     @schedule = {}

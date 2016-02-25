@@ -1,4 +1,6 @@
 class Visit < ActiveRecord::Base
+  include Alertable
+  
   enum visit_type: [:signed, :unsigned]
 
   belongs_to :doctor

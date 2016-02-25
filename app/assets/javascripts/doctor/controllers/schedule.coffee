@@ -220,7 +220,6 @@ class ScheduleController
     return
 
   event_save: ( event ) ->
-    console.log "Save event #{event.id}"
     return
 
   view_render: (view, element) ->
