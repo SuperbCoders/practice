@@ -21,6 +21,7 @@ asset 'jquery.nicescroll'
 asset 'chosen', '1.5.1'
 asset 'swiper', '3.0.8'
 
+asset 'ngDialog'
 asset 'angular'
 asset 'angular-cookies'
 asset 'angular-animate'
