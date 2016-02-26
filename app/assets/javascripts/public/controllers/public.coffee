@@ -3,7 +3,6 @@ class DoctorProfileController
     vm = @
     @rootScope.Doctor = @Doctor
 
-
     @Doctor.profile({username: @rootScope.username}).$promise.then((response) ->
       vm.doctor = response
       vm.rootScope.doctor = vm.doctor
