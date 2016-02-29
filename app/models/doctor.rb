@@ -2,8 +2,6 @@ class Doctor < ActiveRecord::Base
   include Attachable
   include Alertable
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -16,6 +14,8 @@ class Doctor < ActiveRecord::Base
   has_many :appointments
   has_many :patients, through: :appointments
   has_many :work_schedules, dependent: :destroy
+
+  validates_uniqueness_of :username
 
   before_destroy :destroy_avatars
 
@@ -40,7 +40,9 @@ class Doctor < ActiveRecord::Base
   end
 
   def phone
-    contacts.phone.first.data
+    if contacts.phone.count > 0
+      contacts.phone.first.data
+    end
   end
 
   def name

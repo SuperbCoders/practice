@@ -72,6 +72,7 @@ class Doctor::PatientsController < Doctor::BaseController
         :height,
         :blood,
         :diseases,
+        :birthday,
         :habits,
         :profession,
         :comment,

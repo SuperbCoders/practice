@@ -21,6 +21,7 @@
   $httpProvider.defaults.useXDomain = true
   $httpProvider.defaults.headers.post['Content-Type']= 'application/json'
   $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')
+  $httpProvider.interceptors.push 'AlertsMonitor'
   delete $httpProvider.defaults.headers.common['X-Requested-With']
 
   $stateProvider
@@ -49,8 +50,6 @@
   .state 'doctor.subscription',
     url: '/subscription',
     templateUrl: '/templates/doctor/profile/subscription.haml'
-
-
 
   .state 'patients',
     url: '/patients',
@@ -109,6 +108,24 @@
   return
 ]
 
+@application.factory 'AlertsMonitor', [ '$injector', ($injector) ->
+  timestampMarker =
+    request: (config) ->
+      config.requestTimestamp = (new Date).getTime()
+      config
+    response: (response) ->
+      Alerts = $injector.get('Alerts')
+
+      if response.data.messages && response.data.messages.length > 0
+        Alerts.messages response.data.messages
+
+      if response.data.errors && response.data.errors.length > 0
+        Alerts.messages response.data.errors
+
+      response.config.responseTimestamp = (new Date).getTime()
+      response
+  timestampMarker
+]
 
 @application.run ['$rootScope', '$state', '$stateParams', ($rootScope, $state, $stateParams) ->
   $rootScope.$state = $state;
@@ -127,8 +144,8 @@
     angular.element(document.querySelector("##{element_id}")).removeClass(class_name)
     return
 
-  $rootScope.add_class_to_el = (element_id, class_name) ->
-    el = angular.element(document.querySelector("##{element_id}"))
+  $rootScope.toggle_el_class = (element_id, class_name) ->
+    el = angular.element(document.querySelector(element_id))
     if not el.hasClass(class_name)
       el.addClass(class_name)
     else

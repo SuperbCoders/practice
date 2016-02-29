@@ -17,11 +17,7 @@ class Doctor::DoctorSerializer < Doctor::BaseSerializer
 
     @schedule.each_with_index do |sc, index|
       @result << {days: sc[1][:days], start_at: sc[1][:start_at], finish_at: sc[1][:finish_at]}
-      puts "#{sc[1][:start_at]} -> #{sc[1][:days]}"
     end
-    puts @schedule
-    puts @result
-    object.work_schedules
     @result
   end
 

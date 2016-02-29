@@ -7,4 +7,5 @@ RSpec.describe Doctor, type: :model do
   it { is_expected.to have_many(:visits).dependent(:destroy) }
   it { is_expected.to have_many(:appointments) }
   it { is_expected.to have_many(:patients).through(:appointments) }
+  it { is_expected.to validate_uniqueness_of(:username) }
 end

@@ -9,16 +9,8 @@ class ScheduleController
     vm.timelineInterval = undefined
     vm.calendarHolder = $('.calendarHolder')
     vm.events ||= []
-
-    # Из-за верстки нужно добавлять классы к body
-    # в зависимости от страницы
-    $('body').addClass 'cal_header_mod'
-    $('body').addClass 'cal_body_mod'
-
-    @scope.$on('$destroy', ->
-      $('body').removeClass 'cal_header_mod'
-      $('body').removeClass 'cal_body_mod'
-    )
+    vm.patient = undefined
+    vm.event = undefined
 
     vm.calendar_options =
       events: vm.visits_by_date
@@ -109,21 +101,49 @@ class ScheduleController
       dayClick: @day_click
       viewRender: @view_render
 
-    vm.calendar_params = _.merge(vm.calendar_controllers, vm.calendar_options)
-    vm.calendar ||= $('#calendar').fullCalendar(vm.calendar_params)
+    vm.calendar ||= $('#calendar').fullCalendar(vm.calendar_options)
+
+    # Из-за верстки нужно добавлять классы к body
+    # в зависимости от страницы
+
+    $('body').addClass 'cal_header_mod'
+    $('body').addClass 'cal_body_mod'
+
+    @scope.$on('$destroy', ->
+      $('body').removeClass 'cal_header_mod'
+      $('body').removeClass 'cal_body_mod'
+    )
+
+
+  toggle_patient_info: ->
+    @rootScope.toggle_el_class('.patient_card', 'open_card')
+    return
 
   visits_by_date: (start, end, timezone, callback) ->
     vm = @options.vm
+
+    end.add('14', 'days')
 
     paket =
       start: start.format()
       end: end.format()
 
-    vm.Visits.query(paket).$promise.then((events) -> callback(events))
+    vm.Visits.query(paket).$promise.then((events) ->
+      date_now = moment(new Date)
+      for event in events
+        event.start = moment(event.start)
+        event.end = moment(event.end)
 
-  add_record: ->
-    vm = @
-    return
+        if not vm.event
+          vm.event = event if event.start > date_now
+        else
+          vm.event = event if event.start > date_now and event.start < vm.event.start
+
+
+
+
+      callback(events)
+    )
 
   setTimeline: ->
     parentDiv = $('.fc-agenda-view')
@@ -157,23 +177,6 @@ class ScheduleController
     newHeight = @win.height() + (if @win.width() > 1200 then 40 else -50) - ($('.wrapper').css('paddingTop').replace('px', '') * 1)
     Math.max newHeight, 300
 
-  fetch: () ->
-    vm = @
-
-    @Visits.query(vm.filters).$promise.then((events) ->
-      console.log 'Old visits'
-      console.log vm.events
-
-      vm.events = []
-      for event in events
-        vm.events.push event
-
-      console.log 'New Visits'
-      console.log vm.events
-    )
-
-    return
-
   event_resize: ( event, delta, revertFunc ) ->
     event.start_at = event.start
     event.duration = (event.end - event.start)/60/1000
@@ -185,7 +188,6 @@ class ScheduleController
     event.duration = (event.end - event.start)/60/1000
     event.$save()
     return
-
 
   day_click: (date, jsEvent, view) ->
     vm = @
