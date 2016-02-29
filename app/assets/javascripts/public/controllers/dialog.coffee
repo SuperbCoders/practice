@@ -63,6 +63,8 @@ class DialogController
       for event in events
         event.editable = false
         event.eventOverlap = false
+        event.rendering = 'background'
+        event.backgroundColor = 'red'
         event.overlap = false
       callback(events)
     )
@@ -117,11 +119,13 @@ class DialogController
   next_stage: ->
     vm = @
     vm.stage = 2
-    vm.init_calendar()
 
-  init_calendar: ->
-    vm = @
     vm.popup_calendar = $('#popup_calendar').fullCalendar(vm.calendar_params)
+    setTimeout(->
+      vm.popup_calendar.fullCalendar('render')
+    , 1)
+
+
     return
 
 @application.controller 'DialogController', ['$rootScope','$scope', 'ngDialog', DialogController]
