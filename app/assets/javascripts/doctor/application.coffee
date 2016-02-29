@@ -79,6 +79,18 @@
         ]
       ]
 
+  .state 'patients.edit',
+    url: '/edit/:id',
+    templateUrl: '/templates/doctor/patients/add.html',
+    controller: 'EditPatientController',
+    controllerAs: 'vm',
+    resolve:
+      Patients: ['Resources', (Resources) ->
+        Resources '/doctor/patients/:id', {id: '@id'}, [
+          {method: 'GET', isArray: true}
+        ]
+      ]
+
   .state 'journal.add_record',
     url: '/:patient_id/journal',
     templateurl: '/templates/doctor/patients/add_journal_record.html',

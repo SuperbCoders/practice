@@ -90,7 +90,12 @@ module Concerns::Resource
   end
 
   def show
-    send_json serialize_resource(@resources, resource_serializer ), true
+    if @resources
+      res = serialize_resources(@resources, resource_serializer)
+    elsif @resource
+      res = serialize_resource(@resource, resource_serializer)
+    end
+    send_json res, true
   end
 
   def destroy

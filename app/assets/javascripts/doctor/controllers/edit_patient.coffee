@@ -1,13 +1,13 @@
-class AddPatientsController
-  constructor: (@rootScope, @scope, @Patients, @Alerts, @state) ->
+class EditPatientController
+  constructor: (@rootScope, @scope, @Patients) ->
     vm = @
-    vm.Patients = @Patients
-    vm.Alerts = @Alerts
-    vm.state = @state
+    vm.patient = undefined
 
-    vm.patient =
-      phones: [{number: ''}]
-      register_date: moment(Date.new)
+    if @rootScope.$stateParams.id
+      @Patients.get({id: @rootScope.$stateParams.id}).$promise.then( (patient) ->
+        vm.patient = patient
+        vm.normalize_patient()
+      )
 
     $('#patient_age').datepicker
       firstDay: 1
@@ -106,25 +106,20 @@ class AddPatientsController
       #if (firedEl.parents('.form_validate').length) firedEl.validationEngine('validate');
       return
 
+  normalize_patient: ->
+    # "17 / 03 / 2016"
+    vm = @
+    birthday = moment(vm.patient)
+    vm.patient.birthday = "#{birthday.date()} / #{birthday.month()} / #{birthday.year()}"
+
+  add_phone: -> @patient.phones.push {number: ''}
+
   save: (redirect = false) ->
     vm = @
     console.log @patient
 
-    vm.Patients.create({patient: vm.patient}).$promise.then((result) ->
-      if result.success
-        vm.Alerts.messages result.messages
-
-      if vm.redirect
-        vm.state.go('journal.add_record', {patient_id: result.patient.id})
-      else
-        vm.state.go('patients.list')
-
-
-      console.log result
-    , (result) ->
-      vm.Alerts.errors result.data.errors
+    vm.patient.$save().then((patient) ->
+      vm.normalize_patient()
     )
 
-  add_phone: -> @patient.phones.push {number: ''}
-
-@application.controller 'AddPatientsController', ['$rootScope','$scope', 'Patients', 'Alerts', '$state' , AddPatientsController]
+@application.controller 'EditPatientController', ['$rootScope','$scope', 'Patients' , EditPatientController]

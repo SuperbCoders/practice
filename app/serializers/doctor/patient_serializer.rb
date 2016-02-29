@@ -2,10 +2,26 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
   attributes :name, :comment, :gender, :weight, :height,
       :blood, :diseases, :habits, :profession, :contract_id,
       :register_date, :avatar, :first_name, :last_name,
-      :approved, :archivated, :phone, :email, :age, :birthday
+      :approved, :archivated, :phone, :email, :age, :birthday,
+      :phones, :emails
 
   has_many :contacts
 
+  def phones
+    object.contacts.phone
+  end
+
+  def emails
+    object.contacts.email
+  end
+
+  def birthday
+    birthday = object.try(:birthday)
+
+    if birthday
+      "#{birthday.day} / #{birthday.month} / #{birthday.year}"
+    end
+  end
 
   def age
     age = 0
