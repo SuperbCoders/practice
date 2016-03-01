@@ -49,7 +49,7 @@ class Doctor::PatientsController < Doctor::BaseController
       # Phones
       params[:patient][:phones].map { |phone_data|
         @resource.contacts.create(contact_type: Contact.contact_types[:phone],
-            data: phone_data[:number])
+            data: phone_data[:data])
       } if params[:patient][:phones]
 
       current_doctor.appointments.create(patient: @resource)
