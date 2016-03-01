@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :doctors, path: 'auth'
+  devise_for :doctors, path: 'auth', controllers: { omniauth_callbacks: 'omniauth_callbacks', sessions: 'sessions' }
   get 'templates(/*url)' => 'application#templates'
   root 'doctor/cabinet#index'
 

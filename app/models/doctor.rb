@@ -2,8 +2,11 @@ class Doctor < ActiveRecord::Base
   include Attachable
   include Alertable
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :omniauthable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         omniauth_providers: %w(facebook vkontakte)
+
+  include SuperbAuth::Concerns::Omniauthable
 
   enum gender: [:male, :female]
   enum office: [:office_open, :office_closed]

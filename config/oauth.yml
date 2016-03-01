@@ -1,0 +1,21 @@
+development: &defaults
+  facebook:
+    app_id: 1703174136600384
+    app_secret: 'cbfe7006fbae1e8cfa20fc8d6cbd9a05'
+  vkontakte:
+    app_id: 5311250
+    app_secret: 'nz7JKw7vmfEsMlzyvUDJ'
+
+test:
+  <<: *defaults
+
+staging: &staging
+  facebook:
+    app_id: 1703174136600384
+    app_secret: 'cbfe7006fbae1e8cfa20fc8d6cbd9a05'
+  vkontakte:
+    app_id: 5311250
+    app_secret: 'nz7JKw7vmfEsMlzyvUDJ'
+
+production:
+  <<: *staging

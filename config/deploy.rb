@@ -49,5 +49,5 @@ namespace :bower do
   end
 end
 
-# after 'deploy:updated', 'bower:install'
+before 'deploy:updated', 'bower:install'
 before 'deploy:compile_assets', 'bower:install'

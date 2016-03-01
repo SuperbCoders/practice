@@ -15,12 +15,16 @@
         %ul.patients_list
           %li.patient_unit{'dir-paginate' => "patient in vm.patients | filter: vm.filters |itemsPerPage: vm.items_limit"}
             .patient_card.cardAsideOverview
+
+              / Color tag
               .patient_status_w.chosen_v2.no_search.skipOpen
                 %select.chosen-select
                   %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
                   %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
                   %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
                   %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
+
+              / Dropdown menu
               .patient_menu_w.skipOpen
                 .drop_down_btn
                   %span
@@ -44,6 +48,8 @@
                     %li.drop_down_item
                       %a.gl_link{:href => ""}
                         %span Удалить
+
+              / Patient info
               .patient_info
                 .patient_name
                   %a.skipOpen.gl_link.gray_link.write2Card{:href => ""}
@@ -58,30 +64,32 @@
                   .controls_cell
                     %a.btn_v2.patient_btn.green_btn{:href => ""}
                       %span.mb Начать прием
+
             / +patient_overview()
             .avatar_clone
               %a.patient_avatar.skipOpen.write2Card{:href => ""}
                 %img{'ng-src' => "{{patient.avatar}}"}/
 
         / Pagination
-        .pagination_holder.read_mode
-          %ul.pagination_list
-            %li.pagination_item.pagination_prev
-              %a.gl_link{:href => ""}
-            %li.pagination_item
-              %a.gl_link{:href => ""} 1
-            %li.pagination_item.active
-              %a.gl_link{:href => ""} 2
-            %li.pagination_item
-              %a.gl_link{:href => ""} 3
-            %li.pagination_item
-              %a.gl_link{:href => ""} 4
-            %li.pagination_item
-              %a.gl_link{:href => ""} 5
-            %li.pagination_item
-              %a.gl_link{:href => ""} ...304
-            %li.pagination_item.pagination_next
-              %a.gl_link{:href => ""}
+        %dir-pagination-controls
+        -#.pagination_holder.read_mode
+        -#  %ul.pagination_list
+        -#    %li.pagination_item.pagination_prev
+        -#      %a.gl_link{:href => ""}
+        -#    %li.pagination_item
+        -#      %a.gl_link{:href => ""} 1
+        -#    %li.pagination_item.active
+        -#      %a.gl_link{:href => ""} 2
+        -#    %li.pagination_item
+        -#      %a.gl_link{:href => ""} 3
+        -#    %li.pagination_item
+        -#      %a.gl_link{:href => ""} 4
+        -#    %li.pagination_item
+        -#      %a.gl_link{:href => ""} 5
+        -#    %li.pagination_item
+        -#      %a.gl_link{:href => ""} ...304
+        -#    %li.pagination_item.pagination_next
+        -#      %a.gl_link{:href => ""}
 
 
 

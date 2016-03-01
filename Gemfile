@@ -37,6 +37,10 @@ gem 'httpclient'
 gem 'redis'
 gem 'figaro'
 gem 'unicorn'
+gem 'superb_auth', github: 'SuperbCoders/superb_auth', branch: 'rails_4.2.3'
+gem 'omniauth-facebook'
+gem 'omniauth-vkontakte'
+gem 'omniauth-twitter'
 
 group :development, :test do
   gem 'better_errors'
