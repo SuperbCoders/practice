@@ -2,7 +2,7 @@
 #= require jquery-ui
 #= require doctor/includes/chosen.jquery
 #= require swiper
-#= require jquery.nicescroll
+#= require jquery.nicescroll/dist/jquery.nicescroll.min
 #= require moment
 #= require fullcalendar
 #= require lodash/lodash
