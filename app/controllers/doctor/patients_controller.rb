@@ -13,8 +13,13 @@ class Doctor::PatientsController < Doctor::BaseController
         @resource.attach(:avatar, params[:patient][:avatar])
       end
 
+      # Rhesus
+      case params[:rhesus]
+        when '+' then @resource.rhesus = true
+        when '-' then @resource.rhesus = false
+      end
+
       # Gender
-      logger.info "Gender #{params[:gender]}"
       case params[:gender]
         when 'male' then @resource.male!
         when 'female' then @resource.female!
@@ -32,13 +37,23 @@ class Doctor::PatientsController < Doctor::BaseController
   end
 
   def create
-    logger.info "Patient #{@resource.to_json}"
     @resource.password = Patient.temporary_password
     @resource.register_date = DateTime.now
 
     if @resource.save
       logger.info "-> params #{params.to_json}"
       logger.info "-> resource_params #{resource_params.to_json}"
+
+      # Avatar
+      if params[:patient][:avatar].is_a? Hash
+        @resource.attach(:avatar, params[:patient][:avatar])
+      end
+
+      # Rhesus
+      case resource_params[:rhesus]
+        when '+' then @resource.rhesus = true
+        when '-' then @resource.rhesus = false
+      end
 
       # Gender
       case resource_params[:gender]
@@ -53,18 +68,14 @@ class Doctor::PatientsController < Doctor::BaseController
       } if params[:patient][:phones]
 
       current_doctor.appointments.create(patient: @resource)
-
-      @response[:success] = true
-      @response[:messages] << t('doctor.messages.patient_succefully_created')
-      @response[:patient] = serialize_resource(@resource, Doctor::PatientSerializer)
-    else
-      @response[:errors] += @resource.errors.full_messages
     end
-    send_response @response
+
+    send_json serialize_resource(@resource, Doctor::PatientSerializer), @resource.id?
+    # send_response @response
   end
 
   def resource_scope
-    current_doctor.patients
+    current_doctor.patients.order(created_at: :desc)
   end
 
   def resource_serializer
@@ -85,6 +96,7 @@ class Doctor::PatientsController < Doctor::BaseController
         :email,
         :gender,
         :weight,
+        :rhesus,
         :height,
         :blood,
         :diseases,

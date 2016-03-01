@@ -49,7 +49,7 @@
       .patient_name
         %a.gl_link.gray_link{:href => "", 'ng-click' => "vm.toggle_patient_info()"}
           %span {{vm.event.patient.name}}
-      %textarea.input_v5.form_input.skipOpen Болят карманы, ломит штаны, от водки тошнит, вылечите скорей меня
+      %textarea.input_v5.form_input.skipOpen {{ vm.event.patient.comment }}
     .patient_info_table
       .other_info_cell
         %p{'ng-show' => "vm.event.patient.phone"} {{vm.event.patient.phone}}
@@ -67,12 +67,15 @@
         %li.patient_overview_line
           .overview_caption ПОРТРЕТ ПАЦИЕНТА
           %dl.overview_info
-            %dt Рост:
-            %dd {{vm.event.patient.height}}
-            %dt Вес
-            %dd {{vm.event.patient.weight}} кг
-            %dt Возраст
-            %dd {{vm.event.patient.age }} лет
+            .height{'ng-show' => "vm.event.patient.height"}
+              %dt Рост:
+              %dd {{ vm.event.patient.height }}
+            .weight{'ng-show' => "vm.event.patient.weight"}
+              %dt Вес
+              %dd {{ vm.event.patient.weight }} кг
+            .age{'ng-show' => "vm.event.patient.age"}
+              %dt Возраст
+              %dd {{ vm.event.patient.age }} лет
         %li.patient_overview_line
           .overview_caption МЕДИЦИНСКИЕ ОСОБЕННОСТИ
           %p {{vm.event.patient.diseases }}

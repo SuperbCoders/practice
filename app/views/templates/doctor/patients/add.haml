@@ -15,8 +15,8 @@
               %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
               %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
           %input#patient_photo.hidden_input{:type => "file", 'ng-model' => "vm.patient.avatar"}(base-sixty-four-input)
-            %img{'ng-src' => "data:{{vm.patient.avatar.filetype}};base64,{{vm.patient.avatar.base64}}", width: '128px', height: '128px', 'ng-if' => '!vm.patient.avatar'}
-            %img{'ng-src' => "{{vm.patient.avatar}}", width: '128px', height: '128px', 'ng-if' => 'vm.patient.avatar'}
+            %img{'ng-src' => "data:{{vm.patient.avatar.filetype}};base64,{{vm.patient.avatar.base64}}", width: '128px', height: '128px', 'ng-if' => 'vm.patient.avatar.filetype'}
+            %img{'ng-src' => "{{vm.patient.avatar}}", width: '128px', height: '128px', 'ng-if' => '!vm.patient.avatar.filetype'}
             .patient_add_avatar
               %span.patient_avatar_letter Ф
               %label.change_photo_btn.btn_v1{:for => "patient_photo"}
@@ -50,16 +50,16 @@
       / Пол
       .form_row
         .label_holder
-          %label.form_label{:for => "patient_gender"} Пол {{vm.patient.gender}}
+          %label.form_label{:for => "patient_gender"} Пол
         .input_w.size_45.max_w_300
           %ul.filter_toggle.filter_toggle_v2
             %li.filter_t_item
               %label.filter_t_box
-                %input.hidden_input{'ng-checked' => "vm.patient.gender = 'male'", :name => "patient_filter", :type => "radio", 'ng-click' => "vm.patient.gender = 'male'"}
+                %input.hidden_input{ :id => "patient_gender_male", :type => "radio", 'ng-click' => "vm.gender('male')"}
                   %span.filter_t_name Мужской
             %li.filter_t_item
               %label.filter_t_box
-                %input.hidden_input{'ng-checked' => "vm.patient.gender = 'female'", :name => "patient_filter", :type => "radio", 'ng-click' => "vm.patient.gender = 'female'"}
+                %input.hidden_input{ :id => "patient_gender_female", :type => "radio", 'ng-click' => "vm.gender('female')"}
                   %span.filter_t_name Женский
 
       / Возраст
@@ -67,7 +67,7 @@
         .label_holder
           %label.form_label{:for => "patient_age"} Возраст
         %label.input_w.size_29.datepicker_v1.max_w_300
-          %input#patient_age.form_input.input_v1{'ng-model' => "vm.patient.birthday"}
+          %input#patient_age.form_input.input_v1{'ng-model' => "vm.patient.birthday_text"}
             %span.calendar_icon
 
       / Вес
@@ -89,14 +89,14 @@
         .label_holder
           .form_label Группа крови
         .input_w.size_27.mob_size_43.chosen_v1.no_search
-          %select#doctor_stand_time.chosen-select{"data-placeholder" => "Группа", 'ng-model' => "vm.patient.blood"}
+          %select#patient_blood.chosen-select{"data-placeholder" => "Группа", 'ng-model' => "vm.patient.blood"}
             %option{"data-title" => "", :value => ""}
             %option{"data-title" => "1 группа", :value => "1"} 1 группа
             %option{"data-title" => "2 группа", :value => "2"} 2 группа
             %option{"data-title" => "3 группа", :value => "3"} 3 группа
             %option{"data-title" => "4 группа", :value => "4"} 4 группа
         .input_w.size_27.mob_size_43.chosen_v1.no_search
-          %select#doctor_stand_time.chosen-select{"data-placeholder" => "Резус фактора", 'ng-model' => "vm.patient.rhesus"}
+          %select#patient_rhesus.chosen-select{"data-placeholder" => "Резус фактора", 'ng-model' => "vm.patient.rhesus"}
             %option{"data-title" => "", :value => ""}
             %option{"data-title" => "+", :value => "-"} -
             %option{"data-title" => "-", :value => "+"} +
@@ -125,7 +125,6 @@
         .input_w.size_59
           %input#patient_profession.form_input.input_v1{'ng-model' => "vm.patient.profession"}
 
-
     .tab_inner.form_row_v1
 
       / Договор
@@ -134,13 +133,6 @@
           %label.form_label{:for => "patient_doc_number"} Договор №
         .input_w.size_59
           %input#patient_doc_number.form_input.input_v1{'ng-model' => "vm.patient.contract_id"}
-
-      / Дата регистрации
-      -#.form_row
-      -#  .label_holder
-      -#    %label.form_label{:for => "patient_reg_date"} Дата регистрации
-      -#  .input_w.size_59
-      -#    %input#patient_reg_date.form_input.input_v1{'ng-model' => "vm.patient.register_date"}
 
   .profile_tab_controls
     .section_inner

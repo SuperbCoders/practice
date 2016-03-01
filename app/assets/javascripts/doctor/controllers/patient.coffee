@@ -1,4 +1,4 @@
-class EditPatientController
+class PatientController
   constructor: (@rootScope, @scope, @Patients) ->
     vm = @
     vm.patient = undefined
@@ -8,6 +8,10 @@ class EditPatientController
         vm.patient = patient
         vm.normalize_patient()
       )
+    else
+      vm.patient =
+        phones: [{number: ''}]
+        register_date: moment(Date.new)
 
     $('#patient_age').datepicker
       firstDay: 1
@@ -77,6 +81,11 @@ class EditPatientController
         'Сб'
       ]
 
+
+    $("#patient_age").on("change", ->
+      vm.patient.birthday = moment($('#patient_age').datepicker('getDate'))
+    )
+
     $('.chosen-select').chosen(
       width: '100%'
       disable_search_threshold: 3).on('chosen:showing_dropdown', (evt, params) ->
@@ -107,19 +116,52 @@ class EditPatientController
       return
 
   normalize_patient: ->
-    # "17 / 03 / 2016"
     vm = @
-    birthday = moment(vm.patient)
-    vm.patient.birthday = "#{birthday.date()} / #{birthday.month()} / #{birthday.year()}"
+
+    # Birthday
+    # "17 / 03 / 2016"
+    if vm.patient.birthday
+      birthday = moment(vm.patient.birthday)
+      vm.patient.birthday_text = "#{birthday.format('DD')} / #{birthday.format('MM')} / #{birthday.format('YYYY')}"
+
+    # Gender
+    @reset_gender()
+    $("#patient_gender_#{vm.patient.gender}").prop('checked', true)
+
+    # Blood
+    $('#patient_blood').val(vm.patient.blood).trigger('chosen:updated')
+    $('#patient_rhesus').val(vm.patient.rhesus).trigger('chosen:updated')
+    return
 
   add_phone: -> @patient.phones.push {number: ''}
 
+  reset_gender: ->
+    $("#patient_gender_male").prop("checked", false)
+    $("#patient_gender_female").prop("checked", false)
+    return
+
+  gender: (g_type) ->
+    vm = @
+    @reset_gender()
+    console.log "Gender #{g_type}"
+    vm.patient.gender = g_type
+    $("#patient_gender_#{g_type}").prop('checked', true)
+    return
+
   save: (redirect = false) ->
     vm = @
-    console.log @patient
+    return false if not @patient
 
-    vm.patient.$save().then((patient) ->
-      vm.normalize_patient()
-    )
+    if vm.patient.id
+      vm.patient.$save().then((patient) ->
+        vm.normalize_patient()
+      )
+    else
+      vm.Patients.create({patient: vm.patient}).$promise.then((result) ->
+        if vm.redirect
+          vm.rootScope.$state.go('journal.add_record', {patient_id: result.patient.id})
+        else
+          vm.rootScope.$state.go('patients.list')
+      )
 
-@application.controller 'EditPatientController', ['$rootScope','$scope', 'Patients' , EditPatientController]
+@application.controller 'PatientController', ['$rootScope','$scope', 'Patients' , PatientController]

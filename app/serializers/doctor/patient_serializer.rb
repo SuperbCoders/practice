@@ -3,9 +3,13 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
       :blood, :diseases, :habits, :profession, :contract_id,
       :register_date, :avatar, :first_name, :last_name,
       :approved, :archivated, :phone, :email, :age, :birthday,
-      :phones, :emails
+      :phones, :emails, :rhesus
 
   has_many :contacts
+
+  def rhesus
+    object.try(:rhesus) ? "+" : "-"
+  end
 
   def phones
     object.contacts.phone
@@ -13,14 +17,6 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
 
   def emails
     object.contacts.email
-  end
-
-  def birthday
-    birthday = object.try(:birthday)
-
-    if birthday
-      "#{birthday.day} / #{birthday.month} / #{birthday.year}"
-    end
   end
 
   def age

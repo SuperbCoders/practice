@@ -70,7 +70,7 @@
   .state 'patients.add',
     url: '/add',
     templateUrl: '/templates/doctor/patients/add.html',
-    controller: 'AddPatientsController',
+    controller: 'PatientController',
     controllerAs: 'vm',
     resolve:
       Patients: ['Resources', (Resources) ->
@@ -82,7 +82,7 @@
   .state 'patients.edit',
     url: '/edit/:id',
     templateUrl: '/templates/doctor/patients/add.html',
-    controller: 'EditPatientController',
+    controller: 'PatientController',
     controllerAs: 'vm',
     resolve:
       Patients: ['Resources', (Resources) ->
@@ -121,22 +121,18 @@
 ]
 
 @application.factory 'AlertsMonitor', [ '$injector', ($injector) ->
-  timestampMarker =
-    request: (config) ->
-      config.requestTimestamp = (new Date).getTime()
-      config
+  alertsMonitor =
+    responseError: (response) ->
+      Alerts = $injector.get('Alerts')
+      if response && response.data.errors && response.data.errors.length > 0
+        Alerts.errors response.data.errors
+      response
     response: (response) ->
       Alerts = $injector.get('Alerts')
-
-      if response.data.messages && response.data.messages.length > 0
+      if response && response.data.messages && response.data.messages.length > 0
         Alerts.messages response.data.messages
-
-      if response.data.errors && response.data.errors.length > 0
-        Alerts.messages response.data.errors
-
-      response.config.responseTimestamp = (new Date).getTime()
       response
-  timestampMarker
+  alertsMonitor
 ]
 
 @application.run ['$rootScope', '$state', '$stateParams', ($rootScope, $state, $stateParams) ->

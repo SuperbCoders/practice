@@ -125,6 +125,33 @@ class AddPatientsController
       vm.Alerts.errors result.data.errors
     )
 
+  normalize_patient: ->
+    vm = @
+
+    # Birthday
+    # "17 / 03 / 2016"
+    birthday = moment(vm.patient)
+    vm.patient.birthday = "#{birthday.date()} / #{birthday.month()} / #{birthday.year()}"
+
+    # Gender
+    @reset_gender()
+    $("#patient_gender_#{vm.patient.gender}").attr('checked', 'checked')
+    return
+
   add_phone: -> @patient.phones.push {number: ''}
+
+  reset_gender: ->
+    $("#patient_gender_male").prop("checked", false)
+    $("#patient_gender_female").prop("checked", false)
+    return
+
+  gender: (g_type) ->
+    vm = @
+    @reset_gender()
+    console.log "Gender #{g_type}"
+    vm.patient.gender = g_type
+    $("#patient_gender_#{g_type}").prop('checked', true)
+    return
+
 
 @application.controller 'AddPatientsController', ['$rootScope','$scope', 'Patients', 'Alerts', '$state' , AddPatientsController]
