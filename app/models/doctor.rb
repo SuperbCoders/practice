@@ -23,7 +23,6 @@ class Doctor < ActiveRecord::Base
 
   def avatar_from_url(url)
     destroy_avatar
-    upload_path = Rails.application.config.upload_path
     file_extension = 'png'
     new_file_name = "#{SecureRandom.hex}.#{file_extension}"
 
@@ -37,7 +36,7 @@ class Doctor < ActiveRecord::Base
       res = open(url)
       if res.status[0].eql? '200'
 
-        File.open("#{upload_path}/#{new_file_name}", 'wb') { |f|
+        File.open("#{Rails.application.config.upload_path}/#{new_file_name}", 'wb') { |f|
           if f.write(res.read)
             return update_attributes(avatar: new_file_name)
           end
