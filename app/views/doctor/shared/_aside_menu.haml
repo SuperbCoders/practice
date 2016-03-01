@@ -1,22 +1,22 @@
+#aside_menu_holder.aside_menu_holder
+  .aside_menu
+    %a.aside_close_btn.closeMenu{:href => ""}
+    .user_info
+      .user_avatar
+        %img{:src => "upload/#{current_doctor.avatar}"}/
+      .user_name
+        %b #{current_doctor.name}
+      %p
+        %a.gl_link.blue_link{:href => "/doctors/#{current_doctor.username}", target: '_blank'}
+          %span Перейти на сайт
+    .aside_m_scroller
+      %ul.aside_m_list
+        %li.aside_m_item
+          %a.gl_link{:href => ""} Поделиться моей страницей
+        %li.aside_m_item
+          %a.gl_link{:href => "", 'ui-sref' => "doctor.profile"} Настройки
+        %li.aside_m_item
+          %a.gl_link{:href => destroy_doctor_session_path} Выход из учетной записи
+        %li.aside_m_item.aside_m_last
+          %a.gl_link.openRegSuccess{:href => ""} Техническая поддержка
 #aside_menu_overlay.aside_menu_overlay.closeMenu
-  #aside_menu_holder.aside_menu_holder
-    .aside_menu
-      %a.aside_close_btn.closeMenu{:href => ""}
-      .user_info
-        .user_avatar
-          %img{:src => "i/user_small_1.png"}/
-        .user_name
-          %b Ярослав Самойлов
-        %p
-          %a.gl_link.blue_link{:href => "/doctors/#{current_doctor.username}", target: '_blank'}
-            %span Перейти на сайт
-      .aside_m_scroller
-        %ul.aside_m_list
-          %li.aside_m_item
-            %a.gl_link{:href => ""} Поделиться моей страницей
-          %li.aside_m_item
-            %a.gl_link{:href => "", 'ui-sref' => "doctor.profile"} Настройки
-          %li.aside_m_item
-            %a.gl_link{:href => destroy_doctor_session_path} Выход из учетной записи
-          %li.aside_m_item.aside_m_last
-            %a.gl_link.openRegSuccess{:href => ""} Техническая поддержка
