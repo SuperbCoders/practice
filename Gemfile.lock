@@ -1,14 +1,4 @@
 GIT
-  remote: git://github.com/SuperbCoders/superb_auth.git
-  revision: bb15665743b876df3d55b7cc87bc6e2cb9ff0938
-  branch: rails_4.2.3
-  specs:
-    superb_auth (0.0.1)
-      devise
-      open_uri_redirections
-      rails (~> 4.2.3)
-
-GIT
   remote: git://github.com/thoughtbot/shoulda-matchers.git
   revision: b58f0a1807a4346399aa3b9bb5b88923ab9aa2e5
   specs:
@@ -253,7 +243,6 @@ GEM
       multi_json
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
-    open_uri_redirections (0.2.1)
     orm_adapter (0.5.0)
     parser (2.3.0.6)
       ast (~> 2.2)
@@ -445,6 +434,7 @@ DEPENDENCIES
   launchy
   less-rails
   logger
+  omniauth
   omniauth-facebook
   omniauth-twitter
   omniauth-vkontakte
@@ -466,7 +456,6 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   sqlite3
-  superb_auth!
   therubyracer
   thin
   timecop

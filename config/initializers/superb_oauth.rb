@@ -1,1 +1,0 @@
-SuperbAuth.user_class_name = 'Doctor'
