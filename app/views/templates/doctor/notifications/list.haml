@@ -1,0 +1,16 @@
+.sub_header_holder
+  .section_inner.clearfix
+    .patient_controls
+      .fl
+        .mb.rel_holder
+          %a.go_back_btn.middle_mod{:href => "", 'onClick'=>"javascript:history.go(-1);"}
+      .page_title Уведомления
+      .fr.filter_toggle_holder
+        .mb.edit_mode
+          %ul.avatar_catcher.avatarCatcher
+.section_inner
+  .notification_center_holder
+    %ul.notification_list{'ng-repeat' => "notification in vm.notifications"}
+      %li.notification_item
+        .notification_event
+          %p {{notification.message}}

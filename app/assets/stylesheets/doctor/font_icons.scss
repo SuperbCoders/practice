@@ -45,6 +45,38 @@
   }
 }
 
+.icon-donemark:before {
+  content: "\e90f";
+}
+
+.icon-tip_arrow:before {
+  content: "\e911";
+}
+
+.icon-minus:before {
+  content: "\e90e";
+}
+
+.icon-map_pin:before {
+  content: "\e90c";
+}
+
+.icon-attach:before {
+  content: "\e90d";
+}
+
+.icon-search:before {
+  content: "\e909";
+}
+
+.icon-close:before {
+  content: "\e908";
+}
+
+.icon-logogray:before {
+  content: "\e907";
+}
+
 .icon-pencil:before {
   content: "\e900";
 }
@@ -61,10 +93,6 @@
   content: "\e903";
 }
 
-.icon-minus:before {
-  content: "\e90e";
-}
-
 .icon-tw:before {
   content: "\e904";
 }
@@ -73,42 +101,25 @@
   content: "\e905";
 }
 
+.icon-checkmark:before {
+  content: "\e906";
+}
+
+.icon-calendar_icon .path1:before {
+  content: "\e90a";
+  color: rgba(99, 99, 123, 0.4);
+}
+
+.icon-calendar_icon .path2:before {
+  content: "\e90b";
+  margin-left: -1em;
+  color: rgb(99, 99, 123);
+}
+
 .icon-chevron_right:before {
   content: "\e910";
 }
 
 .icon-chevron_left:before {
   content: "\e601";
-}
-
-.icon-checkmark:before {
-  content: "\e906";
-}
-
-.icon-logogray:before {
-  content: "\e907";
-}
-
-.icon-close:before {
-  content: "\e908";
-}
-
-.icon-search:before {
-  content: "\e909";
-}
-
-.icon-calendar_icon:before {
-  content: "\e90a";
-}
-
-.icon-calendar_icon:after {
-  content: "\e90b";
-}
-
-.icon-map_pin:before {
-  content: "\e90c";
-}
-
-.icon-attach:before {
-  content: "\e90d";
 }

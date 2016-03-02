@@ -11,6 +11,7 @@ class ScheduleController
     vm.events ||= []
     vm.patient = undefined
     vm.event = undefined
+    vm.events_count = undefined
 
     vm.calendar_options =
       events: vm.visits_by_date
@@ -141,7 +142,7 @@ class ScheduleController
 
 
 
-
+      vm.events_count = events.length
       callback(events)
     )
 

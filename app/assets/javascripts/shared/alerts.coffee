@@ -14,7 +14,7 @@
         alert_type: 'success'
 
       alerts.push alert
-      Notification.success(message, positionY: 'top', positionX: 'right')
+      Notification.success(message, positionY: 'top', positionX: 'right', templateUrl: "notifications.htmla")
 
     error: (message) ->
       alert =
@@ -22,7 +22,7 @@
         alert_type: 'error'
 
       alerts.push alert
-      Notification.error(message, positionY: 'top', positionX: 'right')
+      Notification.error(message, positionY: 'top', positionX: 'right',  templateUrl: "notifications.htmla")
 
 
     server_error: -> @error('Не удалось отправить запрос!')

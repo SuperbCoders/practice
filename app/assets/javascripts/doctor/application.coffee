@@ -15,7 +15,8 @@
     verticalSpacing: 20,
     horizontalSpacing: 20,
     positionX: 'right',
-    positionY: 'top'
+    positionY: 'top',
+    templateUrl: 'notifications.html'
   })
 
   $httpProvider.defaults.useXDomain = true
@@ -25,6 +26,12 @@
   delete $httpProvider.defaults.headers.common['X-Requested-With']
 
   $stateProvider
+  .state 'notifications',
+    url: '/notifications',
+    templateUrl: '/templates/doctor/notifications/list.haml'
+    controller: 'NotificationsController'
+    controllerAs: 'vm'
+
   .state 'doctor',
     url: '/doctor',
     templateUrl: '/templates/doctor/profile.html',

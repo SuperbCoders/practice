@@ -18,6 +18,10 @@
         %div(ui-view)
 
         = render 'doctor/shared/aside_menu'
-
+        %script{'type'=>"text/ng-template", 'id'=>"notifications.html"}
+          .ui-notification
+            %h3{"ng-show" => "title"}
+              {{title}} aaaa
+            .message{"ng-bind-html" => "message"}
       = render 'doctor/shared/popups/add_patient_form'
       = render 'doctor/shared/popups/patient_info_form'

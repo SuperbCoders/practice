@@ -1,0 +1,55 @@
+.patient_tip_holder{'ng-show' => "vm.patients.length <= 0"}
+  .patient_tip
+    .patient_tip_arrow
+    .tip_title Здесь будут карточки ваших пациентов, выглядеть будут примерно так
+    %p Чтобы создать карточку клиента нажмите на желтую кнопку “создать новую карточку”
+  %ul.patients_list
+    %li.patient_unit
+      .patient_card
+        .patient_status_w.chosen_v2.no_search.skipOpen
+          %select.chosen-select
+            %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
+            %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
+            %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
+            %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
+        .patient_menu_w.skipOpen
+          .drop_down_btn
+            %span
+          .drop_down_w
+            %ul.drop_down_menu
+              %li.drop_down_item.active
+                %a.gl_link{:href => "#"}
+                  %span Подтвердить прием
+              %li.drop_down_item
+                %a.gl_link{:href => "#"}
+                  %span Отказать в  приёме
+              %li.drop_down_item
+                %a.gl_link{:href => "#"}
+                  %span Добавить запись в карту
+              %li.drop_down_item
+                %a.gl_link{:href => "#"}
+                  %span Редактировать
+              %li.drop_down_item
+                %a.gl_link{:href => "#"}
+                  %span Отправить в архив
+              %li.drop_down_item
+                %a.gl_link{:href => "#"}
+                  %span Удалить
+        .patient_info
+          .patient_name
+            %a.skipOpen.gl_link.gray_link.write2Card{:href => "#"}
+              %span Самойлов Ярослав Георгиевич
+          %p Краткая информация о пациенте Первичный прием, возможно анализы, закладывает уши итд
+        .patient_info_table
+          .other_info_cell
+            %p +7 927 026 10 22
+            %p yaosamo@gmail.com
+        .patient_card_controls.skipOpen
+          .patient_info_table
+            .controls_cell
+              %a.btn_v2.patient_btn.black_yellow_btn{:href => "#"}
+                %span.mb Записать на прием
+        / +patient_overview()
+      .avatar_clone
+        %a.patient_avatar.skipOpen.write2Card{:href => "#"}
+          %img{:src => "i/user_1.png"}/

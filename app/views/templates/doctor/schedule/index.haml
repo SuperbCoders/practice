@@ -1,6 +1,10 @@
 .calendar_header_holder.calendarSubHeader
 .main_content
   .section_inner.calendarHolder.day_mode
+    .calendar_tip{'ng-if' => "vm.events_count <= 0"}
+      .patient_tip
+        .tip_title Здесь вы можете добавить запись для пациента, нажав на пустую ячейку
+
     #calendar.calendar_v1.fc.fc-ltr.fc-unthemed
     .day_info_block.dayInfoBlock
       .ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.dialog_v1.no_close_mod.no_title_mod.ui-draggable.ui-resizable{"aria-describedby" => "patient_info_form", "aria-labelledby" => "ui-id-6", :role => "dialog", :style => "display: none; position: absolute;", :tabindex => "-1"}
