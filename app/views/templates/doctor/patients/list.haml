@@ -53,7 +53,7 @@
               / Patient info
               .patient_info
                 .patient_name
-                  %a.skipOpen.gl_link.gray_link.write2Card{:href => ""}
+                  %a.skipOpen.gl_link.gray_link.write2Card{:href => "", 'ui-sref' => "journal.records({patient_id: patient.id})"}
                     %span {{patient.name}}
                 %p {{patient.comment}}
               .patient_info_table
@@ -68,7 +68,7 @@
 
             / +patient_overview()
             .avatar_clone
-              %a.patient_avatar.skipOpen.write2Card{:href => ""}
+              %a.patient_avatar.skipOpen.write2Card{:href => "", 'ui-sref' => "journal.records({patient_id: patient.id})"}
                 %img{'ng-src' => "{{patient.avatar}}"}/
 
         / Pagination

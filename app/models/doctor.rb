@@ -16,6 +16,7 @@ class Doctor < ActiveRecord::Base
   has_many :patients, through: :appointments
   has_many :identities, dependent: :destroy
   has_many :work_schedules, dependent: :destroy
+  has_many :journals
 
   validates_uniqueness_of :username
 

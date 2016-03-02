@@ -8,13 +8,6 @@ class PatientsController
 
     vm.Patients = @Patients
 
-    vm.app_filter =
-
-
-    @scope.$watch('vm.filters', (a, b) ->
-      console.log a
-    )
-
     # Из-за верстки нужно добавлять классы к body
     # в зависимости от страницы
     $('body').addClass 'body_gray'

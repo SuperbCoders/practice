@@ -4,7 +4,4 @@ class Journal < ActiveRecord::Base
 
   has_many :journal_records, dependent: :destroy
 
-  def date
-    created_at.iso8601
-  end
 end

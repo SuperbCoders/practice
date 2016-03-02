@@ -22,6 +22,7 @@
                     %img{'ng-src' => "{{notification.image}}"}/
                   .notification_event
                     %p {{ notification.message }}
+                    %a.gl_link.gray_link_3{'ng-show'=>"notification.alert_type == 'file'"} отменить
                 -#%li.notification_item
                 -#  .notification_img
                 -#    %img{:src => "i/notify_img.jpg"}/

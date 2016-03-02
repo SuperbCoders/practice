@@ -14,9 +14,7 @@ Rails.application.routes.draw do
     resource :profile, only: [:show, :update]
     resources :patients
     resources :visits
-    resources :journal do
-      resources :journal_records
-    end
+    resources :journals
   end
 
   namespace :admin do

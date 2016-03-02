@@ -98,14 +98,30 @@
         ]
       ]
 
-  .state 'journal.add_record',
-    url: '/:patient_id/journal',
-    templateurl: '/templates/doctor/patients/add_journal_record.html',
+  .state 'journal',
+    url: '/journal',
+    templateUrl: '/templates/doctor/journal/index.html'
+
+  .state 'journal.records',
+    url: '/:patient_id/records',
+    templateUrl: '/templates/doctor/journal/list.html'
     controller: 'JournalController',
     controllerAs: 'vm'
     resolve:
-      Patients: ['Resources', (Resources) ->
-        Resources '/doctor/patients/:id', {id: '@id'}, [
+      Journals: ['Resources', (Resources) ->
+        Resources '/doctor/journals/:id', {id: '@id'}, [
+          {method: 'GET', isArray: true}
+        ]
+      ]
+
+  .state 'journal.add_record',
+    url: '/:patient_id/add',
+    templateUrl: '/templates/doctor/journal/add_record.html',
+    controller: 'JournalController',
+    controllerAs: 'vm'
+    resolve:
+      Journals: ['Resources', (Resources) ->
+        Resources '/doctor/journals/:id', {id: '@id'}, [
           {method: 'GET', isArray: true}
         ]
       ]
@@ -142,7 +158,7 @@
   alertsMonitor
 ]
 
-@application.run ['$rootScope', '$state', '$stateParams', ($rootScope, $state, $stateParams) ->
+@application.run ['$rootScope', '$state', '$stateParams', '$window', ($rootScope, $state, $stateParams, $window) ->
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
 
@@ -176,8 +192,8 @@
   $('html').on('click', (event, ui) ->
     if event.toElement.id != 'menu_button'
       $('html').removeClass('menu_open')
-    console.log event.toElement.id
   )
+
   $rootScope.menu_close = ->
     angular.element(document.querySelector("html")).removeClass 'menu_open'
     return
@@ -185,7 +201,6 @@
   $rootScope.regDate = -> moment(Date.new)
 
   $rootScope.init_chosen = ->
-    console.log 'inited'
     $('#doctor_stand_time').chosen()
     $("#doctor_work_days").chosen()
     $('.chosen-select').chosen({

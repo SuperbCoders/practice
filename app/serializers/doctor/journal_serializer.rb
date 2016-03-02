@@ -1,5 +1,6 @@
 class Doctor::JournalSerializer < Doctor::BaseSerializer
-  attributes :date
+  attributes :created_at, :updated_at
 
+  has_many :journal_records, serializer: Doctor::JournalRecordSerializer
   belongs_to :patient, serializer: Doctor::PatientSerializer
 end

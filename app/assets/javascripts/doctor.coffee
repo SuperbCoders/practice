@@ -16,6 +16,8 @@
 #= require angular-moment
 #= require angular-base64-upload
 
+#/##=  doctor/includes/angular-base64-upload
+
 #= require ./doctor/includes/scripts
 #= require ./doctor/application
 #= require_tree ./doctor/controllers
