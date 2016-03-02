@@ -26,8 +26,6 @@ class Doctor < ActiveRecord::Base
     file_extension = 'png'
     new_file_name = "#{SecureRandom.hex}.#{file_extension}"
 
-    # https://pp.vk.me/c629430/v629430842/212e1/78Dj1AOMhs4.jpg
-
     if ['jpg','png','jpeg'].map(&:upcase).include? url.split('.')[-1].upcase
       file_extension = url.split('.')[-1]
     end
@@ -53,8 +51,6 @@ class Doctor < ActiveRecord::Base
       if user.new_record?
         user.email = auth.info.email.downcase
         user.password = Patient.temporary_password
-        user.first_name = auth.info.first_name
-        user.last_name = auth.info.last_name
         user.username = auth.extra.raw_info.id
 
         if user.save
@@ -75,11 +71,15 @@ class Doctor < ActiveRecord::Base
         case auth.provider
           when 'facebook'
             user.avatar_from_url("https://graph.facebook.com/#{auth.extra.raw_info.id}/picture?type=large")
+            user.first_name = auth.info.name
           when 'vkontakte'
             user.avatar_from_url(auth.extra.raw_info.photo_200_orig) if auth.extra.raw_info.photo_200_orig
+            user.first_name = auth.info.first_name
+            user.last_name = auth.info.last_name
         end
       end
 
+      user.save
       user
     end
   end
