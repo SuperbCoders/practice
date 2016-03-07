@@ -1,7 +1,7 @@
 .patient_edit_block
   %ul.patient_notes{'ng-repeat' => "journal in vm.journals"}
     %li.patient_note
-      .patient_note_date {{journal.created_at}}
+      .patient_note_date {{journal.date}}
       .patient_note_block
         .card_menu_w
           .drop_down_btn
@@ -18,6 +18,6 @@
                 %a.gl_link{:href => "#"}
                   %span Удалить
         %dl.note_lines{'ng-repeat' => "record in journal.journal_records"}
-          %dt {{record.tag}}
+          %dt {{vm.show_tag(record.tag)}}
           %dd
             %p {{record.body}}

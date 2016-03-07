@@ -14,21 +14,20 @@ class Doctor::JournalsController < Doctor::BaseController
     journal_records.map { |jr|
       jr_obj = @journal.journal_records.create(body: jr[:body],tag:  jr[:tag])
 
-      if jr_obj && jr[:attachments]
+      if jr_obj.save && jr[:attachments]
 
         jr[:attachments].map { |jr_file|
           jra = jr_obj.attachments.create
           jra.attach(:file, jr_file)
           logger.info "File #{jr_file[:filename]} attached"
         }
-
       end
     }
-    send_json serialize_resource(@resource, resource_serializer), true
+    send_json serialize_resource(@journal, resource_serializer), true
   end
 
   def resource_scope
-    current_doctor.journals
+    doctor.journals
   end
 
   def resource_serializer
@@ -54,7 +53,7 @@ class Doctor::JournalsController < Doctor::BaseController
   private
 
   def set_journal
-    @journal = current_doctor.journals.where(patient_id: journal_params[:patient_id]).create
+    @journal = doctor.journals.where(patient_id: journal_params[:patient_id]).create
   end
 
   def journal_records

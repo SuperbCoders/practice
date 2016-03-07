@@ -108,6 +108,11 @@
     controller: 'JournalController',
     controllerAs: 'vm'
     resolve:
+      Dicts: ['Resources', (Resources) ->
+        Resources 'doctor/dicts/:id', {id: '@id'}, [
+          {method: 'GET', isArray: false},
+        ]
+      ]
       Journals: ['Resources', (Resources) ->
         Resources '/doctor/journals/:id', {id: '@id'}, [
           {method: 'GET', isArray: true}
@@ -120,6 +125,11 @@
     controller: 'JournalController',
     controllerAs: 'vm'
     resolve:
+      Dicts: ['Resources', (Resources) ->
+        Resources 'doctor/dicts/:id', {id: '@id'}, [
+          {method: 'GET', isArray: false},
+        ]
+      ]
       Journals: ['Resources', (Resources) ->
         Resources '/doctor/journals/:id', {id: '@id'}, [
           {method: 'GET', isArray: true}

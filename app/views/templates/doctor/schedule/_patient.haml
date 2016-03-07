@@ -44,7 +44,7 @@
               %span Удалить
 
     %a.patient_avatar{:href => "#"}
-      %img{'ng-src' => "{{vm.event.patient.avatar}}"}/
+      %img{'ng-src' => "{{vm.event.patient.avatar}}", 'ui-sref' => "journal.records({patient_id: vm.event.patient.id})"}/
     .patient_info
       .patient_name
         %a.gl_link.gray_link{:href => "", 'ng-click' => "vm.toggle_patient_info()"}

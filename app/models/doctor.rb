@@ -17,10 +17,19 @@ class Doctor < ActiveRecord::Base
   has_many :identities, dependent: :destroy
   has_many :work_schedules, dependent: :destroy
   has_many :journals
+  has_many :dicts, as: :dictable, dependent: :destroy
 
   validates_uniqueness_of :username
 
   before_destroy :destroy_avatars
+
+  def find_patient(email)
+    patient = Patient.find_by(email: email)
+
+    if patient
+      return patient if appointments.find_or_create_by(patient: patient)
+    end
+  end
 
   def avatar_from_url(url)
     destroy_avatar

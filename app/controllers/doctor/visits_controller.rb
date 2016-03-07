@@ -19,7 +19,7 @@ class Doctor::VisitsController < Doctor::BaseController
   end
 
   def create
-    @patient = doctor.patients.find_by(email: patient_params[:email])
+    @patient = doctor.find_patient(patient_params[:email])
 
     if @patient
       @response[:visit] = create_visit
@@ -38,7 +38,8 @@ class Doctor::VisitsController < Doctor::BaseController
 
         @response[:visit] = create_visit
       else
-        @response[:errors] += new_patient.errors.full_messages
+        logger.info "P-> #{@patient.errors.full_messages}"
+        @response[:errors] += @patient.errors.full_messages
       end
     end
 

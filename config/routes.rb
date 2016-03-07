@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :patients
     resources :visits
     resources :journals
+    resources :dicts
   end
 
   namespace :admin do
