@@ -1,5 +1,9 @@
 class Doctor::JournalRecordSerializer < Doctor::BaseSerializer
-  attributes :body, :journal_id, :tag, :created_at, :updated_at
+  attributes :body, :journal_id, :tag, :created_at, :updated_at, :attachments
 
-  has_many :attachments
+
+  def attachments
+    serialize_resources(object.attachments, Doctor::AttachmentSerializer)
+  end
+
 end

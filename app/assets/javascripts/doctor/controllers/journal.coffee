@@ -56,44 +56,25 @@ class JournalController
     return tag.dict_value for tag in vm.tags when tag.dict_type is 'journal_tag' and tag.id is parseInt(id)
 
   new_record: -> { attachments: [], pid: _.random(10000,20000) }
-  add_record: ->
-    @records.push @new_record()
-    return
+  add_record: -> @records.push @new_record()
   set_record: (record) -> @current_record = record
-
-  fetch_journals: ->
-    vm = @
-    vm.Journals.query({patient_id: vm.patient_id}).$promise.then((journals) ->
-      for journal in journals
-        journal.date = moment(journal.created_at).format('lll')
-
-      vm.journals = journals
-    )
-
-  fetch_dicts: ->
-    vm = @
-    vm.tags = []
-    @Dicts.get().$promise.then((response) ->
-      vm.tags.push dict for dict in response.dicts when dict.dict_type is 'journal_tag'
-    )
-
+  toggle_new_tag: (record) -> @rootScope.toggle_el_class("#new_tag_#{record.pid}", 'custom_field') if record.tag is 'new_tag'
   create_new_tag: (record) ->
     vm = @
     tag =
       dict_type: 'journal_tag'
       dict_value: vm.new_tag
 
-    @Dicts.create({dict: tag}).$promise.then((dict) ->
-      record.tag = dict.id
-      vm.new_tag = ''
-      vm.rootScope.toggle_el_class(".tag_item", 'custom_field')
-      vm.fetch_dicts()
-    )
-
+    if vm.new_tag not in vm.tags
+      @Dicts.create({dict: tag}).$promise.then((dict) ->
+        record.tag = parseInt(dict.id)
+        vm.new_tag = ''
+        vm.rootScope.toggle_el_class("#new_tag_#{record.pid}", 'custom_field')
+        vm.fetch_dicts()
+      )
+    else
+      console.log 'already exist tag'
     return
-
-  tag_changed: (record) -> @rootScope.toggle_el_class("#new_tag_#{record.pid}", 'custom_field') if record.tag is 'new_tag'
-
 
   # Reset image upload input element. angular-base64-upload bug
   changed: (event, raw_files) ->
@@ -122,5 +103,21 @@ class JournalController
       console.log journal
     )
     return
+
+  fetch_journals: ->
+    vm = @
+    vm.Journals.query({patient_id: vm.patient_id}).$promise.then((journals) ->
+      for journal in journals
+        journal.date = moment(journal.created_at).format('lll')
+
+      vm.journals = journals
+    )
+
+  fetch_dicts: ->
+    vm = @
+    vm.tags = []
+    @Dicts.get().$promise.then((response) ->
+      vm.tags.push dict for dict in response.dicts when dict.dict_type is 'journal_tag'
+    )
 
 @application.controller 'JournalController', ['$rootScope','$scope', 'Journals', 'Alerts', 'Dicts', JournalController]

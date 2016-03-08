@@ -11,7 +11,7 @@ class Doctor::JournalsController < Doctor::BaseController
     logger.info "journal_params -> #{journal_params}"
     logger.info "Journal #{@journal.id}"
 
-    journal_records.map { |jr|
+    journal_records_params.map { |jr|
       jr_obj = @journal.journal_records.create(body: jr[:body],tag:  jr[:tag])
 
       if jr_obj.save && jr[:attachments]
@@ -56,7 +56,7 @@ class Doctor::JournalsController < Doctor::BaseController
     @journal = doctor.journals.where(patient_id: journal_params[:patient_id]).create
   end
 
-  def journal_records
+  def journal_records_params
     if params[:journal][:journal_records]
       params[:journal][:journal_records]
     else

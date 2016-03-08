@@ -15,7 +15,7 @@
       .writeCtrl
         .write_control_item
           .chosen_v3.no_search
-            %select.chosen-select.paramSelect{'ng-model' => "record.tag", 'ng-change' => "vm.tag_changed(record)"}
+            %select.chosen-select.paramSelect{'ng-model' => "record.tag", 'ng-change' => "vm.toggle_new_tag(record)"}
               %option{"value" => "{{tag.id}}", 'ng-repeat' => "tag in vm.tags"} {{ tag.dict_value }}
               %option{"value" => "new_tag"} Свое назначение
           .write_state_control

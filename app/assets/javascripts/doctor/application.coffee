@@ -182,7 +182,8 @@
     return
 
   $rootScope.remove_class_from_el = (element_id, class_name) ->
-    angular.element(document.querySelector("##{element_id}")).removeClass(class_name)
+    el = angular.element(document.querySelector(element_id))
+    el.removeClass(class_name)
     return
 
   $rootScope.toggle_el_class = (element_id, class_name) ->
@@ -190,7 +191,6 @@
     if not el.hasClass(class_name)
       el.addClass(class_name)
     else
-      console.log 'remove class '+class_name+' form '+element_id
       el.removeClass(class_name)
 
     return

@@ -1,6 +1,22 @@
 class BaseSerializer < ActiveModel::Serializer
   attributes :id, :errors, :valid, :messages
 
+  def serialize_resources(resources, serializer)
+    ActiveModel::SerializableResource.new(
+        resources,
+        each_serializer: serializer,
+        root: false
+    ).serializable_hash
+  end
+
+  def serialize_resource(resource, serializer)
+    ActiveModel::SerializableResource.new(
+        resource,
+        serializer: serializer,
+        root: false
+    ).serializable_hash
+  end
+
   def messages
     object.try(:messages)
   end

@@ -21,3 +21,7 @@
           %dt {{vm.show_tag(record.tag)}}
           %dd
             %p {{record.body}}
+            %ul.note_img_list
+              %li{'ng-repeat' => "attachment in record.attachments"}
+                %a.note_img.fancybox{href: "{{attachment.file}}"}
+                  %img{'ng-src' => "{{attachment.file}}"}
