@@ -4,6 +4,13 @@ module Concerns::Resource
   included do
   end
 
+  def log_params
+    logger.info "\n"*3
+    logger.info "#{resource_symbol} params -> #{params.to_json}"
+    logger.info "#{resource_symbol} resource_params -> #{resource_params}"
+    logger.info "\n"*3
+  end
+
   # Configuration
   def resource_scope
     #Some::Class

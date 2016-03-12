@@ -1,17 +1,60 @@
 class Doctor::JournalsController < Doctor::BaseController
   include Concerns::Resource
 
+  before_action :log_params
   before_action :find_resources, only: %w(index)
   before_action :new_resource, only: %w(create new)
   before_action :find_resource, only: %w(show update destroy)
   before_action :set_journal, only: %w(create)
 
-  def create
-    logger.info "params -> #{params.to_json}"
-    logger.info "journal_params -> #{journal_params}"
-    logger.info "Journal #{@journal.id}"
+  def search_proxy
+    resource_scope.where(patient_id: params[:patient_id])
+  end
 
+  def update
+    if @resource
+      journal_records_params.map { |jr|
+        next if not jr[:body]
+
+        if jr[:id]
+          jr_obj = @resource.journal_records.find_by(id: jr[:id])
+        else
+          jr_obj = @resource.journal_records.create(body: jr[:body],tag:  jr[:tag])
+        end
+
+        if jr_obj
+          jr_obj.body = jr[:body]
+          jr_obj.tag = jr[:tag]
+
+          if jr_obj.save && jr[:attachments]
+
+            jr[:attachments].map { |jr_file|
+
+              # Delete journal record attachment if preset id and delete=true
+              if jr_file[:id] and jr_file[:delete]
+                logger.info "Mark as deleted ID #{jr_file[:id]} - #{jr_file[:file]}"
+                jr_attach = jr_obj.attachments.find_by(id: jr_file[:id])
+                logger.info "Deleted #{jr_attach.file}"
+                jr_attach.delete! if jr_attach
+              elsif not jr_file[:id]
+                jr_obj.attachments.create do |jr_attach|
+                  jr_attach.attach(:file, jr_file)
+                end
+              end
+            }
+          end
+
+          jr_obj.delete! if jr[:id] and jr[:delete]
+        end
+      }
+    end
+    send_json(@resource, true)
+  end
+
+  def create
     journal_records_params.map { |jr|
+      next if not jr[:body]
+
       jr_obj = @journal.journal_records.create(body: jr[:body],tag:  jr[:tag])
 
       if jr_obj.save && jr[:attachments]
@@ -38,12 +81,8 @@ class Doctor::JournalsController < Doctor::BaseController
     :journal
   end
 
-  def update
-    super
-  end
-
   def search_by
-    [:email]
+    [:id]
   end
 
   def permitted_params
@@ -59,6 +98,8 @@ class Doctor::JournalsController < Doctor::BaseController
   def journal_records_params
     if params[:journal][:journal_records]
       params[:journal][:journal_records]
+    elsif params[:journal_records]
+      params[:journal_records]
     else
       []
     end

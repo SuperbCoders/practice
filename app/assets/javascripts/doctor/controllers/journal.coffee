@@ -7,13 +7,29 @@ class JournalController
     vm.tags ||= []
     vm.attach = undefined
     vm.patient_id = @rootScope.$stateParams.patient_id
+    vm.journal_id = @rootScope.$stateParams.journal_id
+    vm.journal = undefined
     vm.show_new_tag = false
 
+
+
     @fetch_dicts()
-    @fetch_journals()
-    @add_record()
     @init_chosen()
 
+    # Load all patient journals if state is record
+    if @rootScope.$state.current.name.split('.')[1] is 'records'
+      @fetch_journals()
+
+    # Fetch journal
+    if vm.journal_id
+      @fetch_journal()
+    else
+      vm.journal =
+        patient_id: vm.patient_id
+        attachments: []
+        journal_records: []
+
+      @add_record()
 
   init_chosen: ->
     $('.chosen-select').on('chosen:showing_dropdown', (evt, params) ->
@@ -55,8 +71,9 @@ class JournalController
     vm = @
     return tag.dict_value for tag in vm.tags when tag.dict_type is 'journal_tag' and tag.id is parseInt(id)
 
-  new_record: -> { attachments: [], pid: _.random(10000,20000) }
-  add_record: -> @records.push @new_record()
+  new_record: -> { attachments: [], pid: _.random(10000,20000), deleted: false, delete: false }
+  add_record: -> @journal.journal_records.push @new_record()
+
   set_record: (record) -> @current_record = record
   toggle_new_tag: (record) -> @rootScope.toggle_el_class("#new_tag_#{record.pid}", 'custom_field') if record.tag is 'new_tag'
   create_new_tag: (record) ->
@@ -72,8 +89,7 @@ class JournalController
         vm.rootScope.toggle_el_class("#new_tag_#{record.pid}", 'custom_field')
         vm.fetch_dicts()
       )
-    else
-      console.log 'already exist tag'
+
     return
 
   # Reset image upload input element. angular-base64-upload bug
@@ -90,26 +106,31 @@ class JournalController
 
     return
 
-  # Save journal record
-  save: ->
-    vm = @
-    journal =
-      patient_id: vm.patient_id
-      journal_records: vm.records
+  # Create/Save journal record
+  save: (journal) ->
+    journal.$save()
+    @fetch_journal()
 
-    vm.Journals.create({journal: journal}).$promise.then((journal) ->
+  create: ->
+    vm = @
+    vm.Journals.create({journal: vm.journal}).$promise.then((journal) ->
       if journal.valid
         vm.rootScope.$state.go('journal.records', {patient_id: vm.patient_id})
-      console.log journal
     )
     return
+
+  fetch_journal: ->
+    vm = @
+    vm.Journals.get({id: vm.journal_id}).$promise.then((journal) ->
+      vm.journal = journal
+      vm.journal.date = moment(vm.journal.created_at).format('lll')
+    )
 
   fetch_journals: ->
     vm = @
     vm.Journals.query({patient_id: vm.patient_id}).$promise.then((journals) ->
       for journal in journals
         journal.date = moment(journal.created_at).format('lll')
-
       vm.journals = journals
     )
 

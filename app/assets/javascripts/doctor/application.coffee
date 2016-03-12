@@ -119,9 +119,26 @@
         ]
       ]
 
-  .state 'journal.add_record',
+  .state 'journal.edit',
+    url: '/:journal_id/edit'
+    templateUrl: '/templates/doctor/journal/record',
+    controller: 'JournalController',
+    controllerAs: 'vm'
+    resolve:
+      Dicts: ['Resources', (Resources) ->
+        Resources 'doctor/dicts/:id', {id: '@id'}, [
+          {method: 'GET', isArray: false},
+        ]
+      ]
+      Journals: ['Resources', (Resources) ->
+        Resources '/doctor/journals/:id', {id: '@id'}, [
+          {method: 'GET', isArray: false}
+        ]
+      ]
+
+  .state 'journal.create',
     url: '/:patient_id/add',
-    templateUrl: '/templates/doctor/journal/add_record.html',
+    templateUrl: '/templates/doctor/journal/record.html',
     controller: 'JournalController',
     controllerAs: 'vm'
     resolve:
@@ -151,21 +168,6 @@
   $urlRouterProvider.otherwise '/schedule'
 
   return
-]
-
-@application.factory 'AlertsMonitor', [ '$injector', ($injector) ->
-  alertsMonitor =
-    responseError: (response) ->
-      Alerts = $injector.get('Alerts')
-      if response && response.data.errors && response.data.errors.length > 0
-        Alerts.errors response.data.errors
-      response
-    response: (response) ->
-      Alerts = $injector.get('Alerts')
-      if response && response.data.messages && response.data.messages.length > 0
-        Alerts.messages response.data.messages
-      response
-  alertsMonitor
 ]
 
 @application.run ['$rootScope', '$state', '$stateParams', '$window', ($rootScope, $state, $stateParams, $window) ->

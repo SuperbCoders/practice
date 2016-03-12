@@ -55,7 +55,7 @@ class Doctor::ProfilesController < Doctor::BaseController
           WorkSchedule.find_or_create_by(doctor: current_doctor, day: day_schedule) do |w_schedule|
             w_schedule.update_attributes(start_at: work_schedule[:start_at],finish_at: work_schedule[:finish_at])
           end
-        }
+        } if work_schedule[:days]
       }
       logger.info "Schedule settings #{schedule_settings_params}"
     end

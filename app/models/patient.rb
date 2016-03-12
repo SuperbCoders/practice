@@ -10,6 +10,7 @@ class Patient < ActiveRecord::Base
   has_many :visits, dependent: :destroy
   has_many :contacts, as: :contactable, dependent: :destroy
   has_many :appointments
+  has_many :journals
 
   before_destroy :destroy_avatar
 

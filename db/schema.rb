@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160302115606) do
+ActiveRecord::Schema.define(version: 20160312114757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,12 +31,12 @@ ActiveRecord::Schema.define(version: 20160302115606) do
 
   create_table "attachments", force: :cascade do |t|
     t.text     "file"
-    t.boolean  "deleted",         default: false
     t.datetime "deleted_at"
     t.integer  "attachable_id"
     t.string   "attachable_type"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.boolean  "is_deleted",      default: false
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -114,9 +114,10 @@ ActiveRecord::Schema.define(version: 20160302115606) do
   create_table "journal_records", force: :cascade do |t|
     t.integer  "journal_id"
     t.string   "tag"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.text     "body"
+    t.boolean  "is_deleted", default: false
   end
 
   add_index "journal_records", ["journal_id"], name: "index_journal_records_on_journal_id", using: :btree
