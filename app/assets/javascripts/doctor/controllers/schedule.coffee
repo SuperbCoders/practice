@@ -14,7 +14,6 @@ class ScheduleController
     vm.events_count = undefined
 
     vm.calendar_options =
-      events: vm.visits_by_date
       firstDay: 1
       monthNames: [
         'Январь'
@@ -100,7 +99,9 @@ class ScheduleController
       eventResize: @event_resize
       eventDrop: @event_drop
       dayClick: @day_click
+      eventClick: @event_click
       viewRender: @view_render
+      events: vm.visits_by_date
 
     vm.calendar ||= $('#calendar').fullCalendar(vm.calendar_options)
 
@@ -115,7 +116,12 @@ class ScheduleController
       $('body').removeClass 'cal_body_mod'
     )
 
+  event_click: (event, jsEvent, view) ->
+    vm = view.calendar.options.vm
+    vm.rootScope.$apply(-> vm.event = event )
+    return
 
+    return
   toggle_patient_info: ->
     @rootScope.toggle_el_class('.patient_card', 'open_card')
     return

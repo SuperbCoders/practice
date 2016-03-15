@@ -87,7 +87,7 @@ class JournalController
 
     if vm.new_tag not in vm.tags
       @Dicts.create({dict: tag}).$promise.then((dict) ->
-        record.tag = parseInt(dict.id)
+        record.tag = new String(dict.id)
         vm.new_tag = ''
         vm.rootScope.toggle_el_class("#new_tag_#{record.pid}", 'custom_field')
         vm.fetch_dicts()
@@ -95,7 +95,7 @@ class JournalController
 
     return
 
-  # Called when attach input element changed
+  # Called when
   attach_on_load_end: (journal) ->
     vm = @
     for record in journal.journal_records when record.attach is true
