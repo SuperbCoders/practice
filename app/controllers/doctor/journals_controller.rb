@@ -48,7 +48,8 @@ class Doctor::JournalsController < Doctor::BaseController
         end
       }
     end
-    send_json(@resource, true)
+
+    send_json(serialize_resource(@resource, resource_serializer), true)
   end
 
   def create

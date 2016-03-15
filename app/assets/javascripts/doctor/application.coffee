@@ -171,6 +171,8 @@
 ]
 
 @application.run ['$rootScope', '$state', '$stateParams', '$window', ($rootScope, $state, $stateParams, $window) ->
+  # Dirty hack :-(
+  $window.rootScope = $rootScope
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
 
@@ -202,7 +204,7 @@
     return
 
   $('html').on('click', (event, ui) ->
-    if event.toElement.id != 'menu_button'
+    if event.toElement and event.toElement.id != 'menu_button'
       $('html').removeClass('menu_open')
   )
 

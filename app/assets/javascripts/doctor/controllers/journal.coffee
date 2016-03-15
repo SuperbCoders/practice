@@ -11,7 +11,10 @@ class JournalController
     vm.journal = undefined
     vm.show_new_tag = false
 
-
+    @rootScope.journal ||= {vm: vm}
+    @scope.$on('$destroy', ->
+      @rootScope.journal = undefined
+    )
 
     @fetch_dicts()
     @init_chosen()
@@ -90,6 +93,21 @@ class JournalController
         vm.fetch_dicts()
       )
 
+    return
+
+  # Called when attach input element changed
+  attach_on_load_end: (journal) ->
+    vm = @
+    for record in journal.journal_records when record.attach is true
+      record.attachments.push angular.copy(journal.new_attach)
+      if journal.$save()
+        journal.new_attach = undefined
+        record.attach = false
+    return
+
+  attach_to_journal: (journal, record) ->
+    record.attach = true
+    $("##{journal.id}_#{record.id}_attach").trigger("click")
     return
 
   # Reset image upload input element. angular-base64-upload bug

@@ -13,13 +13,14 @@
                 %a.gl_link{:href => "", 'ui-sref' => "journal.edit({journal_id: journal.id})"}
                   %span Редактировать
               %li.drop_down_item
-                %a.gl_link{:href => "#"}
-                  %span Добавить файл
-              %li.drop_down_item
                 %a.gl_link{:href => "", "ng-click" => "journal.$delete()"}
                   %span Удалить
         %dl.note_lines{'ng-repeat' => "record in journal.journal_records"}
-          %dt {{vm.show_tag(record.tag)}}
+          %dt
+            {{vm.show_tag(record.tag)}}
+            %input{'ng-change' => 'vm.attach_on_load_end(journal)', id: "{{journal.id}}_{{record.id}}_attach" , :accept => "image/jpeg,image/png,image/gif", :autocomplete => "off", :type => "file", 'ng-model' => 'journal.new_attach', hidden: true}(base-sixty-four-input)
+            %a.gl_link{:href => "", "ng-click" => "vm.attach_to_journal(journal, record)"}
+              %span Добавить файл
           %dd
             %p {{record.body}}
             %ul.note_img_list

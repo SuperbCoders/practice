@@ -4,7 +4,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def find_user
     @redirect_url = new_doctor_session_path
-    logger.info "OmniAuth data #{request.env["omniauth.auth"].to_json}"
     @omni_data = request.env["omniauth.auth"]
 
     @doctor = Doctor.from_omniauth(@omni_data)

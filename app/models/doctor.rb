@@ -36,6 +36,8 @@ class Doctor < ActiveRecord::Base
     file_extension = 'png'
     new_file_name = "#{SecureRandom.hex}.#{file_extension}"
 
+    logger.info "Download avatar from #{url}"
+
     if ['jpg','png','jpeg'].map(&:upcase).include? url.split('.')[-1].upcase
       file_extension = url.split('.')[-1]
     end
@@ -73,7 +75,6 @@ class Doctor < ActiveRecord::Base
               oauth_expires_at: Time.at(auth.credentials.expires_at)
           )
           logger.info "Identity #{i.to_json}"
-          logger.info "Identity #{i.errors.full_messages}"
         end
       end
 
