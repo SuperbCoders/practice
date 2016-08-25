@@ -45,6 +45,7 @@ gem 'omniauth-twitter'
 group :development, :test do
   gem 'better_errors'
   gem 'guard'
+  gem 'byebug'
   gem 'spring-commands-rspec'
   gem 'rspec-rails', '~> 3.1'
   gem 'rb-fsevent' # if `uname` =~ /Darwin/

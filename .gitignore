@@ -1,13 +1,14 @@
 ### RubyMine ###
 
 *.iml
-
+.byebug_history
 ## Directory-based project format:
 .idea/
 *.ipr
 *.iws
 /out/
 .idea_modules/
+/config/initializers/smtp.rb
 
 # JIRA plugin
 atlassian-ide-plugin.xml

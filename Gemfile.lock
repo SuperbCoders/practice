@@ -60,6 +60,7 @@ GEM
       rack (>= 0.9.0)
     bower-rails (0.10.0)
     builder (3.2.2)
+    byebug (9.0.5)
     cancancan (1.13.1)
     capistrano (3.4.0)
       i18n
@@ -404,6 +405,7 @@ DEPENDENCIES
   barby
   better_errors
   bower-rails
+  byebug
   cancancan
   capistrano-rails
   capistrano-rvm
@@ -462,3 +464,6 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   unicorn
   validates_timeliness (= 3.0.14)
+
+BUNDLED WITH
+   1.12.5

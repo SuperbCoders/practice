@@ -2,7 +2,7 @@ class Doctor < ActiveRecord::Base
   include Attachable
   include Alertable
 
-  devise :database_authenticatable, :registerable, :omniauthable,
+  devise :database_authenticatable, :registerable,  :confirmable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable,
          omniauth_providers: %w(facebook vkontakte)
 
@@ -19,7 +19,8 @@ class Doctor < ActiveRecord::Base
   has_many :journals
   has_many :dicts, as: :dictable, dependent: :destroy
 
-  validates_uniqueness_of :username
+  # Пока не ясно нужно вообще это поле или нет. 
+  # validates_uniqueness_of :username
 
   before_destroy :destroy_avatars
 
