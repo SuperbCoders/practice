@@ -1,3 +1,5 @@
+require 'json'
+
 class Doctor < ActiveRecord::Base
   include Attachable
   include Alertable
@@ -19,7 +21,9 @@ class Doctor < ActiveRecord::Base
   has_many :journals
   has_many :dicts, as: :dictable, dependent: :destroy
 
-  # Пока не ясно нужно вообще это поле или нет. 
+  after_create :create_identity
+
+  # todo: Пока не ясно нужно вообще это поле или нет. 
   # validates_uniqueness_of :username
 
   before_destroy :destroy_avatars
@@ -49,6 +53,8 @@ class Doctor < ActiveRecord::Base
 
         File.open("#{Rails.application.config.upload_path}/#{new_file_name}", 'wb') { |f|
           if f.write(res.read)
+            # todo: Возможно надо поменять
+            self.avatar = new_file_name
             return update_attributes(avatar: new_file_name)
           end
         }
@@ -60,40 +66,27 @@ class Doctor < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth)
-    where(email: auth.info.email).first_or_initialize.tap do |user|
-      if user.new_record?
-        user.email = auth.info.email.downcase
-        user.password = Patient.temporary_password
-        user.username = auth.extra.raw_info.id
+    identity = Identity.find_for_oauth(auth)
+    user = identity.doctor
 
-        if user.save
-          i = user.identities.find_or_create_by(
-              provider: auth.provider,
-              email: auth.info.email.downcase,
-              uid: auth.extra.raw_info.id,
-              full_name: auth.info.name,
-              oauth_token: auth.credentials.token,
-              oauth_expires_at: Time.at(auth.credentials.expires_at)
-          )
-          logger.info "Identity #{i.to_json}"
-        end
+    unless user
+      user = Doctor.new
+      user.email = auth.info.email.downcase if auth.info.email
+      user.password = Patient.temporary_password
+      user.username = auth.extra.raw_info.id
+
+      case auth.provider
+        when 'facebook'
+          user.avatar_from_url("https://graph.facebook.com/#{auth.extra.raw_info.id}/picture?type=large")
+          user.first_name = auth.info.name
+        when 'vkontakte'
+          user.avatar_from_url(auth.extra.raw_info.photo_200_orig) if auth.extra.raw_info.photo_200_orig
+          user.first_name = auth.info.first_name
+          user.last_name = auth.info.last_name
       end
-
-      if user.valid?
-        case auth.provider
-          when 'facebook'
-            user.avatar_from_url("https://graph.facebook.com/#{auth.extra.raw_info.id}/picture?type=large")
-            user.first_name = auth.info.name
-          when 'vkontakte'
-            user.avatar_from_url(auth.extra.raw_info.photo_200_orig) if auth.extra.raw_info.photo_200_orig
-            user.first_name = auth.info.first_name
-            user.last_name = auth.info.last_name
-        end
-      end
-
       user.save
-      user
     end
+    user
   end
 
   def public_visits(date_from, date_to)
@@ -137,6 +130,26 @@ class Doctor < ActiveRecord::Base
     define_method "destroy_#{attribute_name}" do
       detach(attribute_name)
     end
+  end
+
+  protected
+  def create_identity(oauth_data = nil)
+    byebug
+    unless session[:oauth] || oauth_data
+      return
+    end
+
+    auth = JSON.parse(session[:oauth].to_json, object_class: OpenStruct)
+    identity = Identity.find_for_oauth(oauth_data || auth)
+    session[:oauth] = nil
+
+    identity.update_attributes({
+      doctor_id: id,
+      email: email.downcase,
+      oauth_token: auth.credentials.token,
+      oauth_expires_at: Time.at(auth.credentials.expires_at)
+    })
+
   end
 
 end

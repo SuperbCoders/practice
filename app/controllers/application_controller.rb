@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action { @response = {success: false, messages: [], errors: []} }
-
+  before_action :_set_current_session
+  
   def serialize_resources(resources, serializer)
     ActiveModel::SerializableResource.new(
         resources,
@@ -30,6 +31,19 @@ class ApplicationController < ActionController::Base
         render nothing: true, layout: false
       end
     end
+  end
+
+  protected
+  def _set_current_session
+    # Define an accessor. The session is always in the current controller
+    # instance in @_request.session. So we need a way to access this in
+    # our model
+    accessor = instance_variable_get(:@_request)
+
+    # This defines a method session in ActiveRecord::Base. If your model
+    # inherits from another Base Class (when using MongoMapper or similar),
+    # insert the class here.
+    ActiveRecord::Base.send(:define_method, "session", proc {accessor.session})
   end
 
 end

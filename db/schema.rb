@@ -121,8 +121,10 @@ ActiveRecord::Schema.define(version: 20160824160624) do
     t.integer  "journal_id"
     t.string   "tag"
     t.text     "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.text     "body"
+    t.boolean  "is_deleted", default: false
   end
 
   add_index "journal_records", ["journal_id"], name: "index_journal_records_on_journal_id", using: :btree
