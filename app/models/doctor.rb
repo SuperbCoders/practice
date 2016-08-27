@@ -134,7 +134,6 @@ class Doctor < ActiveRecord::Base
 
   protected
   def create_identity(oauth_data = nil)
-    byebug
     unless session[:oauth] || oauth_data
       return
     end

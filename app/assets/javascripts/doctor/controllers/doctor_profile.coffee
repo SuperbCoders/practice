@@ -12,10 +12,6 @@ class DoctorProfileController
       @Doctor.get().$promise.then( (response) ->
         vm.doctor = response
 
-        vm.doctor.vk_id = 'vk.com/' if not vm.doctor.vk_id
-        vm.doctor.fb_id = 'facebook.com/' if not vm.doctor.fb_id
-        vm.doctor.twitter_id = 'twitter.com/' if not vm.doctor.twitter_id
-
         vm.add_contact('phone') if vm.doctor.phones.length <= 0
 
         vm.new_schedule() if vm.doctor.work_schedules.length <= 0
@@ -25,6 +21,10 @@ class DoctorProfileController
     @init_chosen()
 
     return
+
+  addSocial: (url) ->
+    window.open(url, "Auth", "height=200,width=200")
+    true
 
   new_schedule: ->
     vm = @

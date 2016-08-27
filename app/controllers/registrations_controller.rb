@@ -1,5 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  before_filter :configure_permitted_parameters
+
 protected
 	def build_resource(hash=nil)
     if session[:new_user]
@@ -14,4 +16,10 @@ protected
     new_doctor_session_path
   end
   
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) do |u|
+      u.permit(:email, :password, :password_confirmation, :first_name, :last_name)
+    end
+  end
+
 end
