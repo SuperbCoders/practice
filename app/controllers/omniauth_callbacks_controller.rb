@@ -3,7 +3,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def self.provides_callback_for(provider)
     class_eval %Q{
       def #{provider}
-        # todo: Добавить проверку на существование доктора с такой социалкой
+        # todo: Добавить проверку на существование доктора с такой социалкой после 
+        # того, как будут уведомления
+        
         if doctor_signed_in?
           Identity.create_user_identity(env["omniauth.auth"], current_doctor)
           render inline: "<script>window.close()</script>"

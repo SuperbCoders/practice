@@ -22,7 +22,7 @@ class Identity < ActiveRecord::Base
       when "vkontakte"
         auth.info.urls.Vkontakte
       when "facebook"
-        auth.info.urls.Facebook
+        "https://www.facebook.com/profile.php?id=" + auth.extra.raw_info.id.to_s
     end
   end
 
