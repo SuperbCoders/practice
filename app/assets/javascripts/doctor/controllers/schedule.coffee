@@ -1,5 +1,5 @@
 class ScheduleController
-  constructor: (@rootScope, @scope, @Visits) ->
+  constructor: (@rootScope, @scope, @Visits, @Settings) ->
     vm = @
     vm.items_limit = 100
     vm.filters = {}
@@ -12,7 +12,7 @@ class ScheduleController
     vm.patient = undefined
     vm.event = undefined
     vm.events_count = undefined
-
+    
     vm.calendar_options =
       firstDay: 1
       monthNames: [
@@ -103,7 +103,15 @@ class ScheduleController
       viewRender: @view_render
       events: vm.visits_by_date
 
-    vm.calendar ||= $('#calendar').fullCalendar(vm.calendar_options)
+    vm.Settings.getSettings().then((response) ->
+      vm.Settings = response;
+      if (response.calendar_view == 'week')
+        vm.calendar_options.defaultView = 'agendaWeek'
+
+      vm.Settings.calendar_view = 'day'
+      vm.Settings.$save()
+      vm.calendar ||= $('#calendar').fullCalendar(vm.calendar_options)
+    )
 
     # Из-за верстки нужно добавлять классы к body
     # в зависимости от страницы
@@ -233,6 +241,13 @@ class ScheduleController
 
   view_render: (view, element) ->
     vm = @
+    if (view.name == 'agendaDay')
+      vm.Settings.calendar_view = 'day'
+    else
+      vm.Settings.calendar_view = 'week'
+
+    vm.Settings.$save()
+
     $('.calendarHolder').toggleClass 'day_mode', 'agendaDay' == view.name
     if vm.timelineInterval != undefined
       @setTimeline()
@@ -241,4 +256,4 @@ class ScheduleController
   event_mouse_over: (event, jsEvent, view) ->
     return
 
-@application.controller 'ScheduleController', ['$rootScope','$scope', 'Visits', ScheduleController]
+@application.controller 'ScheduleController', ['$rootScope','$scope', 'Visits', 'Settings', ScheduleController]

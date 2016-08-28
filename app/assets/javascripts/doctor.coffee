@@ -21,4 +21,5 @@
 #= require ./doctor/includes/scripts
 #= require ./doctor/application
 #= require_tree ./doctor/controllers
+#= require_tree ./doctor/factories
 #= require_tree ./shared

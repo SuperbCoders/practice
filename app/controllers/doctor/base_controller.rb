@@ -5,4 +5,5 @@ class Doctor::BaseController < ApplicationController
   def doctor
     current_doctor
   end
+
 end

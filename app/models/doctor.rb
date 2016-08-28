@@ -20,7 +20,8 @@ class Doctor < ActiveRecord::Base
   has_many :work_schedules, dependent: :destroy
   has_many :journals
   has_many :dicts, as: :dictable, dependent: :destroy
-
+  has_one :setting
+  
   after_create :create_identity
 
   # todo: Пока не ясно нужно вообще это поле или нет. 
@@ -63,6 +64,10 @@ class Doctor < ActiveRecord::Base
     rescue Exception => e
       logger.debug "#{e.inspect}"
     end
+  end
+
+  def get_settings
+    Setting.find_or_create_by(doctor: self)
   end
 
   def self.from_omniauth(auth)
