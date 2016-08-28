@@ -1,3 +1,6 @@
+# todo: надо бы как-то в будущем убрать глобальную переменную. 
+settings = {};
+
 class ScheduleController
   constructor: (@rootScope, @scope, @Visits, @Settings) ->
     vm = @
@@ -21,8 +24,8 @@ class ScheduleController
         'Март'
         'Апрель'
         'Май'
-        'οюнь'
-        'οюль'
+        'Июнь'
+        'Июль'
         'Август'
         'Сентябрь'
         'Октябрь'
@@ -104,12 +107,11 @@ class ScheduleController
       events: vm.visits_by_date
 
     vm.Settings.getSettings().then((response) ->
-      vm.Settings = response;
+      settings = response;
       if (response.calendar_view == 'week')
         vm.calendar_options.defaultView = 'agendaWeek'
 
-      vm.Settings.calendar_view = 'day'
-      vm.Settings.$save()
+      settings.calendar_view = 'day'
       vm.calendar ||= $('#calendar').fullCalendar(vm.calendar_options)
     )
 
@@ -242,11 +244,11 @@ class ScheduleController
   view_render: (view, element) ->
     vm = @
     if (view.name == 'agendaDay')
-      vm.Settings.calendar_view = 'day'
+      settings.calendar_view = 'day'
     else
-      vm.Settings.calendar_view = 'week'
+      settings.calendar_view = 'week'
 
-    vm.Settings.$save()
+    settings.$save()
 
     $('.calendarHolder').toggleClass 'day_mode', 'agendaDay' == view.name
     if vm.timelineInterval != undefined
