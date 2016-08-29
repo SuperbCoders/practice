@@ -1,8 +1,16 @@
 class RegistrationsController < Devise::RegistrationsController
 
   before_filter :configure_permitted_parameters
+  before_filter :check_avatar, only: :create
 
 protected
+
+  def check_avatar
+    if params[:doctor][:avatar].blank? && params[:doctor][:social_avatar].present?
+      params[:doctor][:avatar] = params[:doctor][:social_avatar]
+    end
+  end
+
 	def build_resource(hash=nil)
     if session[:new_user]
     	self.resource = resource_class.new(session[:new_user])
@@ -18,7 +26,7 @@ protected
   
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(:email, :password, :password_confirmation, :first_name, :last_name)
+      u.permit(:email, :password, :password_confirmation, :first_name, :last_name, :avatar)
     end
   end
 

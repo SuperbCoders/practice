@@ -3,7 +3,7 @@
     %a.aside_close_btn.closeMenu{:href => ""}
     .user_info
       .user_avatar
-        %img{:src => "upload/#{current_doctor.avatar}"}/
+        = image_tag current_doctor.avatar
       .user_name
         %b #{current_doctor.name}
       %p

@@ -54,9 +54,8 @@ class Doctor < ActiveRecord::Base
 
         File.open("#{Rails.application.config.upload_path}/#{new_file_name}", 'wb') { |f|
           if f.write(res.read)
-            # todo: Возможно надо поменять
-            self.avatar = new_file_name
-            return update_attributes(avatar: new_file_name)
+            relative_name = "/" + Pathname.new(f.path).relative_path_from(Rails.public_path).to_s
+            return update_attributes(avatar: relative_name)
           end
         }
       end
