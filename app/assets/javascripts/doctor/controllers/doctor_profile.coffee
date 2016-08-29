@@ -1,12 +1,11 @@
 class DoctorProfileController
-  constructor: (@rootScope, @scope, @Alerts, @state, @Doctor) ->
+  constructor: (@rootScope, @scope, @Alerts, @state, @Doctor, @Settings, @ValueList) ->
     vm = @
     vm.Alerts = @Alerts
     vm.Doctor = @Doctor
     vm.doctor = undefined
     vm.rootScope = @rootScope
-
-
+    vm.Settings = @Settings
 
     if not vm.doctor
       @Doctor.get().$promise.then( (response) ->
@@ -18,6 +17,14 @@ class DoctorProfileController
 
       )
 
+    @ValueList.getList("Стандартное время приема").then((response)->
+      vm.standartTimeIntervals = response.value_list_items
+    )
+
+    @Settings.getSettings().then((response) ->
+      vm.settings = response
+    )
+    
     @init_chosen()
 
     return
@@ -149,8 +156,10 @@ class DoctorProfileController
   save: ->
     vm = @
     vm.Doctor.save({doctor: vm.doctor}).$promise.then((response) ->
-      vm.Alerts.messages response.messages
+      vm.Alerts.messages = response.messages
     )
-    return
 
-@application.controller 'DoctorProfileController', ['$rootScope','$scope', 'Alerts', '$state', 'Doctor', DoctorProfileController]
+    vm.Settings.saveSettings({setting: vm.settings})
+    a = 1+2
+
+@application.controller 'DoctorProfileController', ['$rootScope','$scope', 'Alerts', '$state', 'Doctor', 'Settings', 'ValueList', DoctorProfileController]

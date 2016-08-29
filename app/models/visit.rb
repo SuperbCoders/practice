@@ -1,4 +1,5 @@
 class Visit < ActiveRecord::Base
+  # пока не разбирался что это. 
   include Alertable
   
   enum visit_type: [:signed, :unsigned]

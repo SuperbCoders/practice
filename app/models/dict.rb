@@ -1,4 +1,5 @@
 class Dict < ActiveRecord::Base
+  # huy ego znaet chto eto za model
   include Alertable
   enum dict_type: Practice::Static::DICT_TYPES
 

@@ -34,8 +34,8 @@
       .label_holder
         %label.form_label{:for => "doctor_stand_time"} Стаднартное время приема
       .input_w.size_27.chosen_v1.no_search
-        %select#doctor_stand_time.chosen-select{'ng-model'=>"vm.doctor.stand_time","data-placeholder" => "Выберите время приема", 'ng-options' => "opt.value as opt.name for opt in vm.doctor.doctor_stand_times"}
-          %option{"data-title" => "", :value => ""}
+        %select#doctor_stand_time.chosen-select{'ng-model'=>"vm.settings.standart_shedule_interval","data-placeholder" => "Выберите время приема"}
+          %option{'ng-repeat' => 'interval in vm.standartTimeIntervals', value: "{{interval.value}}"} {{interval.value}} мин.
 
     / Время записи до приема
     .form_row

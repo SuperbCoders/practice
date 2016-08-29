@@ -1,6 +1,7 @@
 require 'json'
 
 class Doctor < ActiveRecord::Base
+  # Doctor model (alias User)
   include Attachable
   include Alertable
 

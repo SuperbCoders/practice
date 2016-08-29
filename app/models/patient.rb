@@ -1,4 +1,5 @@
 class Patient < ActiveRecord::Base
+  # Информация о пациенте
   include Attachable
   include Alertable
 

@@ -7,6 +7,9 @@ app.factory('Settings', ['Resources', function(Resources){
 	return {
 		getSettings: function(){
 			return settingsResource.get().$promise;
+		},
+		saveSettings: function(settings){
+			return settingsResource.save(settings).$promise
 		}
 	}
 }]);

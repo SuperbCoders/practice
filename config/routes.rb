@@ -22,7 +22,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '' => 'index#index'
-
+    #справочники
+    get '/value-lists/:name' => 'value_lists#show'
+    match '/value-lists/:name' => 'value_lists#update', via: [:put, :patch]
     resources :doctors
     resources :patients
   end

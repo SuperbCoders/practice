@@ -20,7 +20,7 @@ class Doctor::SettingsController < Doctor::BaseController
   private
 
   def setting_params
-  	params.require(:setting).permit(:calendar_view)
+  	params.require(:setting).permit(:calendar_view, :standart_shedule_interval)
   end
 
 end

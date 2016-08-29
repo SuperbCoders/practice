@@ -1,4 +1,5 @@
 class Identity < ActiveRecord::Base
+  # Для хранения авторизаций через соц. сети
   belongs_to :doctor
 
   #validates :doctor, presence: true

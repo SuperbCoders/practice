@@ -1,4 +1,5 @@
 class Contact < ActiveRecord::Base
+  # Contact model
   enum contact_type: Practice::Static::CONTACT_TYPES
   enum data_type: Practice::Static::CONTACT_DATA_TYPES
 
