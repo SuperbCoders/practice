@@ -1,6 +1,6 @@
 # todo: надо бы как-то в будущем убрать глобальную переменную. 
 settings = {};
-
+clicks = 0;
 class ScheduleController
   constructor: (@rootScope, @scope, @Visits, @Settings) ->
     vm = @
@@ -15,7 +15,7 @@ class ScheduleController
     vm.patient = undefined
     vm.event = undefined
     vm.events_count = undefined
-    
+
     vm.calendar_options =
       firstDay: 1
       monthNames: [
@@ -131,7 +131,6 @@ class ScheduleController
     vm.rootScope.$apply(-> vm.event = event )
     return
 
-    return
   toggle_patient_info: ->
     @rootScope.toggle_el_class('.patient_card', 'open_card')
     return
@@ -206,38 +205,21 @@ class ScheduleController
     event.$save()
     return
 
+  # тут мега костыль. Обрабатываю двойной клик через тайм аут, ибо хз как добавить
+  # обработку двойного клика в фул календарь. Стандартными средствами можно только на эвент. 
+  customClickHandler = ()->
+    if clicks == 1
+      alert('one click');
+      clicks = 0
+    if clicks == 2
+      alert('double click');
+      clicks = 0
+
   day_click: (date, jsEvent, view) ->
     vm = @
-
-    vm.add_patient_form ||= $('#add_patient_form').dialog(
-      autoOpen: false
-      modal: true
-      width: 360
-      dialogClass: 'dialog_v1 no_close_mod')
-
-    $(vm.add_patient_form[0]).find('form')[0].reset()
-    $(vm.add_patient_form[0]).find('#visit_date').val(date.format())
-    $(vm.add_patient_form[0]).find('.newPatientBtn span').text 'Записать на ' + date.format('DD') + ' ' + date.format('MMMM').toString().toLowerCase().replace(/.$/, 'я') + ', в ' + date.format('HH:mm')
-    newEventDate = date
-    vm.add_patient_form.dialog('option', 'position',
-      my: 'left+15 top-150'
-      of: jsEvent
-      collision: 'flip fit'
-      within: '.fc-view-container'
-      using: (obj, info) ->
-        dialog_form = $(this)
-        cornerY = jsEvent.pageY - (obj.top) - 40
-        if info.horizontal != 'left'
-          dialog_form.addClass 'flipped_left'
-        else
-          dialog_form.removeClass 'flipped_left'
-        dialog_form.css(
-          left: obj.left + 'px'
-          top: obj.top + 'px').find('.form_corner').css top: Math.min(Math.max(cornerY, -20), dialog_form.height() - 55) + 'px'
-        return
-    ).dialog 'open'
-    return
-
+    clicks++
+    setTimeout customClickHandler, 300
+    
   event_save: ( event ) ->
     return
 
