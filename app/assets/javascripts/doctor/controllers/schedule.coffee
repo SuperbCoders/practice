@@ -1,5 +1,6 @@
 # todo: надо бы как-то в будущем убрать глобальную переменную. 
 settings = {};
+Settings = {}
 clicks = 0;
 class ScheduleController
   constructor: (@rootScope, @scope, @Visits, @Settings) ->
@@ -15,6 +16,7 @@ class ScheduleController
     vm.patient = undefined
     vm.event = undefined
     vm.events_count = undefined
+    Settings = @Settings
 
     vm.calendar_options =
       firstDay: 1
@@ -207,18 +209,42 @@ class ScheduleController
 
   # тут мега костыль. Обрабатываю двойной клик через тайм аут, ибо хз как добавить
   # обработку двойного клика в фул календарь. Стандартными средствами можно только на эвент. 
-  customClickHandler = ()->
-    if clicks == 1
-      alert('one click');
-      clicks = 0
-    if clicks == 2
-      alert('double click');
-      clicks = 0
-
   day_click: (date, jsEvent, view) ->
     vm = @
     clicks++
-    setTimeout customClickHandler, 300
+    setTimeout ->
+      if clicks == 1
+        clicks = 0
+      if clicks == 2
+        vm.add_patient_form ||= $('#add_patient_form').dialog(
+          autoOpen: false
+          modal: true
+          width: 360
+          dialogClass: 'dialog_v1 no_close_mod')
+
+        $(vm.add_patient_form).find('form')[0].reset()
+        $(vm.add_patient_form).find('#visit_date').val(date.format())
+        $(vm.add_patient_form).find('.newPatientBtn span').text 'Записать на ' + date.format('DD') + ' ' + date.format('MMMM').toString().toLowerCase().replace(/.$/, 'я') + ', в ' + date.format('HH:mm')
+        newEventDate = date
+        vm.add_patient_form.dialog('option', 'position',
+          my: 'left+15 top-150'
+          of: jsEvent
+          collision: 'flip fit'
+          within: '.fc-view-container'
+          using: (obj, info) ->
+            dialog_form = $(this)
+            cornerY = jsEvent.pageY - (obj.top) - 40
+            if info.horizontal != 'left'
+              dialog_form.addClass 'flipped_left'
+            else
+              dialog_form.removeClass 'flipped_left'
+            dialog_form.css(
+              left: obj.left + 'px'
+              top: obj.top + 'px').find('.form_corner').css top: Math.min(Math.max(cornerY, -20), dialog_form.height() - 55) + 'px'
+            return
+        ).dialog 'open'
+        clicks = 0
+    , 200
     
   event_save: ( event ) ->
     return
@@ -230,7 +256,7 @@ class ScheduleController
     else
       settings.calendar_view = 'week'
 
-    settings.$save()
+    Settings.saveSettings(settings)
 
     $('.calendarHolder').toggleClass 'day_mode', 'agendaDay' == view.name
     if vm.timelineInterval != undefined
