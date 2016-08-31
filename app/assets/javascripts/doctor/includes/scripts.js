@@ -207,6 +207,13 @@ function all_dialog_close_gl() {
     add_patient_form = $("#add_patient_form");
     if (add_patient_form && add_patient_form.length === 1 && add_patient_form.dialog('isOpen')) {
         add_patient_form.dialog('close');
+        events = $('#calendar').fullCalendar('clientEvents');
+        for (var i = 0; i  < events.length; i++)
+        {
+            event = events[i]
+            if (event.saved != true)
+                $('#calendar').fullCalendar('removeEvents', event._id);
+        }
     }
     //$(".ui-dialog-content").each(function () {
     //    var $this = $(this);

@@ -8,12 +8,12 @@ class Visit < ActiveRecord::Base
   belongs_to :patient
 
   # validates_presence_of :visit_type
-  validates_presence_of :doctor
-  validates_presence_of :patient
-  validates_presence_of :start_at
+  #validates_presence_of :doctor
+  #validates_presence_of :patient
+  #validates_presence_of :start_at
   validates_numericality_of :duration, greater_than: 0
 
-  before_create :crossed_with_other_visits?
+  # before_create :crossed_with_other_visits?
 
   def start
     start_at.iso8601

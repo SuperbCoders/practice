@@ -2,6 +2,9 @@
 settings = {};
 Settings = {}
 clicks = 0;
+calendar = {}
+event = {}
+event_id = 0
 class ScheduleController
   constructor: (@rootScope, @scope, @Visits, @Settings) ->
     vm = @
@@ -12,7 +15,7 @@ class ScheduleController
     vm.new_patient = {}
     vm.timelineInterval = undefined
     vm.calendarHolder = $('.calendarHolder')
-    vm.events ||= []
+    vm.events ||= [{start: moment(), end: moment().add(1, 'day')}]
     vm.patient = undefined
     vm.event = undefined
     vm.events_count = undefined
@@ -115,6 +118,7 @@ class ScheduleController
 
       settings.calendar_view = 'day'
       vm.calendar ||= $('#calendar').fullCalendar(vm.calendar_options)
+      calendar = vm.calendar
     )
 
     # Из-за верстки нужно добавлять классы к body
@@ -151,7 +155,9 @@ class ScheduleController
       for event in events
         event.start = moment(event.start)
         event.end = moment(event.end)
-
+        event.saved = true
+        event.id = event_id
+        event_id++
         if not vm.event
           vm.event = event if event.start > date_now
         else
@@ -216,6 +222,10 @@ class ScheduleController
       if clicks == 1
         clicks = 0
       if clicks == 2
+        event = {start: date, end: moment(date).add(parseInt(settings.standart_shedule_interval), 'm'), saved: false}
+        event.id = event_id
+        event_id++
+        $(calendar).fullCalendar('renderEvent', event);
         vm.add_patient_form ||= $('#add_patient_form').dialog(
           autoOpen: false
           modal: true
