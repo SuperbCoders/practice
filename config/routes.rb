@@ -13,7 +13,11 @@ Rails.application.routes.draw do
 
   namespace :doctor do
     resource :profile, only: [:show, :update]
-    resources :patients
+    resources :patients do
+      collection do 
+        post 'search'
+      end
+    end
     resources :visits
     resources :journals
     resources :dicts

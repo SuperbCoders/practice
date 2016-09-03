@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160829191128) do
+ActiveRecord::Schema.define(version: 20160831175040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,18 +140,8 @@ ActiveRecord::Schema.define(version: 20160829191128) do
   add_index "journals", ["patient_id"], name: "index_journals_on_patient_id", using: :btree
 
   create_table "patients", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.string   "full_name"
+    t.string   "email",         default: "", null: false
     t.integer  "gender"
     t.float    "weight"
     t.float    "height"
@@ -162,15 +152,12 @@ ActiveRecord::Schema.define(version: 20160829191128) do
     t.text     "comment"
     t.string   "contract_id"
     t.datetime "register_date"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.text     "avatar"
     t.datetime "birthday"
     t.boolean  "rhesus"
   end
-
-  add_index "patients", ["email"], name: "index_patients_on_email", unique: true, using: :btree
-  add_index "patients", ["reset_password_token"], name: "index_patients_on_reset_password_token", unique: true, using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.integer  "doctor_id"
@@ -198,14 +185,12 @@ ActiveRecord::Schema.define(version: 20160829191128) do
     t.integer  "duration"
     t.integer  "visit_type"
     t.text     "comment"
-    t.integer  "patient_id"
     t.integer  "doctor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   add_index "visits", ["doctor_id"], name: "index_visits_on_doctor_id", using: :btree
-  add_index "visits", ["patient_id"], name: "index_visits_on_patient_id", using: :btree
 
   create_table "work_schedules", force: :cascade do |t|
     t.integer  "doctor_id"
@@ -219,11 +204,8 @@ ActiveRecord::Schema.define(version: 20160829191128) do
   add_index "work_schedules", ["doctor_id"], name: "index_work_schedules_on_doctor_id", using: :btree
 
   add_foreign_key "appointments", "doctors"
-  add_foreign_key "appointments", "patients"
   add_foreign_key "journal_records", "journals"
   add_foreign_key "journals", "doctors"
-  add_foreign_key "journals", "patients"
   add_foreign_key "visits", "doctors"
-  add_foreign_key "visits", "patients"
   add_foreign_key "work_schedules", "doctors"
 end

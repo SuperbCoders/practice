@@ -4,7 +4,37 @@ Settings = {}
 clicks = 0;
 calendar = {}
 event = {}
+timelineInterval = 1
 event_id = 0
+setTimeline = ->
+  parentDiv = $('.fc-agenda-view')
+  slats = parentDiv.find('.fc-slats')
+  timeline = parentDiv.find('.timeline')
+  if timeline.length == 0
+    #if timeline isn't there, add it
+    timeline = $('<div />').addClass('timeline').append('<span />')
+    parentDiv.find('.fc-slats').append timeline
+  curTime = new Date
+  timeline.find('span').text moment(curTime).format('HH:mm')
+  curCalView = $(calendar).fullCalendar('getView')
+  dayEnd = moment(22, 'HH').minutes(15)._d.toString().replace(/00:00:00/i, slats.find('tr:last').attr('data-time'))
+  dayStart = moment(5, 'HH').minutes(45)._d.toString().replace(/00:00:00/g, slats.find('tr:first').attr('data-time'))
+  console.log("dayStart: ", dayStart)
+  console.log("dayEnd: ", dayEnd)
+  timeline.toggle moment(dayStart).isBefore(moment(curTime)) and moment(curTime).isBefore(moment(dayEnd))
+  curTime = moment(curTime)
+  curSeconds = (curTime.hours() - 5) * 60 * 60 + (curTime.minutes() - 45) * 60 + curTime.seconds()
+  percentOfDay = curSeconds / moment(dayEnd).diff(dayStart, 's')
+  topLoc = Math.floor(parentDiv.find('.fc-body .fc-slats').height() * percentOfDay)
+  timeline.css
+    'top': topLoc + 'px'
+    'left': curCalView.axisWidth + 'px'
+  $('.active-day').removeClass 'active-day'
+  # $('.fc-day-header[data-date=' + moment(regDate).format('YYYY-MM-DD') + ']').addClass 'active-day'
+  clearInterval timelineInterval
+  timelineInterval = setInterval(setTimeline, 60 * 1000)
+  return
+
 class ScheduleController
   constructor: (@rootScope, @scope, @Visits, @Settings) ->
     vm = @
@@ -13,7 +43,6 @@ class ScheduleController
     vm.Visits = @Visits
     vm.win = $(window)
     vm.new_patient = {}
-    vm.timelineInterval = undefined
     vm.calendarHolder = $('.calendarHolder')
     vm.events ||= [{start: moment(), end: moment().add(1, 'day')}]
     vm.patient = undefined
@@ -23,7 +52,9 @@ class ScheduleController
 
     vm.calendar_options =
       firstDay: 1
-      monthNames: [
+      minTime: "05:45:00"
+      maxTime: "22:15:00"
+      monthName: [
         'Январь'
         'Февраль'
         'Март'
@@ -90,7 +121,8 @@ class ScheduleController
       titleFormat:
         day: 'MMMM YYYY'
         week: 'MMMM YYYY'
-      slotDuration: '00:30:00'
+      slotDuration: '00:15:00'
+      slotLabelInterval: '00:15:00'
       timezone: 'local'
       defaultView: 'agendaDay'
       weekMode: 'fixed'
@@ -98,8 +130,9 @@ class ScheduleController
       editable: true
       allDaySlot: false
       eventOverlap: false
-      slotLabelFormat: 'H:mm'
+      slotLabelFormat: 'HH:mm'
       timeFormat: 'H:mm'
+      scrollTime: "08:45:00"
       defaultEventMinutes: 60
       defaultDate: vm.rootScope.regDate()
       height: vm.getCalendarHeight()
@@ -119,6 +152,7 @@ class ScheduleController
       settings.calendar_view = 'day'
       vm.calendar ||= $('#calendar').fullCalendar(vm.calendar_options)
       calendar = vm.calendar
+      setTimeline()
     )
 
     # Из-за верстки нужно добавлять классы к body
@@ -168,34 +202,6 @@ class ScheduleController
       vm.events_count = events.length
       callback(events)
     )
-
-  setTimeline: ->
-    parentDiv = $('.fc-agenda-view')
-    slats = parentDiv.find('.fc-slats')
-    timeline = parentDiv.find('.timeline')
-    if timeline.length == 0
-      timeline = $('<div />').addClass('timeline').append('<span />')
-      parentDiv.find('.fc-slats').append timeline
-    curTime = new Date
-    timeline.find('span').text moment(curTime).format('HH:mm')
-    curCalView = calendar.fullCalendar('getView')
-    dayEnd = moment(0, 'HH')._d.toString().replace(/00:00:00/i, slats.find('tr:last').attr('data-time'))
-    dayStart = moment(0, 'HH')._d.toString().replace(/00:00:00/g, slats.find('tr:first').attr('data-time'))
-    #console.log(curCalView.start._d, curCalView.end._d);
-    #console.log(dayStart, dayEnd, curTime, regDate.day());
-    timeline.toggle moment(dayStart).isBefore(moment(curTime)) and moment(curTime).isBefore(moment(dayEnd))
-    curTime = moment(curTime).subtract(0, 'h')
-    curSeconds = curTime.hours() * 60 * 60 + curTime.minutes() * 60 + curTime.seconds()
-    percentOfDay = curSeconds / moment(dayEnd).diff(dayStart, 's')
-    topLoc = Math.floor(parentDiv.find('.fc-body .fc-slats').height() * percentOfDay)
-    timeline.css
-      'top': topLoc + 'px'
-      'left': curCalView.axisWidth + 'px'
-    $('.active-day').removeClass 'active-day'
-    $('.fc-day-header[data-date=' + moment(regDate).format('YYYY-MM-DD') + ']').addClass 'active-day'
-    clearInterval vm.timelineInterval
-    vm.timelineInterval = setInterval(setTimeline, 60 * 1000)
-    return
 
   getCalendarHeight: ->
     newHeight = @win.height() + (if @win.width() > 1200 then 40 else -50) - ($('.wrapper').css('paddingTop').replace('px', '') * 1)
@@ -269,9 +275,10 @@ class ScheduleController
     Settings.saveSettings(settings)
 
     $('.calendarHolder').toggleClass 'day_mode', 'agendaDay' == view.name
-    if vm.timelineInterval != undefined
-      @setTimeline()
-    return
+
+    if (timelineInterval != undefined) 
+      setTimeline()
+
 
   event_mouse_over: (event, jsEvent, view) ->
     return

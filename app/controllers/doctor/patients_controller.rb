@@ -74,6 +74,11 @@ class Doctor::PatientsController < Doctor::BaseController
     # send_response @response
   end
 
+  def search
+    @patients = current_doctor.patients.where("")
+    send_json serialize_resources()
+  end
+
   def resource_scope
     current_doctor.patients.order(created_at: :desc)
   end
