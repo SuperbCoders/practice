@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160831175040) do
+ActiveRecord::Schema.define(version: 20160903151509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,7 +141,7 @@ ActiveRecord::Schema.define(version: 20160831175040) do
 
   create_table "patients", force: :cascade do |t|
     t.string   "full_name"
-    t.string   "email",         default: "", null: false
+    t.string   "email",         default: "",    null: false
     t.integer  "gender"
     t.float    "weight"
     t.float    "height"
@@ -152,11 +152,13 @@ ActiveRecord::Schema.define(version: 20160831175040) do
     t.text     "comment"
     t.string   "contract_id"
     t.datetime "register_date"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.text     "avatar"
     t.datetime "birthday"
     t.boolean  "rhesus"
+    t.boolean  "in_archive",    default: false
+    t.string   "cart_color"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -186,8 +188,9 @@ ActiveRecord::Schema.define(version: 20160831175040) do
     t.integer  "visit_type"
     t.text     "comment"
     t.integer  "doctor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "created_by", default: "doctor"
   end
 
   add_index "visits", ["doctor_id"], name: "index_visits_on_doctor_id", using: :btree

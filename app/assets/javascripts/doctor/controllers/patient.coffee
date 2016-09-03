@@ -2,7 +2,7 @@ class PatientController
   constructor: (@rootScope, @scope, @Patients) ->
     vm = @
     vm.patient = undefined
-
+ 
     if @rootScope.$stateParams.id
       @Patients.get({id: @rootScope.$stateParams.id}).$promise.then( (patient) ->
         vm.patient = patient
@@ -11,7 +11,6 @@ class PatientController
     else
       vm.patient =
         phones: [{number: ''}]
-        register_date: moment(Date.new)
 
     $('#patient_age').datepicker
       firstDay: 1

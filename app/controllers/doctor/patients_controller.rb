@@ -37,9 +37,8 @@ class Doctor::PatientsController < Doctor::BaseController
   end
 
   def create
-    @resource.password = Patient.temporary_password
-    @resource.register_date = DateTime.now
-
+    byebug
+    
     if @resource.save
       logger.info "-> params #{params.to_json}"
       logger.info "-> resource_params #{resource_params.to_json}"
@@ -96,8 +95,7 @@ class Doctor::PatientsController < Doctor::BaseController
   end
 
   def permitted_params
-    [   :first_name,
-        :last_name,
+    [   :full_name,
         :email,
         :gender,
         :weight,

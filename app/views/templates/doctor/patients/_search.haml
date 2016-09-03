@@ -28,8 +28,16 @@
               %label.filter_t_box
                 %input.hidden_input{:name => "patient_filter", :type => "radio"}/
                 %span.filter_t_name
-                  %span.dt_hidden Не подтвержденые
-                  %span.mob_hidden Ожидают подтверждения
+                  %span.dt_hidden Заявки на прием
+                  %span.mob_hidden Заявки на прием
+
+            / Записаны врачом
+            %li.filter_t_item{'ng-click' => "vm.filters.approved = false; vm.filters.archivated = false;"}
+              %label.filter_t_box
+                %input.hidden_input{:name => "patient_filter", :type => "radio"}/
+                %span.filter_t_name
+                  %span.dt_hidden Записаны на прием
+                  %span.mob_hidden Записаны на прием
 
             / В архиве
             %li.filter_t_item.mob_hidden{'ng-click' => "vm.filters.approved = undefined; vm.filters.archivated = true;"}

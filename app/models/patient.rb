@@ -3,9 +3,6 @@ class Patient < ActiveRecord::Base
   include Attachable
   include Alertable
 
-  devise :database_authenticatable, :registerable,
-      :recoverable, :rememberable, :trackable, :validatable
-
   enum gender: [:male, :female]
 
   has_many :visits, dependent: :destroy

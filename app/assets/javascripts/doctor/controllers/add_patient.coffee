@@ -20,5 +20,5 @@ class AddPatientController
     , (result) ->
       vm.Alerts.errors result.data.errors
     )
-
+ 
 @application.controller 'AddPatientController', ['$rootScope', '$scope', 'Resources', 'Alerts', AddPatientController]

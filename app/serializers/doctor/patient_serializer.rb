@@ -1,9 +1,8 @@
 class Doctor::PatientSerializer < Doctor::BaseSerializer
-  attributes :name, :comment, :gender, :weight, :height,
+  attributes :full_name, :comment, :gender, :weight, :height,
       :blood, :diseases, :habits, :profession, :contract_id,
-      :register_date, :avatar, :first_name, :last_name,
-      :approved, :archivated, :phone, :email, :age, :birthday,
-      :phones, :emails, :rhesus
+      :register_date, :avatar, :approved, :archivated, :phone, 
+      :email, :age, :birthday, :phones, :emails, :rhesus
 
   has_many :contacts
 
@@ -55,15 +54,8 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
     if object.try(:avatar)
       return "/upload/#{object.avatar}"
     else
-      "/i/user_1.png"
+      nil
     end
   end
 
-  def name
-    if object.try(:first_name)
-      object.first_name
-    else
-      object.try(:email)
-    end
-  end
 end
