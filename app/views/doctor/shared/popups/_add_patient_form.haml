@@ -1,4 +1,4 @@
-#add_patient_form.popup_form{:style => "display:none", 'ng-controller' => "AddPatientController as vm"}
+#add_patient_form.popup_form{:style => "display:none", "ng-init" => "makeNewPatient()"}
   .form_corner
   %form
     .patient_status_w.chosen_v2.no_search.skipOpen.right_mod
@@ -19,6 +19,10 @@
       .input_w.placeholder_mod
         %input#new_patient_email.form_input.input_v4.checkEmpty{:type => "email", 'ng-model' => "vm.new_patient.email"}/
         %label.form_label{:for => "new_patient_email"} Email
+    .form_row
+      %select#shedule_stand_time{'ng-model'=>"vm.new_patient.duration","data-placeholder" => "Выберите длительность приема"}
+        %option{'ng-repeat' => 'interval in vm.standartTimeIntervals', value: "{{interval.value}}"} {{interval.value}} мин.
+      %label{:for => "shedule_stand_time"} Длительность приема
     .form_row
       .input_w.placeholder_mod
         %input#new_patient_describe.form_input.input_v4.checkEmpty{'ng-model' => "vm.new_patient.comment"}/

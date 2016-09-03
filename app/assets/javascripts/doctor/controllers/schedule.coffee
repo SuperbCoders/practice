@@ -19,8 +19,6 @@ setTimeline = ->
   curCalView = $(calendar).fullCalendar('getView')
   dayEnd = moment(22, 'HH').minutes(15)._d.toString().replace(/00:00:00/i, slats.find('tr:last').attr('data-time'))
   dayStart = moment(5, 'HH').minutes(45)._d.toString().replace(/00:00:00/g, slats.find('tr:first').attr('data-time'))
-  console.log("dayStart: ", dayStart)
-  console.log("dayEnd: ", dayEnd)
   timeline.toggle moment(dayStart).isBefore(moment(curTime)) and moment(curTime).isBefore(moment(dayEnd))
   curTime = moment(curTime)
   curSeconds = (curTime.hours() - 5) * 60 * 60 + (curTime.minutes() - 45) * 60 + curTime.seconds()
@@ -40,12 +38,15 @@ setTimeline = ->
   return
 
 class ScheduleController
-  constructor: (@rootScope, @scope, @Visits, @Settings) ->
+  constructor: (@rootScope, @scope, @Visits, @Settings, @ValueList) ->
     vm = @
     vm.items_limit = 100
     vm.filters = {}
     vm.Visits = @Visits
     vm.win = $(window)
+    @ValueList.getList("Стандартное время приема").then((response)->
+      vm.standartTimeIntervals = response.value_list_items
+    )
     vm.new_patient = {}
     vm.calendarHolder = $('.calendarHolder')
     vm.events ||= [{start: moment(), end: moment().add(1, 'day')}]
@@ -150,6 +151,13 @@ class ScheduleController
 
     vm.Settings.getSettings().then((response) ->
       settings = response;
+
+      setTimeout ->
+        # отрефакторить
+        if isNaN(parseInt(settings.standart_shedule_interval)) || parseInt(settings.standart_shedule_interval) == 0
+          settings.standart_shedule_interval = prompt("Введите интервал приема", "15")
+          Settings.saveSettings(settings)
+      , 0
       if (response.calendar_view == 'week')
         vm.calendar_options.defaultView = 'agendaWeek'
 
@@ -172,6 +180,9 @@ class ScheduleController
       $('body').removeClass 'cal_header_mod'
       $('body').removeClass 'cal_body_mod'
     )
+
+  makeNewPatient: ->
+    console.log("hello world")
 
   event_click: (event, jsEvent, view) ->
     vm = view.calendar.options.vm
@@ -290,4 +301,4 @@ class ScheduleController
   event_mouse_over: (event, jsEvent, view) ->
     return
 
-@application.controller 'ScheduleController', ['$rootScope','$scope', 'Visits', 'Settings', ScheduleController]
+@application.controller 'ScheduleController', ['$rootScope','$scope', 'Visits', 'Settings', 'ValueList', ScheduleController]
