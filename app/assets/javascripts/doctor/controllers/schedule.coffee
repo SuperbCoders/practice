@@ -33,6 +33,10 @@ setTimeline = ->
   # $('.fc-day-header[data-date=' + moment(regDate).format('YYYY-MM-DD') + ']').addClass 'active-day'
   clearInterval timelineInterval
   timelineInterval = setInterval(setTimeline, 60 * 1000)
+  setTimeout ->
+    if (timelineInterval != undefined) 
+      setTimeline()
+  , 1000
   return
 
 class ScheduleController
@@ -152,7 +156,10 @@ class ScheduleController
       settings.calendar_view = 'day'
       vm.calendar ||= $('#calendar').fullCalendar(vm.calendar_options)
       calendar = vm.calendar
-      setTimeline()
+      setTimeout ->
+        if (timelineInterval != undefined) 
+          setTimeline()
+      , 1000
     )
 
     # Из-за верстки нужно добавлять классы к body
