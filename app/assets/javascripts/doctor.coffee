@@ -15,7 +15,7 @@
 #= require angular-ui-notification
 #= require angular-moment
 #= require angular-base64-upload
-
+#= require angular-mask
 #/##=  doctor/includes/angular-base64-upload
 
 #= require ./doctor/includes/scripts

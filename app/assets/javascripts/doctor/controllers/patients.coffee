@@ -48,6 +48,18 @@ class PatientsController
       return
     @fetch()
 
+  archivate: (patient) ->
+    vm = @
+    patient.in_archive = true
+    patient.$save()
+    vm.fetch()
+
+  deletePatient: (patient)->
+    vm = @
+    patient.$delete().$promise.then((response)->
+      vm.patients = _.without(vm.patients, patient)
+    )
+
   all_users: ->
     vm = @
     vm.filters.approved = true

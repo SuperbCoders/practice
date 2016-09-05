@@ -2,7 +2,8 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
   attributes :full_name, :comment, :gender, :weight, :height,
       :blood, :diseases, :habits, :profession, :contract_id,
       :register_date, :avatar, :approved, :archivated, :phone, 
-      :email, :age, :birthday, :phones, :emails, :rhesus
+      :email, :age, :birthday, :phones, :emails, :rhesus, :initials,
+      :in_archive
 
   has_many :contacts
 
@@ -19,15 +20,9 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
   end
 
   def age
-    age = 0
-    if object.try(:birthday)
-      birthday = object.birthday
-      while birthday.year != DateTime.now.year
-        age += 1
-        birthday += 1.year
-      end
-    end
-    age
+    dob = object.birthday
+    now = Time.now.utc.to_date
+    now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
   end
 
   def approved
@@ -56,6 +51,10 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
     else
       nil
     end
+  end
+
+  def initials
+    object.full_name.split(/\s+/)[-2..-1].map {|x| x[0]}.join("")
   end
 
 end

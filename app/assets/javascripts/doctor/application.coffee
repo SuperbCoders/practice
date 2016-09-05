@@ -5,7 +5,8 @@
     'naif.base64',
     'ngResource',
     'angularUtils.directives.dirPagination',
-    'angularMoment'])
+    'angularMoment',
+    'ngMask'])
 
 @application.config ['$httpProvider', '$stateProvider', '$urlRouterProvider', 'NotificationProvider', ($httpProvider, $stateProvider, $urlRouterProvider, NotificationProvider) ->
   NotificationProvider.setOptions({

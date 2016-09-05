@@ -6,6 +6,7 @@ class Doctor::PatientsController < Doctor::BaseController
   before_action :find_resource, only: %w(show update destroy edit)
 
   def update
+    byebug
     if @resource and @resource.update_attributes(resource_params)
 
       # Avatar
@@ -37,12 +38,8 @@ class Doctor::PatientsController < Doctor::BaseController
   end
 
   def create
-    byebug
     
     if @resource.save
-      logger.info "-> params #{params.to_json}"
-      logger.info "-> resource_params #{resource_params.to_json}"
-
       # Avatar
       if params[:patient][:avatar].is_a? Hash
         @resource.attach(:avatar, params[:patient][:avatar])
@@ -66,6 +63,7 @@ class Doctor::PatientsController < Doctor::BaseController
             data: phone_data[:data])
       } if params[:patient][:phones]
 
+      @resource.save
       current_doctor.appointments.create(patient: @resource)
     end
 
@@ -109,7 +107,8 @@ class Doctor::PatientsController < Doctor::BaseController
         :comment,
         :contract_id,
         :register_date,
-        :phones]
+        :phones,
+        :in_archive]
   end
 
 end

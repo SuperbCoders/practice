@@ -34,14 +34,14 @@
       / Номера телефонов
       .form_row.mob_add_mod
         %label.input_w{'ng-repeat' => "phone in vm.patient.phones track by $index"}
-          %input.form_input.input_v3{:placeholder => "Телефон клиента", 'ng-model' => "phone.data"}
-            .add_btn_holder
+          %input.form_input.input_v3{:placeholder => "Телефон клиента", 'ng-model' => "phone.data", mask: "(999) 999-9999", clean: true, restrict: :reject}
+            .add_btn_holder{"ng-if" => "$last"} 
               %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", "ng-click" => "vm.add_phone()"}
 
       / Email
       .form_row
         %label.input_w
-          %input.form_input.input_v3{:placeholder => "Email", 'ng-model' => "vm.patient.email"}
+          %input.form_input.input_v3{type: :email, :placeholder => "Email", 'ng-model' => "vm.patient.email"}
 
     / Портрет пациента
     .tab_inner.form_row_v1
@@ -65,11 +65,10 @@
       / Возраст
       .form_row
         .label_holder
-          %label.form_label{:for => "patient_age"} Возраст
+          %label.form_label{:for => "patient_age"} Дата рождения
         %label.input_w.size_29.datepicker_v1.max_w_300
-          %input#patient_age.form_input.input_v1{'ng-model' => "vm.patient.birthday_text"}
-            %span.calendar_icon
-
+          %input#patient_age.form_input.input_v1{mask: "39 / 19 / 9999", restict: :reject}
+            %label#patient_age_label 0 лет
       / Вес
       .form_row
         .label_holder

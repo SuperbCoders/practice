@@ -44,6 +44,9 @@ class Doctor::VisitsController < Doctor::BaseController
     end
 
     if @response[:visit] and @response[:visit].id
+      if response[:visit].patient
+        response[:visit].patient.touch
+      end
       @response[:messages]<< t('visit.messages.visit_succefully_created')
       @response[:success] = true
     else

@@ -3,25 +3,18 @@ class PatientController
     vm = @
     vm.patient = undefined
  
-    if @rootScope.$stateParams.id
-      @Patients.get({id: @rootScope.$stateParams.id}).$promise.then( (patient) ->
-        vm.patient = patient
-        vm.normalize_patient()
-      )
-    else
-      vm.patient =
-        phones: [{number: ''}]
-
-    $('#patient_age').datepicker
+    $('#patient_age').datepicker(
       firstDay: 1
       changeMonth: true
       changeYear: true
-      yearRange: '1920:2016'
+      yearRange: '1930:' + (new Date()).getFullYear().toString(),
       dateFormat: 'dd / mm / yy'
-      defaultDate: +1
       numberOfMonths: 1
       showOtherMonths: true
       unifyNumRows: true
+      onSelect: (textDate) ->
+        getAge(moment($('#patient_age').datepicker('getDate')).toString())
+        vm.patient.birthday = moment($('#patient_age').datepicker('getDate'))
       nextText: ''
       prevText: ''
       monthNames: [
@@ -79,9 +72,20 @@ class PatientController
         'Пт'
         'Сб'
       ]
+    )
 
+    if @rootScope.$stateParams.id
+      @Patients.get({id: @rootScope.$stateParams.id}).$promise.then( (patient) ->
+        vm.patient = patient
+        vm.normalize_patient()
+      )
+    else
+      $('#patient_age').datepicker('setDate', new Date())
+      vm.patient =
+        phones: [{number: ''}]
 
     $("#patient_age").on("change", ->
+      getAge(moment($('#patient_age').datepicker('getDate')).toString())
       vm.patient.birthday = moment($('#patient_age').datepicker('getDate'))
     )
 
@@ -164,3 +168,20 @@ class PatientController
       )
 
 @application.controller 'PatientController', ['$rootScope','$scope', 'Patients' , PatientController]
+
+getAge = (dateString)->
+    today = new Date();
+    birthDate = new Date(dateString);
+    age = today.getFullYear() - birthDate.getFullYear();
+    m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m == 0 && today.getDate() < birthDate.getDate())) 
+      age--;
+    $('#patient_age_label').text(age.toString() + " " + makeAgeWord(age))
+
+makeAgeWord = (age)->
+  ret = ""
+  switch age % 10
+    when 0, 5, 6, 7, 8, 9 then ret = "лет"
+    when 2, 3, 4 then ret = "года"
+    when 1 then ret = "год"
+  ret
