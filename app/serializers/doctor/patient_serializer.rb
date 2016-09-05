@@ -3,7 +3,7 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
       :blood, :diseases, :habits, :profession, :contract_id,
       :register_date, :avatar, :approved, :archivated, :phone, 
       :email, :age, :birthday, :phones, :emails, :rhesus, :initials,
-      :in_archive
+      :in_archive, :cart_color
 
   has_many :contacts
 
@@ -21,6 +21,7 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
 
   def age
     dob = object.birthday
+    return 0 unless dob
     now = Time.now.utc.to_date
     now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
   end

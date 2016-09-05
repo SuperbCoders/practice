@@ -44,9 +44,15 @@ class PatientsController
       firedEl = $(evt.currentTarget)
       niceScrollBlock = firedEl.next('.chzn-container').find('.chzn-results')
       niceScrollBlock.getNiceScroll().hide()
-      #if (firedEl.parents('.form_validate').length) firedEl.validationEngine('validate');
+     
       return
     @fetch()
+
+  unarchivate: (patient) ->
+    vm = @
+    patient.in_archive = false
+    patient.$save()
+    vm.fetch()
 
   archivate: (patient) ->
     vm = @
@@ -56,9 +62,9 @@ class PatientsController
 
   deletePatient: (patient)->
     vm = @
-    patient.$delete().$promise.then((response)->
+    @Patients.remove(patient).$promise.then((response)->
       vm.patients = _.without(vm.patients, patient)
-    )
+    ) 
 
   all_users: ->
     vm = @
@@ -69,6 +75,9 @@ class PatientsController
     vm = @
     @Patients.query(vm.filters).$promise.then((patients) ->
       vm.patients = patients
+      setTimeout ->
+        $('select').trigger("chosen:updated");
+      , 200
     )
     return
 

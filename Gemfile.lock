@@ -122,7 +122,7 @@ GEM
     erb2haml (0.1.5)
       html2haml
     erubis (2.7.0)
-    eventmachine (1.0.9.1)
+    eventmachine (1.2.0.1)
     exception_notification (4.1.4)
       actionmailer (~> 4.0)
       activesupport (~> 4.0)

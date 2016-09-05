@@ -14,12 +14,12 @@
     .tabBlock{"data-tab-context" => "#tab_list"}
       #tab_1
         %ul.patients_list
-          %li.patient_unit{'dir-paginate' => "patient in vm.patients | filter: vm.filters |itemsPerPage: vm.items_limit"}
+          %li.patient_unit{'dir-paginate' => "patient in vm.patients |itemsPerPage: vm.items_limit"}
             .patient_card.cardAsideOverview
 
               / Color tag
               .patient_status_w.chosen_v2.no_search.skipOpen
-                %select.chosen-select
+                %select.chosen-select{"ng-model" => "patient.cart_color"}
                   %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
                   %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
                   %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
@@ -43,9 +43,12 @@
                     %li.drop_down_item
                       %a.gl_link{:href => "", 'ui-sref' => "patients.edit({id: patient.id})"}
                         %span Редактировать
-                    %li.drop_down_item
+                    %li.drop_down_item{"ng-if" => "!patient.in_archive"} 
                       %a.gl_link{:href => "", "ng-click" => "vm.archivate(patient)"}
                         %span Отправить в архив
+                    %li.drop_down_item{"ng-if" => "patient.in_archive"} 
+                      %a.gl_link{:href => "", "ng-click" => "vm.unarchivate(patient)"}
+                        %span Вернуть из архива
                     %li.drop_down_item
                       %a.gl_link{:href => "", "ng-click" => "vm.deletePatient(patient)"}
                         %span Удалить

@@ -10,6 +10,7 @@ class PatientController
       yearRange: '1930:' + (new Date()).getFullYear().toString(),
       dateFormat: 'dd / mm / yy'
       numberOfMonths: 1
+      maxDate: 'today'
       showOtherMonths: true
       unifyNumRows: true
       onSelect: (textDate) ->
@@ -78,11 +79,20 @@ class PatientController
       @Patients.get({id: @rootScope.$stateParams.id}).$promise.then( (patient) ->
         vm.patient = patient
         vm.normalize_patient()
+        $('#patient_age').datepicker('setDate', moment(vm.patient.birthday).toDate())
+        getAge(moment($('#patient_age').datepicker('getDate')).toString())
+        setTimeout ->
+          $('select').trigger("chosen:updated");
+        , 500
       )
     else
-      $('#patient_age').datepicker('setDate', new Date())
       vm.patient =
         phones: [{number: ''}]
+        birthday: new Date()
+        cart_color: "0"
+      vm.normalize_patient()
+      $('#patient_age').datepicker('setDate', new Date())
+    $('#ui-datepicker-div').hide()
 
     $("#patient_age").on("change", ->
       getAge(moment($('#patient_age').datepicker('getDate')).toString())
@@ -111,12 +121,7 @@ class PatientController
             left: 0
             bottom: 0
         return
-    ).on 'chosen:hiding_dropdown', (evt, params) ->
-      firedEl = $(evt.currentTarget)
-      niceScrollBlock = firedEl.next('.chzn-container').find('.chzn-results')
-      niceScrollBlock.getNiceScroll().hide()
-      #if (firedEl.parents('.form_validate').length) firedEl.validationEngine('validate');
-      return
+    )
 
   normalize_patient: ->
     vm = @
@@ -161,8 +166,8 @@ class PatientController
       )
     else
       vm.Patients.create({patient: vm.patient}).$promise.then((result) ->
-        if vm.redirect
-          vm.rootScope.$state.go('journal.add_record', {patient_id: result.patient.id})
+        if redirect
+          vm.rootScope.$state.go('journal.add_record', {patient_id: result.id})
         else
           vm.rootScope.$state.go('patients.list')
       )

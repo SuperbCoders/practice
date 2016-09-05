@@ -9,7 +9,7 @@
       .form_row
         .patient_photo_block
           .patient_status_w.chosen_v2.no_search.skipOpen
-            %select.chosen-select
+            %select.chosen-select{"ng-model" => "vm.patient.cart_color"}
               %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
               %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
               %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
@@ -67,7 +67,7 @@
         .label_holder
           %label.form_label{:for => "patient_age"} Дата рождения
         %label.input_w.size_29.datepicker_v1.max_w_300
-          %input#patient_age.form_input.input_v1{mask: "39 / 19 / 9999", restict: :reject}
+          %input#patient_age.form_input.input_v1{"ng-model" => "vm.patient.birthday_text", mask: "39 / 19 / 9999", restict: :reject}
             %label#patient_age_label 0 лет
       / Вес
       .form_row

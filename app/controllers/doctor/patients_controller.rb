@@ -1,9 +1,17 @@
 class Doctor::PatientsController < Doctor::BaseController
   include Concerns::Resource
 
-  before_action :find_resources, only: %w(index)
   before_action :new_resource, only: %w(create new)
   before_action :find_resource, only: %w(show update destroy edit)
+
+  def index
+    if params[:archivated]  == "true"
+      @resources = current_doctor.patients.where(in_archive: true).order(:updated_at => :desc)
+    else
+      @resources = current_doctor.patients.order(:updated_at => :desc)
+    end
+    super
+  end
 
   def update
     if @resource and @resource.update_attributes(resource_params)
@@ -107,7 +115,8 @@ class Doctor::PatientsController < Doctor::BaseController
         :contract_id,
         :register_date,
         :phones,
-        :in_archive]
+        :in_archive,
+        :cart_color]
   end
 
 end

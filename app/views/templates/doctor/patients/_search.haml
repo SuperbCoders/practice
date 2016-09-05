@@ -16,7 +16,7 @@
           %ul.filter_toggle.filter_toggle_v1
 
             / Все
-            %li.filter_t_item{'ng-click' => "vm.filters.approved = undefined; vm.filters.archivated = false;"}
+            %li.filter_t_item{'ng-click' => "vm.filters.approved = undefined; vm.filters.archivated = false;vm.fetch()"}
               %label.filter_t_box
                 %input.hidden_input{:checked => "checked", :name => "patient_filter", :type => "radio"}/
                 %span.filter_t_name
@@ -24,7 +24,7 @@
                   %span.dt_hidden пациенты
 
             / Ожидают подтверждения
-            %li.filter_t_item{'ng-click' => "vm.filters.approved = false; vm.filters.archivated = false;"}
+            %li.filter_t_item{'ng-click' => "vm.filters.approved = false; vm.filters.archivated = false;vm.fetch()"}
               %label.filter_t_box
                 %input.hidden_input{:name => "patient_filter", :type => "radio"}/
                 %span.filter_t_name
@@ -32,7 +32,7 @@
                   %span.mob_hidden Заявки на прием
 
             / Записаны врачом
-            %li.filter_t_item{'ng-click' => "vm.filters.approved = false; vm.filters.archivated = false;"}
+            %li.filter_t_item{'ng-click' => "vm.filters.approved = false; vm.filters.archivated = false;vm.fetch()"}
               %label.filter_t_box
                 %input.hidden_input{:name => "patient_filter", :type => "radio"}/
                 %span.filter_t_name
@@ -40,7 +40,7 @@
                   %span.mob_hidden Записаны на прием
 
             / В архиве
-            %li.filter_t_item.mob_hidden{'ng-click' => "vm.filters.approved = undefined; vm.filters.archivated = true;"}
+            %li.filter_t_item.mob_hidden{'ng-click' => "vm.filters.approved = undefined; vm.filters.archivated = true;vm.fetch()"}
               %label.filter_t_box
                 %input.hidden_input{:name => "patient_filter", :type => "radio"}/
                 %span.filter_t_name В архиве
