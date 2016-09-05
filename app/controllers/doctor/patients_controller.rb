@@ -6,7 +6,6 @@ class Doctor::PatientsController < Doctor::BaseController
   before_action :find_resource, only: %w(show update destroy edit)
 
   def update
-    byebug
     if @resource and @resource.update_attributes(resource_params)
 
       # Avatar
