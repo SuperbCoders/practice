@@ -164,10 +164,10 @@ class ScheduleController
       settings.calendar_view = 'day'
       vm.calendar ||= $('#calendar').fullCalendar(vm.calendar_options)
       calendar = vm.calendar
-      setTimeout ->
-        if (timelineInterval != undefined) 
-          # setTimeline()
-      , 1000
+      # setTimeout ->
+      #   # if (timelineInterval != undefined) 
+      #     # setTimeline()
+      # , 1000
     )
 
     # Из-за верстки нужно добавлять классы к body
@@ -294,7 +294,7 @@ class ScheduleController
 
     $('.calendarHolder').toggleClass 'day_mode', 'agendaDay' == view.name
 
-    if (timelineInterval != undefined) 
+    # if (timelineInterval != undefined) 
       # setTimeline()
 
 
