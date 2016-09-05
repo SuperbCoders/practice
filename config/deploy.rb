@@ -18,6 +18,15 @@ namespace :deploy do
     end
   end
 
+  desc "reload the database with seed data"
+  task :seed do
+    on roles(:app), in: :sequence, wait: 5 do
+      within release_path do
+        execute :rake, 'db:seed'
+      end
+    end
+  end
+
   after :restart, :clear_cache do
     invoke 'unicorn:restart'
 

@@ -166,7 +166,7 @@ class ScheduleController
       calendar = vm.calendar
       setTimeout ->
         if (timelineInterval != undefined) 
-          setTimeline()
+          # setTimeline()
       , 1000
     )
 
@@ -295,7 +295,7 @@ class ScheduleController
     $('.calendarHolder').toggleClass 'day_mode', 'agendaDay' == view.name
 
     if (timelineInterval != undefined) 
-      setTimeline()
+      # setTimeline()
 
 
   event_mouse_over: (event, jsEvent, view) ->
