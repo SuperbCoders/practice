@@ -12,11 +12,11 @@
             %span Пациенты
     .fr
       .mb.mob_hidden
-        #notifications.user_m_item{'ng-controller' => "NotificationsController as vm"}
-          %a.notifications.white_transp_2_btn.new_notification.notificationBtn{:href => ""} {{vm.notifications.length}}
+        #notifications.user_m_item{'ng-controller' => "NotificationsController"}
+          %a.notifications.white_transp_2_btn.new_notification.notificationBtn{:href => ""} {{notifications.length}}
           .notification_holder
             .notification_dropdown.notificationDropdown
-              %ul.notification_list{'ng-repeat' => "notification in vm.notifications"}
+              %ul.notification_list{'ng-repeat' => "notification in notifications"}
                 %li.notification_item
                   .notification_img{'ng-show' => "notification.image"}
                     %img{'ng-src' => "{{notification.image}}"}/

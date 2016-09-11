@@ -1,0 +1,5 @@
+ru:
+  concerns:
+    alertable:
+      succefull_updated: успешно обновлен
+      succefull_created: успешно создан

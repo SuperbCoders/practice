@@ -14,7 +14,7 @@
     .tabBlock{"data-tab-context" => "#tab_list"}
       #tab_1
         %ul.patients_list
-          %li.patient_unit{'dir-paginate' => "patient in vm.patients |itemsPerPage: vm.items_limit"}
+          %li.patient_unit{'dir-paginate' => "patient in patients | itemsPerPage: items_limit"}
             .patient_card.cardAsideOverview
 
               / Color tag
@@ -44,13 +44,13 @@
                       %a.gl_link{:href => "", 'ui-sref' => "patients.edit({id: patient.id})"}
                         %span Редактировать
                     %li.drop_down_item{"ng-if" => "!patient.in_archive"} 
-                      %a.gl_link{:href => "", "ng-click" => "vm.archivate(patient)"}
+                      %a.gl_link{:href => "", "ng-click" => "archivate(patient)"}
                         %span Отправить в архив
                     %li.drop_down_item{"ng-if" => "patient.in_archive"} 
-                      %a.gl_link{:href => "", "ng-click" => "vm.unarchivate(patient)"}
+                      %a.gl_link{:href => "", "ng-click" => "unarchivate(patient)"}
                         %span Вернуть из архива
                     %li.drop_down_item
-                      %a.gl_link{:href => "", "ng-click" => "vm.deletePatient(patient)"}
+                      %a.gl_link{:href => "", "ng-click" => "deletePatient(patient)"}
                         %span Удалить
 
               / Patient info

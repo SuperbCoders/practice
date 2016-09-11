@@ -9,14 +9,14 @@
       .form_row
         .patient_photo_block
           .patient_status_w.chosen_v2.no_search.skipOpen
-            %select.chosen-select{"ng-model" => "vm.patient.cart_color"}
+            %select.chosen-select{"ng-model" => "patient.cart_color"}
               %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
               %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
               %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
               %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
-          %input#patient_photo.hidden_input{:type => "file", 'ng-model' => "vm.patient.avatar"}(base-sixty-four-input)
-            %img{'ng-src' => "data:{{vm.patient.avatar.filetype}};base64,{{vm.patient.avatar.base64}}", width: '128px', height: '128px', 'ng-if' => 'vm.patient.avatar.filetype'}
-            %img{'ng-src' => "{{vm.patient.avatar}}", width: '128px', height: '128px', 'ng-if' => '!vm.patient.avatar.filetype'}
+          %input#patient_photo.hidden_input{:type => "file", 'ng-model' => "patient.avatar"}(base-sixty-four-input)
+            %img{'ng-src' => "data:{{patient.avatar.filetype}};base64,{{patient.avatar.base64}}", width: '128px', height: '128px', 'ng-if' => 'patient.avatar.filetype'}
+            %img{'ng-src' => "{{patient.avatar}}", width: '128px', height: '128px', 'ng-if' => '!patient.avatar.filetype'}
             .patient_add_avatar
               %span.patient_avatar_letter Ф
               %label.change_photo_btn.btn_v1{:for => "patient_photo"}
@@ -24,24 +24,24 @@
       / Фио
       .form_row
         %label.input_w
-          %input.form_input.input_v3{:placeholder => "ФИО", 'ng-model' => "vm.patient.full_name"}
+          %input.form_input.input_v3{:placeholder => "ФИО", 'ng-model' => "patient.full_name"}
 
       / Комментарий
       .form_row
         %label.input_w
-          %textarea.form_input.input_v3{"ng-model" => "vm.patient.comment", :placeholder => "Краткое описание клиента (этот текст будет видеть только врач)"}
+          %textarea.form_input.input_v3{"ng-model" => "patient.comment", :placeholder => "Краткое описание клиента (этот текст будет видеть только врач)"}
 
       / Номера телефонов
       .form_row.mob_add_mod
-        %label.input_w{'ng-repeat' => "phone in vm.patient.phones track by $index"}
+        %label.input_w{'ng-repeat' => "phone in patient.phones track by $index"}
           %input.form_input.input_v3{:placeholder => "Телефон клиента", 'ng-model' => "phone.data", mask: "(999) 999-9999", clean: true, restrict: :reject}
             .add_btn_holder{"ng-if" => "$last"} 
-              %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", "ng-click" => "vm.add_phone()"}
+              %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", "ng-click" => "add_phone()"}
 
       / Email
       .form_row
         %label.input_w
-          %input.form_input.input_v3{type: :email, :placeholder => "Email", 'ng-model' => "vm.patient.email"}
+          %input.form_input.input_v3{type: :email, :placeholder => "Email", 'ng-model' => "patient.email"}
 
     / Портрет пациента
     .tab_inner.form_row_v1
@@ -55,11 +55,11 @@
           %ul.filter_toggle.filter_toggle_v2
             %li.filter_t_item
               %label.filter_t_box
-                %input.hidden_input{ :id => "patient_gender_male", :type => "radio", 'ng-click' => "vm.gender('male')"}
+                %input.hidden_input{ :id => "patient_gender_male", :type => "radio", 'ng-click' => "gender('male')"}
                   %span.filter_t_name Мужской
             %li.filter_t_item
               %label.filter_t_box
-                %input.hidden_input{ :id => "patient_gender_female", :type => "radio", 'ng-click' => "vm.gender('female')"}
+                %input.hidden_input{ :id => "patient_gender_female", :type => "radio", 'ng-click' => "gender('female')"}
                   %span.filter_t_name Женский
 
       / Возраст
@@ -67,35 +67,35 @@
         .label_holder
           %label.form_label{:for => "patient_age"} Дата рождения
         %label.input_w.size_29.datepicker_v1.max_w_300
-          %input#patient_age.form_input.input_v1{"ng-model" => "vm.patient.birthday_text", mask: "39 / 19 / 9999", restict: :reject}
+          %input#patient_age.form_input.input_v1{"ng-model" => "patient.birthday_text", mask: "39 / 19 / 9999", restict: :reject}
             %label#patient_age_label 0 лет
       / Вес
       .form_row
         .label_holder
           %label.form_label{:for => "patient_weight"} Вес
         .input_w.size_59
-          %input#patient_weight.form_input.input_v1{'mask'=>"999", 'mask-restrict'=>'reject', 'mask-clean'=>'true', :placeholder => "80 кг", 'ng-model' => "vm.patient.weight"}
+          %input#patient_weight.form_input.input_v1{'mask'=>"999", 'mask-restrict'=>'reject', 'mask-clean'=>'true', :placeholder => "80 кг", 'ng-model' => "patient.weight"}
 
       / Рост
       .form_row
         .label_holder
           %label.form_label{:for => "patient_height"} Рост
         .input_w.size_59
-          %input#patient_height.form_input.input_v1{'mask'=>"999", 'mask-restrict'=>'reject', 'mask-clean'=>'true', :placeholder => "185 см", 'ng-model' => "vm.patient.height"}
+          %input#patient_height.form_input.input_v1{'mask'=>"999", 'mask-restrict'=>'reject', 'mask-clean'=>'true', :placeholder => "185 см", 'ng-model' => "patient.height"}
 
       / Группа крови
       .form_row
         .label_holder
           .form_label Группа крови
         .input_w.size_27.mob_size_43.chosen_v1.no_search
-          %select#patient_blood.chosen-select{"data-placeholder" => "Группа", 'ng-model' => "vm.patient.blood"}
+          %select#patient_blood.chosen-select{"data-placeholder" => "Группа", 'ng-model' => "patient.blood"}
             %option{"data-title" => "", :value => ""}
             %option{"data-title" => "1 группа", :value => "1"} 1 группа
             %option{"data-title" => "2 группа", :value => "2"} 2 группа
             %option{"data-title" => "3 группа", :value => "3"} 3 группа
             %option{"data-title" => "4 группа", :value => "4"} 4 группа
         .input_w.size_27.mob_size_43.chosen_v1.no_search
-          %select#patient_rhesus.chosen-select{"data-placeholder" => "Резус фактора", 'ng-model' => "vm.patient.rhesus"}
+          %select#patient_rhesus.chosen-select{"data-placeholder" => "Резус фактора", 'ng-model' => "patient.rhesus"}
             %option{"data-title" => "", :value => ""}
             %option{"data-title" => "+", :value => "-"} -
             %option{"data-title" => "-", :value => "+"} +
@@ -108,21 +108,21 @@
         .label_holder
           %label.form_label{:for => "patient_chronic_diseases"} Хронические заболевания
         .input_w.size_59
-          %textarea#patient_chronic_diseases.form_input.mod_1.input_v1{:placeholder => "Перечислите через запятую", 'ng-model' => "vm.patient.diseases"}
+          %textarea#patient_chronic_diseases.form_input.mod_1.input_v1{:placeholder => "Перечислите через запятую", 'ng-model' => "patient.diseases"}
 
       / Вредные привычки
       .form_row
         .label_holder
           %label.form_label{:for => "patient_bad_habits"} Вредные привычки
         .input_w.size_59
-          %textarea#patient_bad_habits.form_input.mod_1.input_v1{:placeholder => "Перечислите через запятую", 'ng-model' => "vm.patient.habits"}
+          %textarea#patient_bad_habits.form_input.mod_1.input_v1{:placeholder => "Перечислите через запятую", 'ng-model' => "patient.habits"}
 
       / Профессия
       .form_row
         .label_holder
           %label.form_label{:for => "patient_profession"} Профессия
         .input_w.size_59
-          %input#patient_profession.form_input.input_v1{'ng-model' => "vm.patient.profession"}
+          %input#patient_profession.form_input.input_v1{'ng-model' => "patient.profession"}
 
     .tab_inner.form_row_v1
 
@@ -131,16 +131,16 @@
         .label_holder
           %label.form_label{:for => "patient_doc_number"} Договор №
         .input_w.size_59
-          %input#patient_doc_number.form_input.input_v1{'ng-model' => "vm.patient.contract_id"}
+          %input#patient_doc_number.form_input.input_v1{'ng-model' => "patient.contract_id"}
 
   .profile_tab_controls
     .section_inner
       .form_controls
         .fl
           .mb
-            %a.btn_v2.yellow_black_btn.save_btn{:href =>"", "ng-click" => "vm.save()"}
+            %a.btn_v2.yellow_black_btn.save_btn{:href =>"", "ng-click" => "save()"}
               %span.mb Сохранить
         .fl
           .mb
-            %a.btn_v2.save_btn.black_yellow_btn.border_mod{:href => "", "ng-click" => "vm.save(true)"}
+            %a.btn_v2.save_btn.black_yellow_btn.border_mod{:href => "", "ng-click" => "save(true)"}
               %span.mb Сохранить и добавить запись

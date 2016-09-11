@@ -9,24 +9,24 @@
         %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
     .form_row
       .input_w.placeholder_mod
-        %input#new_patient_name.form_input.input_v4.checkEmpty{:type => "text", :value => "", 'ng-model' => "vm.new_patient.first_name"}/
+        %input#new_patient_name.form_input.input_v4.checkEmpty{:type => "text", :value => "", 'ng-model' => "new_patient.first_name"}/
         %label.form_label.fz_20_{:for => "new_patient_name"} Имя пациента
     .form_row
       .input_w.placeholder_mod
-        %input#new_patient_phone.form_input.input_v4.checkEmpty{:type => "tel", 'ng-model' => "vm.new_patient.phone"}/
+        %input#new_patient_phone.form_input.input_v4.checkEmpty{:type => "tel", 'ng-model' => "new_patient.phone"}/
         %label.form_label{:for => "new_patient_phone"} Телефон
     .form_row
       .input_w.placeholder_mod
-        %input#new_patient_email.form_input.input_v4.checkEmpty{:type => "email", 'ng-model' => "vm.new_patient.email"}/
+        %input#new_patient_email.form_input.input_v4.checkEmpty{:type => "email", 'ng-model' => "new_patient.email"}/
         %label.form_label{:for => "new_patient_email"} Email
     .form_row
-      %select#shedule_stand_time{'ng-model'=>"vm.new_patient.duration","data-placeholder" => "Выберите длительность приема"}
-        %option{'ng-repeat' => 'interval in vm.standartTimeIntervals', value: "{{interval.value}}"} {{interval.value}} мин.
+      %select#shedule_stand_time{'ng-model'=>"new_patient.duration","data-placeholder" => "Выберите длительность приема"}
+        %option{'ng-repeat' => 'interval in standartTimeIntervals', value: "{{interval.value}}"} {{interval.value}} мин.
       %label{:for => "shedule_stand_time"} Длительность приема
     .form_row
       .input_w.placeholder_mod
-        %input#new_patient_describe.form_input.input_v4.checkEmpty{'ng-model' => "vm.new_patient.comment"}/
+        %input#new_patient_describe.form_input.input_v4.checkEmpty{'ng-model' => "new_patient.comment"}/
         %label.form_label{:for => "new_patient_describe"} Краткое описание (только для вас)
-      %input{type: 'hidden', value: '', id: 'visit_date', 'ng-model' => "vm.visit.start_at"}
-    %button.btn_v2.new_patient_btn.newPatientBtn.yellow_black_btn{'ng-click' => "vm.create()"}
+      %input{type: 'hidden', value: '', id: 'visit_date', 'ng-model' => "visit.start_at"}
+    %button.btn_v2.new_patient_btn.newPatientBtn.yellow_black_btn{'ng-click' => "create()"}
       %span.mb Записать на 30 декабря, в 12:00
