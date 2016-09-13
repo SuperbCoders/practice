@@ -6,7 +6,7 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
 	$scope.event_id = 0;
   $scope.calendarHolder = $('.calendarHolder');	
   $scope.timelineInterval = 1;
-  $scope.new_patient = {};
+  $scope.new_patient = {duration: undefined};
   $scope.calendar_options = {
     firstDay: 1,
     minTime: "05:45:00",
@@ -68,7 +68,17 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
   });
   
   $scope.$watch('new_patient.duration', function(new_value){
-    console.log("new duration time: ", new_value);
+    let last_id = $scope.event_id - 1;
+    let events  = $('#calendar').fullCalendar('clientEvents'); 
+    let last_event = undefined;
+    
+    for (let event of events)
+      if (event._id == last_id)
+        last_event = event;
+    if (last_event == undefined)
+      return;
+    last_event.end = moment(last_event.start).add(parseInt($scope.new_patient.duration), 'm');;
+    $('#calendar').fullCalendar('updateEvent', last_event); 
   });
 
   Settings.getSettings().then(function(response) {
@@ -76,7 +86,7 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
     setTimeout(function() {
       if (isNaN(parseInt($scope.settings.standart_shedule_interval)) || parseInt($scope.settings.standart_shedule_interval) === 0) {
         $scope.settings.standart_shedule_interval = prompt("Введите интервал приема", "15");
-        return Settings.saveSettings($scope.settings);
+        Settings.saveSettings($scope.settings);
       }
     }, 0);
     if (response.calendar_view === 'week') {
@@ -86,6 +96,7 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
     $scope.calendar || ($scope.calendar = $('#calendar').fullCalendar($scope.calendar_options));
     $scope.calendar;
   });
+
   $('body').addClass('cal_header_mod');
   $('body').addClass('cal_body_mod');
   $scope.$on('$destroy', function() {
@@ -104,7 +115,6 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
 	  return $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name);
 	};
 
-
   function event_drop(event, delta, revertFunc, jsEvent, ui, view) {
 	  event.start_at = event.start;
 	  event.duration = (event.end - event.start) / 60 / 1000;
@@ -116,7 +126,6 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
 	  event.duration = (event.end - event.start) / 60 / 1000;
 	  event.$save();
 	};
-
 
   function event_click(event, jsEvent, view) {
     $scope.$apply(function() {
@@ -159,54 +168,60 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
 	  $scope.clicks++;
 	  return setTimeout(function() {
 	    var newEventDate;
-	    if ($scope.clicks === 1) {
-	      $scope.clicks = 0;
+	    if ($scope.clicks == 2) {
+        $scope.$apply(function(){
+          let stDuration = $scope.settings.standart_shedule_interval;
+          $scope.new_patient.duration = stDuration;
+          $scope.new_patient.first_name = "";
+          $scope.new_patient.phone = "";
+          $scope.new_patient.email = "";
+          $scope.new_patient.comment = "";
+          event = {
+            start: date,
+            end: moment(date).add(parseInt(stDuration), 'm'),
+            saved: false
+          };
+          event.id = $scope.event_id;
+          $scope.event = event;
+          $scope.event_id++;
+          $($scope.calendar).fullCalendar('renderEvent', event);
+          $scope.add_patient_form || ($scope.add_patient_form = $('#add_patient_form').dialog({
+            autoOpen: false,
+            modal: true,
+            width: 360,
+            dialogClass: 'dialog_v1 no_close_mod'
+          }));
+          $($scope.add_patient_form).find('form')[0].reset();
+          $($scope.add_patient_form).find('#visit_date').val(date.format());
+          $($scope.add_patient_form).find('.newPatientBtn span').text('Записать на ' + date.format('DD') + ' ' + date.format('MMMM').toString().toLowerCase().replace(/.$/, 'я') + ', в ' + date.format('HH:mm'));
+          newEventDate = date;
+          $scope.add_patient_form.dialog('option', 'position', {
+            my: 'left+15 top-150',
+            of: jsEvent,
+            collision: 'flip fit',
+            within: '.fc-view-container',
+            using: function(obj, info) {
+              var cornerY, dialog_form;
+              dialog_form = $(this);
+              cornerY = jsEvent.pageY - obj.top - 40;
+              if (info.horizontal !== 'left') {
+                dialog_form.addClass('flipped_left');
+              } else {
+                dialog_form.removeClass('flipped_left');
+              }
+              dialog_form.css({
+                left: obj.left + 'px',
+                top: obj.top + 'px'
+              }).find('.form_corner').css({
+                top: Math.min(Math.max(cornerY, -20), dialog_form.height() - 55) + 'px'
+              });
+            }
+          }).dialog('open');  
+
+        $('#shedule_stand_time').val(stDuration);
+        });
 	    }
-	    if ($scope.clicks === 2) {
-        let stDuration = $scope.settings.standart_shedule_interval;
-        $scope.new_patient = {duration: stDuration};
-	      event = {
-	        start: date,
-	        end: moment(date).add(parseInt(stDuration), 'm'),
-	        saved: false
-	      };
-	      event.id = $scope.event_id;
-	      $scope.event_id++;
-	      $($scope.calendar).fullCalendar('renderEvent', event);
-	      $scope.add_patient_form || ($scope.add_patient_form = $('#add_patient_form').dialog({
-	        autoOpen: false,
-	        modal: true,
-	        width: 360,
-	        dialogClass: 'dialog_v1 no_close_mod'
-	      }));
-	      $($scope.add_patient_form).find('form')[0].reset();
-	      $($scope.add_patient_form).find('#visit_date').val(date.format());
-	      $($scope.add_patient_form).find('.newPatientBtn span').text('Записать на ' + date.format('DD') + ' ' + date.format('MMMM').toString().toLowerCase().replace(/.$/, 'я') + ', в ' + date.format('HH:mm'));
-	      newEventDate = date;
-	      $scope.add_patient_form.dialog('option', 'position', {
-	        my: 'left+15 top-150',
-	        of: jsEvent,
-	        collision: 'flip fit',
-	        within: '.fc-view-container',
-	        using: function(obj, info) {
-	          var cornerY, dialog_form;
-	          dialog_form = $(this);
-	          cornerY = jsEvent.pageY - obj.top - 40;
-	          if (info.horizontal !== 'left') {
-	            dialog_form.addClass('flipped_left');
-	          } else {
-	            dialog_form.removeClass('flipped_left');
-	          }
-	          dialog_form.css({
-	            left: obj.left + 'px',
-	            top: obj.top + 'px'
-	          }).find('.form_corner').css({
-	            top: Math.min(Math.max(cornerY, -20), dialog_form.height() - 55) + 'px'
-	          });
-	        }
-	      }).dialog('open');
-	      return $scope.clicks = 0;
-	    }
+      return $scope.clicks = 0;
 	  }, 200);
 	};
 
@@ -248,6 +263,34 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
 	    }
 	  }, 1000);
 	};
+
+  $('.chosen-select').chosen({
+    width: '100%',
+    disable_search_threshold: 3
+  }).on('chosen:showing_dropdown', function(evt, params) {
+    var firedEl, niceScrollBlock;
+    firedEl = $(evt.currentTarget);
+    niceScrollBlock = firedEl.next('.chzn-container').find('.chzn-results');
+    if (niceScrollBlock.getNiceScroll().length) {
+      return niceScrollBlock.getNiceScroll().resize().show();
+    } else {
+      niceScrollBlock.niceScroll({
+        cursorwidth: 4,
+        cursorborderradius: 2,
+        cursorborder: 'none',
+        bouncescroll: false,
+        autohidemode: false,
+        horizrailenabled: false,
+        railsclass: firedEl.data('rails_class'),
+        railpadding: {
+          top: 0,
+          right: 0,
+          left: 0,
+          bottom: 0
+        }
+      });
+    }
+  }); 
 }
 
 angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Settings', 'ValueList', ScheduleController]);
