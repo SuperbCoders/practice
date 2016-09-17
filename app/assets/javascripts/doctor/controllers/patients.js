@@ -1,9 +1,10 @@
 function PatientsController($scope, Patients) {
-  $scope.items_limit = 30;
+  $scope.items_limit = 9;
   $scope.filters = {
     approved: false,
     archivated: false
   };
+  $scope.search_query = "";
 
   $('body').addClass('body_gray');
   $('body').addClass('sub_header_mod');
@@ -69,7 +70,39 @@ function PatientsController($scope, Patients) {
     return $scope.filters.archivated = false;
   };
 
-  $scope.fetch = function() {
+  $scope.filter_fn = function(patient){
+    console.log("filter called");
+    if ($scope.search_query == "")
+      return true;
+    
+    search_query = $scope.search_query.toLowerCase();
+    
+    if (patient.full_name.toLowerCase().indexOf(search_query) != -1)
+      return true;
+
+    if (patient.email.toLowerCase().indexOf(search_query) != -1)
+      return true;
+    
+    for (phone of patient.phones)
+      if (phone.data.toLowerCase().indexOf(search_query) != -1)
+        return true;
+    return false;
+  }
+
+  // $scope.$watch('search_query', function(new_value){
+  //   console.log("watch", new_value);
+  //   if (new_value.toString() != "")
+  //     $scope.fetch(new_value);
+  //   else
+  //     $scope.fetch();
+  // });
+
+  $scope.fetch = function(search_query = undefined) {
+    if (search_query != undefined)
+      $scope.filters.query = search_query
+    else
+      delete $scope.filters.query;
+
     Patients.query($scope.filters).$promise.then(function(patients) {
       $scope.patients = patients;
       return setTimeout(function() {

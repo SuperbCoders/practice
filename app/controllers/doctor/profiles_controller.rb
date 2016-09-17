@@ -8,8 +8,6 @@ class Doctor::ProfilesController < Doctor::BaseController
   def update
     if @resource.update_attributes(resource_params)
 
-      logger.info "Params #{doctor_params}"
-
       # Office open/closed
       if doctor_params[:office]
         @resource.office_open!
@@ -57,7 +55,6 @@ class Doctor::ProfilesController < Doctor::BaseController
           end
         } if work_schedule[:days]
       }
-      logger.info "Schedule settings #{schedule_settings_params}"
     end
 
     send_json serialize_resource(@resource, resource_serializer), @resource.valid?

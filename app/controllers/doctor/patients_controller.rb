@@ -6,10 +6,16 @@ class Doctor::PatientsController < Doctor::BaseController
 
   def index
     if params[:archivated]  == "true"
-      @resources = current_doctor.patients.where(in_archive: true).order(:updated_at => :desc)
+      @resources = current_doctor.patients.archivated
     else
-      @resources = current_doctor.patients.order(:updated_at => :desc)
+      @resources = current_doctor.patients
     end
+
+    # if params[:query]
+    #   @resources = @resources.where("lower(full_name) like :query or lower(email) like :query", 
+    #     query: "%" + params[:query].to_s.mb_chars.downcase.strip + "%") 
+    # end
+
     super
   end
 
@@ -71,20 +77,14 @@ class Doctor::PatientsController < Doctor::BaseController
       } if params[:patient][:phones]
 
       @resource.save
-      current_doctor.appointments.create(patient: @resource)
     end
 
     send_json serialize_resource(@resource, Doctor::PatientSerializer), @resource.id?
     # send_response @response
   end
 
-  def search
-    @patients = current_doctor.patients.where("")
-    send_json serialize_resources()
-  end
-
   def resource_scope
-    current_doctor.patients.order(created_at: :desc)
+    current_doctor.patients
   end
 
   def resource_serializer

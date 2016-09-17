@@ -23,25 +23,24 @@ function DoctorProfileController($scope, Alerts, state, Doctor, Settings, ValueL
   };
 
   $scope.save = function() {
-    $scope.Doctor.save({doctor: $scope.doctor}).$promise.then(function(response) {
+    Doctor.save({doctor: $scope.doctor}).$promise.then(function(response) {
       return $scope.Alerts.messages = response.messages;
     });
-    $scope.Settings.saveSettings({
+    Settings.saveSettings({
       setting: $scope.settings
     });
   };
 
-  if (!$scope.doctor) {
-    Doctor.get().$promise.then(function(response) {
-      $scope.doctor = response;
-      if ($scope.doctor.phones.length <= 0) {
-        $scope.add_contact('phone');
-      }
-      if ($scope.doctor.work_schedules.length <= 0) {
-        return $scope.new_schedule();
-      }
-    });
-  }
+  Doctor.get().$promise.then(function(response) {
+    $scope.doctor = response;
+    if ($scope.doctor.phones.length <= 0) {
+      $scope.add_contact('phone');
+    }
+    if ($scope.doctor.work_schedules.length <= 0) {
+      return $scope.new_schedule();
+    }
+  });
+
   ValueList.getList("Стандартное время приема").then(function(response) {
     return $scope.standartTimeIntervals = response.value_list_items;
   });
@@ -54,6 +53,30 @@ function DoctorProfileController($scope, Alerts, state, Doctor, Settings, ValueL
     window.open(url, "Auth", "height=200,width=200");
     return true;
   };
+
+  $scope.update_password = function() {
+    params = {
+      id: $scope.doctor.id,
+      password: $scope.doctor.password
+    };
+    Doctor.save({doctor: params}).$promise.then(function(response) {
+      if (response.errors.length <= 0) {
+        return $scope.hide_pass_form();
+      }
+    });
+  };
+
+  $scope.hide_pass_form = function() {
+    $scope.doctor.password = void 0;
+    $('.passForm').hide();
+    $('.passBtn').show();
+  };
+
+  $scope.show_pass_form = function() {
+    $('.passBtn').hide();
+    $('.passForm').show().find('.passInput').focus();
+  };
+
 }
 
 function updateDaysRow(slct) {
@@ -145,35 +168,6 @@ function init_chosen($scope) {
       width: '100%'
     });
   }
-};
-
-DoctorProfileController.prototype.update_password = function() {
-  var doctor, params, vm;
-  vm = this;
-  params = doctor = {
-    id: $scope.doctor.id,
-    password: $scope.doctor.password
-  };
-  return $scope.Doctor.save({
-    doctor: params
-  }).$promise.then(function(response) {
-    if (response.errors.length <= 0) {
-      return $scope.hide_pass_form();
-    }
-  });
-};
-
-DoctorProfileController.prototype.hide_pass_form = function() {
-  var vm;
-  vm = this;
-  $scope.doctor.password = void 0;
-  $('.passForm').hide();
-  $('.passBtn').show();
-};
-
-DoctorProfileController.prototype.show_pass_form = function() {
-  $('.passBtn').hide();
-  $('.passForm').show().find('.passInput').focus();
 };
 
 angular.module('practice.doctor').controller('DoctorProfileController', ['$scope', 'Alerts', '$state', 'Doctor', 'Settings', 'ValueList', DoctorProfileController]);

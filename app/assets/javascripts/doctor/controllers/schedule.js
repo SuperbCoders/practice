@@ -1,13 +1,12 @@
-function ScheduleController($scope, Visits, Settings, ValueList) {
+function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
   $scope.items_limit = 100;
   $scope.filters = {};
   $scope.win = $(window);
 	$scope.clicks = 0;
 	$scope.event_id = 0;
-	$scope.new_patient = {};
   $scope.calendarHolder = $('.calendarHolder');	
   $scope.timelineInterval = 1;
-  $scope.standartTimeIntervals = [{}]
+  $scope.new_patient = {};
   $scope.calendar_options = {
     firstDay: 1,
     minTime: "05:45:00",
@@ -68,6 +67,10 @@ function ScheduleController($scope, Visits, Settings, ValueList) {
     $scope.standartTimeIntervals = response.value_list_items;
   });
   
+  $scope.$watch('new_patient.duration', function(new_value){
+    console.log("new duration time: ", new_value);
+  });
+
   Settings.getSettings().then(function(response) {
     $scope.settings = response;
     setTimeout(function() {
@@ -81,7 +84,7 @@ function ScheduleController($scope, Visits, Settings, ValueList) {
     }
     $scope.settings.calendar_view = 'day';
     $scope.calendar || ($scope.calendar = $('#calendar').fullCalendar($scope.calendar_options));
-    return $scope.calendar;
+    $scope.calendar;
   });
   $('body').addClass('cal_header_mod');
   $('body').addClass('cal_body_mod');
@@ -160,9 +163,11 @@ function ScheduleController($scope, Visits, Settings, ValueList) {
 	      $scope.clicks = 0;
 	    }
 	    if ($scope.clicks === 2) {
+        let stDuration = $scope.settings.standart_shedule_interval;
+        $scope.new_patient = {duration: stDuration};
 	      event = {
 	        start: date,
-	        end: moment(date).add(parseInt($scope.settings.standart_shedule_interval), 'm'),
+	        end: moment(date).add(parseInt(stDuration), 'm'),
 	        saved: false
 	      };
 	      event.id = $scope.event_id;
@@ -245,4 +250,4 @@ function ScheduleController($scope, Visits, Settings, ValueList) {
 	};
 }
 
-angular.module('practice.doctor').controller('ScheduleController', ['$scope', 'Visits', 'Settings', 'ValueList', ScheduleController]);
+angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Settings', 'ValueList', ScheduleController]);

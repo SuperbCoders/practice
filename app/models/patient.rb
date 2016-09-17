@@ -3,11 +3,14 @@ class Patient < ActiveRecord::Base
   include Attachable
   include Alertable
 
+  default_scope -> { order(:updated_at => :desc)}
+  scope :archivated, -> { where(in_archive: true) }
+
   enum gender: [:male, :female]
 
   has_many :visits, dependent: :destroy
   has_many :contacts, as: :contactable, dependent: :destroy
-  has_many :appointments
+  belongs_to :doctor
   has_many :journals
 
   before_destroy :destroy_avatar

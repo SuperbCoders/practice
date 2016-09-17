@@ -6,65 +6,65 @@
       .label_holder
         %label.form_label{:for => "doctor_name"} Имя врача
       .input_w.size_59
-        %input#doctor_name.form_input.input_v1{'ng-model' => "vm.doctor.first_name"}/
+        %input#doctor_name.form_input.input_v1{'ng-model' => "doctor.first_name"}/
 
     / Name
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_name"} Username
       .input_w.size_59
-        %input#doctor_name.form_input.input_v1{'ng-model' => "vm.doctor.username"}/
+        %input#doctor_name.form_input.input_v1{'ng-model' => "doctor.username"}/
 
     / Phone number
-    .form_row{'ng-repeat' => "phone in vm.doctor.phones track by $index"}
+    .form_row{'ng-repeat' => "phone in doctor.phones track by $index"}
       .label_holder
         %label.form_label{:for => "doctor_phone"} Телефон
       .input_w.size_59.mob_size_85
         %input#doctor_phone.form_input.input_v1{'ng-model' => "phone.data"}/
       .fl.mob_right{'ng-if' => "$last"} 
         .mb
-          %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => "vm.add_contact('phone')"}
+          %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => "add_contact('phone')"}
 
     / Email
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_email"} Email
       .input_w.size_59.mob_size_85
-        %input#doctor_email.form_input.input_v1{'ng-model' => "vm.doctor.email", type: 'email'}(disabled)/
+        %input#doctor_email.form_input.input_v1{'ng-model' => "doctor.email", type: 'email'}(disabled)/
 
-    .form_row{'ng-repeat' => "email in vm.doctor.emails track by $index"}
-      .label_holder
-        %label.form_label{:for => "doctor_email"} Email
-      .input_w.size_59.mob_size_85
-        %input#doctor_email.form_input.input_v1{'ng-model' => "email.data", type: 'email'}/
-      .fl.mob_right
-        .mb
-          %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => "vm.add_contact('email')"}
+    / .form_row{'ng-repeat' => "email in doctor.emails track by $index"}
+    /   .label_holder
+    /     %label.form_label{:for => "doctor_email"} Email
+    /   .input_w.size_59.mob_size_85
+    /     %input#doctor_email.form_input.input_v1{'ng-model' => "email.data", type: 'email'}/
+    /   .fl.mob_right
+    /     .mb
+    /       %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => "add_contact('email')"}
 
     / Password
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_pass"} Пароль
       .input_w.size_27
-        %a.btn_v2.black_blue_btn.change_btn.passBtn{:href => "", 'ng-click' => "vm.show_pass_form()"} Изменить
+        %a.btn_v2.black_blue_btn.change_btn.passBtn{:href => "", 'ng-click' => "show_pass_form()"} Изменить
       .pass_change_form.passForm
         %form{:action => "", :novalidate => ""}
           .input_w.size_27
-            %input.form_input.input_v1.passInput{:type => "password", "ng-model" => "vm.doctor.password"}/
+            %input.form_input.input_v1.passInput{:type => "password", "ng-model" => "doctor.password"}/
           .input_w.mob_size_43
-            %button.btn_v2.black_blue_btn.change_btn.passSaveBtn{'ng-click' => "vm.update_password()"} Сохранить
+            %button.btn_v2.black_blue_btn.change_btn.passSaveBtn{'ng-click' => "update_password()"} Сохранить
           .input_w.mob_size_43
-            %a.btn_v2.black_blue_btn.change_btn.passCancelBtn{:href => "", 'ng-click' => "vm.hide_pass_form()"} Отмена
+            %a.btn_v2.black_blue_btn.change_btn.passCancelBtn{:href => "", 'ng-click' => "hide_pass_form()"} Отмена
 
     / AVatar
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_photo"} Портрет врача
       .input_w
-        %input#doctor_photo.hidden_input{:type => "file", 'ng-model' => "vm.doctor.avatar"}(base-sixty-four-input)/
+        %input#doctor_photo.hidden_input{:type => "file", 'ng-model' => "doctor.avatar"}(base-sixty-four-input)/
         .doctor_photo
-          %img{'ng-src' => "data:{{vm.doctor.avatar.filetype}};base64,{{vm.doctor.avatar.base64}}", 'ng-if' => 'vm.doctor.avatar'}
-          %img.doctor_img{'ng-src' => "{{vm.doctor.avatar}}", 'ng-show' => "!vm.doctor.avatar.filetype"}/
+          %img{'ng-src' => "data:{{doctor.avatar.filetype}};base64,{{doctor.avatar.base64}}", 'ng-if' => 'doctor.avatar'}
+          %img.doctor_img{'ng-src' => "{{doctor.avatar}}", 'ng-show' => "!doctor.avatar.filetype"}/
           %label.change_photo_btn.btn_v1{:for => "doctor_photo"}
 
     / Social links      
@@ -72,11 +72,11 @@
       .label_holder
         %label.form_label Социальные сети
       .input_w.size_59.mob_size_85
-        %a{href: "{{vm.doctor.vk_id}}", target: :_blank, "ng-if" => "vm.doctor.vk_id != ''"} Вконтакте
+        %a{href: "{{doctor.vk_id}}", target: :_blank, "ng-if" => "doctor.vk_id != ''"} Вконтакте
         %br
-        %a{href: "{{vm.vk.doctor.fb_id}}", target: :_blank, "ng-if" => "vm.doctor.fb_id != ''"} Facebook
+        %a{href: "{{vk.doctor.fb_id}}", target: :_blank, "ng-if" => "doctor.fb_id != ''"} Facebook
       .clearfix
       %div
-        %button{"ng-click" => "vm.addSocial('#{doctor_omniauth_authorize_url(:vkontakte)}')", "ng-if" => "vm.doctor.vk_id == ''"} Добавить аккаунт ВК
+        %button{"ng-click" => "addSocial('#{doctor_omniauth_authorize_url(:vkontakte)}')", "ng-if" => "doctor.vk_id == ''"} Добавить аккаунт ВК
         %br
-        %button{"ng-click" => "vm.addSocial('#{doctor_omniauth_authorize_url(:facebook)}')", "ng-if" => "vm.doctor.fb_id == ''"} Добавить аккаунт Facebook
+        %button{"ng-click" => "addSocial('#{doctor_omniauth_authorize_url(:facebook)}')", "ng-if" => "doctor.fb_id == ''"} Добавить аккаунт Facebook

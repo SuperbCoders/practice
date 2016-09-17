@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905042723) do
+ActiveRecord::Schema.define(version: 20160915183602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 20160905042723) do
     t.boolean  "rhesus"
     t.boolean  "in_archive",    default: false
     t.string   "cart_color"
+    t.integer  "doctor_id"
   end
 
   create_table "settings", force: :cascade do |t|

@@ -4,7 +4,7 @@
       .header_search_form
         %form{:action => "#", :novalidate => "novalidate"}
           %label.input_w.search_input_w
-            %input.input_v2.form_input{:placeholder => "Поиск пациента", 'ng-model' => "filters.name"}/
+            %input.input_v2.form_input{:placeholder => "Поиск пациента", 'ng-model' => "search_query"}/
             %button.search_btn
     .fl.mob_hidden.read_mode
       %a.btn_v1.add_card_btn.yellow_black_btn{:href => "", 'ui-sref' => "patients.add"} Создать новую карточку
