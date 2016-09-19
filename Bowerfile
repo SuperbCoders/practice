@@ -13,7 +13,6 @@ asset 'ionicons'
 asset 'ion-checkradio'
 asset "admin-lte", '2.3.0'
 
-asset 'fullcalendar'
 asset 'jquery'
 asset 'jquery-ui'
 asset 'jquery.slimscroll'
