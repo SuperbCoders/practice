@@ -5,7 +5,7 @@ angular.module('practice.doctor').factory('AlertsMonitor', [
       responseError: function(response) {
         var Alerts;
         Alerts = $injector.get('Alerts');
-        if (response && response.data.errors && response.data.errors.length > 0) {
+        if (response && response.data && response.data.errors && response.data.errors.length > 0) {
           Alerts.errors(response.data.errors);
         }
         return response;
@@ -13,7 +13,7 @@ angular.module('practice.doctor').factory('AlertsMonitor', [
       response: function(response) {
         var Alerts;
         Alerts = $injector.get('Alerts');
-        if (response && response.data.messages && response.data.messages.length > 0) {
+        if (response && response.data && response.data.messages && response.data.messages.length > 0) {
           Alerts.messages(response.data.messages);
         }
         return response;

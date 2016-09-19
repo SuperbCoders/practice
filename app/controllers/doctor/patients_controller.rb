@@ -7,20 +7,32 @@ class Doctor::PatientsController < Doctor::BaseController
   def index
     if params[:archivated]  == "true"
       @resources = current_doctor.patients.archivated
+    elsif params[:signed] == "true"
+      patient_ids = []
+      @resources = []
+      current_doctor.visits.actual.signeds.find_each do |visit|
+        unless patient_ids.index visit.patient.id
+          @resources.push visit.patient
+          patient_ids.push visit.patient.id
+        end
+      end
+    elsif params[:unsigned] == "true"
+      patient_ids = []
+      @resources = []
+      current_doctor.visits.actual.unsigneds.find_each do |visit|
+        unless patient_ids.index visit.patient.id
+          @resources.push visit.patient
+          patient_ids.push visit.patient.id
+        end
+      end
     else
       @resources = current_doctor.patients
     end
-
-    # if params[:query]
-    #   @resources = @resources.where("lower(full_name) like :query or lower(email) like :query", 
-    #     query: "%" + params[:query].to_s.mb_chars.downcase.strip + "%") 
-    # end
-
     super
   end
 
   def update
-    if @resource and @resource.update_attributes(resource_params)
+    if @resource.update_attributes(resource_params)
 
       # Avatar
       if params[:patient][:avatar].is_a? Hash

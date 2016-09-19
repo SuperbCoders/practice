@@ -1,8 +1,9 @@
 function PatientsController($scope, Patients) {
   $scope.items_limit = 9;
   $scope.filters = {
-    approved: false,
-    archivated: false
+    archivated: false,
+    signed: false,
+    unsigned: false
   };
   $scope.search_query = "";
 
@@ -51,6 +52,25 @@ function PatientsController($scope, Patients) {
     patient.in_archive = false;
     patient.$save();
     return $scope.fetch();
+  };
+
+  $scope.getFullVisitString = function(visit){
+    let monts = {
+      "January": "января",
+      "February": "февраля",
+      "March": "марта",
+      "April": "апреля",
+      "May": "мая",
+      "June": "июня",
+      "July": "июля",
+      "August": "августа",
+      "September": "Сентября",
+      "October": "октября",
+      "November": "ноября",
+      "December": "декабря"
+    };
+    let date = moment(visit.start_at);
+    return date.format('DD') + ' ' + monts[date.format('MMMM')] + ', в ' + date.format('HH:mm')
   };
 
   $scope.archivate = function(patient) {

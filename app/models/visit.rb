@@ -4,13 +4,18 @@ class Visit < ActiveRecord::Base
   
   enum visit_type: [:signed, :unsigned]
 
+  default_scope -> {order(start_at: :desc)}
+  scope :actual, -> {where("start_at > ?", Time.now.to_date)}
+  scope :signeds, -> {where(visit_type: 0)} #todo: поменять на signed/unsigned
+  scope :unsigneds, -> {where(visit_type: 1)}
+
   belongs_to :doctor
   belongs_to :patient
 
   # validates_presence_of :visit_type
-  #validates_presence_of :doctor
-  #validates_presence_of :patient
-  #validates_presence_of :start_at
+  validates_presence_of :doctor
+  validates_presence_of :patient
+  validates_presence_of :start_at
   validates_numericality_of :duration, greater_than: 0
 
   # before_create :crossed_with_other_visits?

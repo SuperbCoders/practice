@@ -38,6 +38,18 @@ class Doctor < ActiveRecord::Base
     end
   end
 
+  def create_visit(visit_params, patient)
+    visit = visits.new(visit_params.merge({patient: patient}))
+    visit.save
+    visit
+  end
+
+  def create_patient(patient_params)
+    patient = patients.new(patient_params.merge(register_date: DateTime.now))
+    patient.save
+    patient
+  end
+  
   def avatar_from_url(url)
     destroy_avatar
     file_extension = 'png'

@@ -3,7 +3,7 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
       :blood, :diseases, :habits, :profession, :contract_id,
       :register_date, :avatar, :approved, :archivated, :phone, 
       :email, :age, :birthday, :phones, :emails, :rhesus, :initials,
-      :in_archive, :cart_color
+      :in_archive, :cart_color, :last_visit
 
   has_many :contacts
 
@@ -54,8 +54,16 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
     end
   end
 
+  def last_visit
+    object.visits.actual.last
+  end
+
   def initials
-    object.full_name.split(/\s+/)[-2..-1].map {|x| x[0]}.join("")
+    begin
+      object.full_name.split(/\s+/)[-2..-1].map {|x| x[0]}.join("")
+    rescue Exception => e
+      ""
+    end
   end
 
 end
