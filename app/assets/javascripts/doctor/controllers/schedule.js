@@ -30,7 +30,7 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
     },
     header: {
       left: 'title',
-      center: 'agendaDay,agendaWeek',
+      center: 'agendaDay,agendaWeek,month',
       right: 'prev,next'
     },
     columnFormat: {
