@@ -103,106 +103,106 @@ app.config([
 				Patients: Patients
 			}
 		})
-		// .state('journal', {
-		//   url: '/journal',
-		//   templateUrl: '/templates/doctor/journal/index.html'
-		// })
-		// .state('journal.records', {
-		//   url: '/:patient_id/records',
-		//   templateUrl: '/templates/doctor/journal/list.html',
-		//   controller: 'JournalController',
-		//   controllerAs: 'vm',
-		//   resolve: {
-		//     Dicts: [
-		//       'Resources', function(Resources) {
-		//         return Resources('doctor/dicts/:id', {
-		//           id: '@id'
-		//         }, [
-		//           {
-		//             method: 'GET',
-		//             isArray: false
-		//           }
-		//         ]);
-		//       }
-		//     ],
-		//     Journals: [
-		//       'Resources', function(Resources) {
-		//         return Resources('/doctor/journals/:id', {
-		//           id: '@id'
-		//         }, [
-		//           {
-		//             method: 'GET',
-		//             isArray: true
-		//           }
-		//         ]);
-		//       }
-		//     ]
-		//   }
-		// })
-		// .state('journal.edit', {
-		//   url: '/:journal_id/edit',
-		//   templateUrl: '/templates/doctor/journal/record',
-		//   controller: 'JournalController',
-		//   controllerAs: 'vm',
-		//   resolve: {
-		//     Dicts: [
-		//       'Resources', function(Resources) {
-		//         return Resources('doctor/dicts/:id', {
-		//           id: '@id'
-		//         }, [
-		//           {
-		//             method: 'GET',
-		//             isArray: false
-		//           }
-		//         ]);
-		//       }
-		//     ],
-		//     Journals: [
-		//       'Resources', function(Resources) {
-		//         return Resources('/doctor/journals/:id', {
-		//           id: '@id'
-		//         }, [
-		//           {
-		//             method: 'GET',
-		//             isArray: false
-		//           }
-		//         ]);
-		//       }
-		//     ]
-		//   }
-		// })
-		// .state('journal.create', {
-		//   url: '/:patient_id/add',
-		//   templateUrl: '/templates/doctor/journal/record.html',
-		//   controller: 'JournalController',
-		//   controllerAs: 'vm',
-		//   resolve: {
-		//     Dicts: [
-		//       'Resources', function(Resources) {
-		//         return Resources('doctor/dicts/:id', {
-		//           id: '@id'
-		//         }, [
-		//           {
-		//             method: 'GET',
-		//             isArray: false
-		//           }
-		//         ]);
-		//       }
-		//     ],
-		//     Journals: [
-		//       'Resources', function(Resources) {
-		//         return Resources('/doctor/journals/:id', {
-		//           id: '@id'
-		//         }, [
-		//           {
-		//             method: 'GET',
-		//             isArray: true
-		//           }
-		//         ]);
-		//       }
-		//     ]
-		//   }
-		// })
+		.state('journal', {
+		  url: '/journal',
+		  templateUrl: '/templates/doctor/journal/index.html'
+		})
+		.state('journal.records', {
+		  url: '/:patient_id/records',
+		  templateUrl: '/templates/doctor/journal/list.html',
+		  controller: 'JournalController',
+		  controllerAs: 'vm',
+		  resolve: {
+		    Dicts: [
+		      'Resources', function(Resources) {
+		        return Resources('doctor/dicts/:id', {
+		          id: '@id'
+		        }, [
+		          {
+		            method: 'GET',
+		            isArray: false
+		          }
+		        ]);
+		      }
+		    ],
+		    Journals: [
+		      'Resources', function(Resources) {
+		        return Resources('/doctor/journals/:id', {
+		          id: '@id'
+		        }, [
+		          {
+		            method: 'GET',
+		            isArray: true
+		          }
+		        ]);
+		      }
+		    ]
+		  }
+		})
+		.state('journal.edit', {
+		  url: '/:journal_id/edit',
+		  templateUrl: '/templates/doctor/journal/record',
+		  controller: 'JournalController',
+		  controllerAs: 'vm',
+		  resolve: {
+		    Dicts: [
+		      'Resources', function(Resources) {
+		        return Resources('doctor/dicts/:id', {
+		          id: '@id'
+		        }, [
+		          {
+		            method: 'GET',
+		            isArray: false
+		          }
+		        ]);
+		      }
+		    ],
+		    Journals: [
+		      'Resources', function(Resources) {
+		        return Resources('/doctor/journals/:id', {
+		          id: '@id'
+		        }, [
+		          {
+		            method: 'GET',
+		            isArray: false
+		          }
+		        ]);
+		      }
+		    ]
+		  }
+		})
+		.state('journal.create', {
+		  url: '/:patient_id/add',
+		  templateUrl: '/templates/doctor/journal/record.html',
+		  controller: 'JournalController',
+		  controllerAs: 'vm',
+		  resolve: {
+		    Dicts: [
+		      'Resources', function(Resources) {
+		        return Resources('doctor/dicts/:id', {
+		          id: '@id'
+		        }, [
+		          {
+		            method: 'GET',
+		            isArray: false
+		          }
+		        ]);
+		      }
+		    ],
+		    Journals: [
+		      'Resources', function(Resources) {
+		        return Resources('/doctor/journals/:id', {
+		          id: '@id'
+		        }, [
+		          {
+		            method: 'GET',
+		            isArray: true
+		          }
+		        ]);
+		      }
+		    ]
+		  }
+		})
 		.state('schedule', {
 		  url: '/schedule',
 		  templateUrl: '/templates/doctor/schedule/index.html',

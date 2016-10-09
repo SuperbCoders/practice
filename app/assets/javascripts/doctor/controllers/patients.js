@@ -91,18 +91,17 @@ function PatientsController($scope, Patients) {
   };
 
   $scope.filter_fn = function(patient){
-    console.log("filter called");
     if ($scope.search_query == "")
       return true;
-    
+
     search_query = $scope.search_query.toLowerCase();
-    
+
     if (patient.full_name.toLowerCase().indexOf(search_query) != -1)
       return true;
 
     if (patient.email.toLowerCase().indexOf(search_query) != -1)
       return true;
-    
+
     for (phone of patient.phones)
       if (phone.data.toLowerCase().indexOf(search_query) != -1)
         return true;
@@ -130,7 +129,7 @@ function PatientsController($scope, Patients) {
       }, 200);
     });
   };
-  
+
   $scope.fetch();
 }
 angular.module('practice.doctor').controller('PatientsController', ['$scope', 'Patients', PatientsController]);

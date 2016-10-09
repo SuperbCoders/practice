@@ -1,7 +1,7 @@
 class Doctor::PatientSerializer < Doctor::BaseSerializer
   attributes :full_name, :comment, :gender, :weight, :height,
       :blood, :diseases, :habits, :profession, :contract_id,
-      :register_date, :avatar, :approved, :archivated, :phone, 
+      :register_date, :avatar, :approved, :archivated, :phone,
       :email, :age, :birthday, :phones, :emails, :rhesus, :initials,
       :in_archive, :cart_color, :last_visit
 
