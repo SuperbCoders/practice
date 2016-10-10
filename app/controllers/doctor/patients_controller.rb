@@ -7,6 +7,7 @@ class Doctor::PatientsController < Doctor::BaseController
   def index
     if params[:archivated]  == "true"
       @resources = current_doctor.patients.archivated
+                   .order('updated_at DESC')
 
     elsif params[:unsigned] == "true"
       @resources = Patient
@@ -16,6 +17,7 @@ class Doctor::PatientsController < Doctor::BaseController
                    .where("visits.created_by != 'doctor'")
                    .where(doctor_id: current_doctor.id)
                    .select('DISTINCT patients.*')
+                   .order('patients.updated_at DESC')
 
     elsif params[:signed] == "true"
       # @resources = current_doctor.patients
@@ -32,8 +34,10 @@ class Doctor::PatientsController < Doctor::BaseController
                    .where("visits.created_by = 'doctor'")
                    .where(doctor_id: current_doctor.id)
                    .select('DISTINCT patients.*')
+                   .order('patients.updated_at DESC')
     else
       @resources = current_doctor.patients.where(in_archive: false)
+                   .order('updated_at DESC')
     end
     super
   end
