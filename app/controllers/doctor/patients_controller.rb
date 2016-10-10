@@ -7,26 +7,33 @@ class Doctor::PatientsController < Doctor::BaseController
   def index
     if params[:archivated]  == "true"
       @resources = current_doctor.patients.archivated
-    elsif params[:signed] == "true"
-      patient_ids = []
-      @resources = []
-      current_doctor.visits.actual.signeds.find_each do |visit|
-        unless patient_ids.index visit.patient.id
-          @resources.push visit.patient
-          patient_ids.push visit.patient.id
-        end
-      end
+
     elsif params[:unsigned] == "true"
-      patient_ids = []
-      @resources = []
-      current_doctor.visits.actual.unsigneds.find_each do |visit|
-        unless patient_ids.index visit.patient.id
-          @resources.push visit.patient
-          patient_ids.push visit.patient.id
-        end
-      end
+      @resources = Patient
+                   .where(in_archive: false)
+                   .joins('INNER JOIN visits ON visits.patient_id = patients.id')
+                   .where('visits.start_at > ?', Time.now.to_date)
+                   .where("visits.created_by != 'doctor'")
+                   .where(doctor_id: current_doctor.id)
+                   .select('DISTINCT patients.*')
+
+    elsif params[:signed] == "true"
+      # @resources = current_doctor.patients
+      #              .not(:archivated)
+      #              .joins(:visits)
+      #              .merge(Visit.actual)
+      #              .merge(Visit.signeds)
+      #              .all.uniq
+
+      @resources = Patient
+                   .where(in_archive: false)
+                   .joins('INNER JOIN visits ON visits.patient_id = patients.id')
+                   .where('visits.start_at > ?', Time.now.to_date)
+                   .where("visits.created_by = 'doctor'")
+                   .where(doctor_id: current_doctor.id)
+                   .select('DISTINCT patients.*')
     else
-      @resources = current_doctor.patients
+      @resources = current_doctor.patients.where(in_archive: false)
     end
     super
   end

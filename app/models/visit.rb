@@ -4,7 +4,7 @@ class Visit < ActiveRecord::Base
 
   enum visit_type: [:signed, :unsigned]
 
-  default_scope -> {order(start_at: :desc)}
+  # default_scope -> {order(start_at: :desc)}
   scope :actual, -> {where("start_at > ?", Time.now.to_date)}
   scope :signeds, -> {where(visit_type: 0)} #todo: поменять на signed/unsigned
   scope :unsigneds, -> {where(visit_type: 1)}
