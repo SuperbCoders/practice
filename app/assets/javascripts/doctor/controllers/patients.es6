@@ -94,13 +94,23 @@ function PatientsController($scope, Patients) {
     if ($scope.search_query == "")
       return true;
 
-    search_query = $scope.search_query.toLowerCase();
+    var null_str = function(str) {
+      if (str === null) {
+        return '';
+      } else {
+        return str;
+      }
+    }
 
-    if (patient.full_name.toLowerCase().indexOf(search_query) != -1)
+    var search_query = $scope.search_query.toLowerCase();
+
+    if (null_str(patient.full_name).toLowerCase().indexOf(search_query) != -1)
       return true;
 
-    if (patient.email.toLowerCase().indexOf(search_query) != -1)
+    if (null_str(patient.email).toLowerCase().indexOf(search_query) != -1)
       return true;
+
+    var phone; // es6 bug? "phone is not defined"
 
     for (phone of patient.phones)
       if (phone.data.toLowerCase().indexOf(search_query) != -1)
