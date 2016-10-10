@@ -60,7 +60,15 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
 
   def initials
     begin
-      object.full_name.split(/\s+/)[-2..-1].map {|x| x[0]}.join("")
+
+      split = object.full_name.split(/\s+/)
+
+      if split.size > 1
+        split[-2..-1].map {|x| x[0]}.join("")
+      else
+        split[0][0]
+      end
+
     rescue Exception => e
       ""
     end
