@@ -18,7 +18,7 @@
             %img{'ng-src' => "data:{{patient.avatar.filetype}};base64,{{patient.avatar.base64}}", width: '128px', height: '128px', 'ng-if' => 'patient.avatar.filetype'}
             %img{'ng-src' => "{{patient.avatar}}", width: '128px', height: '128px', 'ng-if' => '!patient.avatar.filetype'}
             .patient_add_avatar
-              %span.patient_avatar_letter Ф
+              %span.patient_avatar_letter {{patient.initials}}
               %label.change_photo_btn.btn_v1{:for => "patient_photo"}
 
       / Фио
