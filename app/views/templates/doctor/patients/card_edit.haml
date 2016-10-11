@@ -1,0 +1,219 @@
+.patient_write_block
+  .write_controls
+    .writeCtrl
+      .write_control_item
+        .chosen_v3.no_search
+          %select.chosen-select.paramSelect
+            %option{"data-title" => "Ознакомление", :selected => "selected", :value => "0"} Ознакомление
+            %option{"data-title" => "Ознакомление 2", :value => "1"} Ознакомление 2
+            %option{"data-title" => "Ознакомление 3", :value => "2"} Ознакомление 3
+            %option{"data-title" => "Ознакомление 4", :value => "3"} Ознакомление 4
+            %option{"data-action" => "custom", "data-title" => "Свое назначение", :value => "4"} Свое назначение
+        .write_state_control
+          .write_state_btn.mod_rm
+      .write_control_item.custom_field
+        .input_w
+          %input.form_input.input_v8.addParamVal{:placeholder => "Введите название"}/
+        .write_state_control
+          .write_state_btn.mod_ok.addTolist
+  .write_content
+    %textarea.form_input.input_v7{:placeholder => "Выберите назначение и введите текст"}
+      :preserve
+        Это карточка вашего пациента, для добавления первой записи выберите назначение и напишите сообщение в этом поле.
+
+        Если вам потребуется, вы можете добавить любой файл с помощью кнопки справа “Прикрепить файл.
+  .attach_block
+    %label.attach_btn.gl_link.gray_link_3
+      %input.hidden_input{:type => "file"}/
+      %span Прикрепить файл
+    %ul.attach_list
+      %li.attach_item
+        %img{:src => "i/attach_1.jpg"}/
+        .rm_attach_btn.rmAttachBtn
+        .attach_name rentgen-10-12-2015
+      %li.attach_item
+        %img{:src => "i/attach_1.jpg"}/
+        .rm_attach_btn.rmAttachBtn
+        .attach_name rentgen-10-12-2015
+      %li.attach_item
+        %img{:src => "i/attach_1.jpg"}/
+        .rm_attach_btn.rmAttachBtn
+        .attach_name rentgen-10-12-2015
+      %li.attach_item
+        %img{:src => "i/attach_1.jpg"}/
+        .rm_attach_btn.rmAttachBtn
+        .attach_name rentgen-10-12-2015
+      %li.attach_item
+        %img{:src => "i/attach_1.jpg"}/
+        .rm_attach_btn.rmAttachBtn
+        .attach_name rentgen-10-12-2015
+.patient_write_block
+  .write_controls
+    .writeCtrl
+      .write_control_item
+        .chosen_v3.no_search
+          %select.chosen-select.paramSelect
+            %option{"data-title" => "Ознакомление", :selected => "selected", :value => "0"} Ознакомление
+            %option{"data-title" => "Ознакомление 2", :value => "1"} Ознакомление 2
+            %option{"data-title" => "Ознакомление 3", :value => "2"} Ознакомление 3
+            %option{"data-title" => "Ознакомление 4", :value => "3"} Ознакомление 4
+            %option{"data-action" => "custom", "data-title" => "Свое назначение", :value => "4"} Свое назначение
+        .write_state_control
+          .write_state_btn.mod_rm
+      .write_control_item.custom_field
+        .input_w
+          %input.form_input.input_v8.addParamVal{:placeholder => "Введите название"}/
+        .write_state_control
+          .write_state_btn.mod_ok.addTolist
+  .write_content
+    %textarea.form_input.input_v7{:placeholder => "Выберите назначение и введите текст"}
+  .attach_block
+.text_center
+  %a.yellow_black_btn.btn_v5.add_write_block_btn{:href => "#"}
+.profile_tab_controls
+  .section_inner
+    .write_form_controls
+      .fl
+        .mb
+          %a.btn_v2.save_btn.green_btn{:href => "#"}
+            %span.mb Написать
+#login_form.popup_form.checkEmptyBlock{:style => "display:none"}
+%form{:action => "#", :novalidate => "novalidate"}
+.form_caption Вход
+.form_row
+  %ul.soc_auth
+    %li.soc_auth_item
+      %a.btn_v4.soc_auth_btn.s_auth_vk.vk_btn{:href => "#"} Вконтакте
+    %li.soc_auth_item
+      %a.btn_v4.soc_auth_btn.s_auth_fb.fb_btn{:href => "#"} Facebook
+.form_row.text_center
+  .login_tips
+    .mb Вход через email
+.form_row
+  %label.hidden_input{:for => "new_patient_email"} Email
+  .input_w
+    %input#new_patient_email.form_input.input_v3.blue_mod.text_center.checkEmpty{:name => "new_patient_email", :placeholder => "Email", :type => "email"}/
+.form_row
+  %label.hidden_input{:for => "new_patient_describe"} Краткое описание (только для вас)
+  .input_w
+    %input#new_patient_describe.form_input.input_v3.blue_mod.text_center.checkEmpty{:name => "new_patient_describe", :placeholder => "Пароль", :type => "password"}/
+.form_row
+  %button.btn_v4.login_btn.disabled_btn_gray.disableEmpty Войти или зарегистрироваться
+.form_row.text_center
+  %a.gl_link.gray_link_4{:href => "#"} Забыли пароль?
+#recovery_form.popup_form{:style => "display:none"}
+%form{:action => "#", :novalidate => "novalidate"}
+.recovery_block
+  .form_caption Восстановление пароля
+  .form_row
+    %label.hidden_input{:for => "new_patient_email"} Email
+    .input_w
+      %input#new_patient_email.form_input.input_v3.blue_mod.text_center{:name => "new_patient_email", :placeholder => "Email", :type => "email"}/
+  .form_row
+    %button.btn_v4.login_btn.disabled_btn_gray Восстановить
+  .form_row.text_center
+    %a.gl_link.gray_link_4{:href => "#"} Назад
+#recovery_success_form.popup_form{:style => "display:none"}
+%form{:action => "#", :novalidate => "novalidate"}
+.recovery_block
+  .form_caption Пароль отправлен на почту yaosamo@gmail.com
+  .form_row
+    %button.btn_v4.login_btn.yellow_black_btn Вход в профиль
+#reg_success_form{:action => "#", :style => "display:none", :title => ""}
+.popup_form.popup_v1.text_center
+.msg_header
+  .form_caption
+    Если врач Kanye West не перезвонил вам, уточните время запсии по телефону
+    %br/
+    +7 (927) 026-10-20
+  .text_center
+    %a.btn_v4.white_green_btn.cancel_btn{:href => "#"} Отменить приём
+.msg_footer
+  .form_caption Зарегистрируйтесь, чтобы читать записи врача в вашей мед. карте онлайн
+  .text_center
+    %a.btn_v4.black_blue_btn.cancel_btn{:href => "#"} Перейти в профиль
+#reg_success_form_2{:action => "#", :style => "display:none", :title => ""}
+.popup_form.popup_v4.text_center
+.msg_title
+  Запись
+  %br/
+  направлена врачу
+.msg_check
+.msg_text
+  %p
+    Запись на сайте является подтвержденной только после того как вам позвонят. Вы можете позвонить по номеру
+    %br/
+    8-800-322-33-21
+.text_center
+  %a.btn_v2.white_green_btn_2.cancel_btn{:href => "#"} Отменить приём
+#promo{:action => "#", :style => "display:none", :title => ""}
+.popup_form.popup_v4.text_center
+.promo_image
+  %img{:src => "i/promo_1.png"}/
+.promo_title Позвольте пациентам самим записываться к вам онлайн
+.msg_text Вы сможете давать ссылку на ваш сайт вашим пациентам и они будут записываться сами, вам останется только подтвердить запись
+.aside_card_holder.card_mod
+.aside_menu
+/ a.aside_close_btn.closeMenu(href='#')
+.patient_aside_overview
+  .patient_card.open_card
+    %a.go_back_btn.card_mod.closeMenu{:href => "#"}
+    .patient_menu_w.skipOpen
+      .drop_down_btn
+        %span
+      .drop_down_w
+        %ul.drop_down_menu
+          %li.drop_down_item.active
+            %a.gl_link{:href => "#"}
+              %span Подтвердить прием
+          %li.drop_down_item
+            %a.gl_link{:href => "#"}
+              %span Отказать в  приёме
+          %li.drop_down_item
+            %a.gl_link{:href => "#"}
+              %span Добавить запись в карту
+          %li.drop_down_item
+            %a.gl_link{:href => "#"}
+              %span Редактировать
+          %li.drop_down_item
+            %a.gl_link{:href => "#"}
+              %span Отправить в архив
+          %li.drop_down_item
+            %a.gl_link{:href => "#"}
+              %span Удалить
+    %a.patient_avatar{:href => "#"}
+      %img{:src => "i/user_2.png"}/
+    .patient_info
+      .patient_name
+        %a.gl_link.gray_link{:href => "#"}
+          %span Осинцев Константин
+      %textarea.input_v5.form_input.skipOpen Болят карманы, ломит штаны, от водки тошнит, вылечите скорей меня
+    .patient_info_table
+      .other_info_cell
+        %p +7 927 026 10 22
+        %p yaosamo@gmail.com
+    .patient_card_controls.skipOpen.patient_warn
+      .patient_info_table
+        .controls_cell
+          %a.btn_v2.patient_btn.white_white_btn{:href => "#"}
+            %span.mb Подтвердить прием на 29 декабря в 12:00
+          %p
+            %a.gl_link.changeReceptionTime{:href => "#"} Изменить время приема
+    .patient_overview
+      %a.btn_v3.add_patient_line.white__btn{:href => "#"} Добавить запись в карту
+      %ul.patient_overview_list
+        %li.patient_overview_line
+          .overview_caption ПОРТРЕТ ПАЦИЕНТА
+          %dl.overview_info
+            %dt Рост:
+            %dd 185
+            %dt Вес
+            %dd 78 кг
+            %dt Возраст
+            %dd 18 лет
+        %li.patient_overview_line
+          .overview_caption МЕДИЦИНСКИЕ ОСОБЕННОСТИ
+          %p Есть хвост
+        %li.patient_overview_line
+          .overview_caption ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ
+          %p Договор №000099

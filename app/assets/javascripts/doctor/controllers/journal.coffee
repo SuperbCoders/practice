@@ -20,9 +20,17 @@ class JournalController
     @init_chosen()
 
     # Load all patient journals if state is record
+    console.log @rootScope.$state.current.name
     if @rootScope.$state.current.name.split('.')[1] is 'records'
+      console.log 'set'
+      vm.read_mode = false
+      vm.edit_mode = true
       @fetch_journals()
+    else
+      vm.read_mode = true
+      vm.edit_mode = false
 
+    console.log 'wtf'
     # Fetch journal
     if vm.journal_id
       @fetch_journal()

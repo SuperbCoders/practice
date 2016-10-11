@@ -42,7 +42,7 @@ app.config([
 		$httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
 		$httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
 		$httpProvider.interceptors.push('AlertsMonitor');
-		
+
 		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 		$stateProvider
 		.state('notifications', {

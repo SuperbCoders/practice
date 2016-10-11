@@ -188,7 +188,7 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
     return Visits.query(paket).$promise.then(function(events) {
       var date_now, i, len;
       date_now = moment(new Date);
-      date_events = [];
+      var date_events = [];
       for (i = 0, len = events.length; i < len; i++) {
         event = {};
         event.start = moment(events[i].start);

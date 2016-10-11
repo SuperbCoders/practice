@@ -35,7 +35,7 @@
       .form_row.mob_add_mod
         %label.input_w{'ng-repeat' => "phone in patient.phones track by $index"}
           %input.form_input.input_v3{:placeholder => "Телефон клиента", 'ng-model' => "phone.data", mask: "(999) 999-9999", clean: true, restrict: :reject}
-            .add_btn_holder{"ng-if" => "$last"} 
+            .add_btn_holder{"ng-if" => "$last"}
               %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", "ng-click" => "add_phone()"}
 
       / Email
