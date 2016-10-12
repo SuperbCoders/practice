@@ -30,7 +30,6 @@
 
     .write_content
       %pre
-        {{record|json}}
       %textarea.form_input.input_v7{:placeholder => "Выберите назначение и введите текст", "ng-model" => "record.body"}
 
     .attach_block
