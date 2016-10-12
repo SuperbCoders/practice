@@ -221,6 +221,22 @@ app.config([
 	}
 ]);
 
+app.directive('chosenSelect', ['$timeout', function ($timeout) {
+        return {
+                link: function ($scope, element, attrs) {
+                        $scope.$on('dataloaded', function () {
+                                $timeout(function () {
+                                        $('.chosen-select').chosen({
+                                                autohide_results_multiple: false,
+                                                allow_single_deselect: true,
+                                                width: "100%"
+                                        });
+                                }, 0, false);
+                        })
+                }
+        };
+}]);
+
 app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope, $state, $stateParams, $window) {
 		$window.rootScope = $rootScope;
 		$rootScope.$state = $state;

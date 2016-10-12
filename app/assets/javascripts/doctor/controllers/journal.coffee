@@ -25,7 +25,6 @@ class JournalController
     @init_tabblock()
 
     # Load all patient journals if state is record
-    console.log @rootScope.$state.current.name
     if @rootScope.$state.current.name.split('.')[1] is 'records'
       $('html').addClass 'edit_patient'
       @fetch_journals()
@@ -167,6 +166,7 @@ class JournalController
     vm.tags = []
     @Dicts.get().$promise.then((response) ->
       vm.tags.push dict for dict in response.dicts when dict.dict_type is 'journal_tag'
+      @rootScope.$broadcast('dataloaded')
     )
 
   init_tabblock: ->
