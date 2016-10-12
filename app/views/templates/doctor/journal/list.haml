@@ -1,13 +1,14 @@
-.sub_header_holder
-  .section_inner.clearfix
-    .patient_controls
-      .fl
-        .mb.rel_holder
-          %a.go_back_btn.middle_mod{:href => "", 'onClick'=>"javascript:history.go(-1);"}
-      .page_title Написать в карту
-      .fr.filter_toggle_holder
-        .mb.edit_mode
-          %ul.avatar_catcher.avatarCatcher
+= render 'templates/doctor/patients/search'
+-# .sub_header_holder
+-#   .section_inner.clearfix
+-#     .patient_controls
+-#       .fl
+-#         .mb.rel_holder
+-#           %a.go_back_btn.middle_mod{:href => "", 'onClick'=>"javascript:history.go(-1);"}
+-#       .page_title Написать в карту
+-#       .fr.filter_toggle_holder
+-#         .mb.edit_mode
+-#           %ul.avatar_catcher.avatarCatcher
 
 .patient_edit_block
   %ul.patient_notes{'ng-repeat' => "journal in vm.journals"}

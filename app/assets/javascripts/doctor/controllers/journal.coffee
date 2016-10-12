@@ -17,6 +17,7 @@ class JournalController
     @scope.$on('$destroy', ->
       @rootScope.journal = undefined
       $('body').removeClass 'sub_header_mod'
+      $('html').removeClass 'edit_patient'
     )
 
     @fetch_dicts()
@@ -26,13 +27,10 @@ class JournalController
     # Load all patient journals if state is record
     console.log @rootScope.$state.current.name
     if @rootScope.$state.current.name.split('.')[1] is 'records'
-      console.log 'set'
-      vm.read_mode = false
-      vm.edit_mode = true
+      $('html').addClass 'edit_patient'
       @fetch_journals()
     else
-      vm.read_mode = true
-      vm.edit_mode = false
+      $('html').removeClass 'edit_patient'
 
     console.log 'wtf'
     # Fetch journal

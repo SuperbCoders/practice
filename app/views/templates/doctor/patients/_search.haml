@@ -6,10 +6,10 @@
           %label.input_w.search_input_w
             %input.input_v2.form_input{:placeholder => "Поиск пациента", 'ng-model' => "search_query"}/
             %button.search_btn
-    .fl.mob_hidden.read_mode{'ng-show' => "vm.read_mode"}
+    .fl.mob_hidden.read_mode
       %a.btn_v1.add_card_btn.yellow_black_btn{:href => "", 'ui-sref' => "patients.add"} Создать новую карточку
-    .patient_edit_controls.edit_mode{'ng-show' => "vm.edit_mode"}
-      %a.btn_v1.green_btn.save_card_btn.saveCard_{:href => "card_edit.html"} Написать в карту
+    .patient_edit_controls.edit_mode
+      %a.btn_v1.green_btn.save_card_btn.saveCard_{:href => "", 'ui-sref' => "journal.create({patient_id: vm.patient_id})"} Написать в карту
     .fr.filter_toggle_holder
       .mb.read_mode
         %form{:action => "#", :novalidate => "novalidate"}

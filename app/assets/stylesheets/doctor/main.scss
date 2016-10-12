@@ -3104,19 +3104,19 @@ $patient_scale_time: 1s;
   }
 }
 
-/* .edit_mode { */
+.edit_mode {
 
-/*   html:not(.edit_patient) & { */
-/*     display: none; */
-/*   } */
-/* } */
+  html:not(.edit_patient) & {
+    display: none;
+  }
+}
 
-/* .edit_patient { */
+.edit_patient {
 
-/*   .read_mode { */
-/*     display: none; */
-/*   } */
-/* } */
+  .read_mode {
+    display: none;
+  }
+}
 
 .filter_t_box {
   display: block;
