@@ -11,13 +11,17 @@ class JournalController
     vm.journal = undefined
     vm.show_new_tag = false
 
+    $('body').addClass 'sub_header_mod'
+
     @rootScope.journal ||= {vm: vm}
     @scope.$on('$destroy', ->
       @rootScope.journal = undefined
+      $('body').removeClass 'sub_header_mod'
     )
 
     @fetch_dicts()
     @init_chosen()
+    @init_tabblock()
 
     # Load all patient journals if state is record
     console.log @rootScope.$state.current.name
@@ -166,5 +170,8 @@ class JournalController
     @Dicts.get().$promise.then((response) ->
       vm.tags.push dict for dict in response.dicts when dict.dict_type is 'journal_tag'
     )
+
+  init_tabblock: ->
+    window.init_tabblock()
 
 angular.module('practice.doctor').controller('JournalController', ['$rootScope','$scope', 'Journals', 'Alerts', 'Dicts', JournalController]);

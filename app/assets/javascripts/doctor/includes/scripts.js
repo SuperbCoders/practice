@@ -222,3 +222,16 @@ function all_dialog_close_gl() {
     //    }
     //});
 }
+
+function init_tabblock() {
+    // var tabBlock = $('.tabBlock');
+    // console.log(tabBlock);
+
+    // tabBlock.tabs({
+    //     active: 0,
+    //     tabContext: tabBlock.data('tab-context'),
+    //     activate: function (e, u) {
+
+    //     }
+    // });
+}

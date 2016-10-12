@@ -8,10 +8,12 @@ function PatientsController($scope, Patients) {
   $scope.search_query = "";
 
   $('body').addClass('body_gray');
+  console.log('add');
   $('body').addClass('sub_header_mod');
 
   $scope.$on('$destroy', function() {
     $('body').removeClass('body_gray');
+    console.log('remove');
     return $('body').removeClass('sub_header_mod');
   });
 
