@@ -34,7 +34,7 @@ function PatientController($scope, $state, $stateParams, Patients) {
         patient: $scope.patient
       }).$promise.then(function(result) {
         if (redirect) {
-          return $state.go('journal.add_record', {
+          return $state.go('journal.records', {
             patient_id: result.id
           });
         } else {
