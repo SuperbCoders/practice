@@ -221,6 +221,10 @@ app.config([
 	}
 ]);
 
+app.config(function(paginationTemplateProvider) {
+    paginationTemplateProvider.setPath('/templates/doctor/pagination');
+});
+
 app.directive('chosenSelect', ['$timeout', function ($timeout) {
         return {
                 link: function ($scope, element, attrs) {

@@ -1,0 +1,15 @@
+<div class="pagination_holder">
+  <ul class="pagination_list" ng-if="1 < pages.length || !autoHide">
+    <li class="pagination_item pagination_prev" ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }">
+      <a class="gl_link" href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a>
+    </li>
+
+    <li class="pagination_item" ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+      <a class="gl_link" href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+    </li>
+
+    <li class="pagination_item pagination_next" ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+      <a class="gl_link" href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a>
+    </li>
+  </ul>
+</div>

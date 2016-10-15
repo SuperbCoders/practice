@@ -1,4 +1,4 @@
-function PatientsController($scope, Patients) {
+function PatientsController($scope, $window, Patients) {
   $scope.items_limit = 9;
   $scope.filters = {
     archivated: false,
@@ -49,6 +49,10 @@ function PatientsController($scope, Patients) {
     niceScrollBlock = firedEl.next('.chzn-container').find('.chzn-results');
     niceScrollBlock.getNiceScroll().hide();
   });
+
+  $scope.paginationChange = function() {
+    $window.scrollTo(0, 0);
+  }
 
   $scope.unarchivate = function(patient) {
     patient.in_archive = false;
@@ -144,4 +148,4 @@ function PatientsController($scope, Patients) {
 
   $scope.fetch();
 }
-angular.module('practice.doctor').controller('PatientsController', ['$scope', 'Patients', PatientsController]);
+angular.module('practice.doctor').controller('PatientsController', ['$scope', '$window', 'Patients', PatientsController]);

@@ -1,0 +1,85 @@
+                    Prefix Verb       URI Pattern                           Controller#Action
+        new_doctor_session GET        /auth/sign_in(.:format)               sessions#new
+            doctor_session POST       /auth/sign_in(.:format)               sessions#create
+    destroy_doctor_session GET|DELETE /auth/sign_out(.:format)              sessions#destroy
+ doctor_omniauth_authorize GET|POST   /auth/auth/:provider(.:format)        omniauth_callbacks#passthru {:provider=>/facebook|vkontakte/}
+  doctor_omniauth_callback GET|POST   /auth/auth/:action/callback(.:format) omniauth_callbacks#(?-mix:facebook|vkontakte)
+           doctor_password POST       /auth/password(.:format)              devise/passwords#create
+       new_doctor_password GET        /auth/password/new(.:format)          devise/passwords#new
+      edit_doctor_password GET        /auth/password/edit(.:format)         devise/passwords#edit
+                           PATCH      /auth/password(.:format)              devise/passwords#update
+                           PUT        /auth/password(.:format)              devise/passwords#update
+cancel_doctor_registration GET        /auth/cancel(.:format)                registrations#cancel
+       doctor_registration POST       /auth(.:format)                       registrations#create
+   new_doctor_registration GET        /auth/sign_up(.:format)               registrations#new
+  edit_doctor_registration GET        /auth/edit(.:format)                  registrations#edit
+                           PATCH      /auth(.:format)                       registrations#update
+                           PUT        /auth(.:format)                       registrations#update
+                           DELETE     /auth(.:format)                       registrations#destroy
+       doctor_confirmation POST       /auth/confirmation(.:format)          devise/confirmations#create
+   new_doctor_confirmation GET        /auth/confirmation/new(.:format)      devise/confirmations#new
+                           GET        /auth/confirmation(.:format)          devise/confirmations#show
+                           GET        /templates(/*url)(.:format)           application#templates
+                      root GET        /                                     doctor/cabinet#index
+         doctors_new_visit POST       /doctors/new_visit(.:format)          public/profiles#create_visit
+                           GET        /doctors/:username(.:format)          public/profiles#public
+                   profile GET        /doctors/:username/profile(.:format)  public/profiles#profile
+                    visits GET        /doctors/:username/visits(.:format)   public/profiles#visits
+            doctor_profile GET        /doctor/profile(.:format)             doctor/profiles#show
+                           PATCH      /doctor/profile(.:format)             doctor/profiles#update
+                           PUT        /doctor/profile(.:format)             doctor/profiles#update
+    search_doctor_patients POST       /doctor/patients/search(.:format)     doctor/patients#search
+           doctor_patients GET        /doctor/patients(.:format)            doctor/patients#index
+                           POST       /doctor/patients(.:format)            doctor/patients#create
+        new_doctor_patient GET        /doctor/patients/new(.:format)        doctor/patients#new
+       edit_doctor_patient GET        /doctor/patients/:id/edit(.:format)   doctor/patients#edit
+            doctor_patient GET        /doctor/patients/:id(.:format)        doctor/patients#show
+                           PATCH      /doctor/patients/:id(.:format)        doctor/patients#update
+                           PUT        /doctor/patients/:id(.:format)        doctor/patients#update
+                           DELETE     /doctor/patients/:id(.:format)        doctor/patients#destroy
+             doctor_visits GET        /doctor/visits(.:format)              doctor/visits#index
+                           POST       /doctor/visits(.:format)              doctor/visits#create
+          new_doctor_visit GET        /doctor/visits/new(.:format)          doctor/visits#new
+         edit_doctor_visit GET        /doctor/visits/:id/edit(.:format)     doctor/visits#edit
+              doctor_visit GET        /doctor/visits/:id(.:format)          doctor/visits#show
+                           PATCH      /doctor/visits/:id(.:format)          doctor/visits#update
+                           PUT        /doctor/visits/:id(.:format)          doctor/visits#update
+                           DELETE     /doctor/visits/:id(.:format)          doctor/visits#destroy
+           doctor_journals GET        /doctor/journals(.:format)            doctor/journals#index
+                           POST       /doctor/journals(.:format)            doctor/journals#create
+        new_doctor_journal GET        /doctor/journals/new(.:format)        doctor/journals#new
+       edit_doctor_journal GET        /doctor/journals/:id/edit(.:format)   doctor/journals#edit
+            doctor_journal GET        /doctor/journals/:id(.:format)        doctor/journals#show
+                           PATCH      /doctor/journals/:id(.:format)        doctor/journals#update
+                           PUT        /doctor/journals/:id(.:format)        doctor/journals#update
+                           DELETE     /doctor/journals/:id(.:format)        doctor/journals#destroy
+              doctor_dicts GET        /doctor/dicts(.:format)               doctor/dicts#index
+                           POST       /doctor/dicts(.:format)               doctor/dicts#create
+           new_doctor_dict GET        /doctor/dicts/new(.:format)           doctor/dicts#new
+          edit_doctor_dict GET        /doctor/dicts/:id/edit(.:format)      doctor/dicts#edit
+               doctor_dict GET        /doctor/dicts/:id(.:format)           doctor/dicts#show
+                           PATCH      /doctor/dicts/:id(.:format)           doctor/dicts#update
+                           PUT        /doctor/dicts/:id(.:format)           doctor/dicts#update
+                           DELETE     /doctor/dicts/:id(.:format)           doctor/dicts#destroy
+           doctor_settings GET        /doctor/settings(.:format)            doctor/settings#show
+                           PATCH      /doctor/settings(.:format)            doctor/settings#update
+                           PUT        /doctor/settings(.:format)            doctor/settings#update
+                     admin GET        /admin(.:format)                      admin/index#index
+                           GET        /admin/value-lists/:name(.:format)    admin/value_lists#show
+                           PUT|PATCH  /admin/value-lists/:name(.:format)    admin/value_lists#update
+             admin_doctors GET        /admin/doctors(.:format)              admin/doctors#index
+                           POST       /admin/doctors(.:format)              admin/doctors#create
+          new_admin_doctor GET        /admin/doctors/new(.:format)          admin/doctors#new
+         edit_admin_doctor GET        /admin/doctors/:id/edit(.:format)     admin/doctors#edit
+              admin_doctor GET        /admin/doctors/:id(.:format)          admin/doctors#show
+                           PATCH      /admin/doctors/:id(.:format)          admin/doctors#update
+                           PUT        /admin/doctors/:id(.:format)          admin/doctors#update
+                           DELETE     /admin/doctors/:id(.:format)          admin/doctors#destroy
+            admin_patients GET        /admin/patients(.:format)             admin/patients#index
+                           POST       /admin/patients(.:format)             admin/patients#create
+         new_admin_patient GET        /admin/patients/new(.:format)         admin/patients#new
+        edit_admin_patient GET        /admin/patients/:id/edit(.:format)    admin/patients#edit
+             admin_patient GET        /admin/patients/:id(.:format)         admin/patients#show
+                           PATCH      /admin/patients/:id(.:format)         admin/patients#update
+                           PUT        /admin/patients/:id(.:format)         admin/patients#update
+                           DELETE     /admin/patients/:id(.:format)         admin/patients#destroy
