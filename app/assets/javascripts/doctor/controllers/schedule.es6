@@ -328,7 +328,7 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
     }
     curTime = new Date;
     timeline.find('span').text(moment(curTime).format('HH:mm'));
-    curCalView = $(calendar).fullCalendar('getView');
+    curCalView = $($scope.calendar).fullCalendar('getView');
     dayEnd = moment(22, 'HH').minutes(15)._d.toString().replace(/00:00:00/i, slats.find('tr:last').attr('data-time'));
     dayStart = moment(5, 'HH').minutes(45)._d.toString().replace(/00:00:00/g, slats.find('tr:first').attr('data-time'));
     timeline.toggle(moment(dayStart).isBefore(moment(curTime)) && moment(curTime).isBefore(moment(dayEnd)));
