@@ -10,7 +10,7 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
   $scope.chosen_activated = false;
   $scope.event_id = 0;
   $scope.calendarHolder = $('.calendarHolder');
-  $scope.timelineInterval = 1;
+  // $scope.timelineInterval = 1;
   $scope.new_patient = {};
   $scope.new_visit = {duration: undefined};
   $scope.calendar_options = {
@@ -341,12 +341,12 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
       'left': curCalView.axisWidth + 'px'
     });
     $('.active-day').removeClass('active-day');
-    clearInterval($scope.timelineInterval);
-    $scope.timelineIntervaltimelineInterval = setInterval(setTimeline, 60 * 1000);
+    // clearInterval($scope.timelineInterval);
+    // $scope.timelineIntervaltimelineInterval = setInterval(setTimeline, 60 * 1000);
     setTimeout(function() {
-      if ($scope.timelineIntervaltimelineInterval !== undefined) {
+      // if ($scope.timelineIntervaltimelineInterval !== undefined) {
 	setTimeline();
-      }
+      // }
     }, 1000);
   };
 
