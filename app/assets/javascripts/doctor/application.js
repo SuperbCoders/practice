@@ -272,7 +272,7 @@ app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope,
 			angular.element(document.querySelector("html")).addClass('menu_open');
 		};
 		$('html').on('click', function(event, ui) {
-			if (event.toElement && event.toElement.id !== 'menu_button') {
+			if (event.target && event.target.id !== 'menu_button') {
 				return $('html').removeClass('menu_open');
 			}
 		});
