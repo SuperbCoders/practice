@@ -1,3 +1,9 @@
+// Local Variables:
+// js-indent-level: 2
+// indent-tabs-mode: t
+// tab-width: 1
+// End:
+
 var app = angular.module('practice.doctor', ['ui.router', 'ngMask', 'ui-notification', 'naif.base64', 'ngResource', 'angularUtils.directives.dirPagination', 'angularMoment', 'ngMask']);
 
 var Patients = [
@@ -225,23 +231,26 @@ app.config(function(paginationTemplateProvider) {
     paginationTemplateProvider.setPath('/templates/doctor/pagination');
 });
 
-app.directive('chosenSelect', ['$timeout', function ($timeout) {
-        return {
-                link: function ($scope, element, attrs) {
-                        $scope.$on('dataloaded', function () {
-                                $timeout(function () {
-                                        $('.chosen-select').chosen({
-                                                autohide_results_multiple: false,
-                                                allow_single_deselect: true,
-                                                width: "100%"
-                                        });
-                                }, 0, false);
-                        })
-                }
-        };
-}]);
+// don't know why is not used, so comment it so far
+
+// app.directive('chosenSelect', ['$timeout', function ($timeout) {
+//         return {
+//                 link: function ($scope, element, attrs) {
+//                         $scope.$on('dataloaded', function () {
+//                                 $timeout(function () {
+//                                         $('.chosen-select').chosen({
+//                                                 autohide_results_multiple: false,
+//                                                 allow_single_deselect: true,
+//                                                 width: "100%"
+//                                         });
+//                                 }, 0, false);
+//                         })
+//                 }
+//         };
+// }]);
 
 app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope, $state, $stateParams, $window) {
+  console.log('doctor__app_run');
 		$window.rootScope = $rootScope;
 		$rootScope.$state = $state;
 		$rootScope.$stateParams = $stateParams;
@@ -283,6 +292,7 @@ app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope,
 			return moment(Date["new"]);
 		};
 		$rootScope.init_chosen = function() {
+      console.log('doctor__init_chosen');
 			$('#doctor_stand_time').chosen();
 			$("#doctor_work_days").chosen();
 			return $('.chosen-select').chosen({

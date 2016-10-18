@@ -1,4 +1,5 @@
 function PatientsController($scope, $window, Patients) {
+  console.log('patients__controller_running');
   $scope.items_limit = 9;
   $scope.filters = {
     archivated: false,

@@ -1,5 +1,5 @@
 function PatientController($scope, $state, $stateParams, Patients) {
-  
+  console.log('patient__controller_running');
   $scope.add_phone = function() {
     return $scope.patient.phones.push({
       number: ''

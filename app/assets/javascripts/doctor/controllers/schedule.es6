@@ -3,6 +3,7 @@ function _debug (m) {
 }
 
 function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
+  console.log('schedule__controller_running');
   $scope.items_limit = 100;
   $scope.filters = {};
   $scope.win = $(window);
@@ -329,8 +330,13 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
     curTime = new Date;
     timeline.find('span').text(moment(curTime).format('HH:mm'));
     curCalView = $($scope.calendar).fullCalendar('getView');
-    dayEnd = moment(22, 'HH').minutes(15)._d.toString().replace(/00:00:00/i, slats.find('tr:last').attr('data-time'));
-    dayStart = moment(5, 'HH').minutes(45)._d.toString().replace(/00:00:00/g, slats.find('tr:first').attr('data-time'));
+    dayEnd = moment(22, 'HH').minutes(15)._d.toISOString().replace(/00:00:00/i, slats.find('tr:last').attr('data-time'));
+    dayStart = moment(5, 'HH').minutes(45)._d.toISOString().replace(/00:00:00/g, slats.find('tr:first').attr('data-time'));
+    // dayStart = curTime;
+    // dayEnd = curTime;
+    // console.log(JSON.stringify(dayStart));
+    // console.log(JSON.stringify(curTime));
+    // console.log(JSON.stringify(dayEnd));
     timeline.toggle(moment(dayStart).isBefore(moment(curTime)) && moment(curTime).isBefore(moment(dayEnd)));
     curTime = moment(curTime);
     curSeconds = (curTime.hours() - 5) * 60 * 60 + (curTime.minutes() - 45) * 60 + curTime.seconds();

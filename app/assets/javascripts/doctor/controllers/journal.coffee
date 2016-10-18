@@ -1,4 +1,5 @@
 class JournalController
+  console.log('journal__controller_running');
   constructor: (@rootScope, @scope, @Journals, @Alerts, @Dicts) ->
     vm = @
     vm.Journals = @Journals
@@ -21,8 +22,8 @@ class JournalController
     )
 
     @fetch_dicts()
-    @init_chosen()
-    @init_tabblock()
+    # @init_chosen()
+    # @init_tabblock()
 
     # Load all patient journals if state is record
     if @rootScope.$state.current.name.split('.')[1] is 'records'

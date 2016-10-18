@@ -180,8 +180,8 @@ $(function ($) {
     });
 
     $('.openMenu').on('click', function () {
-        html_var.addClass('menu_open');
         console.log('openMenu');
+        html_var.addClass('menu_open');
         return false;
     });
 

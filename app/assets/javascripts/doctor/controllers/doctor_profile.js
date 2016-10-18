@@ -1,4 +1,6 @@
 function DoctorProfileController($scope, Alerts, state, Doctor, Settings, ValueList) {
+  console.log('doctor_profile__controller_existence');
+  console.log('doctor_profile__controller_running');
   $scope.new_schedule = function() {
     $scope.doctor.work_schedules.push({
       days: [],
@@ -113,11 +115,12 @@ DoctorProfileController.prototype.fix_tab_header = function() {
 };
 
 function init_chosen($scope) {
+  console.log('doctor_profile__init_chosen');
   $scope.$parent.init_chosen();
   if ($('.chosen-select').length) {
     $('body').delegate('.chosen_multiple_v1 .extra_control', 'click', function(e) {
       var chzn_container, firedEl, option_ind;
-      console.log('init_chosen');
+      console.log('extra_init_chosen');
       firedEl = $(this);
       e.preventDefault();
       chzn_container = firedEl.closest('.chzn-container ');
