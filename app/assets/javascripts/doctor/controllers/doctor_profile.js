@@ -1,6 +1,37 @@
-function DoctorProfileController($scope, Alerts, state, Doctor, Settings, ValueList) {
+function DoctorProfileController($scope, Alerts, state, stateParams, Doctor, Settings, ValueList) {
+
+  $scope.$on('$viewContentLoaded',
+                 function(event) {
+                   // console.log('on__stateChangeStart');
+                   // console.log(toState);
+                   var tab_names = ['profile', 'settings', 'public', 'subscription'];
+                   var tab_name = state.current.name.replace('doctor.', '');
+                   console.log('names:');
+                   console.log(tab_names);
+                   console.log(tab_name);
+                   active_tab(tab_names.indexOf(tab_name));
+                   // if (toState.
+                 });
+
+  // console.log('-> check state...');
+  // console.log(state);
+  // console.log(stateParams);
+  // console.log(state.current);
+  // console.log(state.current.name.replace('doctor.', ''));
+
+  ['profile', 'public', 'settings', 'subscription'];
+  // $scope.tab_name = state.current.name.replace('doctor.', '');
+
+  // active_tab();
+
+  // console.log('-> check state...');
+  // console.log(state_name);
+
+  // console.log($state);
+
   console.log('doctor_profile__controller_existence');
   console.log('doctor_profile__controller_running');
+
   $scope.new_schedule = function() {
     $scope.doctor.work_schedules.push({
       days: [],
@@ -114,6 +145,65 @@ DoctorProfileController.prototype.fix_tab_header = function() {
   }
 };
 
+// function active_tab() {
+//   console.log('active_tab');
+//   console.log($('.profile_tab_holder .tab_is_active').length);
+//   if ($('.profile_tab_holder .tab_is_active').length == 0) {
+//     return;
+//   }
+
+//   var tab = $('.profile_tab_holder .tab_is_active'),
+//       tabs = tab.parents('.tab_list'),
+//       tabCursor = tabs.find('.tab_active_cursor');
+//   if (tabCursor.length == 0) {
+//     tabCursor = $('<li class="tab_active_cursor" />');
+
+//     tabCursor.css({
+//       width: tab.find('.tab_link').width(),
+//       left: tab.offset().left - tabs.offset().left
+//     });
+
+//     tabs.append(tabCursor);
+//   } else {
+//     tabCursor.css({
+//       width: tab.find('.tab_link').width(),
+//       left: tab.offset().left - tabs.offset().left
+//     });
+//   }
+// };
+
+function active_tab(tab) {
+  console.log('active_tab');
+  console.log($('.profile_tab_holder .tab_item').length);
+
+  var tab = $($('.profile_tab_holder .tab_item')[tab]),
+      tabs = tab.parents('.tab_list'),
+      tabCursor = tabs.find('.tab_active_cursor');
+  if (tabCursor.length == 0) {
+    tabCursor = $('<li class="tab_active_cursor" />');
+
+    tabCursor.css({
+      width: tab.find('.tab_link').width(),
+      left: tab.offset().left - tabs.offset().left
+    });
+
+    tabs.append(tabCursor);
+  } else {
+    tabCursor.css({
+      width: tab.find('.tab_link').width(),
+      left: tab.offset().left - tabs.offset().left
+    });
+  }
+};
+
+function set_tab($scope) {
+  console.log('tab:');
+  console.log($scope.tab_name);
+  // console.log('scope:');
+  // console.log($scope);
+  // console.log($scope.$state);
+};
+
 function init_chosen($scope) {
   console.log('doctor_profile__init_chosen');
   $scope.$parent.init_chosen();
@@ -173,4 +263,4 @@ function init_chosen($scope) {
   }
 };
 
-angular.module('practice.doctor').controller('DoctorProfileController', ['$scope', 'Alerts', '$state', 'Doctor', 'Settings', 'ValueList', DoctorProfileController]);
+angular.module('practice.doctor').controller('DoctorProfileController', ['$scope', 'Alerts', '$state', '$stateParams', 'Doctor', 'Settings', 'ValueList', DoctorProfileController]);

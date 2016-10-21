@@ -1,0 +1,35 @@
+.profile_container
+  .tabHeaderSpacer.profile_tab_header_spacer
+    .profile_tab_header.tabHeader
+      .profile_tab_header_inner
+        %a.go_back_btn{:href => "#"}
+        .profile_tab_holder
+          %h2.caption_v1 Профиль врача
+          .tab_holder.tabListScroller
+            %ul#tab_list.tab_list
+              %li.tab_item{'ui-sref-active' => "ui-tabs-active ui-state-active"}
+                %a.tab_link{:href => "", 'ng-click' => "active_tab('profile')"}
+                  %span.mb Личные данные
+              %li.tab_item{'ui-sref-active' => "ui-tabs-active ui-state-active"}
+                %a.tab_link{:href => "", 'ng-click' => "active_tab('settings')"}
+                  %span.mb Настройки
+              %li.tab_item{'ui-sref-active' => "ui-tabs-active ui-state-active"}
+                %a.tab_link{:href => "", 'ng-click' => "active_tab('public')"}
+                  %span.mb Публичный профиль
+              %li.tab_item{'ui-sref-active' => "ui-tabs-active ui-state-active"}
+                %a.tab_link{:href => "", 'ng-click' => "active_tab('subscription')"}
+                  %span.mb Подписка
+  .profile_tab_holder
+    .tabBlock{"data-tab-context" => "#tab_list"}
+      %div(ui-view)
+    -#.debug
+    -#  %pre
+    -#    {{doctor | json}}
+
+  .profile_tab_controls
+    .section_inner
+      .form_controls
+        .fl
+          .mb
+            %a.btn_v2.yellow_black_btn.save_btn{:href => "", 'ng-click' => "save()"}
+              %span.mb Сохранить

@@ -6,17 +6,17 @@
         .profile_tab_holder
           %h2.caption_v1 Профиль врача
           .tab_holder.tabListScroller
-            %ul#tab_list.tab_list
-              %li.tab_item{'ui-sref-active' => "tab_active_cursor ui-tabs-active ui-state-active", 'ng-click' => "active_tab('profile')"}
+            %ul#tab_list.tab_list{'elem-ready' => 'active_tab()'}
+              %li.tab_item{'ui-sref-active' => "tab_is_active ui-tabs-active ui-state-active", 'ng-click' => "active_tab('profile')"}
                 %a.tab_link{:href => "", 'ui-sref' => "doctor.profile"}
                   %span.mb Личные данные
-              %li.tab_item{'ui-sref-active' => "tab_active_cursor ui-tabs-active ui-state-active", 'ng-click' => "active_tab('settings')"}
+              %li.tab_item{'ui-sref-active' => "tab_is_active ui-tabs-active ui-state-active", 'ng-click' => "active_tab('settings')"}
                 %a.tab_link{:href => "", 'ui-sref' => "doctor.settings"}
                   %span.mb Настройки
-              %li.tab_item{'ui-sref-active' => "tab_active_cursor ui-tabs-active ui-state-active", 'ng-click' => "active_tab('public')"}
+              %li.tab_item{'ui-sref-active' => "tab_is_active ui-tabs-active ui-state-active", 'ng-click' => "active_tab('public')"}
                 %a.tab_link{:href => "", 'ui-sref' => "doctor.public"}
                   %span.mb Публичный профиль
-              %li.tab_item{'ui-sref-active' => "tab_active_cursor ui-tabs-active ui-state-active", 'ng-click' => "active_tab('subscription')"}
+              %li.tab_item{'ui-sref-active' => "tab_is_active ui-tabs-active ui-state-active", 'ng-click' => "active_tab('subscription')"}
                 %a.tab_link{:href => "", 'ui-sref' => "doctor.subscription"}
                   %span.mb Подписка
   .profile_tab_holder
