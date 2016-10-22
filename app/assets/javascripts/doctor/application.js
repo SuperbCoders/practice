@@ -237,9 +237,9 @@ app.config([
   }
 ]);
 
-app.config(function(paginationTemplateProvider) {
+app.config(['paginationTemplateProvider', function(paginationTemplateProvider) {
   paginationTemplateProvider.setPath('/templates/doctor/pagination');
-});
+}]);
 
 // don't know why is not used, so comment it so far
 
