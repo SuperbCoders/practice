@@ -258,6 +258,7 @@ app.directive('resize', function($window) {
 app.directive('fixTabHeader', function() {
   return {
     link: function(scope, element) {
+      fix_tab_header();
       scope.$on('resize::resize', function() {
         fix_tab_header();
       });
