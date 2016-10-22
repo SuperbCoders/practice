@@ -235,3 +235,19 @@ function init_tabblock() {
     //     }
     // });
 }
+
+function fix_tab_header() {
+
+    var tabHeader = $('.tabHeader');
+    var tabHeaderSpacer = $('.tabHeaderSpacer');
+
+    console.log('fix_tab_header');
+    if (doc.scrollTop() > 0) {
+        tabHeaderSpacer.css('height', tabHeader.height());
+        tabHeader.addClass('tab_header_fixed');
+    } else {
+        tabHeader.removeClass('tab_header_fixed');
+        tabHeaderSpacer.css('height', tabHeader.height());
+    }
+
+}

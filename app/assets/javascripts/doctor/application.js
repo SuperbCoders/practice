@@ -237,6 +237,34 @@ app.config([
   }
 ]);
 
+app.directive('resize', function($window) {
+  return {
+    link: function(scope) {
+      function onResize(e) {
+        // Namespacing events with name of directive + event to avoid collisions
+        scope.$broadcast('resize::resize');
+      }
+
+      function cleanUp() {
+        angular.element($window).off('resize', onResize);
+      }
+
+      angular.element($window).on('resize', onResize);
+      scope.$on('$destroy', cleanUp);
+    }
+  }
+});
+
+app.directive('fixTabHeader', function() {
+  return {
+    link: function(scope, element) {
+      scope.$on('resize::resize', function() {
+        fix_tab_header();
+      });
+    }
+  }
+});
+
 app.config(['paginationTemplateProvider', function(paginationTemplateProvider) {
   paginationTemplateProvider.setPath('/templates/doctor/pagination');
 }]);
