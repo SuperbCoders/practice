@@ -33,7 +33,16 @@ class Doctor::ProfilesController < Doctor::BaseController
       ['phone', 'email'].map do |c_type|
         if params[:doctor][c_type.pluralize.to_sym]
           params[:doctor][c_type.pluralize.to_sym].map { |c_data|
-            @resource.contacts.find_or_create_by(contact_type: Contact.contact_types[c_type.to_sym], data: c_data['data'])
+            if c_data['id']
+              @resource.contacts.find(c_data['id']).update!(
+                data: c_data['data']
+              )
+            else
+              @resource.contacts.find_or_create_by(
+                contact_type: Contact.contact_types[c_type.to_sym],
+                data: c_data['data']
+              )
+            end
           }
         end
       end

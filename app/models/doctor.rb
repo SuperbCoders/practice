@@ -22,10 +22,10 @@ class Doctor < ActiveRecord::Base
   has_many :journals
   has_many :dicts, as: :dictable, dependent: :destroy
   has_one :setting
-  
+
   after_create :create_identity
 
-  # todo: Пока не ясно нужно вообще это поле или нет. 
+  # todo: Пока не ясно нужно вообще это поле или нет.
   # validates_uniqueness_of :username
 
   before_destroy :destroy_avatars
@@ -49,7 +49,7 @@ class Doctor < ActiveRecord::Base
     patient.save
     patient
   end
-  
+
   def avatar_from_url(url)
     destroy_avatar
     file_extension = 'png'
