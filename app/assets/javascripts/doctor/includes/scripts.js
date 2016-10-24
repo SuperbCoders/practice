@@ -253,5 +253,10 @@ function fix_tab_header() {
 }
 
 function run_chosen(element) {
-    $(element).chosen();
+    $(element).chosen({
+        autohide_results_multiple: false,
+        allow_single_deselect: true,
+        width: "100%",
+        className: "form_o_b_item form_o_b_value_edit_mode"
+    });
 }
