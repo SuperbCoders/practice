@@ -1,5 +1,4 @@
 class JournalController
-  console.log('journal__controller_running');
   constructor: (@rootScope, @scope, @Journals, @Alerts, @Dicts) ->
     vm = @
     vm.Journals = @Journals

@@ -3,7 +3,6 @@ function _debug (m) {
 }
 
 function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
-  console.log('schedule__controller_running');
   $scope.items_limit = 100;
   $scope.filters = {};
   $scope.win = $(window);

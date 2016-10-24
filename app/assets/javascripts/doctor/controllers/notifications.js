@@ -1,5 +1,4 @@
 function NotificationsController($scope, Alerts) {
-  console.log('notifications__controller_running');
   $scope.notifications = Alerts.alerts();
   $("#notifications").removeClass('notification_open');
   $('body').addClass('sub_header_mod');

@@ -251,3 +251,7 @@ function fix_tab_header() {
     }
 
 }
+
+function run_chosen(element) {
+    $(element).chosen();
+}

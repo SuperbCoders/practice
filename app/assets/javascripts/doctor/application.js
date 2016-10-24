@@ -266,6 +266,14 @@ app.directive('fixTabHeader', function() {
   }
 });
 
+app.directive('chosenSelect', function() {
+  return {
+    link: function(scope, element) {
+      run_chosen(element);
+    }
+  }
+});
+
 app.config(['paginationTemplateProvider', function(paginationTemplateProvider) {
   paginationTemplateProvider.setPath('/templates/doctor/pagination');
 }]);
@@ -305,6 +313,7 @@ app.config(['paginationTemplateProvider', function(paginationTemplateProvider) {
 // });
 
 app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope, $state, $stateParams, $window) {
+  console.log('app.run()');
   $window.rootScope = $rootScope;
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
@@ -354,7 +363,6 @@ app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope,
   //                });
 
   $rootScope.init_chosen = function() {
-    console.log('doctor__init_chosen');
     $('#doctor_stand_time').chosen();
     $("#doctor_work_days").chosen();
     return $('.chosen-select').chosen({

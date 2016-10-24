@@ -216,7 +216,7 @@ function updateDaysRow(slct) {
 
 function fix_tab_header() {
 
-    console.log('fix_tab_header');
+    // console.log('fix_tab_header');
     if (doc.scrollTop() > 0) {
         tabHeaderSpacer.css('height', tabHeader.height());
         tabHeader.addClass('tab_header_fixed');

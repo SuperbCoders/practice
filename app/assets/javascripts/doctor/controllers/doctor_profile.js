@@ -1,14 +1,15 @@
 function DoctorProfileController($scope, Alerts, state, stateParams, Doctor, Settings, ValueList) {
 
+  console.log('DoctorProfileController');
   $scope.$on('$viewContentLoaded',
                  function(event) {
                    // console.log('on__stateChangeStart');
                    // console.log(toState);
                    var tab_names = ['profile', 'settings', 'public', 'subscription'];
                    var tab_name = state.current.name.replace('doctor.', '');
-                   console.log('names:');
-                   console.log(tab_names);
-                   console.log(tab_name);
+                   // console.log('names:');
+                   // console.log(tab_names);
+                   // console.log(tab_name);
                    active_tab(tab_names.indexOf(tab_name));
                    // if (toState.
                  });
@@ -28,9 +29,6 @@ function DoctorProfileController($scope, Alerts, state, stateParams, Doctor, Set
   // console.log(state_name);
 
   // console.log($state);
-
-  console.log('doctor_profile__controller_existence');
-  console.log('doctor_profile__controller_running');
 
   $scope.new_schedule = function() {
     $scope.doctor.work_schedules.push({
@@ -174,7 +172,7 @@ DoctorProfileController.prototype.fix_tab_header = function() {
 
 function active_tab(tab) {
   console.log('active_tab');
-  console.log($('.profile_tab_holder .tab_item').length);
+  // console.log($('.profile_tab_holder .tab_item').length);
 
   var tab = $($('.profile_tab_holder .tab_item')[tab]),
       tabs = tab.parents('.tab_list'),
@@ -205,7 +203,6 @@ function set_tab($scope) {
 };
 
 function init_chosen($scope) {
-  console.log('doctor_profile__init_chosen');
   $scope.$parent.init_chosen();
   if ($('.chosen-select').length) {
     $('body').delegate('.chosen_multiple_v1 .extra_control', 'click', function(e) {

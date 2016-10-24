@@ -131,6 +131,8 @@
 
     AbstractChosen = (function () {
         function AbstractChosen(form_field, options) {
+            console.log('AbstractChosen');
+            console.trace();
             this.form_field = form_field;
             this.options = options != null ? options : {};
             if (!AbstractChosen.browser_is_supported()) {
@@ -652,6 +654,7 @@
                 container_props.id = this.form_field.id.replace(/[^\w]/g, '_') + "_chosen";
             }
             this.container = $("<div />", container_props);
+            console.log('* chosen applied');
             if (this.is_multiple) {
                 this.container.html('<ul class="chzn-choices"><li class="search-field"><input type="text" value="' + this.default_text + '" class="default" autocomplete="off" style="width:25px;" /></li></ul><div class="chzn-drop"><ul class="chzn-results"></ul></div>');
             } else {
