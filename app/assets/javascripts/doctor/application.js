@@ -266,13 +266,24 @@ app.directive('fixTabHeader', function() {
   }
 });
 
-app.directive('chosenSelect', function() {
+app.directive('chosenSelect', ['$timeout', function ($timeout) {
   return {
     link: function(scope, element) {
-      run_chosen(element);
+      var run = function () {
+        console.log('directive');
+        console.log(element.find('option').length);
+        // console.log(element.find('option'));
+        var selected = element.find('option').map(function (i, e) {
+          return ', ' + $(e).attr('selected');
+          // return e;
+        });
+        console.log(selected);
+        run_chosen(element);
+      }
+      $timeout(run, 0);
     }
   }
-});
+}]);
 
 app.config(['paginationTemplateProvider', function(paginationTemplateProvider) {
   paginationTemplateProvider.setPath('/templates/doctor/pagination');

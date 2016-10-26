@@ -131,8 +131,6 @@
 
     AbstractChosen = (function () {
         function AbstractChosen(form_field, options) {
-            console.log('AbstractChosen');
-            console.trace();
             this.form_field = form_field;
             this.options = options != null ? options : {};
             if (!AbstractChosen.browser_is_supported()) {
@@ -654,7 +652,6 @@
                 container_props.id = this.form_field.id.replace(/[^\w]/g, '_') + "_chosen";
             }
             this.container = $("<div />", container_props);
-            console.log('* chosen applied');
             if (this.is_multiple) {
                 this.container.html('<ul class="chzn-choices"><li class="search-field"><input type="text" value="' + this.default_text + '" class="default" autocomplete="off" style="width:25px;" /></li></ul><div class="chzn-drop"><ul class="chzn-results"></ul></div>');
             } else {
@@ -797,6 +794,7 @@
         };
 
         Chosen.prototype.container_mousedown = function (evt) {
+            console.log('mousedown');
             if (!this.is_disabled) {
 
                 if (evt && evt.type === "mousedown" && !this.results_showing) {
@@ -878,6 +876,7 @@
         Chosen.prototype.results_build = function () {
             this.parsing = true;
             this.selected_option_count = null;
+            console.log('parse');
             this.results_data = SelectParser.select_to_array(this.form_field);
             if (this.is_multiple) {
                 this.search_choices.find("li.search-choice").remove();
@@ -977,7 +976,6 @@
             if (this.form_field_label.length > 0) {
                 return this.form_field_label.bind('click.chosen', function (evt) {
                     if (_this.is_multiple) {
-                        console.log(evt);
                         return _this.container_mousedown(evt);
                     } else {
                         return _this.activate_field();
@@ -1079,7 +1077,6 @@
 
         Chosen.prototype.result_select = function (evt) {
             var high, item;
-            //console.log(this.active_field);
             if (this.result_highlight) {
                 high = this.result_highlight;
                 this.result_clear_highlight();
