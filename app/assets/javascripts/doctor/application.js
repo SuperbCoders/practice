@@ -268,13 +268,23 @@ app.directive('fixTabHeader', function() {
 
 app.directive('chosenSelect', ['$timeout', function ($timeout) {
   return {
+    priority: -1, // Run this before updateDaysRow because it rely on chosen
     link: function(scope, element) {
       var run = function () {
-        // console.log('directive');
-        console.log('directive ' + element.find('option').toArray().map(function (i, e) {
-          return '' + JSON.stringify($(i).attr('selected'));
-        }).join(', '));
+        console.log('chosen-select');
         run_chosen(element);
+      }
+      $timeout(run, 0);
+    }
+  }
+}]);
+
+app.directive('updateDaysRow', ['$timeout', function ($timeout) {
+  return {
+    link: function(scope, element) {
+      var run = function () {
+        console.log('update-days-row');
+        updateDaysRow(element);
       }
       $timeout(run, 0);
     }

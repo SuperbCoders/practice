@@ -11,7 +11,7 @@
       .label_holder
         %label.form_label{:for => "doctor_work_days"} Время работы врача
       .input_w.size_27.chosen_v1.no_search.chosen_multiple_v1
-        %select#doctor_work_days.chosen-select{"data-placeholder" => "Выберите день", :multiple => "multiple", 'ng-model' => "setting.days", 'chosen-select' => true}
+        %select#doctor_work_days.chosen-select{"data-placeholder" => "Выберите день", :multiple => "multiple", 'ng-model' => "setting.days", 'chosen-select' => true, 'update-days-row' => true}
           %option{:value => "0"}
           %option{"data-short" => "Пн", "data-title" => "Понедельник", :value => "1"} Понедельник
           %option{"data-short" => "В", "data-title" => "Вторник", :value => "2"} Вторник

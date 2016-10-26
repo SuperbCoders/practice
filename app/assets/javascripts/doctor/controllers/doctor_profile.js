@@ -98,6 +98,7 @@ function updateDaysRow(slct) {
   var chzn_container, days, i, slct_val;
   console.log('updateDaysRow');
   slct_val = slct.val();
+  console.log(slct_val);
   chzn_container = slct.next('.chzn-container').find('.chzn-choices');
   days = '';
   if (slct_val) {
@@ -107,11 +108,16 @@ function updateDaysRow(slct) {
       i++;
     }
     days = days.replace(/^,/i, '');
+    console.log(chzn_container.find('.chzn_rzlts').length);
     if (chzn_container.find('.chzn_rzlts').length) {
+      console.log(days);
       chzn_container.find('.chzn_rzlts').text(days);
     } else {
+      console.log(days);
       chzn_container.prepend($('<li class="chzn_rzlts" />').text(days));
+      console.log(chzn_container);
     }
+    console.log($('.chzn_rzlts').length);
   } else {
     chzn_container.find('.chzn_rzlts').remove();
   }

@@ -34,7 +34,7 @@
         }
 
         SelectParser.prototype.add_node = function (child) {
-            console.log('add_node ' + child.selected);
+            // console.log('add_node ' + child.selected);
             if (child.nodeName.toUpperCase() === "OPTGROUP") {
                 return this.add_group(child);
             } else {
@@ -64,7 +64,7 @@
         };
 
         SelectParser.prototype.add_option = function (option, group_position, group_disabled) {
-            console.log('add_option ' + option.selected);
+            // console.log('add_option ' + option.selected);
             if (option.nodeName.toUpperCase() === "OPTION") {
                 if (option.text !== "") {
                     if (group_position != null) {
@@ -124,16 +124,16 @@
         var child, parser, _i, _len, _ref;
         parser = new SelectParser();
         _ref = select.childNodes;
-        console.log('select_to_array ' + $(select).find('option').toArray().map(function (i, e) {
-          return '' + JSON.stringify($(i).attr('selected'));
-        }).join(', '));
-        console.log(select.childNodes);
-        console.log('child_nodes ' + [].concat.apply([],select.childNodes).map(function (i, e) {
-          return '' + JSON.stringify(i.selected);
-        }).join(', '));
+        // console.log('select_to_array ' + $(select).find('option').toArray().map(function (i, e) {
+        //   return '' + JSON.stringify($(i).attr('selected'));
+        // }).join(', '));
+        // console.log(select.childNodes);
+        // console.log('child_nodes ' + [].concat.apply([],select.childNodes).map(function (i, e) {
+        //   return '' + JSON.stringify(i.selected);
+        // }).join(', '));
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             child = _ref[_i];
-            console.log('.');
+            // console.log('.');
             parser.add_node(child);
         }
         return parser.parsed;
@@ -246,7 +246,7 @@
             var content, data, data_content, shown_results, _i, _len, _ref;
             content = '';
             shown_results = 0;
-            console.log('results_option_build ' + this.print_results_data());
+            // console.log('results_option_build ' + this.print_results_data());
             _ref = this.results_data;
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                 data = _ref[_i];
@@ -358,7 +358,7 @@
                     _results.push(void 0);
                 }
             }
-            console.log('__2 ' + this.print_results_data());
+            // console.log('__2 ' + this.print_results_data());
             return _results;
         };
 
@@ -425,7 +425,7 @@
                 }
             }
             this.result_clear_highlight();
-            console.log('winnow_results ' + this.print_results_data());
+            // console.log('winnow_results ' + this.print_results_data());
             if (results < 1 && searchText.length) {
                 this.update_results_content("");
                 return this.no_results(searchText);
@@ -899,7 +899,7 @@
             this.selected_option_count = null;
             // console.log(this.form_field);
             this.results_data = SelectParser.select_to_array(this.form_field);
-            console.log('parse ' + this.print_results_data());
+            // console.log('parse ' + this.print_results_data());
             if (this.is_multiple) {
                 this.search_choices.find("li.search-choice").remove();
             } else if (!this.is_multiple) {
@@ -919,7 +919,7 @@
             this.search_field_disabled();
             this.show_search_field_default();
             this.search_field_scale();
-            console.log('__3 ' + this.print_results_data());
+            // console.log('__3 ' + this.print_results_data());
             return this.parsing = false;
         };
 
@@ -1140,7 +1140,7 @@
                 }
                 this.current_selectedIndex = this.form_field.selectedIndex;
                 evt.preventDefault();
-                console.log('__4 ' + this.print_results_data());
+                // console.log('__4 ' + this.print_results_data());
                 return this.search_field_scale();
             }
         };
@@ -1173,7 +1173,7 @@
                     deselected: this.form_field.options[result_data.options_index].value
                 });
                 this.search_field_scale();
-                console.log('__5 ' + this.print_results_data());
+                // console.log('__5 ' + this.print_results_data());
                 return true;
             } else {
                 return false;
