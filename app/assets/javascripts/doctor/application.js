@@ -270,14 +270,10 @@ app.directive('chosenSelect', ['$timeout', function ($timeout) {
   return {
     link: function(scope, element) {
       var run = function () {
-        console.log('directive');
-        console.log(element.find('option').length);
-        // console.log(element.find('option'));
-        var selected = element.find('option').map(function (i, e) {
-          return ', ' + $(e).attr('selected');
-          // return e;
-        });
-        console.log(selected);
+        // console.log('directive');
+        console.log('directive ' + element.find('option').toArray().map(function (i, e) {
+          return '' + JSON.stringify($(i).attr('selected'));
+        }).join(', '));
         run_chosen(element);
       }
       $timeout(run, 0);

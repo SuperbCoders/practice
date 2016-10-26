@@ -13,8 +13,8 @@
       .input_w.size_27.chosen_v1.no_search.chosen_multiple_v1
         %select#doctor_work_days.chosen-select{"data-placeholder" => "Выберите день", :multiple => "multiple", 'ng-model' => "setting.days", 'chosen-select' => true}
           %option{:value => "0"}
-          %option{"data-short" => "Пн", "data-title" => "Понедельник", :value => "1", 'ng-selected' => "{{setting.days.indexOf('1') > -1}}"} Понедельник
-          %option{"data-short" => "В", "data-title" => "Вторник", :value => "2", selected: 'selected'} Вторник
+          %option{"data-short" => "Пн", "data-title" => "Понедельник", :value => "1"} Понедельник
+          %option{"data-short" => "В", "data-title" => "Вторник", :value => "2"} Вторник
           %option{"data-short" => "С", "data-title" => "Среда", :value => "3"} Среда
           %option{"data-short" => "Ч", "data-title" => "Четверг", :value => "4"} Четверг
           %option{"data-short" => "П", "data-title" => "Пятница", :value => "5"} Пятница

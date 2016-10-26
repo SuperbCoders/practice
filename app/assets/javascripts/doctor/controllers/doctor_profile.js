@@ -3,32 +3,16 @@ function DoctorProfileController($scope, Alerts, state, stateParams, Doctor, Set
   console.log('DoctorProfileController');
   $scope.$on('$viewContentLoaded',
                  function(event) {
-                   // console.log('on__stateChangeStart');
-                   // console.log(toState);
                    var tab_names = ['profile', 'settings', 'public', 'subscription'];
                    var tab_name = state.current.name.replace('doctor.', '');
-                   // console.log('names:');
-                   // console.log(tab_names);
-                   // console.log(tab_name);
                    active_tab(tab_names.indexOf(tab_name));
                    // if (toState.
                  });
-
-  // console.log('-> check state...');
-  // console.log(state);
-  // console.log(stateParams);
-  // console.log(state.current);
-  // console.log(state.current.name.replace('doctor.', ''));
 
   ['profile', 'public', 'settings', 'subscription'];
   // $scope.tab_name = state.current.name.replace('doctor.', '');
 
   // active_tab();
-
-  // console.log('-> check state...');
-  // console.log(state_name);
-
-  // console.log($state);
 
   $scope.new_schedule = function() {
     $scope.doctor.work_schedules.push({
