@@ -291,6 +291,18 @@ app.directive('updateDaysRow', ['$timeout', function ($timeout) {
   }
 }]);
 
+app.directive('initWorkDays', ['$timeout', function ($timeout) {
+  return {
+    link: function(scope, element) {
+      var run = function () {
+        console.log('init-work-days');
+        init_work_days(element);
+      }
+      $timeout(run, 0);
+    }
+  }
+}]);
+
 app.config(['paginationTemplateProvider', function(paginationTemplateProvider) {
   paginationTemplateProvider.setPath('/templates/doctor/pagination');
 }]);

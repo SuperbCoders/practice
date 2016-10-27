@@ -193,8 +193,10 @@ function set_tab($scope) {
 };
 
 function init_chosen($scope) {
+  console.log('init_chosen');
   $scope.$parent.init_chosen();
   if ($('.chosen-select').length) {
+    console.log($('.chosen-select').length);
     $('body').delegate('.chosen_multiple_v1 .extra_control', 'click', function(e) {
       var chzn_container, firedEl, option_ind;
       console.log('extra_init_chosen');
@@ -206,7 +208,14 @@ function init_chosen($scope) {
       updateDaysRow(chzn_container.prev('.chosen-select').trigger('chosen:updated'));
       return false;
     });
-    $('.chosen-select').on('chosen:ready', function(evt, params) {
+    // $('.chosen-select').forEach(function(i,e){
+    //   init_work_days(e);
+    // });
+  }
+};
+
+function init_work_days(element) {
+    $(element).on('chosen:ready', function(evt, params) {
       if (params.chosen.is_multiple) {
         $(params.chosen.container).find('.chzn-choices').append($('<li class="chzn-choices-arrow" />'));
       }
@@ -242,12 +251,12 @@ function init_chosen($scope) {
       niceScrollBlock.getNiceScroll().hide();
     }).change(function(e) {
       updateDaysRow($(e.target));
-    }).chosen({
-      autohide_results_multiple: false,
-      allow_single_deselect: true,
-      width: '100%'
     });
-  }
-};
+    // .chosen({
+    //   autohide_results_multiple: false,
+    //   allow_single_deselect: true,
+    //   width: '100%'
+    // });
+}
 
 angular.module('practice.doctor').controller('DoctorProfileController', ['$scope', 'Alerts', '$state', '$stateParams', 'Doctor', 'Settings', 'ValueList', DoctorProfileController]);
