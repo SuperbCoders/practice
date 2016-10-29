@@ -92,6 +92,21 @@ function DoctorProfileController($scope, Alerts, state, stateParams, Doctor, Set
     $('.passForm').show().find('.passInput').focus();
   };
 
+  $scope.removeDay = function(element, index) {
+    var ngModel = element.data('$ngModelController');
+    console.log(ngModel);
+    console.log(index);
+
+    index = ngModel.$modelValue.indexOf(index.toString());
+    console.log('calculation');
+    console.log(index);
+    if (index > -1) {
+      console.log('delete');
+      delete ngModel.$modelValue[index];
+      console.log(ngModel.$modelValue);
+      ngModel.$setViewValue(ngModel.$modelValue);
+    }
+  };
 }
 
 function updateDaysRow(slct) {
@@ -198,13 +213,24 @@ function init_chosen($scope) {
   if ($('.chosen-select').length) {
     console.log($('.chosen-select').length);
     $('body').delegate('.chosen_multiple_v1 .extra_control', 'click', function(e) {
+      console.log('click');
       var chzn_container, firedEl, option_ind;
       console.log('extra_init_chosen');
       firedEl = $(this);
       e.preventDefault();
       chzn_container = firedEl.closest('.chzn-container ');
       option_ind = firedEl.parents('.chzn_item').attr('data-option-array-index') * 1;
-      firedEl.closest('.chzn-container').prev('.chosen-select').find('option[value=' + option_ind + ']').removeAttr('selected');
+
+      // console.log(angular.element(firedEl[0]).scope());
+      // angular.element(firedEl.closest('.chzn-container').prev('.chosen-select')[0]).scope()
+      // angular.element(document.getElementById('doctor_work_days')).scope()
+      angular.element(firedEl[0]).scope()
+        .removeDay(
+          firedEl.closest('.chzn-container').prev('.chosen-select'),
+          option_ind
+        );
+      // firedEl.closest('.chzn-container').prev('.chosen-select').find('option[value=' + option_ind + ']').removeAttr('selected');
+
       updateDaysRow(chzn_container.prev('.chosen-select').trigger('chosen:updated'));
       return false;
     });
