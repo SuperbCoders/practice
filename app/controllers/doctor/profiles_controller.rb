@@ -79,18 +79,20 @@ class Doctor::ProfilesController < Doctor::BaseController
       WorkSchedule.where(doctor: current_doctor).all.each do |w_schedule|
         found = false
         schedule_settings_params.map { |work_schedule|
-          work_schedule[:days].map { |day_schedule|
-            next if day_schedule.to_i.zero?
-            Rails.logger.debug 'DEBUG compare:'
-            Rails.logger.debug "#{w_schedule.day} == #{day_schedule.to_i} => #{w_schedule.day == day_schedule.to_i}"
-            Rails.logger.debug "#{w_schedule.start_at} == #{work_schedule[:start_at]} => #{w_schedule.start_at == work_schedule[:start_at]}"
-            Rails.logger.debug "#{w_schedule.finish_at} == #{work_schedule[:finish_at]} => #{w_schedule.finish_at == work_schedule[:finish_at]}"
-            if w_schedule.day == day_schedule.to_i && w_schedule.start_at == work_schedule[:start_at] && w_schedule.finish_at == work_schedule[:finish_at]
-              found = true
-              break
-            end
-          }
-          break if found
+          if work_schedule[:days]
+            work_schedule[:days].map { |day_schedule|
+              next if day_schedule.to_i.zero?
+              Rails.logger.debug 'DEBUG compare:'
+              Rails.logger.debug "#{w_schedule.day} == #{day_schedule.to_i} => #{w_schedule.day == day_schedule.to_i}"
+              Rails.logger.debug "#{w_schedule.start_at} == #{work_schedule[:start_at]} => #{w_schedule.start_at == work_schedule[:start_at]}"
+              Rails.logger.debug "#{w_schedule.finish_at} == #{work_schedule[:finish_at]} => #{w_schedule.finish_at == work_schedule[:finish_at]}"
+              if w_schedule.day == day_schedule.to_i && w_schedule.start_at == work_schedule[:start_at] && w_schedule.finish_at == work_schedule[:finish_at]
+                found = true
+                break
+              end
+            }
+            break if found
+          end
         }
         if found
           Rails.logger.debug 'DEBUG found'
