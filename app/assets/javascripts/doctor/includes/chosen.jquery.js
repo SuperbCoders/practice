@@ -246,7 +246,9 @@
             var content, data, data_content, shown_results, _i, _len, _ref;
             content = '';
             shown_results = 0;
-            // console.log('results_option_build ' + this.print_results_data());
+            console.log('-- chosen');
+            console.log($(this.form_field).attr('id'));
+            console.log('results_option_build ' + this.print_results_data());
             _ref = this.results_data;
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                 data = _ref[_i];

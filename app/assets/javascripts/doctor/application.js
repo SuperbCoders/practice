@@ -266,15 +266,37 @@ app.directive('fixTabHeader', function() {
   }
 });
 
-app.directive('chosenSelect', ['$timeout', function ($timeout) {
+app.directive('chosenSelectLoadedDoctor', ['$timeout', function ($timeout) {
   return {
     priority: 100,
     link: function(scope, element) {
       var run = function () {
-        console.log('chosen-select');
+        console.log('-- doctor directive');
+        console.log($(element).attr('id'));
+        console.log($(element).find('option').length);
         run_chosen(element);
       }
-      $timeout(run, 0);
+      scope.$on('dataloaded:doctor', function () {
+        console.log('$on(dataloaded:doctor)');
+        $timeout(run, 0);
+      });
+    }
+  }
+}]);
+
+app.directive('chosenSelect', ['$timeout', function ($timeout) {
+  return {
+    priority: 100,
+    link: {
+      post: function(scope, element) {
+        var run = function () {
+          console.log('-- directive');
+          console.log($(element).attr('id'));
+          console.log($(element).find('option').length);
+          run_chosen(element);
+        }
+        $timeout(run, 0);
+      }
     }
   }
 }]);
@@ -284,7 +306,7 @@ app.directive('updateDaysRow', ['$timeout', function ($timeout) {
     priority: 200,
     link: function(scope, element) {
       var run = function () {
-        console.log('update-days-row');
+        // console.log('update-days-row');
         updateDaysRow(element);
       }
       $timeout(run, 0);
@@ -297,7 +319,7 @@ app.directive('initWorkDays', ['$timeout', function ($timeout) {
     priority: 200,
     link: function(scope, element) {
       var run = function () {
-        console.log('init-work-days');
+        // console.log('init-work-days');
         init_work_days(element);
       }
       $timeout(run, 0);

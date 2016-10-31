@@ -29,12 +29,15 @@
         .mb
           %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => "new_schedule()"}
 
-    / Стаднартное время приема
+    / Стандартное время приема
     .form_row
       .label_holder
-        %label.form_label{:for => "doctor_stand_time"} Стаднартное время приема
+        %label.form_label{:for => "doctor_stand_time"} Стандартное время приема
       .input_w.size_27.chosen_v1.no_search
-        %select#doctor_stand_time.chosen-select{'ng-model'=>"settings.standart_shedule_interval","data-placeholder" => "Выберите время приема", 'chosen-select' => true}
+        %select#doctor_stand_time.chosen-select{'ng-model'=>"settings.standart_shedule_interval","data-placeholder" => "Выберите время приема", 'chosen-select-loaded-doctor' => true}
+          %option{'ng-repeat' => 'interval in standartTimeIntervals', value: "{{interval.value}}"} {{interval.value}} мин.
+          %option{"data-short" => "Пн", "data-title" => "Понедельник", :value => "1"} Понедельник
+        -# %select#doctor_stand_time.chosen-select{'ng-model'=>"settings.standart_shedule_interval","data-placeholder" => "Выберите время приема"}
           %option{'ng-repeat' => 'interval in standartTimeIntervals', value: "{{interval.value}}"} {{interval.value}} мин.
 
     / Время записи до приема

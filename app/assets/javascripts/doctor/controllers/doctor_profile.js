@@ -1,4 +1,4 @@
-function DoctorProfileController($scope, Alerts, state, stateParams, Doctor, Settings, ValueList) {
+function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams, Doctor, Settings, ValueList) {
 
   console.log('DoctorProfileController');
   $scope.$on('$viewContentLoaded',
@@ -54,6 +54,8 @@ function DoctorProfileController($scope, Alerts, state, stateParams, Doctor, Set
     if ($scope.doctor.work_schedules.length <= 0) {
       return $scope.new_schedule();
     }
+    console.log('$vroadcast(dataloaded:doctor)');
+    $rootScope.$broadcast('dataloaded:doctor');
   });
 
   ValueList.getList("Стандартное время приема").then(function(response) {
@@ -111,9 +113,9 @@ function DoctorProfileController($scope, Alerts, state, stateParams, Doctor, Set
 
 function updateDaysRow(slct) {
   var chzn_container, days, i, slct_val;
-  console.log('updateDaysRow');
+  // console.log('updateDaysRow');
   slct_val = slct.val();
-  console.log(slct_val);
+  // console.log(slct_val);
   chzn_container = slct.next('.chzn-container').find('.chzn-choices');
   days = '';
   if (slct_val) {
@@ -123,16 +125,16 @@ function updateDaysRow(slct) {
       i++;
     }
     days = days.replace(/^,/i, '');
-    console.log(chzn_container.find('.chzn_rzlts').length);
+    // console.log(chzn_container.find('.chzn_rzlts').length);
     if (chzn_container.find('.chzn_rzlts').length) {
-      console.log(days);
+      // console.log(days);
       chzn_container.find('.chzn_rzlts').text(days);
     } else {
-      console.log(days);
+      // console.log(days);
       chzn_container.prepend($('<li class="chzn_rzlts" />').text(days));
-      console.log(chzn_container);
+      // console.log(chzn_container);
     }
-    console.log($('.chzn_rzlts').length);
+    // console.log($('.chzn_rzlts').length);
   } else {
     chzn_container.find('.chzn_rzlts').remove();
   }
@@ -285,4 +287,4 @@ function init_work_days(element) {
     // });
 }
 
-angular.module('practice.doctor').controller('DoctorProfileController', ['$scope', 'Alerts', '$state', '$stateParams', 'Doctor', 'Settings', 'ValueList', DoctorProfileController]);
+angular.module('practice.doctor').controller('DoctorProfileController', ['$rootScope', '$scope', 'Alerts', '$state', '$stateParams', 'Doctor', 'Settings', 'ValueList', DoctorProfileController]);

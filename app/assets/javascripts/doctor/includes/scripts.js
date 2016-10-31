@@ -241,7 +241,7 @@ function fix_tab_header() {
     var tabHeader = $('.tabHeader');
     var tabHeaderSpacer = $('.tabHeaderSpacer');
 
-    console.log('fix_tab_header');
+    // console.log('fix_tab_header');
     if (doc.scrollTop() > 0) {
         tabHeaderSpacer.css('height', tabHeader.height());
         tabHeader.addClass('tab_header_fixed');
@@ -253,6 +253,8 @@ function fix_tab_header() {
 }
 
 function run_chosen(element) {
+    console.log('-- run_chosen');
+    console.log($(element).attr('id'));
     $(element).chosen({
         autohide_results_multiple: false,
         allow_single_deselect: true,
