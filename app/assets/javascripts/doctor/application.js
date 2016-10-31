@@ -268,7 +268,7 @@ app.directive('fixTabHeader', function() {
 
 app.directive('chosenSelect', ['$timeout', function ($timeout) {
   return {
-    priority: -1, // Run this before updateDaysRow because it rely on chosen
+    priority: 100,
     link: function(scope, element) {
       var run = function () {
         console.log('chosen-select');
@@ -281,6 +281,7 @@ app.directive('chosenSelect', ['$timeout', function ($timeout) {
 
 app.directive('updateDaysRow', ['$timeout', function ($timeout) {
   return {
+    priority: 200,
     link: function(scope, element) {
       var run = function () {
         console.log('update-days-row');
@@ -293,6 +294,7 @@ app.directive('updateDaysRow', ['$timeout', function ($timeout) {
 
 app.directive('initWorkDays', ['$timeout', function ($timeout) {
   return {
+    priority: 200,
     link: function(scope, element) {
       var run = function () {
         console.log('init-work-days');
