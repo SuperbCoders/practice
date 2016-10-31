@@ -5,24 +5,6 @@ $gl_blue_v1: #24a6df;
 $tablet: 720px;
 $desktop: 1200px;
 
-label#patient_age_label {
-    background: #ffdd4a;
-    padding: 10px;
-    border-radius: 20px;
-}
-
-.initials {
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-    background: #ececec;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 15px;
-    color: #636363;
-    padding-top: 12px;
-}
-
 html, body {
   height: 100%;
 }
@@ -156,6 +138,25 @@ a {
 }
 
 //*************************** header
+
+.preloader {
+  z-index: 1000;
+  position: fixed;
+  bottom: 70px;
+  left: 20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: rgb(26, 188, 156);
+
+  .spinner6 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -5px 0 0 -25px;
+  }
+}
 
 .header {
   position: fixed;
@@ -3664,24 +3665,24 @@ textarea.form_input.input_v3 {
 .chzn-single {
   cursor: pointer;
 
-  .chosen_v1 & {
+  .chosen_v4 & {
     @include transition_all(border-color .3s);
     @extend .icon-before;
     @extend .icon-chevron_left;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+    padding: 16px 36px 3px 20px;
+    height: 34px;
+    font-size: 14px;
+    line-height: 18px;
+    width: 136px;
     display: block;
     text-decoration: none;
-    border-radius: 8px;
-    border: 1px solid #b7b7b7;
-    padding: 10px;
-    padding-right: 35px;
-    height: 40px;
-    line-height: 18px;
-    color: #000;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     position: relative;
-    background: #fff;
+    z-index: 0 !important;
 
     &:before {
       @include transition_all(transform .3s);
@@ -3689,11 +3690,11 @@ textarea.form_input.input_v3 {
       position: absolute;
       right: 20px;
       font-size: 18px;
-      color: #111;
+      color: #fff;
     }
 
     &.chzn-default {
-      color: #969696;
+      color: #fff;
     }
   }
 
@@ -3735,6 +3736,15 @@ textarea.form_input.input_v3 {
   .chosen_v1 .chzn-with-drop & {
     border-color: #4c88fd;
     z-index: 7;
+
+    &:before {
+      @include transform_rotate(90);
+    }
+  }
+
+  .chosen_v4 .chzn-with-drop & {
+    background: #63637b;
+    width: 150px;
 
     &:before {
       @include transform_rotate(90);
@@ -3817,7 +3827,6 @@ textarea.form_input.input_v3 {
       @include transform_rotate(90);
     }
   }
-
 }
 
 .state_pin {
