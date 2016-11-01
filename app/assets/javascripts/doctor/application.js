@@ -278,7 +278,13 @@ app.directive('chosenSelectLoadedDoctor', ['$timeout', function ($timeout) {
       }
       scope.$on('dataloaded:doctor', function () {
         console.log('$on(dataloaded:doctor)');
-        $timeout(run, 0);
+
+        // Sometime time selects still don't have data. Set it in the
+        // end of queue twice because selects binding don't even
+        // starting rendering yet. I guess so and seems like it works.
+        $timeout(function() {
+          $timeout(run, 0);
+        }, 0);
       });
     }
   }
