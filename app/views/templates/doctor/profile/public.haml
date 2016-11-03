@@ -4,31 +4,31 @@
       .label_holder
         %label.form_label{:for => "doctor_public_photo"} Фото на сайт
       .input_w.size_59
-        %input#doctor_public_photo.hidden_input{:type => "file", 'ng-model' => "vm.doctor.public_avatar"}(base-sixty-four-input)/
+        %input#doctor_public_photo.hidden_input{:type => "file", 'ng-model' => "doctor.public_avatar"}(base-sixty-four-input)/
         .doctor_public_photo
-          %img.doctor_img{'ng-src' => "data:{{vm.doctor.public_avatar.filetype}};base64,{{vm.doctor.public_avatar.base64}}", 'ng-if' => 'vm.doctor.public_avatar'}
-          %img.doctor_img{'ng-src' => "{{vm.doctor.public_avatar}}", 'ng-show' => "!vm.doctor.public_avatar.filetype"}/
+          %img.doctor_img{'ng-src' => "data:{{doctor.public_avatar.filetype}};base64,{{doctor.public_avatar.base64}}", 'ng-if' => 'doctor.public_avatar'}
+          %img.doctor_img{'ng-src' => "{{doctor.public_avatar}}", 'ng-show' => "!doctor.public_avatar.filetype"}/
           %label.change_photo_btn.btn_v1{:for => "doctor_public_photo"}
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_specialty"} Специальность
       .input_w.size_59
-        %input#doctor_specialty.form_input.input_v1{'ng-model' => "vm.doctor.specialty"}/
+        %input#doctor_specialty.form_input.input_v1{'ng-model' => "doctor.specialty"}/
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_education"} Образование
       .input_w.size_59
-        %input#doctor_education.form_input.input_v1{'ng-model' => "vm.doctor.education"}/
+        %input#doctor_education.form_input.input_v1{'ng-model' => "doctor.education"}/
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_experience"} Опыт работы
       .input_w.size_59
-        %textarea#doctor_experience.form_input.input_v1{'ng-model' => "vm.doctor.experience"}
+        %textarea#doctor_experience.form_input.input_v1{'ng-model' => "doctor.experience"}
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_about"} О себе
       .input_w.size_59
-        %textarea#doctor_about.form_input.input_v1{'ng-model' => "vm.doctor.about"}
+        %textarea#doctor_about.form_input.input_v1{'ng-model' => "doctor.about"}
   .tab_inner.form_row_v1
     .form_row
       .label_holder
@@ -41,7 +41,7 @@
         %label.form_label{:for => "doctor_allow_que"} Разрешить запись на прием
       .input_w.size_8
         %label.toggle_emul.toggle_v1
-          %input.hidden_input{:type => "checkbox", 'ng-model' => "vm.doctor.office"}/
+          %input.hidden_input{:type => "checkbox", 'ng-model' => "doctor.office"}/
           .toggle_box
             %span.toggle_text.toggle_true Да
             %span.toggle_text.toggle_false Нет
@@ -51,7 +51,7 @@
         %label.form_label{:for => "doctor_profile_vis"} Профиль опубликован
       .input_w.size_8
         %label.toggle_emul.toggle_v1
-          %input.hidden_input{:type => "checkbox",  'ng-model' => "vm.doctor.profile"}/
+          %input.hidden_input{:type => "checkbox",  'ng-model' => "doctor.profile"}/
           .toggle_box
             %span.toggle_text.toggle_true Да
             %span.toggle_text.toggle_false Нет
@@ -65,17 +65,17 @@
       .label_holder
         .form_label Социальные сети
       %label.input_w.size_59.soc_input.soc_i_vk
-        %input.form_input.input_v1.socPrefix{"data-prefix" => "vk.com/", :value => "vk.com/", 'ng-model' => "vm.doctor.vk_id"}/
+        %input.form_input.input_v1.socPrefix{"data-prefix" => "vk.com/", :value => "vk.com/", 'ng-model' => "doctor.vk_id"}/
     .form_row
       .mob_hidden.label_holder
         .form_label
       %label.input_w.size_59.soc_input.soc_i_tw
-        %input.form_input.input_v1.socPrefix{"data-prefix" => "twitter.com/", :value => "twitter.com/", 'ng-model' => "vm.doctor.twitter_id"}/
+        %input.form_input.input_v1.socPrefix{"data-prefix" => "twitter.com/", :value => "twitter.com/", 'ng-model' => "doctor.twitter_id"}/
     .form_row
       .mob_hidden.label_holder
         .form_label
       %label.input_w.size_59.soc_input.soc_i_fb
-        %input.form_input.input_v1.socPrefix{"data-prefix" => "facebook.com/", :value => "facebook.com/", 'ng-model' => "vm.doctor.fb_id"}/
+        %input.form_input.input_v1.socPrefix{"data-prefix" => "facebook.com/", :value => "facebook.com/", 'ng-model' => "doctor.fb_id"}/
     .form_row
       .label_holder
         .form_label

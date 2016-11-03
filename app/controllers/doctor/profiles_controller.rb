@@ -57,6 +57,7 @@ class Doctor::ProfilesController < Doctor::BaseController
 
       # Schedule settings
       schedule_settings_params.map { |work_schedule|
+        # _p1
         Rails.logger.debug 'DEBUG 1'
         if work_schedule[:days]
           Rails.logger.debug 'DEBUG 2'
