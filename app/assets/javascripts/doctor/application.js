@@ -1,5 +1,7 @@
 var app = angular.module('practice.doctor', ['ui.router', 'ngMask', 'ui-notification', 'naif.base64', 'ngResource', 'angularUtils.directives.dirPagination', 'angularMoment', 'ngMask']);
 
+this.application = app;
+
 var Patients = [
   'Resources', function(Resources) {
     return Resources('/doctor/patients/:id', {

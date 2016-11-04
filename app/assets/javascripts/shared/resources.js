@@ -1,4 +1,4 @@
-angular.module('practice.doctor').factory('Resources', [
+this.application.factory('Resources', [
   '$resource', function($resource) {
     return function(url, urlDesc, customActions) {
       var actions, resources;

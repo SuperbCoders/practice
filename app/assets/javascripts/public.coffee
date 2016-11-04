@@ -18,5 +18,4 @@
 #= require ngDialog/js/ngDialog
 #= require ./public/application
 #= require_tree ./public/controllers
-#= require_tree ./public/factories
 #= require_tree ./shared

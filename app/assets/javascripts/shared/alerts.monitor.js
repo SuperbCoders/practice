@@ -1,4 +1,4 @@
-angular.module('practice.doctor').factory('AlertsMonitor', [
+this.application.factory('AlertsMonitor', [
   '$injector', function($injector) {
     var alertsMonitor;
     alertsMonitor = {

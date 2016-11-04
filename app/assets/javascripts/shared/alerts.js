@@ -1,4 +1,4 @@
-angular.module('practice.doctor').factory('Alerts', [
+this.application.factory('Alerts', [
   'Notification', function(Notification) {
     var Alerts;
     Alerts = (function() {
