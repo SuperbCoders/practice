@@ -402,9 +402,6 @@ app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope,
       el.removeClass(class_name);
     }
   };
-  $rootScope.menu_open = function() {
-    angular.element(document.querySelector("html")).addClass('menu_open');
-  };
   $('html').on('click', function(event, ui) {
     if (event.target && event.target.id !== 'menu_button') {
       return $('html').removeClass('menu_open');
