@@ -68,11 +68,12 @@
     new_phone
 
 @application.run ['$rootScope', '$state', '$stateParams', ($rootScope, $state, $stateParams) ->
+  run_debug_ui_route $rootScope
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
   $rootScope.patient = {}
   $rootScope.username = $('meta[name=doctor_username]').attr('content')
-  
+
   $rootScope.state_is = (name) -> $rootScope.$state.current.name is name
 
   $rootScope.el_show = (name) ->
@@ -96,7 +97,4 @@
       el.removeClass(class_name)
 
     return
-
-
-
 ]

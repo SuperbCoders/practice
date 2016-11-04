@@ -372,6 +372,7 @@ app.config(['paginationTemplateProvider', function(paginationTemplateProvider) {
 // });
 
 app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope, $state, $stateParams, $window) {
+  run_debug_ui_route($rootScope);
   console.log('app.run()');
   $window.rootScope = $rootScope;
   $rootScope.$state = $state;
