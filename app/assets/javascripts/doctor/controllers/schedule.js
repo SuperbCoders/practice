@@ -221,14 +221,15 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
       "November": "ноября",
       "December": "декабря"
     }
-    console.log('SC _ dayclick');
+    console.log((new Date()).toISOString() + ' SC _ dayclick');
     $scope.clicks++;
     return setTimeout(function() {
       var newEventDate;
-      console.log('SC _ timeout200');
+      console.log((new Date()).toISOString() + ' SC _ timeout200');
       if ($scope.clicks == 1) {
-        console.log('SC _ click1');
+        console.log((new Date()).toISOString() + ' SC _ click1');
         $scope.$apply(function(){
+          console.log((new Date()).toISOString() + ' SC _ apply');
           var stDuration = $scope.settings.standart_shedule_interval;
           $scope.new_visit.duration = stDuration;
           $scope.new_patient.full_name = "";
@@ -280,6 +281,8 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
             }
           }).dialog('open');
 
+          console.log((new Date()).toISOString() + ' SC _ open');
+
           $('#shedule_stand_time').val(stDuration);
           $('.chosen-select').chosen({
             width: '100%',
@@ -310,9 +313,9 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
           });
         });
       }
-      console.log('SC _ clickrs');
+      console.log((new Date()).toISOString() + ' SC _ clickrs');
       return $scope.clicks = 0;
-    }, 200);
+    }, 0);
   };
 
   function getCalendarHeight(win) {
