@@ -221,10 +221,13 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
       "November": "ноября",
       "December": "декабря"
     }
+    console.log('SC _ dayclick');
     $scope.clicks++;
     return setTimeout(function() {
       var newEventDate;
-      if ($scope.clicks == 2) {
+      console.log('SC _ timeout200');
+      if ($scope.clicks == 1) {
+        console.log('SC _ click1');
         $scope.$apply(function(){
           var stDuration = $scope.settings.standart_shedule_interval;
           $scope.new_visit.duration = stDuration;
@@ -307,6 +310,7 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
           });
         });
       }
+      console.log('SC _ clickrs');
       return $scope.clicks = 0;
     }, 200);
   };
