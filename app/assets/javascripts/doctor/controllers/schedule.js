@@ -74,12 +74,12 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
   });
 
   $scope.$watch('new_patient.cart_color', function(new_value){
-    let colors = {"1": "#3eb6e3", "2": "#30c36d", "3": "#f63f3f", "4": "#f5cd1d"};
-    let last_id = $scope.event_id - 1;
-    let events  = $('#calendar').fullCalendar('clientEvents');
-    let last_event = undefined;
+    var colors = {"1": "#3eb6e3", "2": "#30c36d", "3": "#f63f3f", "4": "#f5cd1d"};
+    var last_id = $scope.event_id - 1;
+    var events  = $('#calendar').fullCalendar('clientEvents');
+    var last_event = undefined;
 
-    for (let event of events)
+    for (var event of events)
       if (event._id == last_id)
         last_event = event;
     if (last_event == undefined)
@@ -89,11 +89,11 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
   });
 
   $scope.$watch('new_visit.duration', function(new_value){
-    let last_id = $scope.event_id - 1;
-    let events  = $('#calendar').fullCalendar('clientEvents');
-    let last_event = undefined;
+    var last_id = $scope.event_id - 1;
+    var events  = $('#calendar').fullCalendar('clientEvents');
+    var last_event = undefined;
 
-    for (let event of events)
+    for (var event of events)
       if (event._id == last_id)
         last_event = event;
     if (last_event == undefined)
@@ -119,16 +119,16 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
   });
 
   $scope.createVisit = function(){
-    let request = {
+    var request = {
       visit_data: $scope.new_visit,
       patient_data: $scope.new_patient
     };
     Visits.create({visit: request}).$promise.then(function(result){
-      let last_id = $scope.event_id - 1;
-      let events  = $('#calendar').fullCalendar('clientEvents');
-      let last_event = undefined;
+      var last_id = $scope.event_id - 1;
+      var events  = $('#calendar').fullCalendar('clientEvents');
+      var last_event = undefined;
 
-      for (let event of events)
+      for (var event of events)
         if (event._id == last_id)
           last_event = event;
       if (last_event == undefined)
@@ -180,7 +180,7 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
 
   function visits_by_date(start, end, timezone, callback) {
     end.add('14', 'days');
-    let colors = {"1": "#3eb6e3", "2": "#30c36d", "3": "#f63f3f", "4": "#f5cd1d"};
+    var colors = {"1": "#3eb6e3", "2": "#30c36d", "3": "#f63f3f", "4": "#f5cd1d"};
     var paket = {
       start: start.format(),
       end: end.format()
@@ -207,7 +207,7 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
   };
 
   function day_click(date, jsEvent, view) {
-    let monts = {
+    var monts = {
       "January": "января",
       "February": "февраля",
       "March": "марта",
@@ -226,7 +226,7 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
       var newEventDate;
       if ($scope.clicks == 2) {
         $scope.$apply(function(){
-          let stDuration = $scope.settings.standart_shedule_interval;
+          var stDuration = $scope.settings.standart_shedule_interval;
           $scope.new_visit.duration = stDuration;
           $scope.new_patient.full_name = "";
           $scope.new_patient.phone = "";
