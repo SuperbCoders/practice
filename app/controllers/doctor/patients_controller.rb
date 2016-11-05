@@ -74,7 +74,6 @@ class Doctor::PatientsController < Doctor::BaseController
   end
 
   def create
-    
     if @resource.save
       # Avatar
       if params[:patient][:avatar].is_a? Hash

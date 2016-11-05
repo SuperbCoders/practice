@@ -27,7 +27,7 @@ class Doctor::VisitsController < Doctor::BaseController
 
       if @patient.valid?
         @response[:messages] << t('doctor.messages.patient_succefully_created')
-        @patient.contacts.phone.create(data: patient_params[:phone])
+        @patient.contacts.phone.create(data: params[:visit][:patient_data][:phone])
         @response[:visit] = current_doctor.create_visit(visit_params, @patient)
       else
         logger.info "P-> #{@patient.errors.full_messages}"
@@ -53,7 +53,7 @@ class Doctor::VisitsController < Doctor::BaseController
     else
       @response[:errors] << @resource.errors.full_messages
     end
-    
+
     send_response @response
   end
 
