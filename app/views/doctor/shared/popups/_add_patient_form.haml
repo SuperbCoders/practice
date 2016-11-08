@@ -1,6 +1,6 @@
 #add_patient_form.popup_form{:style => "display:none", "ng-init" => "makeNewPatient()"}
   .form_corner
-  %form
+  %form{:name => 'addPatientForm', 'ng-submit' => "createVisit(addPatientForm.$valid)"}
     .patient_status_w.chosen_v2.no_search.skipOpen.right_mod
       %select.chosen-select.newPatientState{"ng-model"=>"new_patient.cart_color"}
         %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
@@ -9,15 +9,15 @@
         %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
     .form_row
       .input_w.placeholder_mod
-        %input#new_patient_name.form_input.input_v4.checkEmpty{:type => "text", :value => "", 'ng-model' => "new_patient.full_name"}/
+        %input#new_patient_name.form_input.input_v4.checkEmpty{:type => "text", :value => "", 'ng-model' => "new_patient.full_name", 'ng-required' => "true"}/
         %label.form_label.fz_20_{:for => "new_patient_name"} Имя пациента
     .form_row
       .input_w.placeholder_mod
-        %input#new_patient_phone.form_input.input_v4.checkEmpty{:type => "tel", 'ng-model' => "new_patient.phone"}/
+        %input#new_patient_phone.form_input.input_v4.checkEmpty{:type => "tel", 'ng-model' => "new_patient.phone", 'ng-required' => "true"}/
         %label.form_label{:for => "new_patient_phone"} Телефон
     .form_row
       .input_w.placeholder_mod
-        %input#new_patient_email.form_input.input_v4.checkEmpty{:type => "email", 'ng-model' => "new_patient.email"}/
+        %input#new_patient_email.form_input.input_v4.checkEmpty{:type => "email", 'ng-model' => "new_patient.email", 'ng-required' => "true"}/
         %label.form_label{:for => "new_patient_email"} Email
     .form_row
       %select#shedule_stand_time{'ng-model'=>"new_visit.duration","data-placeholder" => "Выберите длительность приема"}
@@ -27,5 +27,6 @@
       .input_w.placeholder_mod
         %input#new_patient_describe.form_input.input_v4.checkEmpty{'ng-model' => "new_visit.comment"}/
         %label.form_label{:for => "new_patient_describe"} Краткое описание (только для вас)
-    %button.btn_v2.new_patient_btn.newPatientBtn.yellow_black_btn{'ng-click' => "createVisit()"}
+    -# %button.btn_v2.new_patient_btn.newPatientBtn.yellow_black_btn{'ng-click' => "createVisit(addPatientForm.$valid)"}
+    %button.btn_v2.new_patient_btn.newPatientBtn.yellow_black_btn{'ng-click' => "createVisit(addPatientForm.$valid)"}
       %span.mb 

@@ -118,26 +118,30 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
     $scope.calendar;
   });
 
-  $scope.createVisit = function(){
-    var request = {
-      visit_data: $scope.new_visit,
-      patient_data: $scope.new_patient
-    };
-    Visits.create({visit: request}).$promise.then(function(result){
-      var last_id = $scope.event_id - 1;
-      var events  = $('#calendar').fullCalendar('clientEvents');
-      var last_event = undefined;
+  $scope.createVisit = function($valid){
+    console.log('VL ' + $scope.new_visit.$valid);
+    console.log('VL ' + $valid);
+    if ($valid) {
+      var request = {
+        visit_data: $scope.new_visit,
+        patient_data: $scope.new_patient
+      };
+      Visits.create({visit: request}).$promise.then(function(result){
+        var last_id = $scope.event_id - 1;
+        var events  = $('#calendar').fullCalendar('clientEvents');
+        var last_event = undefined;
 
-      for (var event of events)
-        if (event._id == last_id)
-          last_event = event;
-      if (last_event == undefined)
-        return;
+        for (var event of events)
+          if (event._id == last_id)
+            last_event = event;
+        if (last_event == undefined)
+          return;
 
-      last_event.saved = true;
-      last_event.real_id = result.id
-      $('#calendar').fullCalendar('updateEvent', last_event);
-    });
+        last_event.saved = true;
+        last_event.real_id = result.id
+        $('#calendar').fullCalendar('updateEvent', last_event);
+      });
+    }
   }
 
   $('body').addClass('cal_header_mod');
