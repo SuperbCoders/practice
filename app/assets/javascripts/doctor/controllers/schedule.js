@@ -140,6 +140,7 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
         last_event.saved = true;
         last_event.real_id = result.id
         $('#calendar').fullCalendar('updateEvent', last_event);
+        $scope.add_patient_form.dialog('close');
       });
     }
   }
