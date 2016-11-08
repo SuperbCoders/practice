@@ -79,9 +79,10 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
     var events  = $('#calendar').fullCalendar('clientEvents');
     var last_event = undefined;
 
-    for (var event of events)
+    events.forEach(function (event) {
       if (event._id == last_id)
         last_event = event;
+    });
     if (last_event == undefined)
       return;
     last_event.color = colors[new_value];
@@ -93,9 +94,10 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
     var events  = $('#calendar').fullCalendar('clientEvents');
     var last_event = undefined;
 
-    for (var event of events)
+    events.forEach(function (event) {
       if (event._id == last_id)
         last_event = event;
+    });
     if (last_event == undefined)
       return;
     last_event.end = moment(last_event.start).add(parseInt($scope.new_visit.duration), 'm');;
@@ -131,9 +133,10 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
         var events  = $('#calendar').fullCalendar('clientEvents');
         var last_event = undefined;
 
-        for (var event of events)
+        events.forEach(function (event) {
           if (event._id == last_id)
             last_event = event;
+        });
         if (last_event == undefined)
           return;
 
