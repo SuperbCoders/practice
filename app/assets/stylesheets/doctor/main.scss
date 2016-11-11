@@ -2284,6 +2284,45 @@ $patient_scale_time: 1s;
     }
   }
 
+  &.popup_v3 {
+    padding: 0 23px 23px;
+
+    .btn_v2.new_patient_btn {
+      margin-top: 18px;
+    }
+
+    .input_w.placeholder_mod .form_label {
+      top: 7px;
+      font-size: 16px;
+    }
+
+    .input_w {
+      margin-bottom: 11px;
+
+      &.placeholder_mod {
+        padding-top: 10px;
+
+        input.not_empty + .form_label,
+        input:focus + .form_label {
+          top: -3px;
+          font-size: 12px;
+        }
+      }
+    }
+
+    .form_corner {
+      border-top-width: 8px;
+      border-bottom-width: 8px;
+      border-right-width: 8px;
+    }
+
+    .controls_block {
+      p {
+        margin-top: 15px;
+      }
+    }
+  }
+
   .input_w {
     margin-bottom: 32px;
 

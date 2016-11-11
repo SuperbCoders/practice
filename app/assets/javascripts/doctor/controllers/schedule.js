@@ -42,18 +42,36 @@ function ScheduleController($scope, $compile, Visits, Visit, Settings, ValueList
       day: 'MMMM YYYY',
       week: 'MMMM YYYY'
     },
+    // titleFormat: {
+    //   day: 'MMMM YYYY',
+    //   week: 'MMMM YYYY'
+    // },
     slotDuration: '00:15:00',
     slotLabelInterval: '00:15:00',
+    // slotDuration: '00:15:00',
+    // // slotLabelInterval: '00:15:00',
     timezone: 'local',
     defaultView: 'agendaDay',
     weekMode: 'fixed',
     editable: true,
+    // forceRigid: true,
     allDaySlot: false,
     eventOverlap: false,
+    // handleWindowResize: false,
     slotLabelFormat: 'HH:mm',
+    // slotLabelFormat: 'H:mm',
     timeFormat: 'H:mm',
     scrollTime: "08:45:00",
     defaultEventMinutes: 60,
+    // views: {
+    //   month: {
+    //     eventLimit: 7,
+    //     eventLimitClick: 'day',
+    //     eventLimitText: function (evt) {
+    //       return 'Еще ' + plural(evt, 'запись', 'записи', 'записей');
+    //     }
+    //   }
+    // },
     defaultDate: $scope.regDate(),
     height: getCalendarHeight($scope.win),
     // eventMouseover: this.event_mouse_over,
@@ -287,7 +305,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Settings, ValueList
           $scope.add_patient_form || ($scope.add_patient_form = $('#add_patient_form').dialog({
             autoOpen: false,
             modal: true,
-            width: 360,
+            width: 340,
             dialogClass: 'dialog_v1 no_close_mod'
           }));
           $($scope.add_patient_form).find('form')[0].reset();
