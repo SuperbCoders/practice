@@ -1,4 +1,7 @@
-%form{:action => "#", :novalidate => "novalidate"}
+-# %pre test
+-# %pre {{event && event.saved | json}}
+-# %pre {{event | json}}
+%form{:action => "#", :novalidate => "novalidate", 'ng-show' => 'event && event.saved'}
   .patient_card.cardOverview
 
     / Patient status
@@ -28,13 +31,13 @@
             %a.gl_link{:href => "#"}
               %span Подтвердить прием
           %li.drop_down_item
-            %a.gl_link{:href => "#"}
+            %a.gl_link{:href => "", 'ng-click' => "deleteVisit(event)"}
               %span Отказать в  приёме
           %li.drop_down_item
-            %a.gl_link{:href => "", 'ui-sref' => "journal.add_record({patient_id: vm.event.patient.id})"}
+            %a.gl_link{:href => "", 'ui-sref' => "journal.add_record({patient_id: event.patient.id})"}
               %span Добавить запись в карту
           %li.drop_down_item
-            %a.gl_link{:href => "", 'ui-sref' => "patients.edit({id: vm.event.patient.id})"}
+            %a.gl_link{:href => "", 'ui-sref' => "patients.edit({id: event.patient.id})"}
               %span Редактировать
           %li.drop_down_item
             %a.gl_link{:href => "#"}
@@ -44,21 +47,21 @@
               %span Удалить
 
     %a.patient_avatar{:href => "#"}
-      %img{'ng-src' => "{{vm.event.patient.avatar}}", 'ui-sref' => "journal.records({patient_id: vm.event.patient.id})"}/
+      %img{'ng-src' => "{{event.patient.avatar}}", 'ui-sref' => "journal.records({patient_id: event.patient.id})"}/
     .patient_info
       .patient_name
-        %a.gl_link.gray_link{:href => "", 'ng-click' => "vm.toggle_patient_info()"}
-          %span {{vm.event.patient.name}}
-      %textarea.input_v5.form_input.skipOpen {{ vm.event.patient.comment }}
+        %a.gl_link.gray_link{:href => "", 'ng-click' => "toggle_patient_info()"}
+          %span {{event.patient.name}}
+      %textarea.input_v5.form_input.skipOpen {{ event.patient.comment }}
     .patient_info_table
       .other_info_cell
-        %p{'ng-show' => "vm.event.patient.phone"} {{vm.event.patient.phone}}
-        %p{'ng-show' => "vm.event.patient.email"} {{vm.event.patient.email}}
+        %p{'ng-show' => "event.patient.phone"} {{event.patient.phone}}
+        %p{'ng-show' => "event.patient.email"} {{event.patient.email}}
     .patient_card_controls.skipOpen.patient_warn
       .patient_info_table
         .controls_cell
           %a.btn_v2.patient_btn.white_white_btn{:href => "#"}
-            %span.mb Подтвердить прием на {{vm.event.start.format('lll')}}
+            %span.mb Подтвердить прием на {{event.start.format('lll')}}
           %p
             %a.gl_link{:href => "#"} Изменить время приема
     .patient_overview
@@ -67,18 +70,18 @@
         %li.patient_overview_line
           .overview_caption ПОРТРЕТ ПАЦИЕНТА
           %dl.overview_info
-            .height{'ng-show' => "vm.event.patient.height"}
+            .height{'ng-show' => "event.patient.height"}
               %dt Рост:
-              %dd {{ vm.event.patient.height }}
-            .weight{'ng-show' => "vm.event.patient.weight"}
+              %dd {{ event.patient.height }}
+            .weight{'ng-show' => "event.patient.weight"}
               %dt Вес
-              %dd {{ vm.event.patient.weight }} кг
-            .age{'ng-show' => "vm.event.patient.age"}
+              %dd {{ event.patient.weight }} кг
+            .age{'ng-show' => "event.patient.age"}
               %dt Возраст
-              %dd {{ vm.event.patient.age }} лет
+              %dd {{ event.patient.age }} лет
         %li.patient_overview_line
           .overview_caption МЕДИЦИНСКИЕ ОСОБЕННОСТИ
-          %p {{vm.event.patient.diseases }}
+          %p {{event.patient.diseases }}
         %li.patient_overview_line
           .overview_caption ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ
-          %p Договор №{{vm.event.patient.contract_id}}
+          %p Договор №{{event.patient.contract_id}}

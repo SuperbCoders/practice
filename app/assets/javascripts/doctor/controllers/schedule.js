@@ -1,8 +1,4 @@
-function _debug (m) {
-  console.log(m);
-}
-
-function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
+function ScheduleController($scope, $compile, Visits, Visit, Settings, ValueList) {
   $scope.items_limit = 100;
   $scope.filters = {};
   $scope.win = $(window);
@@ -74,15 +70,16 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
   });
 
   $scope.$watch('new_patient.cart_color', function(new_value){
+    console.log('EV _ cart_event_id ' + $scope.event_id);
     var colors = {"1": "#3eb6e3", "2": "#30c36d", "3": "#f63f3f", "4": "#f5cd1d"};
     var last_id = $scope.event_id - 1;
     var events  = $('#calendar').fullCalendar('clientEvents');
     var last_event = undefined;
 
-    events.forEach(function (event) {
-      if (event._id == last_id)
-        last_event = event;
-    });
+    for (var i = 0; i < events.length; ++i) {
+      if (events[i]._id == last_id)
+        last_event = events[i];
+    }
     if (last_event == undefined)
       return;
     last_event.color = colors[new_value];
@@ -90,14 +87,15 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
   });
 
   $scope.$watch('new_visit.duration', function(new_value){
+    console.log('EV _ duration_event_id ' + $scope.event_id);
     var last_id = $scope.event_id - 1;
     var events  = $('#calendar').fullCalendar('clientEvents');
     var last_event = undefined;
 
-    events.forEach(function (event) {
-      if (event._id == last_id)
-        last_event = event;
-    });
+    for (var i = 0; i < events.length; ++i) {
+      if (events[i]._id == last_id)
+        last_event = events[i];
+    }
     if (last_event == undefined)
       return;
     last_event.end = moment(last_event.start).add(parseInt($scope.new_visit.duration), 'm');;
@@ -121,6 +119,7 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
   });
 
   $scope.createVisit = function($valid){
+    console.log('createVisit');
     console.log('VL ' + $scope.new_visit.$valid);
     console.log('VL ' + $valid);
     if ($valid) {
@@ -128,22 +127,50 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
         visit_data: $scope.new_visit,
         patient_data: $scope.new_patient
       };
+      console.log('111 --- ');
+      // console.log(Visits);
+      console.log(Visit);
       Visits.create({visit: request}).$promise.then(function(result){
+        console.log('EV _ create_event_id ' + $scope.event_id);
         var last_id = $scope.event_id - 1;
         var events  = $('#calendar').fullCalendar('clientEvents');
         var last_event = undefined;
 
-        events.forEach(function (event) {
-          if (event._id == last_id)
-            last_event = event;
-        });
+        for (var i = 0; i < events.length; ++i) {
+          if (events[i]._id == last_id)
+            last_event = events[i];
+        }
         if (last_event == undefined)
           return;
 
         last_event.saved = true;
-        last_event.real_id = result.id
-        $('#calendar').fullCalendar('updateEvent', last_event);
+        last_event.real_id = result.visit.id
+        console.log(result);
+        console.log(result.visit.id);
+        Visit.get({id: result.visit.id}).$promise.then(function(event) {
+          console.log(event);
+          last_event.orig_event = event;
+          last_event.patient = event.patient;
+          $('#calendar').fullCalendar('updateEvent', last_event);
+          $scope.event = last_event;
+        });
+        // $('#calendar').fullCalendar('refetchEvents');
         $scope.add_patient_form.dialog('close');
+      });
+    }
+  }
+
+  $scope.deleteVisit = function(event){
+    // console.log('EV _ delete');
+    console.log('EV _ delete 1 ' + $scope.event_id);
+    console.log('EV _ delete_real_id ' + event.real_id);
+    if (confirm('Отменить прием?')) {
+      return Visits.remove({id: event.real_id}).$promise.then(function(response) {
+        // return $scope.visits = _.without($scope.visits, visit);
+        console.log('EV _ delete 2 ' + $scope.event_id);
+        $('#calendar').fullCalendar('refetchEvents');
+        console.log('EV _ delete 3 ' + $scope.event_id);
+        $scope.event = null;
       });
     }
   }
@@ -180,7 +207,6 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
   };
 
   function event_click(event, jsEvent, view) {
-    _debug('wtf');
     $scope.$apply(function() {
       $scope.event = event;
     });
@@ -204,9 +230,11 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
         event.saved = true;
         event.color = colors[events[i].patient.cart_color];
         event.id = $scope.event_id;
-        event.real_id = events[i].id
+        event.real_id = events[i].id;
+        event.orig_event = events[i];
+        event.patient = events[i].patient;
         $scope.event_id++;
-        $scope.event = event;
+        // $scope.event = event;
         date_events.push(event);
       }
       $scope.events_count = events.length;
@@ -372,4 +400,4 @@ function ScheduleController($scope, $compile, Visits, Settings, ValueList) {
 
 }
 
-angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Settings', 'ValueList', ScheduleController]);
+angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Visit', 'Settings', 'ValueList', ScheduleController]);

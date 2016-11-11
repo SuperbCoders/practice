@@ -229,6 +229,13 @@ app.config([
 	  Visits: [
 	    'Resources', function(Resources) {
 	      return Resources('/doctor/visits/:id', {
+	        id: '@id'
+	      });
+	    }
+	  ],
+	  Visit: [
+	    'Resource', function(Resource) {
+	      return Resource('/doctor/visits/:id', {
 		id: '@id'
 	      });
 	    }

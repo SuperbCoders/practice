@@ -1,6 +1,7 @@
 #add_patient_form.popup_form{:style => "display:none", "ng-init" => "makeNewPatient()"}
   .form_corner
-  %form{:name => 'addPatientForm', 'ng-submit' => "createVisit(addPatientForm.$valid)"}
+  -# %form{:name => 'addPatientForm', 'ng-submit' => "createVisit(addPatientForm.$valid)"}
+  %form{:name => 'addPatientForm'}
     .patient_status_w.chosen_v2.no_search.skipOpen.right_mod
       %select.chosen-select.newPatientState{"ng-model"=>"new_patient.cart_color"}
         %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
