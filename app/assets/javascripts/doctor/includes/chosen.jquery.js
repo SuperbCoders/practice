@@ -247,6 +247,7 @@
             content = '';
             shown_results = 0;
             console.log('-- chosen');
+            // console.trace();
             console.log($(this.form_field).attr('id'));
             console.log('results_option_build ' + this.print_results_data());
             _ref = this.results_data;

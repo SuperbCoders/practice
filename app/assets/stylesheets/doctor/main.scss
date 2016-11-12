@@ -2303,6 +2303,7 @@ $patient_scale_time: 1s;
         padding-top: 10px;
 
         input.not_empty + .form_label,
+        input:not(.ng-empty) + .form_label,
         input:focus + .form_label {
           top: -3px;
           font-size: 12px;
