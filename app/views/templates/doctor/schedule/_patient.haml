@@ -6,7 +6,7 @@
 
     / Patient status
     .patient_status_w.chosen_v2.no_search.skipOpen
-      %select.chosen-select{"ng-model" => "event.patient.cart_color", 'ng-change' => 'event_set_color()'}
+      %select.chosen-select{"ng-model" => "event.patient.cart_color", 'ng-change' => 'save_cart_color()'}
         %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 11
         %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 21
         %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 31

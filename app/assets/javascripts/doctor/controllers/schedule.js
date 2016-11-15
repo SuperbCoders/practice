@@ -271,8 +271,15 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       return;
     set_event_color(last_event, new_value);
     $('#calendar').fullCalendar('updateEvent', last_event);
-    Patients.save({id: last_event.patient.id, cart_color: last_event.patient.cart_color});
   });
+
+  $scope.save_cart_color = function () {
+    var last_event = event_by_event_id();
+
+    if (last_event == undefined)
+      return;
+    Patients.save({id: last_event.patient.id, cart_color: last_event.patient.cart_color});
+  }
 
   $scope.$watch('event.patient.cart_color', function(newValue, oldValue) {
     // console.log('W_CC');
@@ -323,14 +330,14 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     Visits.save({id: event.real_id, visit: {visit_data: {start_at: event.start_at, duration: event.duration}}});
   };
 
-  $scope.event_set_color = function() {
-    var last_event = event_by_event_id();
-    set_event_color(last_event, event.patient.color);
-    $('#calendar').fullCalendar('updateEvent', last_event);
-    // event.start_at = event.start;
-    // event.duration = (event.end - event.start) / 60 / 1000;
-    // Visits.save({id: event.real_id, visit: {visit_data: {start_at: event.start_at, duration: event.duration}}});
-  };
+  // $scope.event_set_color = function() {
+  //   var last_event = event_by_event_id();
+  //   set_event_color(last_event, event.patient.color);
+  //   $('#calendar').fullCalendar('updateEvent', last_event);
+  //   // event.start_at = event.start;
+  //   // event.duration = (event.end - event.start) / 60 / 1000;
+  //   // Visits.save({id: event.real_id, visit: {visit_data: {start_at: event.start_at, duration: event.duration}}});
+  // };
 
   function event_click(event, jsEvent, view) {
     $scope.$apply(function() {
