@@ -38,6 +38,7 @@
             if (child.nodeName.toUpperCase() === "OPTGROUP") {
                 return this.add_group(child);
             } else {
+                // console.log('CHAP child');
                 return this.add_option(child);
             }
         };
@@ -65,6 +66,9 @@
 
         SelectParser.prototype.add_option = function (option, group_position, group_disabled) {
             // console.log('add_option ' + option.selected);
+            // console.log('add_option ');
+            // console.log(option);
+            // console.log(this.options_index);
             if (option.nodeName.toUpperCase() === "OPTION") {
                 if (option.text !== "") {
                     if (group_position != null) {
@@ -243,13 +247,15 @@
         }
 
         AbstractChosen.prototype.results_option_build = function (options) {
+            console.log('CH begin results_option_build');
             var content, data, data_content, shown_results, _i, _len, _ref;
             content = '';
             shown_results = 0;
             console.log('-- chosen');
             // console.trace();
-            console.log($(this.form_field).attr('id'));
-            console.log('results_option_build ' + this.print_results_data());
+            // console.log(this.form_field);
+            // console.log($(this.form_field).attr('id'));
+            // console.log('results_option_build ' + this.print_results_data());
             _ref = this.results_data;
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                 data = _ref[_i];
@@ -257,6 +263,7 @@
                 if (data.group) {
                     data_content = this.result_add_group(data);
                 } else {
+                    // console.log('CHAP data');
                     data_content = this.result_add_option(data);
                 }
                 if (data_content !== '') {
@@ -278,6 +285,7 @@
         };
 
         AbstractChosen.prototype.result_add_option = function (option) {
+            // console.log('CH begin result_add_option');
             var classes, option_el;
             if (!option.search_match) {
                 return '';
@@ -293,7 +301,7 @@
                 classes.push("disabled-result");
             }
             if (option.selected) {
-                console.log('push');
+                // console.log('push');
                 classes.push("result-selected");
             }
             classes.push("chzn_item");
@@ -303,6 +311,7 @@
             if (option.classes !== "") {
                 classes.push(option.classes);
             }
+            // console.log('CH "create li"');
             option_el = document.createElement("li");
             option_el.className = classes.join(" ");
             option_el.style.cssText = option.style;
@@ -658,6 +667,7 @@
         };
 
         Chosen.prototype.set_up_html = function () {
+            // console.log('CH begin set_up_html');
             var container_classes, container_props;
             container_classes = ["chzn-container"];
             container_classes.push("chzn-container-" + (this.is_multiple ? "multi" : "single"));
@@ -676,11 +686,13 @@
                 container_props.id = this.form_field.id.replace(/[^\w]/g, '_') + "_chosen";
             }
             this.container = $("<div />", container_props);
+            // console.log('CH before is_multiple');
             if (this.is_multiple) {
                 this.container.html('<ul class="chzn-choices"><li class="search-field"><input type="text" value="' + this.default_text + '" class="default" autocomplete="off" style="width:25px;" /></li></ul><div class="chzn-drop"><ul class="chzn-results"></ul></div>');
             } else {
                 this.container.html('<a class="chzn-single chzn-default"><span>' + this.default_text + '</span><div><b></b></div></a><div class="chzn-drop"><div class="chzn-search"><input type="text" autocomplete="off" /></div><ul class="chzn-results"></ul></div>');
             }
+            // console.log('CH "after"');
             this.form_field_jq.hide().after(this.container);
             this.dropdown = this.container.find('div.chzn-drop').first();
             this.search_field = this.container.find('input').first();
@@ -1045,6 +1057,7 @@
         };
 
         Chosen.prototype.choice_build = function (item) {
+            // console.log('CH choice_build');
             var choice, close_link,
                 _this = this;
             choice = $('<li />', {
@@ -1102,6 +1115,8 @@
         };
 
         Chosen.prototype.result_select = function (evt) {
+            // return;
+            // console.log('CH begin result_select');
             var high, item;
             if (this.result_highlight) {
                 high = this.result_highlight;
@@ -1117,15 +1132,19 @@
                 } else {
                     this.reset_single_select_options();
                 }
-                console.log('__1');
+                // console.log('__1');
                 high.addClass("result-selected");
                 item = this.results_data[high[0].getAttribute("data-option-array-index")];
                 item.selected = true;
+                // console.log(this.form_field.options);
+                // console.log(item.options_index);
                 this.form_field.options[item.options_index].selected = true;
                 this.selected_option_count = null;
                 if (this.is_multiple) {
+                    // console.log('CH about choice_build');
                     this.choice_build(item);
                 } else {
+                    // console.log('CH about single_set_selected_text');
                     this.single_set_selected_text(this.choice_label(item));
                     var chzn = this;
                     setTimeout(function () {
@@ -1136,6 +1155,9 @@
                     this.results_hide();
                 }
                 this.show_search_field_default();
+                // console.log('CH value ' + this.form_field.options[item.options_index].value);
+                // console.log(this.form_field.options);
+                // console.log(item.options_index);
                 if (this.is_multiple || this.form_field.selectedIndex !== this.current_selectedIndex) {
                     this.form_field_jq.trigger("change", {
                         'selected': this.form_field.options[item.options_index].value

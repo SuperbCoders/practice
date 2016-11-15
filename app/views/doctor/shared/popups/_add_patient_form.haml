@@ -4,10 +4,10 @@
   %form{:name => 'addPatientForm'}
     .patient_status_w.chosen_v2.no_search.skipOpen.right_mod
       %select.chosen-select.newPatientState{"ng-model"=>"new_patient.cart_color"}
-        %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
-        %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
-        %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
-        %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
+        %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 12
+        %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 12
+        %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 12
+        %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 12
     .form_row
       .input_w.placeholder_mod
         %input#new_patient_name.form_input.input_v4.checkEmpty{:type => "text", :value => "", 'ng-model' => "new_patient.full_name", 'ng-required' => "true"}/

@@ -6,28 +6,18 @@
 
     / Patient status
     .patient_status_w.chosen_v2.no_search.skipOpen
-      %select.chosen-select{:style => "display: none;"}
-        %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
-        %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
-        %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
-        %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
-      .chzn-container.chzn-container-single{:style => "width: 100%;", :title => ""}
-        %a.chzn-single
-          %span.state_pin.status_blue 1
-          %div
-            %b
-        .chzn-drop
-          .chzn-search
-            %input{:autocomplete => "off", :type => "text"}/
-          %ul.chzn-results
-
+      %select.chosen-select{"ng-model" => "event.patient.cart_color", 'ng-change' => 'event_set_color()'}
+        %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 11
+        %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 21
+        %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 31
+        %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 41
     / Action
     .patient_menu_w.skipOpen
       .drop_down_btn
         %span
       .drop_down_w
         %ul.drop_down_menu
-          %li.drop_down_item.active
+          %li.drop_down_item
             %a.gl_link{:href => "#"}
               %span Подтвердить прием
           %li.drop_down_item

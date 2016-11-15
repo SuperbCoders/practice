@@ -226,6 +226,7 @@ app.config([
 	templateUrl: '/templates/doctor/schedule/index.html',
 	controller: 'ScheduleController',
 	resolve: {
+	  Patients: Patients,
 	  Visits: [
 	    'Resources', function(Resources) {
 	      return Resources('/doctor/visits/:id', {
@@ -441,6 +442,6 @@ app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope,
       );
   };
 
-  return $rootScope.init_chosen();
+  // return $rootScope.init_chosen();
 }
         ]);

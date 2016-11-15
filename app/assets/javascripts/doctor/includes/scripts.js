@@ -22,13 +22,13 @@ $(function ($) {
     global_window_Height = $(window).height();
     popupOrderItem = $('.popup_order_item');
     controlPanelBtn = $('.controlPanelBtn');
-    window.onload = function() {
-        $('.chosen-select').chosen({
-            autohide_results_multiple: false,
-            allow_single_deselect: true,
-            width: "100%"
-        });
-    }
+    // window.onload = function() {
+    //     $('.chosen-select').chosen({
+    //         autohide_results_multiple: false,
+    //         allow_single_deselect: true,
+    //         width: "100%"
+    //     });
+    // }
 
 
     /*

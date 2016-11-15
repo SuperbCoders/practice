@@ -1,4 +1,4 @@
-function ScheduleController($scope, $compile, Visits, Visit, Settings, ValueList) {
+function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings, ValueList) {
   $scope.items_limit = 100;
   $scope.filters = {};
   $scope.win = $(window);
@@ -87,22 +87,91 @@ function ScheduleController($scope, $compile, Visits, Visit, Settings, ValueList
     $scope.standartTimeIntervals = response.value_list_items;
   });
 
-  $scope.$watch('new_patient.cart_color', function(new_value){
-    console.log('EV _ cart_event_id ' + $scope.event_id);
-    var colors = {"1": "#3eb6e3", "2": "#30c36d", "3": "#f63f3f", "4": "#f5cd1d"};
+  function event_by_event_id() {
     var last_id = $scope.event_id - 1;
     var events  = $('#calendar').fullCalendar('clientEvents');
     var last_event = undefined;
-
     for (var i = 0; i < events.length; ++i) {
       if (events[i]._id == last_id)
         last_event = events[i];
     }
+    // I am guess "last_event" means "last used event"
+    return last_event;
+  }
+
+  function set_event_color(event, color_value) {
+    // console.log('#event color');
+    // console.log(event);
+    // console.log(color_value);
+    // console.trace();
+    // f5cd1d    var colors = {"1": "#3eb6e3", "2": "#30c36d", "3": "#f63f3f", "4": "#f5cd1d"};
+    // var colors = {"1": "#3eb6e3", "2": "#30c36d", "3": "#f63f3f", "4": "#f5cd1d", "5": "#f5cd1d"};
+    var colors = {"0": "#3eb6e3", "1": "#30c36d", "2": "#f63f3f", "3": "#f5cd1d"};
+    // var colors = {"1": "#3eb6e3", "2": "#30c36d", "3": "#f63f3f", "4": "#f5cd1d"};
+    // console.log(colors[color_value]);
+    console.log(color_value);
+    event.color = colors[color_value];
+  }
+
+  $scope.$watch('new_patient.cart_color', function(new_value){
+    console.log('NPCC ' + new_value);
+    console.log('EV _ cart_event_id ' + $scope.event_id);
+    var last_event = event_by_event_id();
+
     if (last_event == undefined)
       return;
+    if (!new_value)
+      return;
+    var colors = {"0": "#3eb6e3", "1": "#30c36d", "2": "#f63f3f", "3": "#f5cd1d"};
     last_event.color = colors[new_value];
+    // set_event_color(last_event, "1");
+    console.log('color: ' + last_event.color);
+    console.log(last_event);
     $('#calendar').fullCalendar('updateEvent', last_event);
+    // $('#calendar').fullCalendar('renderEvent', last_event);
+    // $($scope.calendar).fullCalendar('renderEvent', event);
   });
+
+  $scope.$watch('new_patient.cart_color', function(newValue, oldValue){
+    // console.log('NPCC ');
+    // console.log(newValue);
+    // console.log(oldValue);
+    if (!oldValue && newValue) {
+      $scope.$evalAsync(function() {
+        $scope.card_color_chosen($('#add_patient_form .chosen-select')[0]);
+      });
+    }
+  });
+
+  $scope.card_color_chosen = function (elem) {
+    $(elem).chosen({
+      width: '100%',
+      disable_search_threshold: 3
+    }).on('chosen:showing_dropdown', function(evt, params) {
+      var firedEl, niceScrollBlock;
+      firedEl = $(evt.currentTarget);
+      niceScrollBlock = firedEl.next('.chzn-container').find('.chzn-results');
+      if (niceScrollBlock.getNiceScroll().length) {
+        return niceScrollBlock.getNiceScroll().resize().show();
+      } else {
+        niceScrollBlock.niceScroll({
+          cursorwidth: 4,
+          cursorborderradius: 2,
+          cursorborder: 'none',
+          bouncescroll: false,
+          autohidemode: false,
+          horizrailenabled: false,
+          railsclass: firedEl.data('rails_class'),
+          railpadding: {
+            top: 0,
+            right: 0,
+            left: 0,
+            bottom: 0
+          }
+        });
+      }
+    });
+  }
 
   $scope.$watch('new_visit.duration', function(new_value){
     console.log('EV _ duration_event_id ' + $scope.event_id);
@@ -180,24 +249,54 @@ function ScheduleController($scope, $compile, Visits, Visit, Settings, ValueList
 
   $scope.deleteVisit = function(event){
     // console.log('EV _ delete');
-    console.log('EV _ delete 1 ' + $scope.event_id);
-    console.log('EV _ delete_real_id ' + event.real_id);
+    // console.log('EV _ delete 1 ' + $scope.event_id);
+    // console.log('EV _ delete_real_id ' + event.real_id);
     if (confirm('Отменить прием?')) {
       return Visits.remove({id: event.real_id}).$promise.then(function(response) {
         // return $scope.visits = _.without($scope.visits, visit);
-        console.log('EV _ delete 2 ' + $scope.event_id);
+        // console.log('EV _ delete 2 ' + $scope.event_id);
         $('#calendar').fullCalendar('refetchEvents');
-        console.log('EV _ delete 3 ' + $scope.event_id);
+        // console.log('EV _ delete 3 ' + $scope.event_id);
         $scope.event = null;
       });
     }
   }
 
+  $scope.$watch('event.patient.cart_color', function(new_value, old_value){
+    // console.log('WCC ' + new_value);
+    // console.log('EV _ cart_event_id ' + $scope.event_id);
+    var last_event = event_by_event_id();
+
+    if (last_event == undefined)
+      return;
+    set_event_color(last_event, new_value);
+    $('#calendar').fullCalendar('updateEvent', last_event);
+    Patients.save({id: last_event.patient.id, cart_color: last_event.patient.cart_color});
+  });
+
+  $scope.$watch('event.patient.cart_color', function(newValue, oldValue) {
+    // console.log('W_CC');
+    // console.log(newValue);
+    // console.log(oldValue);
+    var last_event = event_by_event_id();
+    if (!oldValue && newValue) {
+      $scope.$evalAsync(function() {
+        $('.patient_card .patient_status_w select').chosen({
+          autohide_results_multiple: false,
+          allow_single_deselect: true,
+          width: "100%",
+          className: "form_o_b_item form_o_b_value_edit_mode"
+        });
+      });
+    }
+  });
+
   $('body').addClass('cal_header_mod');
   $('body').addClass('cal_body_mod');
+
   $scope.$on('$destroy', function() {
     $('body').removeClass('cal_header_mod');
-    return $('body').removeClass('cal_body_mod');
+    $('body').removeClass('cal_body_mod');
   });
 
   setTimeline();
@@ -224,6 +323,15 @@ function ScheduleController($scope, $compile, Visits, Visit, Settings, ValueList
     Visits.save({id: event.real_id, visit: {visit_data: {start_at: event.start_at, duration: event.duration}}});
   };
 
+  $scope.event_set_color = function() {
+    var last_event = event_by_event_id();
+    set_event_color(last_event, event.patient.color);
+    $('#calendar').fullCalendar('updateEvent', last_event);
+    // event.start_at = event.start;
+    // event.duration = (event.end - event.start) / 60 / 1000;
+    // Visits.save({id: event.real_id, visit: {visit_data: {start_at: event.start_at, duration: event.duration}}});
+  };
+
   function event_click(event, jsEvent, view) {
     $scope.$apply(function() {
       $scope.event = event;
@@ -232,7 +340,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Settings, ValueList
 
   function visits_by_date(start, end, timezone, callback) {
     end.add('14', 'days');
-    var colors = {"1": "#3eb6e3", "2": "#30c36d", "3": "#f63f3f", "4": "#f5cd1d"};
     var paket = {
       start: start.format(),
       end: end.format()
@@ -246,13 +353,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Settings, ValueList
         event.start = moment(events[i].start);
         event.end = moment(events[i].end);
         event.saved = true;
-        event.color = colors[events[i].patient.cart_color];
+        set_event_color(event, events[i].patient.cart_color);
         event.id = $scope.event_id;
         event.real_id = events[i].id;
         event.orig_event = events[i];
         event.patient = events[i].patient;
         $scope.event_id++;
-        // $scope.event = event;
+        $scope.event = event;
         date_events.push(event);
       }
       $scope.events_count = events.length;
@@ -290,18 +397,23 @@ function ScheduleController($scope, $compile, Visits, Visit, Settings, ValueList
           $scope.new_patient.phone = "";
           $scope.new_patient.email = "";
           $scope.new_visit.comment = "";
-          $scope.new_patient.cart_color = "1";
+          $scope.new_patient.cart_color = "0";
           $scope.new_visit.start_at = moment(date);
           event = {
             start: moment(date),
             end: moment(date).add(parseInt(stDuration), 'm'),
             saved: false,
-            color: "#3eb6e3"
+            // color: "#3eb6e3"
+            // color: "#111111"
           };
           event.id = $scope.event_id;
-          $scope.event = event;
+          // $scope.event = event;
           $scope.event_id++;
+          // console.log('about render event');
           $($scope.calendar).fullCalendar('renderEvent', event);
+          // event.color = "#3eb6e3";
+          // $($scope.calendar).fullCalendar('updateEvent', event);
+          // $scope.new_patient.cart_color = "0";
           $scope.add_patient_form || ($scope.add_patient_form = $('#add_patient_form').dialog({
             autoOpen: false,
             modal: true,
@@ -338,33 +450,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Settings, ValueList
           console.log((new Date()).toISOString() + ' SC _ open');
 
           $('#shedule_stand_time').val(stDuration);
-          $('.chosen-select').chosen({
-            width: '100%',
-            disable_search_threshold: 3
-          }).on('chosen:showing_dropdown', function(evt, params) {
-            var firedEl, niceScrollBlock;
-            firedEl = $(evt.currentTarget);
-            niceScrollBlock = firedEl.next('.chzn-container').find('.chzn-results');
-            if (niceScrollBlock.getNiceScroll().length) {
-              return niceScrollBlock.getNiceScroll().resize().show();
-            } else {
-              niceScrollBlock.niceScroll({
-                cursorwidth: 4,
-                cursorborderradius: 2,
-                cursorborder: 'none',
-                bouncescroll: false,
-                autohidemode: false,
-                horizrailenabled: false,
-                railsclass: firedEl.data('rails_class'),
-                railpadding: {
-                  top: 0,
-                  right: 0,
-                  left: 0,
-                  bottom: 0
-                }
-              });
-            }
-          });
         });
       }
       console.log((new Date()).toISOString() + ' SC _ clickrs');
@@ -418,4 +503,4 @@ function ScheduleController($scope, $compile, Visits, Visit, Settings, ValueList
 
 }
 
-angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Visit', 'Settings', 'ValueList', ScheduleController]);
+angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Visit', 'Patients', 'Settings', 'ValueList', ScheduleController]);
