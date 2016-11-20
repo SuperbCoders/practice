@@ -306,9 +306,9 @@ app.directive('chosenSelect', ['$timeout', function ($timeout) {
     link: {
       post: function(scope, element) {
         var run = function () {
-          console.log('-- directive');
-          console.log($(element).attr('id'));
-          console.log($(element).find('option').length);
+          // console.log('-- directive');
+          // console.log($(element).attr('id'));
+          // console.log($(element).find('option').length);
           run_chosen(element);
         }
         $timeout(run, 0);
@@ -381,9 +381,36 @@ app.config(['paginationTemplateProvider', function(paginationTemplateProvider) {
 //   }
 // });
 
+// app.controller('changeReceptionFormDialogCtrl', function($scope) {
+//   $scope.message = 'Hello Dialog!';
+//   this.onSave = function() {
+//     alert('saved!');
+//   };
+// })
+
+// app.directive('changeReceptionFormDialog', function() {
+//   return {
+//     controller: 'changeReceptionFormDialogCtrl',
+//     link: function(scope, elem, attrs, ctrl) {
+//       elem.dialog({
+//         autoOpen: false,
+//         buttons: {
+//            'Save': function() {
+//               ctrl.onSave();
+//               elem.dialog('close');
+//             }
+//         }
+//       });
+//       scope.$root.openChangeReceptionFormDialog = function() {
+//         elem.dialog('open');
+//       };
+//     }
+//   };
+// });
+
 app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope, $state, $stateParams, $window) {
-  run_debug_ui_route($rootScope);
-  console.log('app.run()');
+  // run_debug_ui_route($rootScope);
+  // console.log('app.run()');
   $window.rootScope = $rootScope;
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
@@ -443,5 +470,24 @@ app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope,
   };
 
   // return $rootScope.init_chosen();
+
+  $rootScope.getFullVisitString = function(visit){
+    let monts = {
+      "January": "января",
+      "February": "февраля",
+      "March": "марта",
+      "April": "апреля",
+      "May": "мая",
+      "June": "июня",
+      "July": "июля",
+      "August": "августа",
+      "September": "Сентября",
+      "October": "октября",
+      "November": "ноября",
+      "December": "декабря"
+    };
+    let date = moment(visit.start_at);
+    return date.format('DD') + ' ' + monts[date.format('MMMM')] + ', в ' + date.format('HH:mm')
+  };
 }
         ]);

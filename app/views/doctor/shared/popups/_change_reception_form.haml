@@ -1,0 +1,46 @@
+%form#change_reception_form{:action => "#", :style => "display:none", :title => ""}
+  .time_switcher
+    .time_switcher_block
+      .form_row
+        .form_cell
+          .time_switch_term
+            Дата:
+        .form_cell
+          .time_switch_val
+            %input#change_reception_time.form_input.input_v9{:autocomplete => "off", :tabindex => "-1", :value => "6 марта"}/
+            %input#change_reception_time_internal{"style" => "display: none", "name" => "change_reception_form[date]"}/
+      .form_row
+        .form_cell
+          .time_switch_term
+            Начало:
+        .form_cell
+          .time_switch_val.chosen_v4.no_search
+            %select.chosen-select{"data-placeholder" => "время", "data-rails_class" => "rails_v5", "data-rails_r" => "20", "chosen-select" => true, "name" => "change_reception_form[start]"}
+              %option{"data-title" => "", :value => ""}
+              %option{"ng-repeat" => "time in time_list", "data-title" => "", :value => "{{time.val}}"}
+                {{time.view}}
+      .form_row
+        .form_cell
+          .time_switch_term
+            Конец:
+        .form_cell
+          .time_switch_val.chosen_v4.no_search
+            %select.chosen-select{"data-placeholder" => "время", "data-rails_class" => "rails_v5", "data-rails_r" => "20", "chosen-select" => true, "name" => "change_reception_form[end]"}
+              %option{"data-title" => "", :value => ""}
+              %option{"ng-repeat" => "time in time_list", "data-title" => "", :value => "{{time.val}}"}
+                {{time.view}}
+      .form_row
+        .form_cell
+          .time_switch_term
+            Повторять:
+        .form_cell
+          .time_switch_val.chosen_v4.no_search
+            %select.chosen-select{"data-rails_class" => "rails_v5", "data-rails_r" => "20", "chosen-select" => true}
+              %option{"data-title" => "", :value => ""}
+              %option{"data-title" => "", :selected => "selected", :value => "0"}
+                Нет
+              %option{"data-title" => "", :value => "1"}
+                Да
+      .form_row.text_center
+        %a.time_switcher_btn{:href => "", "ng-click" => "update_new_visit_time()"}
+          Сохранить

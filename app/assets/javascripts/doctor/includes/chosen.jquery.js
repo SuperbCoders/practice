@@ -247,11 +247,11 @@
         }
 
         AbstractChosen.prototype.results_option_build = function (options) {
-            console.log('CH begin results_option_build');
+            // console.log('CH begin results_option_build');
             var content, data, data_content, shown_results, _i, _len, _ref;
             content = '';
             shown_results = 0;
-            console.log('-- chosen');
+            // console.log('-- chosen');
             // console.trace();
             // console.log(this.form_field);
             // console.log($(this.form_field).attr('id'));

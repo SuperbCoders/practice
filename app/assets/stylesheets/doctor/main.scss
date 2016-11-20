@@ -2349,6 +2349,148 @@ $patient_scale_time: 1s;
 
 }
 
+.add_subrecord_popup {
+  min-height: 0 !important;
+}
+
+.add_subrecord_item {
+  background: #2c61ff;
+  border-radius: 10px;
+  padding-bottom: 35px;
+  position: relative;
+}
+
+.time_switch_w {
+  margin-top: 10px;
+  position: relative;
+}
+
+.time_switcher {
+  //position: absolute;
+  //bottom: 100%;
+  //left: 50%;
+  //margin-left: -120px;
+  //margin-bottom: 25px;
+  //width: 240px;
+
+  position: relative;
+  border-radius: 10px;
+  background: #32323f;
+  text-align: left;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -10px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #32323f;
+  }
+
+  .flipped_top & {
+    &:before {
+      top: auto;
+      bottom: 100%;
+      border-top: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid #32323f;
+    }
+  }
+}
+
+.time_switch_term {
+  color: #fff;
+  font: 13px $HelveticaNeueLight;
+  //float: left;
+  //width: 40%;
+}
+
+.time_switch_val {
+  margin-top: -18px;
+  //float: left;
+  //width: 60%;
+
+  position: relative;
+
+  &.dp_opened {
+    &:before {
+      content: '';
+      background: #63637b;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      width: 10px;
+      height: 10px;
+    }
+  }
+}
+
+.time_switcher_block {
+  padding: 20px 20px 10px;
+
+  .form_row {
+    @extend %clearfix;
+    padding: 10px 0 13px;
+    border-top: 1px solid #4f4c5a;
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+
+  .form_cell {
+    float: left;
+    width: 58%;
+
+    &:first-child {
+      width: 42%;
+    }
+  }
+}
+
+.time_switcher_btn {
+  @include transition_all(color .3s);
+  display: inline-block;
+  vertical-align: top;
+  font: 14px $HelveticaNeueMedium;
+  text-decoration: none;
+  color: #fff;
+
+  &:hover {
+    color: #ffdd4a;
+  }
+}
+
+.first_run_tips {
+  border-radius: 0 0 10px 10px;
+  position: relative;
+  padding-bottom: 50px;
+  min-height: 312px;
+
+  p {
+    margin-bottom: 20px;
+    font-size: 19px;
+    line-height: 22px;
+    color: #000;
+  }
+}
+
+.first_run_controls {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.first_run_caption {
+  font: 26px $HelveticaNeueBold;
+  margin-bottom: 25px;
+
+}
+
 .msg_header {
   @extend %global_flex_block_column_nowrap_space_around_stretch;
   padding: 10px 20px;
@@ -3361,6 +3503,72 @@ $patient_scale_time: 1s;
       border-color: #ffdd4a;
     }
   }
+
+  &.input_v9 {
+    @include transition_all(border-color .3s);
+    border-radius: 10px 10px 0 0;
+    padding: 16px 20px 3px;
+    height: 34px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #fff;
+    width: 130px;
+
+    .dp_opened &,
+    &:focus {
+      background: #63637b;
+    }
+  }
+
+  &.input_v10 {
+    height: 44px;
+    font-size: 28px;
+    line-height: 32px;
+    color: #3b3e40;
+    font-weight: bold;
+    letter-spacing: .25px;
+
+    &::-webkit-input-placeholder {
+      color: rgba(59, 62, 64, .2);
+    }
+
+    &::-moz-placeholder {
+      color: rgba(59, 62, 64, .2);
+    }
+  }
+
+  &.input_v11 {
+    height: 44px;
+    font-size: 19px;
+    line-height: 1.53;
+    color: #3b3e40;
+    //min-height: 325px;
+    letter-spacing: .5px;
+
+    &::-webkit-input-placeholder {
+      color: rgba(59, 62, 64, .2);
+    }
+
+    &::-moz-placeholder {
+      color: rgba(59, 62, 64, .2);
+    }
+  }
+
+  &.input_v12 {
+    height: 32px;
+    font: 19px/32px $HelveticaNeueLight;
+    color: #fff;
+    padding: 0 6px;
+    letter-spacing: .5px;
+
+    &::-webkit-input-placeholder {
+      color: rgba(255, 255, 255, .2);
+    }
+
+    &::-moz-placeholder {
+      color: rgba(255, 255, 255, .2);
+    }
+  }
 }
 
 .header_search_form {
@@ -3989,6 +4197,36 @@ textarea.form_input.input_v3 {
     padding-bottom: 12px;
     line-height: 29px;
     border: 1px solid #a7a69c;
+  }
+
+  .chosen_v4 & {
+    background: #63637b;
+    width: 150px;
+    max-height: 280px;
+    overflow-y: auto;
+    border-radius: 0 0 10px 10px;
+    padding-top: 12px;
+
+    .chzn_item {
+      padding: 12px 20px;
+      color: #fff;
+
+      &:hover {
+        color: #ffdd4a;
+      }
+
+      &.disabled-result {
+        color: #a3a3b9;
+        pointer-events: none;
+        cursor: default;
+      }
+
+      &.result-selected {
+        cursor: default;
+        color: #000;
+        background: #ffdd4a;
+      }
+    }
   }
 
   .chosen_v1 .chzn-with-drop &,

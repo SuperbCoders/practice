@@ -60,25 +60,6 @@ function PatientsController($scope, $window, Patients) {
     return $scope.fetch();
   };
 
-  $scope.getFullVisitString = function(visit){
-    let monts = {
-      "January": "января",
-      "February": "февраля",
-      "March": "марта",
-      "April": "апреля",
-      "May": "мая",
-      "June": "июня",
-      "July": "июля",
-      "August": "августа",
-      "September": "Сентября",
-      "October": "октября",
-      "November": "ноября",
-      "December": "декабря"
-    };
-    let date = moment(visit.start_at);
-    return date.format('DD') + ' ' + monts[date.format('MMMM')] + ', в ' + date.format('HH:mm')
-  };
-
   $scope.archivate = function(patient) {
     patient.in_archive = true;
     patient.$save();

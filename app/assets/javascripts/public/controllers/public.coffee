@@ -1,9 +1,5 @@
 class DoctorProfileController
   constructor: (@rootScope, @scope, @Doctor, ngDialog) ->
-    # console.log '11111111'
-    # console.trace()
-    # throw 'wtf'
-    # console.log '22222222'
     vm = @
     @rootScope.Doctor = @Doctor
 

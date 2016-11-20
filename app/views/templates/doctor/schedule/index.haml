@@ -9,7 +9,7 @@
           %button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui-dialog-titlebar-close{:role => "button", :title => "Close", :type => "button"}
             %span.ui-button-icon-primary.ui-icon.ui-icon-closethick
             %span.ui-button-text Close
-        #patient_info_form.popup_form.popup_v2.ui-dialog-content.ui-widget-content{:style => ""}
+        #patient_info_form.popup_form.popup_v2
           .form_corner
           = render 'templates/doctor/schedule/patient'
         .ui-resizable-handle.ui-resizable-n{:style => "z-index: 90; display: block;"}
@@ -22,3 +22,4 @@
         .ui-resizable-handle.ui-resizable-nw{:style => "z-index: 90; display: block;"}
 
 = render 'doctor/shared/popups/add_patient_form'
+= render 'doctor/shared/popups/change_reception_form'
