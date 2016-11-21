@@ -472,7 +472,7 @@ app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope,
   // return $rootScope.init_chosen();
 
   $rootScope.getFullVisitString = function(visit){
-    let monts = {
+    var monts = {
       "January": "января",
       "February": "февраля",
       "March": "марта",
@@ -486,7 +486,7 @@ app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope,
       "November": "ноября",
       "December": "декабря"
     };
-    let date = moment(visit.start_at);
+    var date = moment(visit.start_at);
     return date.format('DD') + ' ' + monts[date.format('MMMM')] + ', в ' + date.format('HH:mm')
   };
 }
