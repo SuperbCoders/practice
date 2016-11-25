@@ -83,11 +83,9 @@ $(function ($) {
         width: 400,
         dialogClass: "dialog_v1 no_close_mod login_form",
         open: function (event, ui) {
-
             console.log('open');
         },
         close: function (event, ui) {
-
             console.log('close');
         }
     });
@@ -98,11 +96,9 @@ $(function ($) {
         width: 400,
         dialogClass: "dialog_v1 no_close_mod login_form",
         open: function (event, ui) {
-
             console.log('open');
         },
         close: function (event, ui) {
-
             console.log('close');
         }
     });
@@ -113,19 +109,15 @@ $(function ($) {
         width: 480,
         dialogClass: "dialog_v1 no_close_mod msg_form form_success",
         open: function (event, ui) {
-
             //console.log('open');
         },
         close: function (event, ui) {
-
             //console.log('close');
         }
     });
 
     $('.openLogin').on('click', function () {
-
         login_form.dialog('open');
-
         return false;
     });
 
@@ -203,7 +195,7 @@ function all_dialog_close() {
 
 function all_dialog_close_gl() {
     add_patient_form = $("#add_patient_form");
-    if (add_patient_form && add_patient_form.length === 1 && add_patient_form.dialog('isOpen')) {
+    if (add_patient_form && add_patient_form.length === 1 && add_patient_form.hasClass('ui-dialog-content') && add_patient_form.dialog('isOpen')) {
         add_patient_form.dialog('close');
         events = $('#calendar').fullCalendar('clientEvents');
         for (var i = 0; i  < events.length; i++)

@@ -32,5 +32,5 @@
       -#   %span.mb
       -#     Записать на 30 декабря, в 12:00
       %p.text_center
-        %a.gl_link.changeReceptionTime{:href => "#"}
+        %a.gl_link.changeReceptionTime{:href => "#", "ng-click" => "changeReceptionTimeClick($event, new_visit)"}
           Изменить время приема

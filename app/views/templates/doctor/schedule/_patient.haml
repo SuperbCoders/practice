@@ -55,7 +55,7 @@
     .patient_card_controls.skipOpen.patient_confirm{"ng-if" => "event.patient.last_visit != null && event.patient.last_visit.created_by == 'doctor'"}
       .patient_info_table
         .controls_cell
-          %a.btn_v2.patient_btn.green_btn{:href => ""}
+          %a.btn_v2.patient_btn.green_btn{:href => "", "ng-click" => "changeReceptionTimeClick($event, event.patient.last_visit)"}
             %span.mb Изменить прием на {{getFullVisitString(event.patient.last_visit)}}
           %p
             %a.gl_link{href: "#", "ng-click" => "deleteVisit(event)"} Отменить прием

@@ -110,15 +110,19 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     $scope.standartTimeIntervals = response.value_list_items;
   });
 
+  function find_event(id) {
+    var events  = $('#calendar').fullCalendar('clientEvents');
+    var event = undefined;
+    for (var i = 0; i < events.length; ++i) {
+      if (events[i]._id == id)
+        event = events[i];
+    }
+    return event;
+  }
+
   function event_by_event_id() {
     var last_id = $scope.event_id - 1;
-    var events  = $('#calendar').fullCalendar('clientEvents');
-    var last_event = undefined;
-    for (var i = 0; i < events.length; ++i) {
-      if (events[i]._id == last_id)
-        last_event = events[i];
-    }
-    return last_event;
+    return find_event(last_id);
   }
 
   function set_event_color(event, color_value) {
@@ -134,6 +138,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       return;
     var colors = {"0": "#3eb6e3", "1": "#30c36d", "2": "#f63f3f", "3": "#f5cd1d"};
     last_event.color = colors[new_value];
+    console.log('test');
     $('#calendar').fullCalendar('updateEvent', last_event);
   });
 
@@ -175,40 +180,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     });
   }
 
-  function get_change_reception_time_moment(){
-    var date = $('[name="change_reception_form[date]"]').val();
-    var start = $('[name="change_reception_form[start]"]').val();
-    var end = $('[name="change_reception_form[end]"]').val();
-    // var val = '' + date + ' ' + start +'Z';
-    var val = '' + date + ' ' + start;
-    // console.log(val);
-    // return moment.utc(val);
-    return moment(val);
-    // return $scope.new_visit.start_at;
-  }
-
-  function get_change_reception_time_duration(){
-    var start = $('[name="change_reception_form[start]"]').val();
-    var end = $('[name="change_reception_form[end]"]').val();
-    var val = moment.duration(moment.duration(end) - moment.duration(start));
-    // console.log(val.asMinutes());
-    // return $scope.new_visit.duration;
-    return val.asMinutes();
-  }
-
-  $scope.update_new_visit_time = function(){
-    // console.log('update');
-    $scope.new_visit.start_at = get_change_reception_time_moment();
-    // console.log($scope.new_visit.start_at);
-    $scope.new_visit.duration = get_change_reception_time_duration();
-    var last_event = event_by_event_id();
-    last_event.start = moment($scope.new_visit.start_at);
-    last_event.end = moment($scope.new_visit.start_at).add(parseInt($scope.new_visit.duration), 'm');;
-    $('#calendar').fullCalendar('updateEvent', last_event);
-    set_new_patient_button_text();
-    $('#change_reception_form').dialog('close');
-  }
-
   Settings.getSettings().then(function(response) {
     $scope.settings = response;
     setTimeout(function() {
@@ -234,14 +205,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       Visits.create({visit: request}).$promise.then(function(result){
         var last_id = $scope.event_id - 1;
         var events  = $('#calendar').fullCalendar('clientEvents');
-        var last_event = undefined;
-
-        for (var i = 0; i < events.length; ++i) {
-          if (events[i]._id == last_id)
-            last_event = events[i];
-        }
-        if (last_event == undefined)
-          return;
+        var last_event = event_by_event_id();
 
         last_event.saved = true;
         last_event.real_id = result.visit.id
@@ -272,6 +236,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     if (event == undefined)
       return;
     set_event_color(event, event.patient.cart_color);
+    console.log('test');
     $('#calendar').fullCalendar('updateEvent', event);
     Patients.save({id: event.patient.id, cart_color: event.patient.cart_color});
   }
@@ -351,7 +316,9 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         event.orig_event = events[i];
         event.patient = events[i].patient;
         $scope.event_id++;
+        console.log('scope event');
         $scope.event = event;
+        console.log($scope.event);
         date_events.push(event);
       }
       $scope.events_count = events.length;
@@ -380,6 +347,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   function set_new_patient_button_text() {
     var date = $scope.new_visit.start_at;
     $($scope.add_patient_form).find('.newPatientBtn span').text('Записать на ' + date_format(date) + ', в ' + date.format('HH:mm'));
+  }
+
+  function set_preview_patient_button_text() {
+    // nichego delat ne nado tam tekst sa menyaetsa
+    // var date = $scope.event.start_at;
+    // throw
+    // $($scope.add_patient_form).find('.newPatientBtn span').text('Записать на ' + date_format(date) + ', в ' + date.format('HH:mm'));
   }
 
   function day_click(date, jsEvent, view) {
@@ -553,23 +527,121 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     return moment(date).date() + ' ' + months[moment(date).month()];
   }
 
+  function get_change_reception_time_moment(){
+    var date = $('[name="change_reception_form[date]"]').val();
+    var start = $('[name="change_reception_form[start]"]').val();
+    var end = $('[name="change_reception_form[end]"]').val();
+    // var val = '' + date + ' ' + start +'Z';
+    var val = '' + date + ' ' + start;
+    // console.log(val);
+    // return moment.utc(val);
+    return moment(val);
+  }
+
+  function get_change_reception_time_duration(){
+    var start = $('[name="change_reception_form[start]"]').val();
+    var end = $('[name="change_reception_form[end]"]').val();
+    var val = moment.duration(moment.duration(end) - moment.duration(start));
+    // console.log(val.asMinutes());
+    return val.asMinutes();
+  }
+
+  function is_new_visit(visit) {
+    if (visit.id) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  function update_reception_button_text() {
+    if (is_new_visit($scope.change_reception_visit)) {
+      set_new_patient_button_text();
+    } else {
+      set_preview_patient_button_text();
+    }
+  }
+
+  function change_reception_time_valid() {
+    // console.log(get_change_reception_time_duration());
+    // console.log(get_change_reception_time_duration() > 0);
+    return get_change_reception_time_duration() > 0;
+  }
+
+  $scope.change_reception_time_apply = function(){
+    if (!change_reception_time_valid()) {
+      return;
+    }
+
+    // console.log('update');
+    var visit = $scope.change_reception_visit;
+    visit.start_at = get_change_reception_time_moment();
+    // console.log(visit.start_at);
+    visit.duration = get_change_reception_time_duration();
+    update_reception_button_text();
+    var event, start_at, duration;
+    if (is_new_visit(visit)) {
+      console.log('new_visit');
+      event = event_by_event_id();
+      console.log(event);
+      start_at = event.start_at;
+      duration = event.duration;
+    } else {
+      console.log('event');
+      event = find_event($scope.event.id);
+      console.log(event);
+      // console.log(event.start_at);
+      // console.log(event.duration);
+      start_at = moment(visit.start_at);
+      duration = visit.duration.toString();
+      Visits.save({id: event.real_id, visit: {visit_data: {start_at: visit.start_at, duration: visit.duration}}});
+    }
+    event.start = moment(visit.start_at);
+    event.end = moment(visit.start_at).add(parseInt(visit.duration), 'm');;
+    console.log('test');
+    $('#calendar').fullCalendar('updateEvent', event);
+    $('#change_reception_form').dialog('close');
+  }
+
   function initReceptionFields() {
-    $('#change_reception_time').val(shortDate($scope.new_visit.start_at));
-    $('#change_reception_time_internal').val(moment($scope.new_visit.start_at).format('YYYY-MM-DD'));
-    var start = $scope.new_visit.start_at.format('HH:mm');
+    var visit = $scope.change_reception_visit;
+    var start_at, duration;
+    console.log('test fail');
+    if (is_new_visit(visit)) {
+      console.log('new_visit');
+      console.log(visit);
+      start_at = visit.start_at;
+      duration = visit.duration;
+    } else {
+      console.log('event1');
+      console.log(visit);
+      start_at = moment(visit.start_at);
+      duration = visit.duration.toString();
+    }
+    $('#change_reception_time').val(shortDate(start_at));
+    $('#change_reception_time_internal').val(moment(start_at).format('YYYY-MM-DD'));
+    var start = start_at.format('HH:mm');
     // console.log(start);
     $('[name="change_reception_form[start]"] option[value="' + start + '"]').prop('selected', true);
     $('[name="change_reception_form[start]"]').trigger('chosen:updated');
-    var end = $scope.new_visit.start_at.add($scope.new_visit.duration, 'm').format('HH:mm');
+    var end = start_at.add(duration, 'm').format('HH:mm');
     // console.log(end);
     $('[name="change_reception_form[end]"] option[value="' + end + '"]').prop('selected', true);
     $('[name="change_reception_form[end]"]').trigger('chosen:updated');
   }
 
-  function initChangeReceptionTimeClick() {
-    $('.changeReceptionTime').on('click', function (jsEvent) {
+  $scope.changeReceptionTimeClick = function(event, visit) {
+    console.log('click');
+    console.log(visit);
+    $scope.change_reception_visit = visit;
+    changeReceptionTimeRun.call(event.currentTarget);
+    return false;
+  }
+
+  function changeReceptionTimeRun() {
       initReceptionFields();
 
+    console.log(this);
       var firedEl = $(this), target = firedEl;
 
       $('#change_reception_form').dialog("option", "position", {
@@ -605,9 +677,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
         }
       }).dialog('open');
+  }
 
-      return false;
-    });
+  function initChangeReceptionTimeClick() {
+    // $('.changeReceptionTime').on('click', function (jsEvent) {
+
+      // return false;
+    // });
   }
 
   $scope.initReceptionForm = function () {
