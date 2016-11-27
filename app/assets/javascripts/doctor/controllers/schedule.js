@@ -196,7 +196,14 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     $scope.calendar;
   });
 
-  $scope.createVisit = function($valid){
+  function set_event(event) {
+    console.log('set_event');
+    console.log(event);
+    $scope.event = event;
+    $scope.patient = event.patient;
+  }
+
+  $scope.createVisit = function($valid) {
     if ($valid) {
       var request = {
         visit_data: $scope.new_visit,
@@ -213,7 +220,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
           last_event.orig_event = event;
           last_event.patient = event.patient;
           $('#calendar').fullCalendar('updateEvent', last_event);
-          $scope.event = last_event;
+          set_event(last_event);
         });
         // $('#calendar').fullCalendar('refetchEvents');
         $scope.add_patient_form.dialog('close');
@@ -232,13 +239,22 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   $scope.update_cart_color = function () {
-    var event = $scope.event;
-    if (event == undefined)
-      return;
+    var event = find_event($scope.event.id);
     set_event_color(event, event.patient.cart_color);
     console.log('test');
     $('#calendar').fullCalendar('updateEvent', event);
     Patients.save({id: event.patient.id, cart_color: event.patient.cart_color});
+  }
+
+  $scope.update_created_by = function() {
+    if (confirm('Подтвердить прием?')) {
+      var event = $scope.event;
+      if (event == undefined)
+        return;
+      $scope.patient.last_visit.created_by = 'doctor';
+      // $('#calendar').fullCalendar('updateEvent', event);
+      Visits.save({id: event.real_id, visit: {visit_data: {created_by: 'doctor'}}});
+    }
   }
 
   $scope.$watch('event.patient.cart_color', function(newValue, oldValue) {
@@ -291,7 +307,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
   function event_click(event, jsEvent, view) {
     $scope.$apply(function() {
-      $scope.event = event;
+      set_event(event);
     });
   };
 
@@ -316,9 +332,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         event.orig_event = events[i];
         event.patient = events[i].patient;
         $scope.event_id++;
-        console.log('scope event');
-        $scope.event = event;
-        console.log($scope.event);
+        console.log('query');
+        set_event(event);
         date_events.push(event);
       }
       $scope.events_count = events.length;
@@ -378,7 +393,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
           };
           // console.log(event.start);
           event.id = $scope.event_id;
-          // $scope.event = event;
+          // set_event(event);
           $scope.event_id++;
           $($scope.calendar).fullCalendar('renderEvent', event);
           // $($scope.calendar).fullCalendar('updateEvent', event);

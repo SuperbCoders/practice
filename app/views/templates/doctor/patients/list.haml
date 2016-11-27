@@ -67,28 +67,7 @@
                   .p{'ng-repeat' => "contact in patient.contacts"}
                     {{contact.data}}
                   .p {{patient.email}}
-              .patient_card_controls.skipOpen.patient_ready{"ng-if" => "false"}
-                .patient_info_table
-                  .controls_cell
-                    %a.btn_v2.patient_btn.green_btn{:href => ""}
-                      %span.mb Начать прием
-              .patient_card_controls.skipOpen.patient_confirm{"ng-if" => "patient.last_visit != null && patient.last_visit.created_by == 'doctor'"}
-                .patient_info_table
-                  .controls_cell
-                    %a.btn_v2.patient_btn.green_btn{:href => ""}
-                      %span.mb Изменить прием на {{getFullVisitString(patient.last_visit)}}
-                    %p
-                      %a.gl_link{href: "#", "ng-click" => "deleteVisit(visit)"} Отменить прием
-              .patient_card_controls.skipOpen.patient_warn{"ng-if" => "patient.last_visit != null && patient.last_visit.created_by != 'doctor'"}
-                .patient_info_table
-                  .controls_cell
-                    %a.btn_v2.patient_btn.green_btn{:href => ""}
-                      %span.mb Подтвердить прием на
-              .patient_card_controls.skipOpen{"ng-if" => "patient.last_visit == null"}
-                .patient_info_table
-                  .controls_cell
-                    %a.btn_v2.patient_btn.black_yellow_btn{:href => ""}
-                      %span.mb Записать на прием
+              = render partial: 'templates/doctor/patients/buttons'
 
             / +patient_overview()
             .avatar_clone

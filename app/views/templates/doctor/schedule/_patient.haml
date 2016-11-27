@@ -18,7 +18,7 @@
       .drop_down_w
         %ul.drop_down_menu
           %li.drop_down_item
-            %a.gl_link{:href => "#"}
+            %a.gl_link{:href => "#", 'ng-click' => "update_created_by()"}
               %span Подтвердить прием
           %li.drop_down_item
             %a.gl_link{:href => "", 'ng-click' => "deleteVisit(event)"}
@@ -47,35 +47,8 @@
       .other_info_cell
         %p{'ng-show' => "event.patient.phone"} {{event.patient.phone}}
         %p{'ng-show' => "event.patient.email"} {{event.patient.email}}
-    .patient_card_controls.skipOpen.patient_ready{"ng-if" => "false"}
-      .patient_info_table
-        .controls_cell
-          %a.btn_v2.patient_btn.green_btn{:href => ""}
-            %span.mb Начать прием
-    .patient_card_controls.skipOpen.patient_confirm{"ng-if" => "event.patient.last_visit != null && event.patient.last_visit.created_by == 'doctor'"}
-      .patient_info_table
-        .controls_cell
-          %a.btn_v2.patient_btn.green_btn{:href => "", "ng-click" => "changeReceptionTimeClick($event, event.patient.last_visit)"}
-            %span.mb Изменить прием на {{getFullVisitString(event.patient.last_visit)}}
-          %p
-            %a.gl_link{href: "#", "ng-click" => "deleteVisit(event)"} Отменить прием
-    .patient_card_controls.skipOpen.patient_warn{"ng-if" => "event.patient.last_visit != null && event.patient.last_visit.created_by != 'doctor'"}
-      .patient_info_table
-        .controls_cell
-          %a.btn_v2.patient_btn.green_btn{:href => ""}
-            %span.mb Подтвердить прием на
-    .patient_card_controls.skipOpen{"ng-if" => "event.patient.last_visit == null"}
-      .patient_info_table
-        .controls_cell
-          %a.btn_v2.patient_btn.black_yellow_btn{:href => ""}
-            %span.mb Записать на прием
-    -# .patient_card_controls.skipOpen.patient_warn
-    -#   .patient_info_table
-    -#     .controls_cell
-    -#       %a.btn_v2.patient_btn.white_white_btn{:href => "#"}
-    -#         %span.mb Подтвердить прием на {{event.start.format('lll')}}
-    -#       %p
-    -#         %a.gl_link{:href => "#"} Изменить время приема
+    = render partial: 'templates/doctor/patients/buttons'
+
     .patient_overview
       %a.btn_v3.add_patient_line.white__btn{:href => "#"} Добавить запись в карту
       %ul.patient_overview_list
