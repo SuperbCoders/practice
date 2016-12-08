@@ -252,7 +252,7 @@ app.config([
   }
 ]);
 
-app.directive('resize', function($window) {
+app.directive('resize', ['$window', function($window) {
   return {
     link: function(scope) {
       function onResize(e) {
@@ -268,7 +268,7 @@ app.directive('resize', function($window) {
       scope.$on('$destroy', cleanUp);
     }
   }
-});
+}]);
 
 app.directive('fixTabHeader', function() {
   return {

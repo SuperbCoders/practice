@@ -61,3 +61,4 @@ bower.json
 npm-debug.log
 *~
 /.git-commit-index
+/public/assets
