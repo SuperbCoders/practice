@@ -62,7 +62,7 @@ group :development, :test do
   gem 'capistrano-rvm'
   gem 'capistrano-rails'
   gem 'capistrano3-unicorn'
-  gem 'airbrussh', :require => false
+  # gem 'airbrussh', :require => false
 end
 
 group :test do
