@@ -13,6 +13,8 @@ class Patient < ActiveRecord::Base
   belongs_to :doctor
   has_many :journals
 
+  validates :email, uniqueness: true
+
   before_destroy :destroy_avatar
 
   [:avatar].map do |attribute_name|

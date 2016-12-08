@@ -18,12 +18,26 @@ class Doctor::VisitsController < Doctor::BaseController
   end
 
   def create
-    @patient = doctor.patients.find_by(email: patient_params[:email])
+    Rails.logger.debug 'debug'
+    # Rails.logger.debug params['visit']['completed_patient'].inspect
+    Rails.logger.debug 'inspect'
+    Rails.logger.debug params[:visit][:completed_patient].inspect
+    # Rails.logger.debug params.inspect
+    # raise
+    if params[:visit][:completed_patient]
+      @patient = doctor.patients.find(params[:visit][:completed_patient][:id])
+    else
+      @patient = nil
+      # @patient = doctor.patients.find_by(email: patient_params[:email])
+    end
 
     if @patient
       @response[:visit] = current_doctor.create_visit(visit_params, @patient)
     else
+      Rails.logger.debug 'create'
+      Rails.logger.debug Patient.count
       @patient = current_doctor.create_patient(patient_params)
+      Rails.logger.debug Patient.count
 
       if @patient.valid?
         @response[:messages] << t('doctor.messages.patient_succefully_created')
@@ -35,11 +49,13 @@ class Doctor::VisitsController < Doctor::BaseController
       end
     end
 
-    unless @response[:visit].new_record?
-      @response[:messages]<< t('visit.messages.visit_succefully_created')
-      @response[:success] = true
-    else
-      @response[:errors] += @response[:visit].errors.full_messages
+    if @response[:visit]
+      unless @response[:visit].new_record?
+        @response[:messages]<< t('visit.messages.visit_succefully_created')
+        @response[:success] = true
+      else
+        @response[:errors] += @response[:visit].errors.full_messages
+      end
     end
 
     send_response @response

@@ -76,6 +76,8 @@ module Concerns::Resource
   end
 
   def send_json(obj, success)
+    # Rails.logger.debug 'debug'
+    # Rails.logger.debug obj.inspect
     render json: obj, status: success ? 200 : 403
   end
 

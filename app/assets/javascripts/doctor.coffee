@@ -17,6 +17,7 @@
 #= require angular-base64-upload
 #= require angular-mask
 #/##=  doctor/includes/angular-base64-upload
+#= require ui-autocomplete
 
 #= require ./doctor/includes/scripts
 #= require ./doctor/application

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161104152642) do
+ActiveRecord::Schema.define(version: 20161207003040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20161104152642) do
   end
 
   add_index "contacts", ["contact_type"], name: "index_contacts_on_contact_type", using: :btree
+  add_index "contacts", ["contactable_type"], name: "index_contacts_on_contactable_type", using: :btree
   add_index "contacts", ["data_type"], name: "index_contacts_on_data_type", using: :btree
 
   create_table "dicts", force: :cascade do |t|

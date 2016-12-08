@@ -1,4 +1,4 @@
-var app = angular.module('practice.doctor', ['ui.router', 'ngMask', 'ui-notification', 'naif.base64', 'ngResource', 'angularUtils.directives.dirPagination', 'angularMoment', 'ngMask']);
+var app = angular.module('practice.doctor', ['ui.router', 'ngMask', 'ui-notification', 'naif.base64', 'ngResource', 'angularUtils.directives.dirPagination', 'angularMoment', 'ui.autocomplete']);
 
 this.application = app;
 
@@ -9,6 +9,11 @@ var Patients = [
     }, [
       {
 	method: 'GET',
+	isArray: true
+      },
+      {
+	method: 'GET',
+	name: 'autocomplete',
 	isArray: true
       }
     ]);

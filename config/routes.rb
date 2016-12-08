@@ -14,8 +14,9 @@ Rails.application.routes.draw do
   namespace :doctor do
     resource :profile, only: [:show, :update]
     resources :patients do
-      collection do 
+      collection do
         post 'search'
+        get 'autocomplete'
       end
     end
     resources :visits

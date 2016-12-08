@@ -105,6 +105,40 @@ class Doctor::PatientsController < Doctor::BaseController
     # send_response @response
   end
 
+  def autocomplete
+    if params[:full_name]
+      patients = Patient.includes(:contacts).where('full_name LIKE ?', "%#{params[:full_name]}%")
+    elsif params[:email]
+      patients = Patient.includes(:contacts).where('email LIKE ?', "%#{params[:email]}%")
+    elsif params[:phone]
+      contacts = Contact.phone.where(contactable_type: 'Patient').includes(:contactable).where('data LIKE ?', "%#{params[:phone]}%")
+    else
+      patients = []
+    end
+
+    if params[:phone]
+      patients = contacts.map do |contact|
+        {
+          id: contact.contactable.id,
+          full_name: contact.contactable.full_name,
+          email: contact.contactable.email,
+          phone: contact.data
+        }
+      end
+    else
+      patients = patients.map do |patient|
+        {
+          id: patient.id,
+          full_name: patient.full_name,
+          email: patient.email,
+          phone: patient.contacts.phone.first.try(:data)
+        }
+      end
+    end
+
+    send_json patients, true
+  end
+
   def resource_scope
     current_doctor.patients
   end

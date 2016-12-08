@@ -207,7 +207,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     if ($valid) {
       var request = {
         visit_data: $scope.new_visit,
-        patient_data: $scope.new_patient
+        patient_data: $scope.new_patient,
+        completed_patient: $scope.completed_patient
       };
       Visits.create({visit: request}).$promise.then(function(result){
         var last_id = $scope.event_id - 1;
@@ -707,6 +708,106 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   $scope.initReceptionForm();
+
+  $scope.myOption2 = function(model) {
+    return {
+    options: {
+      // html: true,
+      // focusOpen: true,
+      // onlySelectValid: true,
+      position: {
+        collision: 'none'
+      },
+      source: function (request, response) {
+        // element = myOption.element?
+        var search = {};
+        search[model] = request.term;
+        return Patients.autocomplete(search).$promise.then(function(patients) {
+          $scope.completions = patients;
+          // console.log(patients);
+          // console.log(_.map(patients, 'full_name'));
+          response(_.map(patients, function(e) {
+            return e[model];
+            // return {label: e.full_name, value: e};
+          }));
+        });
+      },
+      select: function (event, ui) {
+        console.log('select');
+        console.log(event);
+        console.log(ui);
+        console.log('set');
+        event.preventDefault()
+        // return false;
+        $scope.completed_patient = _.find($scope.completions, function(e) {
+          return e[model] == ui.item.value;
+        });
+        $scope.updateCompletedPatient();
+      }
+    },
+    methods: {}
+    }
+  };
+
+  // $scope.myOption = {
+  //   options: {
+  //     // html: true,
+  //     // focusOpen: true,
+  //     // onlySelectValid: true,
+  //     position: {
+  //       collision: 'none'
+  //     },
+  //     source: function (request, response) {
+  //       // element = myOption.element?
+  //       return Patients.autocomplete({full_name: request.term}).$promise.then(function(patients) {
+  //         $scope.completions = patients;
+  //         // console.log(patients);
+  //         // console.log(_.map(patients, 'full_name'));
+  //         response(_.map(patients, function(e) {
+  //           return e.full_name;
+  //           // return {label: e.full_name, value: e};
+  //         }));
+  //       });
+  //     },
+  //     select: function (a, b) {
+  //       console.log('set');
+  //       console.log('set1');
+  //       console.log('select');
+  //       console.log('select1');
+  //       console.log('set');
+  //       console.log(a);
+  //       console.log(b);
+  //       console.log('set');
+  //       $scope.completed_patient = _.find($scope.completions, function(e) {
+  //         return e.full_name == b.item.value;
+  //       });
+  //       $scope.updateCompletedPatient();
+  //     }
+  //   },
+  //   methods: {}
+  // };
+
+  $scope.updateCompletedPatient = function() {
+    console.log('update');
+    console.log($scope.completed_patient.id);
+    $scope.new_patient.full_name = $scope.completed_patient.full_name;
+    $scope.new_patient.phone = $scope.completed_patient.phone;
+    $scope.new_patient.email = $scope.completed_patient.email;
+    // $('#add_patient_form full_name') = completed_patient.full_name;
+    // $('#email') = completed_patient.email;
+    // $('#phone') = completed_patient.email;
+  }
+
+  // $scope.$watchGroup(['new_patient.full_name', 'new_patient.phone', 'new_patient.email'], function() {
+  //   console.log('reset');
+  //   $scope.completed_patient = null;
+  // });
+
+  $scope.removeCompletedPatient = function() {
+    console.log('reset');
+    console.log($('#new_patient_name').val());
+    $scope.completed_patient = null;
+  }
 }
 
 angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Visit', 'Patients', 'Settings', 'ValueList', ScheduleController]);
