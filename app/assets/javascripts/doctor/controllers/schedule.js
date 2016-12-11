@@ -197,8 +197,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   });
 
   function set_event(event) {
-    console.log('set_event');
-    console.log(event);
+    // console.log('set_event');
+    // console.log(event);
     $scope.event = event;
     $scope.patient = event.patient;
   }
@@ -804,10 +804,50 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   // });
 
   $scope.removeCompletedPatient = function() {
-    console.log('reset');
-    console.log($('#new_patient_name').val());
+    // console.log('reset');
+    // console.log($('#new_patient_name').val());
     $scope.completed_patient = null;
   }
+
+  // var node_modified = function(evt) {
+  //   if(evt.attrName == 'value') {
+  //     console.log('Value is changing from ' + evt.prevValue + ' to ' + evt.newValue);
+  //   }
+  // }
+  // var test_close = document.getElementById('new_patient_name');
+  // test_close.addEventListener('DOMAttrModified', node_modified, false);
+
+  // var node = document.getElementById("new_patient_name");
+  // Object.defineProperty(node, 'value', {
+  //   set: function() {
+  //     console.log('wtf');
+  //     throw new Error('button value modified');
+  //   }
+  // });
+
+  // // select the target node
+  // var target = document.querySelector('#new_patient_name');
+
+  // // create an observer instance
+  // var observer = new MutationObserver(function(mutations) {
+  //   mutations.forEach(function(mutation) {
+  //     // console.log(mutation.type);
+  //     console.log(mutation);
+  //   });
+  // });
+
+  // // configuration of the observer:
+  // var config = { attributes: true, childList: true, characterData: true }
+
+  // // pass in the target node, as well as the observer options
+  // observer.observe(target, config);
+
+  // // later, you can stop observing
+  // // observer.disconnect();
+
+  // setInterval(function(){
+  //   console.log($('#new_patient_name').val());
+  // }, 1000);
 }
 
 angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Visit', 'Patients', 'Settings', 'ValueList', ScheduleController]);
