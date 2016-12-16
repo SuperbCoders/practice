@@ -62,3 +62,4 @@ npm-debug.log
 *~
 /.git-commit-index
 /public/assets
+/node_modules

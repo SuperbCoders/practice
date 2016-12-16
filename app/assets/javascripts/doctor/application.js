@@ -159,7 +159,8 @@ app.config([
 		}
 	      ]);
 	    }
-	  ]
+	  ],
+        Patients: Patients
 	}
       })
       .state('journal.edit', {
