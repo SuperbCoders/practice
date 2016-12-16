@@ -1,0 +1,81 @@
+.main_content
+  .section_inner
+    .patient_board
+      .patient_block
+        .patient_card
+          .patient_status_w.chosen_v2.no_search.skipOpen
+            %select.chosen-select
+              %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
+              %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
+              %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
+              %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
+          / +patient_menu()
+          .patient_avatar_holder
+            %a.patient_avatar{:href => "#"}
+              %img{:src => "i/user_2.png"}/
+            .patient_info
+              .patient_name
+                %a.gl_link.gray_link{:href => "#"}
+                  %span{"ng-bind" => "vm.patient.full_name"}
+              .patient_city Москва
+          .patient_preview
+            %p{"ng-bind" => "vm.patient.comment"}
+          .patient_info_table
+            .other_info_cell
+              %p{"ng-bind" => "vm.patient.phone"}
+              %p{"ng-bind" => "vm.patient.email"}
+          .patient_card_controls.skipOpen
+            .patient_info_table
+              .controls_cell
+                %a.btn_v2.patient_btn.green_btn{:href => "#"}
+                  %span.mb Записать на прием
+          %ul.patient_overview_list
+            %li.patient_overview_line
+              .overview_caption_v2 Портрет
+              %dl.overview_info
+                %dt Рост:
+                %dd{"ng-bind" => "vm.patient.height"}
+                %dt Вес
+                %dd{"ng-bind" => "vm.patient.weight"}
+                %dt Возраст
+                %dd{"ng-bind" => "vm.patient.age"}
+            %li.patient_overview_line
+              .overview_caption_v2 Особенности
+              %p{"ng-bind" => "vm.patient.habits"}
+              %p{"ng-bind" => "vm.patient.diseases"}
+            %li.patient_overview_line
+              .overview_caption_v2 Дополнительно
+              %p
+                Договор №
+                %span{"ng-bind" => "vm.patient.contract_id"}
+      .patient_appointments
+        .caption_v2 Записи
+        %ul.appointments_list
+          %li{"ng-repeat" => "journal in vm.journals"}
+            .appointment_block
+              .appointment_menu
+                .appointment_menu_btn
+                %ul.appointment_menu_list
+                  %li Редактировать
+                  %li Напечатать
+                  %li Отправить по почте
+                  %li Скачать TXT файл
+              .patient_note_date{"ng-bind" => "journal.date"}
+              %div{"ng-repeat" => "record in journal.journal_records"}
+                .appointment_caption
+                  %a.gl_link{:href => "#", "ng-bind" => "record.tag"}
+                %p{"ng-bind" => "record.body"}
+              %ul.appointment_media_list
+                %li
+                  .appointment_media.media_pdf
+                    .media_name Analyz-krovi.pdf
+                    %a.btn_v7.download_btn.white__btn_2{:href => "#"} Скачать
+                %li
+                  .appointment_media
+                    .appointment_img
+                      %img{:src => "i/appointment_media.png"}/
+                %li
+                  .appointment_media.media_mp3
+                    .media_name Analyz-krovi.pdf
+                    %a.btn_v7.download_btn.white__btn_2{:href => "#"} Скачать
+        %a.btn_v3.new_appointment_btn.yellow_black_btn.icon-plus.openAppointmentForm_{:href => "#"}
