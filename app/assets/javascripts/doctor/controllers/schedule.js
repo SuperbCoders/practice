@@ -593,7 +593,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       autoOpen: false,
       modal: true,
       width: 240,
-      dialogClass: "no_close_mod "
+      dialogClass: "no_close_mod change_reception_form_dialog"
     });
   }
 

@@ -5901,10 +5901,11 @@ $rectWidth: 1200px;
   z-index: 999;
 }
 .ui-dialog {
-  z-index: 9999 !important;
+  z-index: 9 !important;
 }
+.ui-dialog.change_reception_form_dialog,
 .ui-autocomplete {
-  z-index: 10000 !important;
+  z-index: 10 !important;
 }
 .ui-autocomplete {
   position: absolute;
