@@ -57,10 +57,18 @@
   //	background: #fff;
   background: transparentize(#fff, .99);
 
+  .overlay_v2 &,
   .overlay_v1 & {
-    background: transparentize(#383838, .25);
+    background: transparentize(#000, .15);
   }
 
+  .overlay_v3 & {
+    background: #fff;
+  }
+
+  .overlay_v4 & {
+    background: #000;
+  }
 }
 
 .ui-helper-clearfix {
@@ -76,7 +84,76 @@
 
 .ui-dialog-titlebar-close {
   .dialog_close_butt_mod_1 & {
-    // виды крестиков закрытия
+    @extend .icon-before;
+    @extend .icon-close;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    background: none;
+
+    &:before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-size: 20px;
+      line-height: 28px;
+      color: rgba(0, 0, 0, .5);
+    }
+  }
+
+  .dialog_close_butt_mod_3 & {
+    @extend .icon-before;
+    @extend .icon-close;
+    cursor: pointer;
+    position: absolute;
+    top: 37px;
+    right: 30px;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    background: none;
+
+    &:before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-size: 23px;
+      line-height: 28px;
+      color: #fff;
+    }
+  }
+
+  .dialog_close_butt_mod_2 & {
+    @extend .icon-before;
+    @extend .icon-close;
+    cursor: pointer;
+    position: absolute;
+    top: -22px;
+    right: -120px;
+    width: 57px;
+    height: 57px;
+    border-radius: 100%;
+    background: #fff;
+    border: 1px solid #3e4045;
+
+    &:before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-size: 24px;
+      line-height: 55px;
+      color: #3e4045;
+    }
   }
 
   .no_close_mod & {
@@ -94,6 +171,59 @@
     background: #fff;
     height: 28px;
     border-radius: 10px 10px 0 0;
+  }
+
+  .dialog_v2 & {
+    cursor: move;
+    height: 45px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .dialog_v3 & {
+    height: 60px;
+  }
+
+  .dialog_v4 & {
+    cursor: move;
+    height: 58px;
+    padding: 20px 40px 0;
+    border-radius: 10px 10px 0 0;
+    font: 20px/1 $HelveticaNeueBold;
+    color: #3b3e40;
+    background: #f6f6f6;
+  }
+
+  .dialog_v5 & {
+    background: #2c61ff;
+    padding: 20px 0 0;
+    position: relative;
+    z-index: 1;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .dialog_green & {
+    background: #adffcb;
+  }
+
+  .dialog_green_2 & {
+    background: #2fce4f;
+  }
+
+  .msg_form_2 & {
+    height: 45px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .dialog_yellow & {
+    background: #ffe977;
+  }
+
+  .dialog_blue & {
+    background: #448eff;
+    background: -moz-linear-gradient(top, #448eff 0%, #4585ff 100%);
+    background: -webkit-linear-gradient(top, #448eff 0%, #4585ff 100%);
+    background: linear-gradient(to bottom, #448eff 0%, #4585ff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#448eff', endColorstr='#4585ff', GradientType=0);
   }
 
   .form_success & {
@@ -135,4 +265,3 @@
 }
 
 //---------------------------------------------------------------------ui-dialog
-

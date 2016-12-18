@@ -1,4 +1,4 @@
-function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings, ValueList) {
+function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings, ValueList, Doctor) {
   $scope.items_limit = 100;
   $scope.filters = {};
   $scope.win = $(window);
@@ -85,6 +85,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     viewRender: view_render,
     events: visits_by_date
   };
+
+  Doctor.get().$promise.then(function(response) {
+    $scope.doctor = response;
+    if (!$scope.doctor.start_screen_shown) {
+      init_first_run_patients();
+    }
+  });
 
   function pad(n) {
     return (n < 10) ? ("0" + n) : n;
@@ -372,8 +379,60 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     // $($scope.add_patient_form).find('.newPatientBtn span').text('Записать на ' + date_format(date) + ', в ' + date.format('HH:mm'));
   }
 
+  // function scroll_calendar(){
+  //   setTimeout(function(){ // Timeout
+  //     $(".fc-today").attr("id","scrollTo"); // Set an ID for the current day..
+  //     $("html, body").animate({
+  //       scrollTop: $("#scrollTo").offset().top // Scroll to this ID
+  //     }, 2000);
+  //   }, 0);
+  //   // }, 500);
+  // }
+
+  function calendar_centerX(){
+    var $this = $('.fc-time-grid');
+    var offset = $this.offset();
+    var width = $this.width();
+
+    var centerX = offset.left + width / 2;
+
+    return centerX;
+  }
+
+  function calendar_centerY(){
+    var $this = $('.fc-view-container');
+    // var $this = $('.fc-time-grid');
+    var offset = $this.offset();
+    var height = $this.height();
+
+    var centerY = offset.top + height / 2;
+
+    return centerY;
+  }
+
+  function calendar_center_click(){
+    var e;
+    e = new jQuery.Event( "mousedown", { which: 1 } );
+    e.pageX = calendar_centerX();
+    e.pageY = calendar_centerY();
+    $('.fc-time-grid').trigger(e);
+    e = new jQuery.Event( "mouseup", { which: 1 } );
+    e.pageX = calendar_centerX();
+    e.pageY = calendar_centerY();
+    $('.fc-time-grid').trigger(e);
+  }
+
+  $scope.first_run_patients_new_event = function() {
+    $('#first_run_patients').dialog('close');
+    calendar_center_click();
+    // scroll_calendar();
+    // day_click(moment(), e);
+  }
+
   function day_click(date, jsEvent, view) {
-    // console.log(date);
+    console.log('day click');
+    console.log(date);
+    console.log(jsEvent);
     $scope.clicks++;
     return setTimeout(function() {
       var newEventDate;
@@ -809,6 +868,26 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     $scope.completed_patient = null;
   }
 
+  function init_first_run_patients(){
+    $('#first_run_patients').dialog({
+      autoOpen: true,
+      modal: true,
+      width: 325,
+      closeText: '',
+      appendTo: '.wrapper',
+      dialogClass: "dialog_v2 dialog_close_butt_mod_1 dialog_green",
+      open: function (event, ui) {
+        body_var.addClass('overlay_v2');
+      },
+      close: function (event, ui) {
+        console.log('dialog close');
+        body_var.removeClass('overlay_v2');
+        $scope.doctor.start_screen_shown = true;
+        Doctor.save({doctor: $scope.doctor});
+      }
+    });
+  }
+
   // var node_modified = function(evt) {
   //   if(evt.attrName == 'value') {
   //     console.log('Value is changing from ' + evt.prevValue + ' to ' + evt.newValue);
@@ -850,4 +929,4 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   // }, 1000);
 }
 
-angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Visit', 'Patients', 'Settings', 'ValueList', ScheduleController]);
+angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Visit', 'Patients', 'Settings', 'ValueList', 'Doctor', ScheduleController]);

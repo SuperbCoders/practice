@@ -161,7 +161,8 @@ class Doctor::ProfilesController < Doctor::BaseController
         :about,
         :vk_id,
         :fb_id,
-        :twitter_id]
+        :twitter_id,
+        :start_screen_shown]
   end
 
   private

@@ -1,0 +1,10 @@
+#first_run_patients.popup_form.popup_v4{:style => "display:none"}
+  .first_run_tips
+    %h3.first_run_caption
+      Здесь находятся карты ваших пациентов
+    %p
+      Пока у вас не заведено ни одной карты, чтобы создать нового нажмите на кнопку ниже
+    .first_run_controls
+      -# %a.first_run_btn.white_blue_btn.btn_v6{:href => "#", onclick: "$('td.fc-today div').trigger('click')"}
+      %a.first_run_btn.white_blue_btn.btn_v6{:href => "#", 'ng-click' => "first_run_patients_new_event()"}
+        Создать запись

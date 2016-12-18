@@ -232,6 +232,7 @@ app.config([
 	templateUrl: '/templates/doctor/schedule/index.html',
 	controller: 'ScheduleController',
 	resolve: {
+	  Doctor: Doctor,
 	  Patients: Patients,
 	  Visits: [
 	    'Resources', function(Resources) {
