@@ -11,6 +11,7 @@
 #= require angular-ui-router
 #= require angular-resource
 #= require angular-mask
+#= require angular-ui-mask
 #= require angular-utils-pagination
 #= require angular-ui-notification
 #= require angular-moment
