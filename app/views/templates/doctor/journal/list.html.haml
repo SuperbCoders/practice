@@ -56,7 +56,7 @@
               .appointment_menu
                 .appointment_menu_btn
                 %ul.appointment_menu_list
-                  %li Редактировать
+                  %li{"ui-sref" => "journal.edit({journal_id: journal.id})"} Редактировать
                   %li Напечатать
                   %li Отправить по почте
                   %li Скачать TXT файл
@@ -65,7 +65,7 @@
                 .appointment_caption
                   %a.gl_link{:href => "#", "ng-bind" => "record.tag"}
                 %p{"ng-bind" => "record.body"}
-              %ul.appointment_media_list
+              %ul.appointment_media_list{"ng-show" => "record.attachments"}
                 %li
                   .appointment_media.media_pdf
                     .media_name Analyz-krovi.pdf
@@ -78,4 +78,4 @@
                   .appointment_media.media_mp3
                     .media_name Analyz-krovi.pdf
                     %a.btn_v7.download_btn.white__btn_2{:href => "#"} Скачать
-        %a.btn_v3.new_appointment_btn.yellow_black_btn.icon-plus.openAppointmentForm_{:href => "#"}
+        %a.btn_v3.new_appointment_btn.yellow_black_btn.icon-plus.openAppointmentForm_{:href => "#", :ui_sref => "journal.create({patient_id: vm.patient_id})"}

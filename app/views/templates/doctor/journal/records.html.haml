@@ -1,0 +1,37 @@
+.main_content
+  .section_inner
+    .new_appointment_w
+      %a.appointment_back_btn{:href => "#", :ui_sref => "journal.records({patient_id: vm.patient_id})"}
+      .new_appointment_block{"ng-repeat" => "record in vm.journal.journal_records"}
+        .input_w
+          %input.form_input.input_v10{"ng-model" => "record.tag", :autocomplete => "off", :placeholder => "Новая запись", "required" => "1"}/
+        .input_w
+          %textarea.form_input.input_v11.autoSize{"ng-model" => "record.body", :placeholder => "Текст записи",  "required" => "1"}
+      .appointment_controls
+        .row{"ng-show" => "$state.includes('journal.edit')"}
+          .appointment_menu_holder
+            .btn_v9.add_subrecord_btn.black_yellow_btn
+              %span.icon-plus.icon
+              %span Еще подзапись
+            .subrecord_menu.open_top
+              %ul.appointment_menu_list
+                %li.addSubRecordBlock Первичный прием
+                %li.addSubRecordBlock Предварительный анализ
+                %li.addSubRecordBlock Назначение
+                %li.addSubRecordBlock Результаты
+                %li.manageSubRecordPopup Создать новую
+        .row
+          .new_appointment_files
+            .appointment_file
+              %label.form_label
+                %input.hidden_input{:autocomplete => "off", :type => "file"}/
+                %span Добавьте
+              %span файлы, если это необходимо
+    .profile_tab_controls
+      .section_inner
+        .new_appointment_controls
+          .fl
+            .mb
+              %a.btn_v8.add_record_btn.yellow_black_btn.addAppointment{:href => "", "ng-click" => "vm.addRecord()"}
+                Добавить
+                запись в карту
