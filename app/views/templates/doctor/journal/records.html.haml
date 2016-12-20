@@ -15,10 +15,7 @@
               %span Еще подзапись
             .subrecord_menu.open_top
               %ul.appointment_menu_list
-                %li.addSubRecordBlock Первичный прием
-                %li.addSubRecordBlock Предварительный анализ
-                %li.addSubRecordBlock Назначение
-                %li.addSubRecordBlock Результаты
+                %li.addSubRecordBlock{"ng-repeat" => "dict in vm.dicts", "ng-bind" => "dict.dict_value"}
                 %li.manageSubRecordPopup Создать новую
         .row
           .new_appointment_files

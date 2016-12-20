@@ -13,6 +13,9 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
             body: ''
         }]
     };
+    vm.dicts = [];
+
+    fetchDicts();
 
     if (vm.patient_id) {
         fetchPatientInfo();
@@ -32,6 +35,9 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
     function fetchPatientJournals() {
         vm.Journals.query({patient_id: vm.patient_id}).$promise.then(function (journals) {
             vm.journals = journals;
+            _.forEach(vm.journals,  function (journal) {
+                journal.date = moment(journal.created_at).format('lll');
+            });
         });
     }
 
@@ -40,6 +46,12 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
             vm.journal = journal;
             vm.patient_id = journal.patient.id;
         });
+    }
+
+    function fetchDicts() {
+        vm.Dicts.get().$promise.then(function (response) {
+            vm.dicts = _.filter(response.dicts, ['dict_type', 'journal_tag'])
+        })
     }
 
     function addRecord() {

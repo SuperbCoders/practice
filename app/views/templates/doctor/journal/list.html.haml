@@ -63,7 +63,7 @@
               .patient_note_date{"ng-bind" => "journal.date"}
               %div{"ng-repeat" => "record in journal.journal_records"}
                 .appointment_caption
-                  %a.gl_link{:href => "#", "ng-bind" => "record.tag"}
+                  %a.gl_link{:href => "", "ng-bind" => "record.tag", "ui-sref" => "journal.edit({journal_id: journal.id})"}
                 %p{"ng-bind" => "record.body"}
               %ul.appointment_media_list{"ng-show" => "record.attachments"}
                 %li
