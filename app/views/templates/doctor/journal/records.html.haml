@@ -15,7 +15,7 @@
               %span Еще подзапись
             .subrecord_menu.open_top
               %ul.appointment_menu_list
-                %li.addSubRecordBlock{"ng-repeat" => "dict in vm.dicts", "ng-bind" => "dict.dict_value"}
+                %li.addSubRecordBlock{"ng-repeat" => "dict in vm.dicts", "ng-bind" => "dict.dict_value", "ng-click" => "vm.addEmptyRecord($event)"}
                 %li.manageSubRecordPopup Создать новую
         .row
           .new_appointment_files
@@ -32,3 +32,7 @@
               %a.btn_v8.add_record_btn.yellow_black_btn.addAppointment{:href => "", "ng-click" => "vm.addRecord()"}
                 Добавить
                 запись в карту
+#add_subrecord_popup.add_subrecord_popup{:style => "display:none"}
+  .input_w.add_subrecord
+    %input#new_saubrecord_item.form_input.input_v12.checkEmpty{:autocomplete => "off", :placeholder => "Название подзаписи"}/
+    %button.icon-checkmark.btn_apply_subrecord.applySubRecord

@@ -7,6 +7,7 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
     vm.patient_id = $stateParams.patient_id;
     vm.journal_id = $stateParams.journal_id;
     vm.addRecord = addRecord;
+    vm.addEmptyRecord = addEmptyRecord;
     vm.journal = {
         journal_records: [{
             tag: '',
@@ -59,11 +60,14 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
             createJournal();
             return
         }
+        vm.journal.$save();
     }
 
-    function addEmptyRecord() {
+    function addEmptyRecord(e = null) {
+        var tag = '';
+        if (e) tag = e.currentTarget.innerText;
         vm.journal.journal_records.push({
-            tag: '',
+            tag: tag,
             body: ''
         });
     }
@@ -77,6 +81,14 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
                 $state.go('journal.edit', {journal_id: journal.id})
             }
         })
+    }
+
+    function createDict(dict_value) {
+        vm.Dicts.create({dict_type: 'journal_tag', dict_value: dict_value})
+            .$promise
+            .then(function (response) {
+                fetchDicts();
+            })
     }
 
     $('.chosen-select').chosen({
@@ -106,9 +118,48 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
             });
         }
     });
+
+    var addSubRecordPopup = $('#add_subrecord_popup').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 700,
+        closeText: '',
+        appendTo: '.wrapper',
+        dialogClass: "dialog_v5 add_subrecord_item always_open dialog_close_butt_mod_3",
+        open: function (event, ui) {
+            body_var.addClass('overlay_v4');
+        },
+        close: function (event, ui) {
+            body_var.removeClass('overlay_v4');
+        }
+    });
+
+    $('li.manageSubRecordPopup').on ('click', function () {
+        addSubRecordPopup.dialog('open');
+        return false;
+    });
+
+    $('.checkEmpty').on('keyup blur', function (e) {
+        var firedEl = $(this);
+
+        if (firedEl.val().length) {
+            firedEl.addClass('not_empty');
+        } else {
+            firedEl.removeClass('not_empty');
+        }
+
+    });
+
+    $('.applySubRecord').on ('click', function () {
+        var sabRecordItem = $('#new_saubrecord_item');
+        createDict(sabRecordItem.val());
+        addSubRecordPopup.dialog('close');
+        sabRecordItem.val('').removeClass('not_empty');
+        return false;
+    });
 }
 
+JournalController.$inject = ['$stateParams','$scope', '$state', 'Journals', 'Alerts', 'Dicts', 'Patients'];
 angular
     .module('practice.doctor')
-    .controller('JournalController',
-        ['$stateParams','$scope', '$state', 'Journals', 'Alerts', 'Dicts', 'Patients', JournalController]);
+    .controller('JournalController', JournalController);
