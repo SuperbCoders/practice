@@ -257,14 +257,18 @@ app.config([
 ]);
 
 app.directive('resize', ['$window', function($window) {
+  console.log('resize');
   return {
     link: function(scope) {
+      console.log('resize2');
       function onResize(e) {
+        console.log('resize3');
         // Namespacing events with name of directive + event to avoid collisions
         scope.$broadcast('resize::resize');
       }
 
       function cleanUp() {
+        console.log('resize4');
         angular.element($window).off('resize', onResize);
       }
 
@@ -284,6 +288,28 @@ app.directive('fixTabHeader', function() {
     }
   }
 });
+
+app.directive('resizeFullCalendar', function() {
+  return {
+    link: function(scope, element) {
+      console.log('resize-full-calendar');
+      scope.$on('resize::resize', function() {
+        console.log('resize-full-calendar2');
+        clearTimeout(scope.calTimer);
+
+        scope.calTimer = setTimeout(function () {
+          $('#calendar').fullCalendar('option', 'height', getCalendarHeight());
+        }, 3);
+      });
+    }
+  }
+});
+
+function getCalendarHeight() {
+    calHeight = Math.max(500, ($(window).height() + ($(window).width() > 1200 ? 40 : -50) - $('.wrapper').css('paddingTop').replace('px', '') * 1));
+
+    return calHeight;
+}
 
 app.directive('chosenSelectLoadedDoctor', ['$timeout', function ($timeout) {
   return {
