@@ -157,6 +157,16 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
         sabRecordItem.val('').removeClass('not_empty');
         return false;
     });
+
+    var doc_body = $('body');
+    doc_body.addClass('body_gray');
+    doc_body.removeClass('sub_header_mod');
+
+    $scope.$on('$destroy', function () {
+        var doc_body = $('body');
+        doc_body.removeClass('body_gray');
+        doc_body.addClass('sub_header_mod');
+    })
 }
 
 JournalController.$inject = ['$stateParams','$scope', '$state', 'Journals', 'Alerts', 'Dicts', 'Patients'];
