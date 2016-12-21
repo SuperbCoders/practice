@@ -37,7 +37,7 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
         vm.Journals.query({patient_id: vm.patient_id}).$promise.then(function (journals) {
             vm.journals = journals;
             _.forEach(vm.journals,  function (journal) {
-                journal.date = moment(journal.created_at).format('lll');
+                journal.date = moment(journal.created_at).format('LL');
             });
         });
     }
