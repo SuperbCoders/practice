@@ -204,6 +204,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   });
 
   function set_event(event) {
+    // console.log('set event');
+    // console.log(event);
     // console.log('set_event');
     // console.log(event);
     $scope.event = event;
@@ -320,6 +322,9 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   };
 
   function visits_by_date(start, end, timezone, callback) {
+    // console.log('visits_by_date');
+    // console.log(start);
+    // console.log(end);
     end.add('14', 'days');
     var paket = {
       start: start.format(),
@@ -340,8 +345,14 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         event.orig_event = events[i];
         event.patient = events[i].patient;
         $scope.event_id++;
-        console.log('query');
-        set_event(event);
+        // console.log('query');
+        // console.log('set event in query');
+        // console.log(event.start);
+        // console.log($('#calendar').fullCalendar('getView').intervalEnd);
+        if (event.start < $('#calendar').fullCalendar('getView').intervalEnd) {
+          // console.log('query set event');
+          set_event(event);
+        }
         date_events.push(event);
       }
       $scope.events_count = events.length;
