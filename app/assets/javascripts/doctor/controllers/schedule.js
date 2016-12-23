@@ -498,6 +498,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
               }).find('.form_corner').css({
                 top: Math.min(Math.max(cornerY, -20), dialog_form.height() - 55) + 'px'
               });
+            },
+            open: function() {
+              console.log('wtf');
+              setTimeout(function() {
+                console.log('wtf2');
+                $('#new_patient_name').focus();
+              }, 420); // After 420 ms
             }
           }).dialog('open');
           $('#shedule_stand_time').val(stDuration);
@@ -898,6 +905,33 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       }
     });
   }
+
+  $scope.deletePatient = function(patient) {
+    if (confirm('Удалить пациента?')) {
+      Patients.remove(patient).$promise.then(function(response) {
+        $('#calendar').fullCalendar('refetchEvents');
+        $scope.event = null;
+      });
+    }
+  };
+
+  $scope.unarchivate = function(patient) {
+    patient.in_archive = false;
+    Patients.save(patient);
+    $('#calendar').fullCalendar('refetchEvents');
+    // $scope.event = null;
+  };
+
+  $scope.archivate = function(patient) {
+    if (confirm('Отправить в архив?')) {
+      patient.in_archive = true;
+      console.log('about save');
+      Patients.save(patient);
+      // patient.$save();
+      $('#calendar').fullCalendar('refetchEvents');
+      // $scope.event = null;
+    }
+  };
 
   // var node_modified = function(evt) {
   //   if(evt.attrName == 'value') {

@@ -61,15 +61,19 @@ function PatientsController($scope, $window, Patients) {
   };
 
   $scope.archivate = function(patient) {
-    patient.in_archive = true;
-    patient.$save();
-    return $scope.fetch();
+    if (confirm('Отправить в архив?')) {
+      patient.in_archive = true;
+      patient.$save();
+      return $scope.fetch();
+    }
   };
 
   $scope.deletePatient = function(patient) {
-    return Patients.remove(patient).$promise.then(function(response) {
-      return $scope.patients = _.without($scope.patients, patient);
-    });
+    if (confirm('Удалить пациента?')) {
+      return Patients.remove(patient).$promise.then(function(response) {
+        return $scope.patients = _.without($scope.patients, patient);
+      });
+    }
   };
 
   $scope.all_users = function() {
