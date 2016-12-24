@@ -65,10 +65,6 @@
         };
 
         SelectParser.prototype.add_option = function (option, group_position, group_disabled) {
-            // console.log('add_option ' + option.selected);
-            // console.log('add_option ');
-            // console.log(option);
-            // console.log(this.options_index);
             if (option.nodeName.toUpperCase() === "OPTION") {
                 if (option.text !== "") {
                     if (group_position != null) {

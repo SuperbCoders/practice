@@ -257,18 +257,14 @@ app.config([
 ]);
 
 app.directive('resize', ['$window', function($window) {
-  console.log('resize');
   return {
     link: function(scope) {
-      console.log('resize2');
       function onResize(e) {
-        console.log('resize3');
         // Namespacing events with name of directive + event to avoid collisions
         scope.$broadcast('resize::resize');
       }
 
       function cleanUp() {
-        console.log('resize4');
         angular.element($window).off('resize', onResize);
       }
 
@@ -292,11 +288,8 @@ app.directive('fixTabHeader', function() {
 app.directive('resizeFullCalendar', function() {
   return {
     link: function(scope, element) {
-      console.log('resize-full-calendar');
       scope.$on('resize::resize', function() {
-        console.log('resize-full-calendar2');
         clearTimeout(scope.calTimer);
-
         scope.calTimer = setTimeout(function () {
           $('#calendar').fullCalendar('option', 'height', getCalendarHeight());
         }, 3);
@@ -316,14 +309,9 @@ app.directive('chosenSelectLoadedDoctor', ['$timeout', function ($timeout) {
     priority: 100,
     link: function(scope, element) {
       var run = function () {
-        console.log('-- doctor directive');
-        console.log($(element).attr('id'));
-        console.log($(element).find('option').length);
         run_chosen(element);
       }
       scope.$on('dataloaded:doctor', function () {
-        console.log('$on(dataloaded:doctor)');
-
         // Sometime time selects still don't have data. Set it in the
         // end of queue twice because selects binding don't even
         // starting rendering yet. I guess so and seems like it works.

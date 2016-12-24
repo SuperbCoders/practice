@@ -122,6 +122,7 @@ class Doctor::PatientsController < Doctor::BaseController
           id: contact.contactable.id,
           full_name: contact.contactable.full_name,
           email: contact.contactable.email,
+          cart_color: contact.contactable.cart_color,
           phone: contact.data
         }
       end
@@ -131,6 +132,7 @@ class Doctor::PatientsController < Doctor::BaseController
           id: patient.id,
           full_name: patient.full_name,
           email: patient.email,
+          cart_color: patient.cart_color,
           phone: patient.contacts.phone.first.try(:data)
         }
       end

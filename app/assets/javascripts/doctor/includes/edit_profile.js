@@ -230,13 +230,7 @@ function fix_tab_header() {
 // one time bc window is still here
 
 $(window).on('scroll', function () {
-
-    console.log('won 1');
     fix_tab_header();
-
 }).on('resize', function () {
-
-    console.log('won 2');
     fix_tab_header();
-
 });

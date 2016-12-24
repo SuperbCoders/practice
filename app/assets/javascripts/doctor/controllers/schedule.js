@@ -145,7 +145,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       return;
     var colors = {"0": "#3eb6e3", "1": "#30c36d", "2": "#f63f3f", "3": "#f5cd1d"};
     last_event.color = colors[new_value];
-    console.log('test');
     $('#calendar').fullCalendar('updateEvent', last_event);
   });
 
@@ -204,10 +203,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   });
 
   function set_event(event) {
-    // console.log('set event');
-    // console.log(event);
-    // console.log('set_event');
-    // console.log(event);
     $scope.event = event;
     $scope.patient = event.patient;
   }
@@ -251,7 +246,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   $scope.update_cart_color = function () {
     var event = find_event($scope.event.id);
     set_event_color(event, event.patient.cart_color);
-    console.log('test');
+
     $('#calendar').fullCalendar('updateEvent', event);
     Patients.save({id: event.patient.id, cart_color: event.patient.cart_color});
   }
@@ -322,9 +317,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   };
 
   function visits_by_date(start, end, timezone, callback) {
-    // console.log('visits_by_date');
-    // console.log(start);
-    // console.log(end);
     end.add('14', 'days');
     var paket = {
       start: start.format(),
@@ -345,12 +337,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         event.orig_event = events[i];
         event.patient = events[i].patient;
         $scope.event_id++;
-        // console.log('query');
-        // console.log('set event in query');
-        // console.log(event.start);
-        // console.log($('#calendar').fullCalendar('getView').intervalEnd);
         if (event.start < $('#calendar').fullCalendar('getView').intervalEnd) {
-          // console.log('query set event');
           set_event(event);
         }
         date_events.push(event);
@@ -404,9 +391,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     var $this = $('.fc-time-grid');
     var offset = $this.offset();
     var width = $this.width();
-
     var centerX = offset.left + width / 2;
-
     return centerX;
   }
 
@@ -415,9 +400,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     // var $this = $('.fc-time-grid');
     var offset = $this.offset();
     var height = $this.height();
-
     var centerY = offset.top + height / 2;
-
     return centerY;
   }
 
@@ -441,9 +424,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   function day_click(date, jsEvent, view) {
-    console.log('day click');
-    console.log(date);
-    console.log(jsEvent);
     $scope.clicks++;
     return setTimeout(function() {
       var newEventDate;
@@ -462,7 +442,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
             end: moment(date).add(parseInt(stDuration), 'm'),
             saved: false,
           };
-          // console.log(event.start);
+
           event.id = $scope.event_id;
           // set_event(event);
           $scope.event_id++;
@@ -500,9 +480,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
               });
             },
             open: function() {
-              console.log('wtf');
               setTimeout(function() {
-                console.log('wtf2');
                 $('#new_patient_name').focus();
               }, 420); // After 420 ms
             }
@@ -536,9 +514,9 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     dayStart = moment(5, 'HH').minutes(45)._d.toISOString().replace(/00:00:00/g, slats.find('tr:first').attr('data-time'));
     // dayStart = curTime;
     // dayEnd = curTime;
-    // console.log(JSON.stringify(dayStart));
-    // console.log(JSON.stringify(curTime));
-    // console.log(JSON.stringify(dayEnd));
+
+
+
     timeline.toggle(moment(dayStart).isBefore(moment(curTime)) && moment(curTime).isBefore(moment(dayEnd)));
     curTime = moment(curTime);
     curSeconds = (curTime.hours() - 5) * 60 * 60 + (curTime.minutes() - 45) * 60 + curTime.seconds();
@@ -589,20 +567,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
       dayNamesMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
       beforeShow: function (inp, dp) {
-
         // $("#change_reception_time").append($(dp.dpDiv));
         $(inp).parent().addClass('dp_opened');
-
-        // console.log('show');
         // $(dp).datepicker('setDate', new Date(2008,9,03));
-        // console.log(dp);
         // $(dp.dpDiv).datepicker('setDate', new Date(2008,9,03));
-
         $(dp.dpDiv).addClass('change_time_mod');
-
       },
       onClose: function (inp, dp) {
-        // console.log(inp, dp);
         $(dp.input).parent().removeClass('dp_opened');
       }
     });
@@ -626,7 +597,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     var end = $('[name="change_reception_form[end]"]').val();
     // var val = '' + date + ' ' + start +'Z';
     var val = '' + date + ' ' + start;
-    // console.log(val);
     // return moment.utc(val);
     return moment(val);
   }
@@ -635,7 +605,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     var start = $('[name="change_reception_form[start]"]').val();
     var end = $('[name="change_reception_form[end]"]').val();
     var val = moment.duration(moment.duration(end) - moment.duration(start));
-    // console.log(val.asMinutes());
     return val.asMinutes();
   }
 
@@ -656,8 +625,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   function change_reception_time_valid() {
-    // console.log(get_change_reception_time_duration());
-    // console.log(get_change_reception_time_duration() > 0);
     return get_change_reception_time_duration() > 0;
   }
 
@@ -665,33 +632,24 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     if (!change_reception_time_valid()) {
       return;
     }
-
-    // console.log('update');
     var visit = $scope.change_reception_visit;
     visit.start_at = get_change_reception_time_moment();
-    // console.log(visit.start_at);
     visit.duration = get_change_reception_time_duration();
     update_reception_button_text();
     var event, start_at, duration;
     if (is_new_visit(visit)) {
-      console.log('new_visit');
       event = event_by_event_id();
-      console.log(event);
       start_at = event.start_at;
       duration = event.duration;
     } else {
-      console.log('event');
       event = find_event($scope.event.id);
-      console.log(event);
-      // console.log(event.start_at);
-      // console.log(event.duration);
       start_at = moment(visit.start_at);
       duration = visit.duration.toString();
       Visits.save({id: event.real_id, visit: {visit_data: {start_at: visit.start_at, duration: visit.duration}}});
     }
     event.start = moment(visit.start_at);
     event.end = moment(visit.start_at).add(parseInt(visit.duration), 'm');;
-    console.log('test');
+
     $('#calendar').fullCalendar('updateEvent', event);
     $('#change_reception_form').dialog('close');
   }
@@ -699,33 +657,24 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   function initReceptionFields() {
     var visit = $scope.change_reception_visit;
     var start_at, duration;
-    console.log('test fail');
     if (is_new_visit(visit)) {
-      console.log('new_visit');
-      console.log(visit);
       start_at = visit.start_at;
       duration = visit.duration;
     } else {
-      console.log('event1');
-      console.log(visit);
       start_at = moment(visit.start_at);
       duration = visit.duration.toString();
     }
     $('#change_reception_time').val(shortDate(start_at));
     $('#change_reception_time_internal').val(moment(start_at).format('YYYY-MM-DD'));
     var start = start_at.format('HH:mm');
-    // console.log(start);
     $('[name="change_reception_form[start]"] option[value="' + start + '"]').prop('selected', true);
     $('[name="change_reception_form[start]"]').trigger('chosen:updated');
     var end = start_at.add(duration, 'm').format('HH:mm');
-    // console.log(end);
     $('[name="change_reception_form[end]"] option[value="' + end + '"]').prop('selected', true);
     $('[name="change_reception_form[end]"]').trigger('chosen:updated');
   }
 
   $scope.changeReceptionTimeClick = function(event, visit) {
-    console.log('click');
-    console.log(visit);
     $scope.change_reception_visit = visit;
     changeReceptionTimeRun.call(event.currentTarget);
     return false;
@@ -733,10 +682,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
   function changeReceptionTimeRun() {
       initReceptionFields();
-
-    console.log(this);
       var firedEl = $(this), target = firedEl;
-
       $('#change_reception_form').dialog("option", "position", {
         my: "left bottom-25",
         at: 'right center',
@@ -745,36 +691,29 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         // within: firedEl.parent(),
         using: function (obj, info) {
           var dialog_form = $(this), koef = 15;
-
           if (target.offset().top - obj.top < 25) {
             dialog_form.addClass("flipped_top");
             koef = 0;
-
             if (target.hasClass('patient_btn')) {
               koef = 40;
             }
-
           } else {
             dialog_form.removeClass("flipped_top");
           }
-
           dialog_form.css({
             opacity: 0,
             left: (target.offset().left + (target.width() - dialog_form.width()) / 2) + 'px',
             top: (obj.top - target.height() + koef + 20) + 'px'
           });
-
           setTimeout(function () {
             dialog_form.animate({opacity: 1, top: (obj.top - target.height() + koef + 10)}, 200);
           }, 5);
-
         }
       }).dialog('open');
   }
 
   function initChangeReceptionTimeClick() {
     // $('.changeReceptionTime').on('click', function (jsEvent) {
-
       // return false;
     // });
   }
@@ -801,8 +740,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         search[model] = request.term;
         return Patients.autocomplete(search).$promise.then(function(patients) {
           $scope.completions = patients;
-          // console.log(patients);
-          // console.log(_.map(patients, 'full_name'));
+
+
           response(_.map(patients, function(e) {
             return e[model];
             // return {label: e.full_name, value: e};
@@ -810,10 +749,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         });
       },
       select: function (event, ui) {
-        console.log('select');
-        console.log(event);
-        console.log(ui);
-        console.log('set');
         event.preventDefault()
         // return false;
         $scope.completed_patient = _.find($scope.completions, function(e) {
@@ -826,64 +761,22 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     }
   };
 
-  // $scope.myOption = {
-  //   options: {
-  //     // html: true,
-  //     // focusOpen: true,
-  //     // onlySelectValid: true,
-  //     position: {
-  //       collision: 'none'
-  //     },
-  //     source: function (request, response) {
-  //       // element = myOption.element?
-  //       return Patients.autocomplete({full_name: request.term}).$promise.then(function(patients) {
-  //         $scope.completions = patients;
-  //         // console.log(patients);
-  //         // console.log(_.map(patients, 'full_name'));
-  //         response(_.map(patients, function(e) {
-  //           return e.full_name;
-  //           // return {label: e.full_name, value: e};
-  //         }));
-  //       });
-  //     },
-  //     select: function (a, b) {
-  //       console.log('set');
-  //       console.log('set1');
-  //       console.log('select');
-  //       console.log('select1');
-  //       console.log('set');
-  //       console.log(a);
-  //       console.log(b);
-  //       console.log('set');
-  //       $scope.completed_patient = _.find($scope.completions, function(e) {
-  //         return e.full_name == b.item.value;
-  //       });
-  //       $scope.updateCompletedPatient();
-  //     }
-  //   },
-  //   methods: {}
-  // };
-
   $scope.updateCompletedPatient = function() {
-    console.log('update');
-    console.log($scope.completed_patient.id);
     $scope.new_patient.full_name = $scope.completed_patient.full_name;
     $scope.new_patient.phone = $scope.completed_patient.phone;
     $scope.new_patient.email = $scope.completed_patient.email;
-    // $('#add_patient_form full_name') = completed_patient.full_name;
-    // $('#email') = completed_patient.email;
-    // $('#phone') = completed_patient.email;
+    $scope.new_patient.cart_color = $scope.completed_patient.cart_color;
+    $('.newPatientState').prop('disabled', true);
+    $scope.$apply();
+    $('.newPatientState').trigger("chosen:updated");
   }
 
-  // $scope.$watchGroup(['new_patient.full_name', 'new_patient.phone', 'new_patient.email'], function() {
-  //   console.log('reset');
-  //   $scope.completed_patient = null;
-  // });
-
   $scope.removeCompletedPatient = function() {
-    // console.log('reset');
-    // console.log($('#new_patient_name').val());
     $scope.completed_patient = null;
+    // $scope.$apply();
+    // console.log($('.newPatientState').prop('disabled'));
+    $('.newPatientState').prop('disabled', false);
+    $('.newPatientState').trigger("chosen:updated");
   }
 
   function init_first_run_patients(){
@@ -898,7 +791,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         body_var.addClass('overlay_v2');
       },
       close: function (event, ui) {
-        console.log('dialog close');
         body_var.removeClass('overlay_v2');
         $scope.doctor.start_screen_shown = true;
         Doctor.save({doctor: $scope.doctor});
@@ -925,7 +817,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   $scope.archivate = function(patient) {
     if (confirm('Отправить в архив?')) {
       patient.in_archive = true;
-      console.log('about save');
       Patients.save(patient);
       // patient.$save();
       $('#calendar').fullCalendar('refetchEvents');
@@ -935,7 +826,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
   // var node_modified = function(evt) {
   //   if(evt.attrName == 'value') {
-  //     console.log('Value is changing from ' + evt.prevValue + ' to ' + evt.newValue);
+
   //   }
   // }
   // var test_close = document.getElementById('new_patient_name');
@@ -944,7 +835,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   // var node = document.getElementById("new_patient_name");
   // Object.defineProperty(node, 'value', {
   //   set: function() {
-  //     console.log('wtf');
+
   //     throw new Error('button value modified');
   //   }
   // });
@@ -955,8 +846,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   // // create an observer instance
   // var observer = new MutationObserver(function(mutations) {
   //   mutations.forEach(function(mutation) {
-  //     // console.log(mutation.type);
-  //     console.log(mutation);
   //   });
   // });
 
@@ -970,7 +859,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   // // observer.disconnect();
 
   // setInterval(function(){
-  //   console.log($('#new_patient_name').val());
+
   // }, 1000);
 }
 

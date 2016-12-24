@@ -1,6 +1,6 @@
 function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams, Doctor, Settings, ValueList) {
 
-  console.log('DoctorProfileController');
+ 
   $scope.$on('$viewContentLoaded',
                  function(event) {
                    var tab_names = ['profile', 'settings', 'public', 'subscription'];
@@ -54,7 +54,7 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
     if ($scope.doctor.work_schedules.length <= 0) {
       return $scope.new_schedule();
     }
-    console.log('$vroadcast(dataloaded:doctor)');
+
     $rootScope.$broadcast('dataloaded:doctor');
   });
 
@@ -96,16 +96,16 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
 
   $scope.removeDay = function(element, index) {
     var ngModel = element.data('$ngModelController');
-    console.log(ngModel);
-    console.log(index);
+ 
+
 
     index = ngModel.$modelValue.indexOf(index.toString());
-    console.log('calculation');
-    console.log(index);
+
+
     if (index > -1) {
-      console.log('delete');
+
       delete ngModel.$modelValue[index];
-      console.log(ngModel.$modelValue);
+
       ngModel.$setViewValue(ngModel.$modelValue);
     }
   };
@@ -113,9 +113,9 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
 
 function updateDaysRow(slct) {
   var chzn_container, days, i, slct_val;
-  // console.log('updateDaysRow');
+
   slct_val = slct.val();
-  // console.log(slct_val);
+
   chzn_container = slct.next('.chzn-container').find('.chzn-choices');
   days = '';
   if (slct_val) {
@@ -125,16 +125,16 @@ function updateDaysRow(slct) {
       i++;
     }
     days = days.replace(/^,/i, '');
-    // console.log(chzn_container.find('.chzn_rzlts').length);
+
     if (chzn_container.find('.chzn_rzlts').length) {
-      // console.log(days);
+
       chzn_container.find('.chzn_rzlts').text(days);
     } else {
-      // console.log(days);
+
       chzn_container.prepend($('<li class="chzn_rzlts" />').text(days));
-      // console.log(chzn_container);
+
     }
-    // console.log($('.chzn_rzlts').length);
+
   } else {
     chzn_container.find('.chzn_rzlts').remove();
   }
@@ -151,8 +151,8 @@ DoctorProfileController.prototype.fix_tab_header = function() {
 };
 
 // function active_tab() {
-//   console.log('active_tab');
-//   console.log($('.profile_tab_holder .tab_is_active').length);
+
+
 //   if ($('.profile_tab_holder .tab_is_active').length == 0) {
 //     return;
 //   }
@@ -178,8 +178,8 @@ DoctorProfileController.prototype.fix_tab_header = function() {
 // };
 
 function active_tab(tab) {
-  console.log('active_tab');
-  // console.log($('.profile_tab_holder .tab_item').length);
+
+
 
   var tab = $($('.profile_tab_holder .tab_item')[tab]),
       tabs = tab.parents('.tab_list'),
@@ -202,28 +202,28 @@ function active_tab(tab) {
 };
 
 function set_tab($scope) {
-  console.log('tab:');
-  console.log($scope.tab_name);
-  // console.log('scope:');
-  // console.log($scope);
-  // console.log($scope.$state);
+
+
+
+
+
 };
 
 function init_chosen($scope) {
-  console.log('init_chosen');
+
   $scope.$parent.init_chosen();
   if ($('.chosen-select').length) {
-    console.log($('.chosen-select').length);
+
     $('body').delegate('.chosen_multiple_v1 .extra_control', 'click', function(e) {
-      console.log('click');
+
       var chzn_container, firedEl, option_ind;
-      console.log('extra_init_chosen');
+
       firedEl = $(this);
       e.preventDefault();
       chzn_container = firedEl.closest('.chzn-container ');
       option_ind = firedEl.parents('.chzn_item').attr('data-option-array-index') * 1;
 
-      // console.log(angular.element(firedEl[0]).scope());
+
       // angular.element(firedEl.closest('.chzn-container').prev('.chosen-select')[0]).scope()
       // angular.element(document.getElementById('doctor_work_days')).scope()
       angular.element(firedEl[0]).scope()

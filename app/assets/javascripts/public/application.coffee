@@ -93,8 +93,6 @@
     if not el.hasClass(class_name)
       el.addClass(class_name)
     else
-      console.log 'remove class '+class_name+' form '+element_id
       el.removeClass(class_name)
-
     return
 ]

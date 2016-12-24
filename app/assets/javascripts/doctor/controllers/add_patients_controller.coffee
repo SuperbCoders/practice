@@ -108,7 +108,7 @@
 
 #   save: (redirect = false) ->
 #     vm = @
-#     console.log @patient
+
 
 #     vm.Patients.create({patient: vm.patient}).$promise.then((result) ->
 #       if result.success
@@ -120,7 +120,7 @@
 #         vm.state.go('patients.list')
 
 
-#       console.log result
+
 #     , (result) ->
 #       vm.Alerts.errors result.data.errors
 #     )
@@ -148,7 +148,7 @@
 #   gender: (g_type) ->
 #     vm = @
 #     @reset_gender()
-#     console.log "Gender #{g_type}"
+
 #     vm.patient.gender = g_type
 #     $("#patient_gender_#{g_type}").prop('checked', true)
 #     return

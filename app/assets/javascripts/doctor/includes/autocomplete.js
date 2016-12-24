@@ -1,5 +1,4 @@
 'use strict';
-console.log('acomplete2')
 /*global angular, $, setTimeout*/
 
 /*

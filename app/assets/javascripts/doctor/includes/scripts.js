@@ -170,7 +170,6 @@ $(function ($) {
     });
 
     $('.openMenu').on('click', function () {
-        console.log('openMenu');
         html_var.addClass('menu_open');
         return false;
     });
