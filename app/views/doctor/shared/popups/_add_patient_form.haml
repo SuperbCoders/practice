@@ -9,19 +9,16 @@
         %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 12
     .form_row
       .input_w.placeholder_mod
-        %input#new_patient_name.form_input.input_v4.checkEmpty{:type => "text", :value => "", 'ng-model' => "new_patient.full_name", 'ng-required' => "true", 'ui-autocomplete' => "myOption2('full_name')", 'ng-change' => 'removeCompletedPatient()', 'ng-class' => "{'completed': completed_patient}", 'ng-trim' => 'false', 'ng-class' => "{ 'ng-empty' : !new_patient.full_name }"}/
-        -# %input{:type => "text", 'ng-model' => "new_patient.full_name"}/
-        -# %input#new_patient_name.form_input.input_v4.checkEmpty{:type => "text", :value => "", 'ng-model' => "new_patient.full_name", 'ng-required' => "true", 'ng-class' => "{ 'ng-empty' : !new_patient.full_name }"}/
+        %input#new_patient_name.form_input.input_v4.checkEmpty{:type => "text", :value => "", 'ng-model' => "new_patient.full_name", 'ng-required' => "true", 'ui-autocomplete' => "myOption2('full_name')", 'ng-change' => 'removeCompletedPatient()', 'ng-class' => "{ 'completed': completed_patient, 'ng-empty' : !new_patient.full_name }", 'ng-trim' => 'false'}/
         %label.form_label.fz_20_{:for => "new_patient_name"} Имя пациента
     .form_row
       .input_w.placeholder_mod
-        %input#new_patient_phone.form_input.input_v4.checkEmpty{:type => "tel", :value => "", 'ng-model' => "new_patient.phone", 'ng-required' => "true", 'ui-autocomplete' => "myOption2('phone')", 'ng-change' => 'removeCompletedPatient()', 'ng-class' => "{'completed': completed_patient}", 'ng-trim' => 'false', 'ng-class' => "{ 'ng-empty' : !new_patient.phone }", 'ui-mask' => "+7 (999) 999-99-99" }/
-        -# %input#new_patient_phone.form_input.input_v4.checkEmpty{:type => "tel", :value => "", 'ng-model' => "new_patient.phone", 'ng-required' => "true", 'ui-autocomplete' => "myOption2('phone')", 'ng-change' => 'removeCompletedPatient()', 'ng-class' => "{'completed': completed_patient}", 'ng-trim' => 'false', 'ng-class' => "{ 'ng-empty' : !new_patient.phone }"}/
+        %input#new_patient_phone.form_input.input_v4.checkEmpty{:type => "tel", :value => "", 'ng-model' => "new_patient.phone", 'ng-required' => "true", 'ui-autocomplete' => "myOption2('phone')", 'ng-change' => 'removeCompletedPatient()', 'ng-class' => "{ 'completed': completed_patient, 'ng-empty' : !new_patient.phone }", 'ng-trim' => 'false', 'ui-mask' => "+7 (999) 999-99-99" }/
         %label.form_label{:for => "new_patient_phone"} Телефон
     .form_row
       .input_w.placeholder_mod
         -# allow invalid here to make ng empty check work right on invalid value
-        %input#new_patient_email.form_input.input_v4.checkEmpty{:type => "email", :value => "", 'ng-model' => "new_patient.email", 'ng-required' => "true", 'ui-autocomplete' => "myOption2('email')", 'ng-change' => 'removeCompletedPatient()', 'ng-class' => "{'completed': completed_patient}", 'ng-trim' => 'false', 'ng-class' => "{ 'ng-empty' : !new_patient.email }", 'ng-model-options' => "{allowInvalid: true}"}/
+        %input#new_patient_email.form_input.input_v4.checkEmpty{:type => "email", :value => "", 'ng-model' => "new_patient.email", 'ng-required' => "true", 'ui-autocomplete' => "myOption2('email')", 'ng-change' => 'removeCompletedPatient()', 'ng-class' => "{ 'completed': completed_patient, 'ng-empty' : !new_patient.email }", 'ng-trim' => 'false', 'ng-model-options' => "{allowInvalid: true}"}/
         %label.form_label{:for => "new_patient_email"} Email
     .form_row
       .input_w.placeholder_mod
