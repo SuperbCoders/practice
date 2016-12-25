@@ -440,7 +440,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
           event = {
             start: moment(date),
             end: moment(date).add(parseInt(stDuration), 'm'),
-            saved: false,
+            color: "#3eb6e3",
+            saved: false
           };
 
           event.id = $scope.event_id;
