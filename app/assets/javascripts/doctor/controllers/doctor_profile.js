@@ -64,7 +64,7 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
   Settings.getSettings().then(function(response) {
     return $scope.settings = response;
   });
-  init_chosen($scope);
+  // init_chosen($scope);
 
   $scope.addSocial = function(url) {
     window.open(url, "Auth", "height=200,width=200");
