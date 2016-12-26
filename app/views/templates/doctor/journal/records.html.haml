@@ -4,11 +4,11 @@
       %a.appointment_back_btn{:href => "#", :ui_sref => "journal.records({patient_id: vm.patient_id})"}
       .new_appointment_block{"ng-repeat" => "record in vm.journal.journal_records"}
         .input_w
-          %input.form_input.input_v10{"ng-model" => "record.tag", :autocomplete => "off", :placeholder => "Новая запись", "required" => "1"}/
+          %input.form_input.input_v10{"ng-model" => "record.tag", :autocomplete => "off", :placeholder => "Новая запись", "required" => true, "ng-disabled" => "$first && vm.dicts.length > 0"}/
         .input_w
-          %textarea.form_input.input_v11.autoSize{"ng-model" => "record.body", :placeholder => "Текст записи",  "required" => "1"}
+          %textarea.form_input.input_v11.auto_size{"ng-model" => "record.body", :placeholder => "Текст записи",  "required" => true}
       .appointment_controls
-        .row{"ng-show" => "$state.includes('journal.edit')"}
+        .row
           .appointment_menu_holder
             .btn_v9.add_subrecord_btn.black_yellow_btn
               %span.icon-plus.icon

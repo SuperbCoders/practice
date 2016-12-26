@@ -71,7 +71,7 @@ class Doctor::JournalsController < Doctor::BaseController
   end
 
   def resource_scope
-    doctor.journals
+    doctor.journals.order(created_at: :desc)
   end
 
   def resource_serializer

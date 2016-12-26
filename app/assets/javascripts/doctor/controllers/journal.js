@@ -28,31 +28,41 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
     }
 
     function fetchPatientInfo() {
-        vm.Patients.get({id: vm.patient_id}).$promise.then(function (patient) {
-            vm.patient = patient;
-        })
+        vm.Patients.get({id: vm.patient_id})
+            .$promise
+            .then(function (patient) {
+                vm.patient = patient;
+                $('.patient_status_w .chosen-select').val(vm.patient.cart_color).trigger("chosen:updated");
+            })
     }
 
     function fetchPatientJournals() {
-        vm.Journals.query({patient_id: vm.patient_id}).$promise.then(function (journals) {
-            vm.journals = journals;
-            _.forEach(vm.journals,  function (journal) {
-                journal.date = moment(journal.created_at).format('LL');
+        vm.Journals.query({patient_id: vm.patient_id})
+            .$promise
+            .then(function (journals) {
+                vm.journals = journals;
+                _.forEach(vm.journals, function (journal) {
+                    journal.date = moment(journal.created_at).format('LL');
+                });
             });
-        });
     }
 
     function fetchJournal() {
-        vm.Journals.get({id: vm.journal_id}).$promise.then(function (journal) {
-            vm.journal = journal;
-            vm.patient_id = journal.patient.id;
-        });
+        vm.Journals.get({id: vm.journal_id})
+            .$promise
+            .then(function (journal) {
+                vm.journal = journal;
+                vm.patient_id = journal.patient.id;
+            });
     }
 
     function fetchDicts() {
-        vm.Dicts.get().$promise.then(function (response) {
-            vm.dicts = _.filter(response.dicts, ['dict_type', 'journal_tag'])
-        })
+        vm.Dicts.get()
+            .$promise
+            .then(function (response) {
+                vm.dicts = _.filter(response.dicts, ['dict_type', 'journal_tag']);
+                vm.journal.journal_records[0].tag = vm.dicts[0].dict_value;
+            })
     }
 
     function addRecord() {
@@ -61,6 +71,7 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
             return
         }
         vm.journal.$save();
+        $state.go('journal.records', {patient_id: vm.patient_id})
     }
 
     function addEmptyRecord(e = null) {
@@ -73,14 +84,13 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
     }
 
     function createJournal() {
-        Journals.create({journal: {patient_id: vm.patient_id, journal_records: vm.journal.journal_records}}).$promise.then(function (journal) {
-            if (journal.valid) {
-                vm.journal_id = journal.id;
-                vm.journal.id = journal.id;
-                addEmptyRecord();
-                $state.go('journal.edit', {journal_id: journal.id})
-            }
-        })
+        Journals.create({journal: {patient_id: vm.patient_id, journal_records: vm.journal.journal_records}})
+            .$promise
+            .then(function (journal) {
+                if (journal.valid) {
+                    $state.go('journal.records', {patient_id: vm.patient_id})
+                }
+            })
     }
 
     function createDict(dict_value) {
@@ -116,6 +126,14 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
                     bottom: 0
                 }
             });
+        }
+    });
+
+    $('.patient_status_w .chosen-select').on('change', function (event, selected) {
+        // var patientStatus = $('.chosen-select option[value='+ selected.selected + ']').data('title');
+        if (vm.patient) {
+            vm.patient.cart_color = selected.selected;
+            vm.patient.$save();
         }
     });
 
@@ -159,7 +177,7 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
     });
 
     var doc_body = $('body');
-    doc_body.addClass('body_gray');
+    if ($state.includes('journal.records'))doc_body.addClass('body_gray');
     doc_body.removeClass('sub_header_mod');
 
     $scope.$on('$destroy', function () {
@@ -173,3 +191,4 @@ JournalController.$inject = ['$stateParams','$scope', '$state', 'Journals', 'Ale
 angular
     .module('practice.doctor')
     .controller('JournalController', JournalController);
+

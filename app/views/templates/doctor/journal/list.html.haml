@@ -64,7 +64,7 @@
               %div{"ng-repeat" => "record in journal.journal_records"}
                 .appointment_caption
                   %a.gl_link{:href => "", "ng-bind" => "record.tag", "ui-sref" => "journal.edit({journal_id: journal.id})"}
-                %p{"ng-bind" => "record.body"}
+                %p{"ng-bind" => "record.body | limitTo: 150"}
               %ul.appointment_media_list{"ng-show" => "record.attachments"}
                 %li
                   .appointment_media.media_pdf
