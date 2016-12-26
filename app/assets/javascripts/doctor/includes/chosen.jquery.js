@@ -635,6 +635,8 @@
                 var $this, chosen;
                 $this = $(this);
                 chosen = $this.data('chosen');
+          // console.log($this);
+              // console.log($this.data('chosen'));
                 if (options === 'destroy') {
                     if (chosen instanceof Chosen) {
                         chosen.destroy();
@@ -642,6 +644,7 @@
                     return;
                 }
                 if (!(chosen instanceof Chosen)) {
+          // console.log(1);
                     $this.data('chosen', new Chosen(this, options));
                 }
             });

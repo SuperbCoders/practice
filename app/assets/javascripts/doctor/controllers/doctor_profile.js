@@ -1,6 +1,5 @@
 function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams, Doctor, Settings, ValueList) {
-
- 
+  // console.log($('.newPatientState').length);
   $scope.$on('$viewContentLoaded',
                  function(event) {
                    var tab_names = ['profile', 'settings', 'public', 'subscription'];
@@ -64,7 +63,7 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
   Settings.getSettings().then(function(response) {
     return $scope.settings = response;
   });
-  // init_chosen($scope);
+  init_chosen($scope);
 
   $scope.addSocial = function(url) {
     window.open(url, "Auth", "height=200,width=200");
@@ -96,16 +95,9 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
 
   $scope.removeDay = function(element, index) {
     var ngModel = element.data('$ngModelController');
- 
-
-
     index = ngModel.$modelValue.indexOf(index.toString());
-
-
     if (index > -1) {
-
       delete ngModel.$modelValue[index];
-
       ngModel.$setViewValue(ngModel.$modelValue);
     }
   };
@@ -113,9 +105,7 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
 
 function updateDaysRow(slct) {
   var chzn_container, days, i, slct_val;
-
   slct_val = slct.val();
-
   chzn_container = slct.next('.chzn-container').find('.chzn-choices');
   days = '';
   if (slct_val) {
@@ -125,16 +115,11 @@ function updateDaysRow(slct) {
       i++;
     }
     days = days.replace(/^,/i, '');
-
     if (chzn_container.find('.chzn_rzlts').length) {
-
       chzn_container.find('.chzn_rzlts').text(days);
     } else {
-
       chzn_container.prepend($('<li class="chzn_rzlts" />').text(days));
-
     }
-
   } else {
     chzn_container.find('.chzn_rzlts').remove();
   }

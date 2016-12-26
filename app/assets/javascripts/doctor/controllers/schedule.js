@@ -1,4 +1,5 @@
 function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings, ValueList, Doctor) {
+  // console.log($('.newPatientState').length);
   $scope.items_limit = 100;
   $scope.filters = {};
   $scope.win = $(window);
@@ -156,7 +157,10 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     }
   });
 
+  // $scope.card_color_chosen_times = 0;
   $scope.card_color_chosen = function (elem) {
+    // $scope.card_color_chosen_times = $scope.card_color_chosen_times + 1;
+    // console.log('card_color_chosen ' + $scope.card_color_chosen_times + ' ' + $(elem).length);
     $(elem).chosen({
       width: '100%',
       disable_search_threshold: 3
@@ -246,7 +250,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   $scope.update_cart_color = function () {
     var event = find_event($scope.event.id);
     set_event_color(event, event.patient.cart_color);
-
     $('#calendar').fullCalendar('updateEvent', event);
     Patients.save({id: event.patient.id, cart_color: event.patient.cart_color});
   }
@@ -492,6 +495,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       return $scope.clicks = 0;
     }, 0);
   };
+
+  $scope.$on('$destroy', function(){
+    // console.log('destroy');
+    if ($scope.add_patient_form){
+      $scope.add_patient_form.dialog('destroy');
+    }
+  });
 
   function getCalendarHeight(win) {
     var newHeight;

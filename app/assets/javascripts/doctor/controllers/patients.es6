@@ -1,4 +1,5 @@
 function PatientsController($scope, $window, Patients) {
+  // console.log($('.newPatientState').length);
   $scope.items_limit = 9;
   $scope.filters = {
     archivated: false,
@@ -6,14 +7,10 @@ function PatientsController($scope, $window, Patients) {
     unsigned: false
   };
   $scope.search_query = "";
-
   $('body').addClass('body_gray');
-  
   $('body').addClass('sub_header_mod');
-
   $scope.$on('$destroy', function() {
     $('body').removeClass('body_gray');
-  
     return $('body').removeClass('sub_header_mod');
   });
 
