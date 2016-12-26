@@ -60,7 +60,8 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
         vm.Dicts.get()
             .$promise
             .then(function (response) {
-                vm.dicts = _.filter(response.dicts, ['dict_type', 'journal_tag'])
+                vm.dicts = _.filter(response.dicts, ['dict_type', 'journal_tag']);
+                vm.journal.journal_records[0].tag = vm.dicts[0].dict_value;
             })
     }
 
