@@ -71,6 +71,7 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
             return
         }
         vm.journal.$save();
+        $state.go('journal.records', {patient_id: vm.patient_id})
     }
 
     function addEmptyRecord(e = null) {
