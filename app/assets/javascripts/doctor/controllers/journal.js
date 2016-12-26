@@ -86,10 +86,7 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
             .$promise
             .then(function (journal) {
                 if (journal.valid) {
-                    vm.journal_id = journal.id;
-                    vm.journal.id = journal.id;
-                    addEmptyRecord();
-                    $state.go('journal.edit', {journal_id: journal.id})
+                    $state.go('journal.records', {patient_id: vm.patient_id})
                 }
             })
     }
