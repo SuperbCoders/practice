@@ -13,7 +13,7 @@ class Patient < ActiveRecord::Base
   belongs_to :doctor
   has_many :journals
 
-  validates :email, uniqueness: true
+  validates :full_name, uniqueness: true
 
   before_destroy :destroy_avatar
 
