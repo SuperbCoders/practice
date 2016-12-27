@@ -1,5 +1,6 @@
 function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings, ValueList, Doctor) {
   // console.log($('.newPatientState').length);
+  // console.log($('.change_reception_form').length);
   $scope.items_limit = 100;
   $scope.filters = {};
   $scope.win = $(window);
@@ -501,6 +502,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     if ($scope.add_patient_form){
       $scope.add_patient_form.dialog('destroy');
     }
+    $('.ui-dialog #first_run_patients').dialog('destroy');
+    $('.ui-dialog #change_reception_form').dialog('destroy');
   });
 
   function getCalendarHeight(win) {
