@@ -330,6 +330,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       var date_now, i, len;
       date_now = moment(new Date);
       var date_events = [];
+      var event_setted = false;
       for (i = 0, len = events.length; i < len; i++) {
         event = {};
         event.start = moment(events[i].start);
@@ -341,8 +342,9 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         event.orig_event = events[i];
         event.patient = events[i].patient;
         $scope.event_id++;
-        if (event.start < $('#calendar').fullCalendar('getView').intervalEnd) {
+        if (!event_setted && (event.start < $('#calendar').fullCalendar('getView').intervalEnd)) {
           set_event(event);
+          event_setted = true;
         }
         date_events.push(event);
       }
