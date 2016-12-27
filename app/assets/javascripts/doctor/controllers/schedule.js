@@ -438,6 +438,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       if ($scope.clicks == 1) {
         $scope.$apply(function(){
           var stDuration = $scope.settings.standart_shedule_interval;
+          $scope.removeCompletedPatient();
           $scope.new_visit.duration = stDuration;
           $scope.new_patient.full_name = "";
           $scope.new_patient.phone = "";
