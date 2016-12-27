@@ -213,6 +213,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   $scope.createVisit = function($valid) {
+    // console.log($valid);
+    // console.log($scope.addPatientForm.$error);
     if ($valid) {
       var request = {
         visit_data: $scope.new_visit,
