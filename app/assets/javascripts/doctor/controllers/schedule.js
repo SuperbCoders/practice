@@ -773,8 +773,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       source: function (request, response) {
         // element = myOption.element?
         var search = {};
-        console.log('normalize ' + normalizeFormattedPhone(request.term));
-        search[model] = normalizeFormattedPhone(request.term);
+        if (model == 'phone') {
+          console.log('normalize ' + normalizeFormattedPhone(request.term));
+          search[model] = normalizeFormattedPhone(request.term);
+          if (search[model] == '') return [];
+        } else {
+          search[model] = request.term;
+        }
         return Patients.autocomplete(search).$promise.then(function(patients) {
           $scope.completions = patients;
           response(_.map(patients, function(e) {
