@@ -118,13 +118,17 @@ class Doctor::PatientsController < Doctor::BaseController
 
     if params[:phone]
       patients = contacts.map do |contact|
-        {
-          id: contact.contactable.id,
-          full_name: contact.contactable.full_name,
-          email: contact.contactable.email,
-          cart_color: contact.contactable.cart_color,
-          phone: contact.data
-        }
+        if contact.contactable
+          {
+            id: contact.contactable.id,
+            full_name: contact.contactable.full_name,
+            email: contact.contactable.email,
+            cart_color: contact.contactable.cart_color,
+            phone: contact.data
+          }
+        else
+          {}
+        end
       end
     else
       patients = patients.map do |patient|

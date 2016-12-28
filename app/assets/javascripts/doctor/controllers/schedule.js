@@ -748,7 +748,20 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
   $scope.initReceptionForm();
 
+  function normalizeFormattedPhone(phone){
+    return phone.replace(/\+7 \((...)\) (...)-(..)-(..)/, '$1$2$3$4').replace(/_/g, '');
+    // return phone.replace(/\+7 \((...)\) (...)-(..)-(..)/, function(){
+      // return 
+    // });
+  }
+
+  function formatPhone(phone){
+    console.log('format ' + phone);
+    return phone.replace(/(...)(...)(..)(..)/, '+7 ($1) $2-$3-$4')
+  }
+
   $scope.myOption2 = function(model) {
+    console.log('complete');
     return {
     options: {
       // html: true,
@@ -760,14 +773,18 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       source: function (request, response) {
         // element = myOption.element?
         var search = {};
-        search[model] = request.term;
+        console.log('normalize ' + normalizeFormattedPhone(request.term));
+        search[model] = normalizeFormattedPhone(request.term);
         return Patients.autocomplete(search).$promise.then(function(patients) {
           $scope.completions = patients;
-
-
           response(_.map(patients, function(e) {
-            return e[model];
-            // return {label: e.full_name, value: e};
+            console.log('model ' + model);
+            if (model == 'phone') {
+              return {label: formatPhone(e[model]), value: e[model]};
+              // return {label: e.full_name, value: e};
+            } else {
+              return e[model];
+            }
           }));
         });
       },
@@ -775,6 +792,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         event.preventDefault()
         // return false;
         $scope.completed_patient = _.find($scope.completions, function(e) {
+          // console.log('normalize ' + normalizeFormattedPhone(ui.item.value));
           return e[model] == ui.item.value;
         });
         $scope.updateCompletedPatient();
@@ -826,7 +844,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   $scope.newPatientPhoneInputBlur = function($event){
-    console.log('blur');
+    // console.log('blur');
     $scope.new_patient_phone_input = $($event.target).val();
   }
 
