@@ -431,6 +431,10 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     // day_click(moment(), e);
   }
 
+  $scope.inspectNewPatientPhone = function($event){
+    console.log('inspect ' + $scope.new_patient + ' ' + $scope.new_patient.phone + ' ' + $($event.target).val());
+  }
+
   function day_click(date, jsEvent, view) {
     $scope.clicks++;
     return setTimeout(function() {
@@ -815,6 +819,15 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         Doctor.save({doctor: $scope.doctor});
       }
     });
+  }
+
+  $scope.inputIsEmpty = function($event){
+    console.log('input empty ' + $event.target + '' + $($event.target).val());
+  }
+
+  $scope.newPatientPhoneInputBlur = function($event){
+    console.log('blur');
+    $scope.new_patient_phone_input = $($event.target).val();
   }
 
   $scope.deletePatient = function(patient) {
