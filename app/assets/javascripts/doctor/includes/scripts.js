@@ -174,6 +174,25 @@ $(function ($) {
         return false;
     });
 
+    $('.userMenu').on('click', function (e) {
+      console.log('user menu click');
+      html_var.toggleClass('user_menu_open');
+        if (!($(e.target).hasClass('user_m_down_w') || $(e.target).closest('.user_m_down_w').length)) {
+          return false;
+        }
+    });
+
+    body_var.on('click', function (e) {
+      console.log('click');
+        if (!($(e.target).hasClass('notificationBtn') || $(e.target).hasClass('notificationDropdown') || $(e.target).closest('.notificationDropdown').length)) {
+            notificationBtn.parent().removeClass('notification_open');
+        }
+
+        if (!$(e.target).closest('.userMenu').length) {
+          html_var.removeClass('user_menu_open');
+        }
+    });
+
     //$('.closeMenu').on('click', function (event, element) {
     //    console.log(event);
     //    console.log(element);

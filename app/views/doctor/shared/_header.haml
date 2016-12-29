@@ -66,5 +66,24 @@
       .mb.mob_hidden
         .user_m_item
           %a.btn_v1.white_transp_btn.quick_reg_btn{:href => ""} Быстрая запись
-      %a#menu_button.menu_humburger{:href => "", 'onclick' => "menu_open()"}
-        %span Меню
+      -# %a#menu_button.menu_humburger{:href => "", 'onclick' => "menu_open()"}
+      -#   %span Меню
+      .mb
+        .user_m_item.wnw.user_menu_w.userMenu
+          .menu_avatar
+            = image_tag current_doctor.avatar
+          .menu_user_name.mob_hidden
+            %b #{current_doctor.name}
+          .user_m_down_w
+            %ul.user_drop_down_menu
+              %li.user_drop_down_item
+                %a.gl_link{:href => "", 'ui-sref' => "doctor.profile"} Профиль
+                -# %a.gl_link{:href => "", 'onclick' => "console.log('wtf')"} Профиль
+              %li.user_drop_down_item
+                %a.gl_link.blue_link{:href => "/doctors/#{current_doctor.username}", target: '_blank'} Сайт
+              %li.user_drop_down_item
+                %a.gl_link.openRecovery{:href => "#"}
+                  %span
+                    Техподдержка
+              %li.user_drop_down_item
+                %a.gl_link{:href => destroy_doctor_session_path} Выход
