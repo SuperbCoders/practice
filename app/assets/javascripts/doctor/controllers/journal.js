@@ -72,7 +72,9 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
             createJournal();
             return
         }
-        vm.journal.$save();
+        vm.journal.patient_id = vm.patient_id;
+        vm.journal.journal_records_attributes = vm.journal.journal_records;
+        Journals.save({id: vm.journal.id}, {journal: vm.journal});
         $state.go('journal.records', {patient_id: vm.patient_id})
     }
 

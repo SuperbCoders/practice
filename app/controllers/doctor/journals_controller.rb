@@ -12,7 +12,7 @@ class Doctor::JournalsController < Doctor::BaseController
 
   def update
     if (success = @resource.update(resource_params))
-      params[:attachments].try(:each) do |file|
+      params[:journal][:attachments].try(:each) do |file|
         attach = @resource.attachments.find_or_initialize_by(id: file.try(:[], :id)) do |new_file|
           new_file.filename = file[:filename]
         end
