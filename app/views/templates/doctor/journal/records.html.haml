@@ -19,9 +19,13 @@
                 %li.manageSubRecordPopup Создать новую
         .row
           .new_appointment_files
+            .appointment_file{"ng-repeat" => "file in vm.journal.attachments"}
+              .file_name{"ng-bind" => "file.filename"}
+              .file_rm.icon-close{"ng-click" => "vm.removeFileFromList($index)"}
+              .file_size{"ng-bind" => "file.filesize | bytes", "ng-show" => "file.filesize"}
             .appointment_file
               %label.form_label
-                %input.hidden_input{:autocomplete => "off", :type => "file"}/
+                %input.hidden_input{:autocomplete => "off", :type => "file", :multiple => true, "ng-model" => "vm.journal.attachments", "base-sixty-four-input" => true}/
                 %span Добавьте
               %span файлы, если это необходимо
     .profile_tab_controls
