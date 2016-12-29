@@ -821,6 +821,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     $scope.completed_patient = null;
     // $scope.$apply();
     // console.log($('.newPatientState').prop('disabled'));
+    $scope.new_patient_phone_input = null;
     $('.newPatientState').prop('disabled', false);
     $('.newPatientState').trigger("chosen:updated");
   }
