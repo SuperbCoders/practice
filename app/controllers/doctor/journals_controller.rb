@@ -12,7 +12,16 @@ class Doctor::JournalsController < Doctor::BaseController
 
   def update
     if (success = @resource.update(resource_params))
-
+      params[:journal][:attachments].try(:each) do |file|
+        attach = @resource.attachments.find_or_initialize_by(id: file.try(:[], :id)) do |new_file|
+          new_file.filename = file[:filename]
+        end
+        if attach.new_record?
+          attach.attach(:file, file)
+        else
+          attach.delete! if file.try(:[], :deleted)
+        end
+      end
     end
 
     send_json(serialize_resource(@resource, resource_serializer), success)
@@ -45,7 +54,7 @@ class Doctor::JournalsController < Doctor::BaseController
   end
 
   def permitted_params
-    [:patient_id, journal_records_attributes: [:tag, :body]]
+    [:patient_id, journal_records_attributes: [:id, :tag, :body]]
   end
 
 end

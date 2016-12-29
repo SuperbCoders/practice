@@ -19,8 +19,8 @@
                 %li.manageSubRecordPopup Создать новую
         .row
           .new_appointment_files
-            .appointment_file{"ng-repeat" => "file in vm.journal.attachments"}
-              .file_name{"ng-bind" => "file.filename"}
+            .appointment_file{"ng-repeat" => "file in vm.journal.attachments", "ng-show" => "!file.deleted"}
+              %a.file_name{"ng-bind" => "file.filename", "target" => "_blank", "download" => "{{file.filename}}", "ng-href" => "{{file.file}}"}
               .file_rm.icon-close{"ng-click" => "vm.removeFileFromList($index)"}
               .file_size{"ng-bind" => "file.filesize | bytes", "ng-show" => "file.filesize"}
             .appointment_file
