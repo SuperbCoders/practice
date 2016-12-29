@@ -8,11 +8,14 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
     vm.journal_id = $stateParams.journal_id;
     vm.addRecord = addRecord;
     vm.addEmptyRecord = addEmptyRecord;
+    vm.onAfterValidateFiles = onAfterValidateFiles;
+    vm.removeFileFromList = removeFileFromList;
     vm.journal = {
         journal_records: [{
             tag: '',
             body: ''
-        }]
+        }],
+        attachments: []
     };
     vm.dicts = [];
 
@@ -84,7 +87,9 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
     }
 
     function createJournal() {
-        Journals.create({journal: {patient_id: vm.patient_id, journal_records: vm.journal.journal_records}})
+        vm.journal.patient_id = vm.patient_id;
+        vm.journal.journal_records_attributes = vm.journal.journal_records;
+        Journals.create({journal: vm.journal})
             .$promise
             .then(function (journal) {
                 if (journal.valid) {
@@ -99,6 +104,14 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
             .then(function (response) {
                 fetchDicts();
             })
+    }
+    
+    function onAfterValidateFiles(event, fileObjects, fileList) {
+
+    }
+
+    function removeFileFromList(index) {
+        vm.journal.attachments.splice(index,  1)
     }
 
     $('.chosen-select').chosen({
