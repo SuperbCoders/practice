@@ -8,7 +8,6 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
     vm.journal_id = $stateParams.journal_id;
     vm.addRecord = addRecord;
     vm.addEmptyRecord = addEmptyRecord;
-    vm.onAfterValidateFiles = onAfterValidateFiles;
     vm.removeFileFromList = removeFileFromList;
     vm.journal = {
         journal_records: [{
@@ -106,12 +105,13 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
             })
     }
     
-    function onAfterValidateFiles(event, fileObjects, fileList) {
-
-    }
-
     function removeFileFromList(index) {
-        vm.journal.attachments.splice(index,  1)
+        var file = vm.journal.attachments[index];
+        if (file.id) {
+            file.deleted = true
+        } else {
+            vm.journal.attachments.splice(index,  1)
+        }
     }
 
     $('.chosen-select').chosen({
