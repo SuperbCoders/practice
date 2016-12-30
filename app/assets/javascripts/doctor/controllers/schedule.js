@@ -252,9 +252,23 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
   $scope.update_cart_color = function () {
     var event = find_event($scope.event.id);
-    set_event_color(event, event.patient.cart_color);
-    $('#calendar').fullCalendar('updateEvent', event);
+    // console.log('patiet id ' + event.patient.id);
+    // var events = _.filter($('#calendar').fullCalendar('clientEvents'), function(e) {
+    //   if (e.patient.id == event.patient.id) return e;
+    // });
+    // // console.log(_.filter(events, function(e) {if (e.patient.id == event.patient.id) return e;}).length);
+    // for (var i = 0; i < events.length; ++i) {
+    //   events[i].patient.cart_color = event.patient.cart_color;
+    //   set_event_color(events[i], event.patient.cart_color);
+    //   // VERY slow
+    //   // $('#calendar').fullCalendar('updateEvent', events[i]);
+    // }
+    // // $('#calendar').fullCalendar('updateEvents', events);
+    // // $('#calendar').fullCalendar('reportEvents', events);
     Patients.save({id: event.patient.id, cart_color: event.patient.cart_color});
+    // console.log(event);
+    $scope.set_last_event = event;
+    $('#calendar').fullCalendar('refetchEvents');
   }
 
   $scope.update_created_by = function() {
@@ -349,6 +363,20 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
           event_setted = true;
         }
         date_events.push(event);
+      }
+      // console.log($scope.set_last_event);
+      if ($scope.set_last_event) {
+        // console.log('find ' + _.find(date_events, function(e) {
+        //   // console.log($scope.set_last_event.real_id);
+        //   // console.log(e);
+        //   // console.log($scope.set_last_event.real_id == e.real_id);
+        //   return $scope.set_last_event.real_id == e.real_id;
+        // }));
+        if (event = _.find(date_events, function(e) { return $scope.set_last_event.real_id == e.real_id })){
+          // console.log('set_event ' + event.real_id);
+          set_event(event);
+        }
+        $scope.set_last_event = null;
       }
       $scope.events_count = events.length;
       return callback(date_events);
