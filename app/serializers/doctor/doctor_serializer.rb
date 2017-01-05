@@ -38,7 +38,7 @@ class Doctor::DoctorSerializer < Doctor::BaseSerializer
   end
 
   def avatar
-    return object.avatar
+    return "/upload/#{object.avatar}"
   end
 
   def public_avatar
