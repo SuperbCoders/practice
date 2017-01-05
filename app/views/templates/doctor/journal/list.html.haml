@@ -65,17 +65,17 @@
                 .appointment_caption
                   %a.gl_link{:href => "", "ng-bind" => "record.tag", "ui-sref" => "journal.edit({journal_id: journal.id})"}
                 %p{"ng-bind" => "record.body | limitTo: 150"}
-              %ul.appointment_media_list{"ng-show" => "record.attachments"}
-                %li
-                  .appointment_media.media_pdf
-                    .media_name Analyz-krovi.pdf
-                    %a.btn_v7.download_btn.white__btn_2{:href => "#"} Скачать
-                %li
-                  .appointment_media
-                    .appointment_img
-                      %img{:src => "i/appointment_media.png"}/
-                %li
+              %ul.appointment_media_list
+                %li{"ng-repeat" => "file in journal.attachments", "ng-show" => "!file.deleted"}
                   .appointment_media.media_mp3
-                    .media_name Analyz-krovi.pdf
-                    %a.btn_v7.download_btn.white__btn_2{:href => "#"} Скачать
+                    .media_name{"ng-bind" => "file.filename"}
+                    %a.btn_v7.download_btn.white__btn_2{"target" => "_blank", "download" => "{{file.filename}}", "ng-href" => "{{file.file}}",} Скачать
+                -#%li
+                -#  .appointment_media
+                -#    .appointment_img
+                -#      %img{:src => "i/appointment_media.png"}/
+                -#%li
+                -#  .appointment_media.media_mp3
+                -#    .media_name Analyz-krovi.pdf
+                -#    %a.btn_v7.download_btn.white__btn_2{:href => "#"} Скачать
         %a.btn_v3.new_appointment_btn.yellow_black_btn.icon-plus.openAppointmentForm_{:href => "#", :ui_sref => "journal.create({patient_id: vm.patient_id})"}
