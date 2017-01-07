@@ -9,6 +9,7 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
     vm.addRecord = addRecord;
     vm.addEmptyRecord = addEmptyRecord;
     vm.removeFileFromList = removeFileFromList;
+    vm.removeJournal = removeJournal;
     vm.journal = {
         journal_records: [{
             tag: '',
@@ -97,6 +98,13 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
                     $state.go('journal.records', {patient_id: vm.patient_id})
                 }
             })
+    }
+
+    function removeJournal(idx) {
+        vm.journals[idx].$remove()
+            .then(function () {
+                fetchPatientJournals();
+        })
     }
 
     function createDict(dict_value) {

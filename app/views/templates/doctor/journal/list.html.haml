@@ -57,6 +57,7 @@
                 .appointment_menu_btn
                 %ul.appointment_menu_list
                   %li{"ui-sref" => "journal.edit({journal_id: journal.id})"} Редактировать
+                  %li{"ng-click" => "vm.removeJournal($index)"} Удалить
                   %li Напечатать
                   %li Отправить по почте
                   %li Скачать TXT файл
