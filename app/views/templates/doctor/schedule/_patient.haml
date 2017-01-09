@@ -57,7 +57,7 @@
     = render partial: 'templates/doctor/patients/buttons'
 
     .patient_overview
-      %a.btn_v3.add_patient_line.white__btn{:href => "#"} Добавить запись в карту
+      %a.btn_v3.add_patient_line.white__btn{:href => "#", 'ng-click' => '$event.stopPropagation()', 'ui-sref' => "journal.create({patient_id: event.patient.id})"} Добавить запись в карту
       %ul.patient_overview_list
         %li.patient_overview_line
           .overview_caption ПОРТРЕТ ПАЦИЕНТА

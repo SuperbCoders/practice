@@ -193,6 +193,22 @@ $(function ($) {
         }
     });
 
+    body_var.delegate('.patient_card', 'click', function (e) {
+        var firedEl = $(e.target), patient_card = $(this);
+
+        if (firedEl.hasClass('skipOpen') || !!firedEl.parents('.skipOpen').length) {
+
+        } else {
+            patient_card.toggleClass('open_card');
+
+            if (patient_card.closest('.popup_form')) {
+                //console.log('repos');
+            }
+
+            return false;
+        }
+    });
+
     //$('.closeMenu').on('click', function (event, element) {
     //    console.log(event);
     //    console.log(element);
