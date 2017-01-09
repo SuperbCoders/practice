@@ -18,7 +18,7 @@
       .drop_down_w
         %ul.drop_down_menu
           %li.drop_down_item
-            %a.gl_link{:href => "#", 'ng-click' => "update_created_by()"}
+            %a.gl_link{:href => "#", 'ng-click' => "update_created_by()", 'ng-hide' => "event.orig_event.created_by == 'doctor'"}
               %span Подтвердить прием
           %li.drop_down_item
             %a.gl_link{:href => "", 'ng-click' => "deleteVisit(event)"}

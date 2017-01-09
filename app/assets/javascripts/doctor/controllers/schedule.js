@@ -208,6 +208,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   });
 
   function set_event(event) {
+    // console.log(event);
     $scope.event = event;
     $scope.patient = event.patient;
   }
@@ -252,21 +253,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
   $scope.update_cart_color = function () {
     var event = find_event($scope.event.id);
-    // console.log('patiet id ' + event.patient.id);
-    // var events = _.filter($('#calendar').fullCalendar('clientEvents'), function(e) {
-    //   if (e.patient.id == event.patient.id) return e;
-    // });
-    // // console.log(_.filter(events, function(e) {if (e.patient.id == event.patient.id) return e;}).length);
-    // for (var i = 0; i < events.length; ++i) {
-    //   events[i].patient.cart_color = event.patient.cart_color;
-    //   set_event_color(events[i], event.patient.cart_color);
-    //   // VERY slow
-    //   // $('#calendar').fullCalendar('updateEvent', events[i]);
-    // }
-    // // $('#calendar').fullCalendar('updateEvents', events);
-    // // $('#calendar').fullCalendar('reportEvents', events);
     Patients.save({id: event.patient.id, cart_color: event.patient.cart_color});
-    // console.log(event);
     $scope.set_last_event = event;
     $('#calendar').fullCalendar('refetchEvents');
   }
