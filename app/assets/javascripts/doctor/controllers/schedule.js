@@ -458,6 +458,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         $scope.$apply(function(){
           var stDuration = $scope.settings.standart_shedule_interval;
           $scope.removeCompletedPatient();
+          $scope.new_patient_phone_input = null;
           $scope.new_visit.duration = stDuration;
           $scope.new_patient.full_name = "";
           $scope.new_patient.phone = "";
@@ -828,6 +829,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     $scope.new_patient.email = $scope.completed_patient.email;
     $scope.new_patient.cart_color = $scope.completed_patient.cart_color;
     $('.newPatientState').prop('disabled', true);
+    $scope.new_patient_phone_input = $scope.completed_patient.phone;
     $scope.$apply();
     $('.newPatientState').trigger("chosen:updated");
   }
@@ -836,7 +838,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     $scope.completed_patient = null;
     // $scope.$apply();
     // console.log($('.newPatientState').prop('disabled'));
-    $scope.new_patient_phone_input = null;
     $('.newPatientState').prop('disabled', false);
     $('.newPatientState').trigger("chosen:updated");
   }
