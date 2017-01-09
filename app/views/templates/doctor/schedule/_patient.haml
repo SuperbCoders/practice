@@ -76,4 +76,4 @@
           %p {{event.patient.diseases }}
         %li.patient_overview_line
           .overview_caption ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ
-          %p Договор №{{event.patient.contract_id}}
+          %p{'ng-show' => "event.patient.contract_id"} Договор №{{event.patient.contract_id}}
