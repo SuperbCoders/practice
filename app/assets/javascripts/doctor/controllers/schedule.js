@@ -320,7 +320,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   function event_drop(event, delta, revertFunc, jsEvent, ui, view) {
     event.start_at = event.start;
     event.duration = (event.end - event.start) / 60 / 1000;
-    event.$save();
+    Visits.save({id: event.real_id, visit: {visit_data: {start_at: event.start_at, duration: event.duration}}});
   };
 
   function event_resize(event, delta, revertFunc) {
