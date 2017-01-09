@@ -158,6 +158,16 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     }
   });
 
+  // $('body').on('click', 'button.fc-prev-button', function() {
+  //   //do something
+  //   console.log('prev');
+  // });
+
+  // $('body').on('click', 'button.fc-next-button', function() {
+  //   //do something
+  //   console.log('next');
+  // });
+
   // $scope.card_color_chosen_times = 0;
   $scope.card_color_chosen = function (elem) {
     // $scope.card_color_chosen_times = $scope.card_color_chosen_times + 1;
@@ -302,7 +312,9 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       $scope.settings.calendar_view = 'week';
     }
     Settings.saveSettings($scope.settings);
-    return $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name);
+    $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name);
+    $scope.event = null;
+    $scope.patient = null;
   };
 
   function event_drop(event, delta, revertFunc, jsEvent, ui, view) {
