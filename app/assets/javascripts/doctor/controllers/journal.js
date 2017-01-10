@@ -9,6 +9,7 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
     vm.addRecord = addRecord;
     vm.addEmptyRecord = addEmptyRecord;
     vm.removeFileFromList = removeFileFromList;
+    vm.removeJournal = removeJournal;
     vm.journal = {
         journal_records: [{
             tag: '',
@@ -99,6 +100,13 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
             })
     }
 
+    function removeJournal(idx) {
+        vm.journals[idx].$remove()
+            .then(function () {
+                fetchPatientJournals();
+        })
+    }
+
     function createDict(dict_value) {
         vm.Dicts.create({dict_type: 'journal_tag', dict_value: dict_value})
             .$promise
@@ -152,13 +160,13 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
         }
     });
 
-    var addSubRecordPopup = $('#add_subrecord_popup').dialog({
+    var subRecordPopup = $('#subrecord_popup').dialog({
         autoOpen: false,
         modal: true,
-        width: 700,
+        width: 480,
         closeText: '',
         appendTo: '.wrapper',
-        dialogClass: "dialog_v5 add_subrecord_item always_open dialog_close_butt_mod_3",
+        dialogClass: "dialog_v4 subrecord_popup always_open dialog_close_butt_mod_1",
         open: function (event, ui) {
             body_var.addClass('overlay_v4');
         },
@@ -167,7 +175,27 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
         }
     });
 
-    $('li.manageSubRecordPopup').on ('click', function () {
+    var addSubRecordPopup = $('#add_subrecord_popup').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 700,
+        closeText: '',
+        appendTo: '.wrapper',
+        dialogClass: "dialog_v5 add_subrecord_item always_open dialog_close_butt_mod_3",
+        open: function (event, ui) {
+            body_var.addClass('hide_subrecord_popup');
+        },
+        close: function (event, ui) {
+            body_var.removeClass('hide_subrecord_popup');
+        }
+    });
+
+    $('.manageSubRecordPopup').on ('click', function () {
+        subRecordPopup.dialog('open');
+        return false;
+    });
+
+    $('.openSubRecordAdd').on ('click', function () {
         addSubRecordPopup.dialog('open');
         return false;
     });
@@ -185,6 +213,7 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
 
     $('.applySubRecord').on ('click', function () {
         var sabRecordItem = $('#new_saubrecord_item');
+        console.log(sabRecordItem.val());
         createDict(sabRecordItem.val());
         addSubRecordPopup.dialog('close');
         sabRecordItem.val('').removeClass('not_empty');

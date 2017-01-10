@@ -36,6 +36,11 @@
               %a.btn_v8.add_record_btn.yellow_black_btn.addAppointment{:href => "", "ng-click" => "vm.addRecord()"}
                 Добавить
                 запись в карту
+#subrecord_popup.popup_form{:style => "display:none", :title => "Управление подзаписями"}
+  %ul.subrecord_list
+    %li{"ng-repeat" => "dict in vm.dicts", "ng-bind" => "dict.dict_value"}
+    %li.addMarker
+      %a.gl_link.openSubRecordAdd{:href => "#"} Создать подзапись
 #add_subrecord_popup.add_subrecord_popup{:style => "display:none"}
   .input_w.add_subrecord
     %input#new_saubrecord_item.form_input.input_v12.checkEmpty{:autocomplete => "off", :placeholder => "Название подзаписи"}/
