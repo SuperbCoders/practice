@@ -90,7 +90,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
   Doctor.get().$promise.then(function(response) {
     $scope.doctor = response;
-    if (!$scope.doctor.start_screen_shown) {
+    if (!response.has_visits) {
       init_first_run_patients();
     }
   });

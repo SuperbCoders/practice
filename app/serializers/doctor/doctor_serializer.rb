@@ -3,7 +3,7 @@ class Doctor::DoctorSerializer < Doctor::BaseSerializer
       :gender, :birthday, :specialty, :education, :experience, :about, :office,
       :profile, :vk_id, :fb_id, :twitter_id, :phones, :emails, :doctor_stand_times,
       :doctor_before_schedule, :before_schedule, :stand_time, :work_schedules, :phone,
-      :username, :start_screen_shown
+      :username, :start_screen_shown, :has_visits
 
   def work_schedules
     @schedule = {}
@@ -63,6 +63,10 @@ class Doctor::DoctorSerializer < Doctor::BaseSerializer
 
   def profile
     object.profile_open?
+  end
+
+  def has_visits
+    object.visits.any?
   end
 
 end
