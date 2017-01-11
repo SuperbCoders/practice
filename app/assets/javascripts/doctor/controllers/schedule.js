@@ -86,7 +86,15 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     eventClick: event_click,
     viewRender: view_render,
     events: visits_by_date
+    // events: visits_by_date,
+    // eventRender: event_render
   };
+
+  function event_render(event, element){
+    // element.find('.fc-event-title').append("<br/>" + event.description);
+    // element.find('.fc-content').append("<br/>" + 'test');
+    // element.find('.fc-content').append('<div>test</div>');
+  }
 
   Doctor.get().$promise.then(function(response) {
     $scope.doctor = response;
@@ -242,6 +250,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         Visit.get({id: result.visit.id}).$promise.then(function(event) {
           last_event.orig_event = event;
           last_event.patient = event.patient;
+          last_event.title = getEventTitle(event);
           $('#calendar').fullCalendar('updateEvent', last_event);
           set_event(last_event);
         });
@@ -335,6 +344,17 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     });
   };
 
+  function getEventTitle(event){
+    var formattedPhone = null;
+    if (event.patient.phone) {
+      formattedPhone = formatPhone(event.patient.phone);
+    }
+    var data = [event.patient.full_name, formattedPhone];
+    // console.log(data);
+    // console.log(_.filter(data, function(e) { return !!e }));
+    return _.filter(data, function(e) { return !!e }).join(' ');
+  }
+
   function visits_by_date(start, end, timezone, callback) {
     end.add('14', 'days');
     var paket = {
@@ -350,12 +370,14 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         event = {};
         event.start = moment(events[i].start);
         event.end = moment(events[i].end);
+        // event.title = 'test';
         event.saved = true;
         set_event_color(event, events[i].patient.cart_color);
         event.id = $scope.event_id;
         event.real_id = events[i].id;
         event.orig_event = events[i];
         event.patient = events[i].patient;
+        event.title = getEventTitle(event);
         $scope.event_id++;
         if (!event_setted && (event.start < $('#calendar').fullCalendar('getView').intervalEnd)) {
           set_event(event);
