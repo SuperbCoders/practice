@@ -806,7 +806,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   function formatPhone(phone){
-    console.log('format ' + phone);
+    // console.log('format ' + phone);
     return phone.replace(/(...)(...)(..)(..)/, '+7 ($1) $2-$3-$4')
   }
 

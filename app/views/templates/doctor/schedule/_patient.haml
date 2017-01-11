@@ -48,18 +48,18 @@
     .patient_info
       .patient_name
         %a.gl_link.gray_link{:href => "", 'ng-click' => "toggle_patient_info()"}
-          %span {{event.patient.name}}
+          %span {{event.patient.full_name}}
       %textarea.input_v5.form_input.skipOpen {{ event.patient.comment }}
     .patient_info_table
       .other_info_cell
-        %p{'ng-show' => "event.patient.phone"} {{event.patient.phone}}
+        %p{'ng-show' => "event.patient.phone"} {{event.patient.phone | phone}}
         %p{'ng-show' => "event.patient.email"} {{event.patient.email}}
     = render partial: 'templates/doctor/patients/buttons'
 
     .patient_overview
       %a.btn_v3.add_patient_line.white__btn{:href => "#", 'ng-click' => '$event.stopPropagation()', 'ui-sref' => "journal.create({patient_id: event.patient.id})"} Добавить запись в карту
       %ul.patient_overview_list
-        %li.patient_overview_line
+        %li.patient_overview_line{'ng-show' => 'event.patient.height || event.patient.weight || event.patient.age'}
           .overview_caption ПОРТРЕТ ПАЦИЕНТА
           %dl.overview_info
             .height{'ng-show' => "event.patient.height"}
@@ -71,9 +71,9 @@
             .age{'ng-show' => "event.patient.age"}
               %dt Возраст
               %dd {{ event.patient.age }} лет
-        %li.patient_overview_line
+        %li.patient_overview_line{'ng-show' => 'event.patient.diseases'}
           .overview_caption МЕДИЦИНСКИЕ ОСОБЕННОСТИ
-          %p {{event.patient.diseases }}
-        %li.patient_overview_line
+          %p {{event.patient.diseases}}
+        %li.patient_overview_line{'ng-show' => 'event.patient.contract_id'}
           .overview_caption ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ
           %p{'ng-show' => "event.patient.contract_id"} Договор №{{event.patient.contract_id}}
