@@ -10,7 +10,7 @@
       .doctor_spec {{ vm.doctor.specialty }}
       .doctor_name{"ng-bind" => "vm.doctor.name"}
       %p{"ng-bind" => "vm.doctor.about"}
-      .doctor_phone{"ng-bind" => "vm.doctor.phone"}
+      .doctor_phone{"ng-bind" => "vm.doctor.phone | mobilePhone"}
       .doctor_spec Для записи по телефону
       .doctor_controls
         %a.btn_v4.doctor_btn.yellow_black_btn.openAppointmentBtn{:href => "", 'ng-show' => "vm.doctor.office"} Записаться на прием

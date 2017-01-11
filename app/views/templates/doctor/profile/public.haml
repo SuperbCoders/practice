@@ -34,7 +34,7 @@
       .label_holder
         %label.form_label{:for => "doctor_contact"} Контакты
       .input_w.size_59
-        %input#doctor_contact.form_input.input_v1/
+        %input#doctor_contact.form_input.input_v1{"ng-model" => "doctor.phone", "ui-mask" => "+9 (999) 999-99-99"}/
   .tab_inner.form_row_v1
     .form_row.lh_32
       .label_holder

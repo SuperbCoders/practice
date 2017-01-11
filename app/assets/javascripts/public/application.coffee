@@ -57,9 +57,9 @@
       return phoneNumber
     new_phone = '+'
     new_phone += phoneNumber[0]
-    new_phone += ' '
+    new_phone += ' ('
     new_phone += phoneNumber[1..3]
-    new_phone += ' '
+    new_phone += ') '
     new_phone += phoneNumber[4..6]
     new_phone += '-'
     new_phone += phoneNumber[7..8]

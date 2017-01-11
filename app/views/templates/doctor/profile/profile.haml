@@ -20,7 +20,7 @@
       .label_holder
         %label.form_label{:for => "doctor_phone"} Телефон
       .input_w.size_59.mob_size_85
-        %input#doctor_phone.form_input.input_v1{'ng-model' => "phone.data"}/
+        %input#doctor_phone.form_input.input_v1{'ng-model' => "phone.data", "ui-mask" => "+9 (999) 999-99-99"}/
       .fl.mob_right{'ng-if' => "$last"} 
         .mb
           %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => "add_contact('phone')"}
