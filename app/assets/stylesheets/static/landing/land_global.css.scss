@@ -652,7 +652,7 @@ body._land:before {
   bottom: 0;
   left: 0;
   right: 0;
-  background: asset-url("images/static/landing/bg_1.png") no-repeat 50% 0;
+  background: image-url("static/landing/bg_1.png") no-repeat 50% 0;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -881,7 +881,7 @@ a {
     top: -35px;
     width: 260px;
     height: 166px;
-    background: url(../i/land/screen_bg.png) no-repeat 0 0;
+    background: image-url("static/landing/screen_bg.png") no-repeat 0 0;
   }
 }
 @media only screen and (min-width: 1200px) {
