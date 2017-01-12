@@ -221,36 +221,36 @@ textarea:focus::-moz-placeholder {
 /*-----------------------------form elements###*/
 @font-face {
   font-family: 'HelveticaNeue';
-  src: url('HelveticaNeue.eot');
-  src: url('HelveticaNeue.eot?#iefix') format("embedded-opentype"), url('HelveticaNeue.ttf') format("truetype"), url('HelveticaNeue.woff') format("woff"), url('HelveticaNeue.svg') format("svg");
+  src: asset-url('HelveticaNeue.eot');
+  src: asset-url('HelveticaNeue.eot?#iefix') format("embedded-opentype"), asset-url('HelveticaNeue.ttf') format("truetype"), asset-url('HelveticaNeue.woff') format("woff"), asset-url('HelveticaNeue.svg') format("svg");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'HelveticaNeueLight';
-  src: url('HelveticaNeueLight.eot');
-  src: url('HelveticaNeueLight.eot?#iefix') format("embedded-opentype"), url('HelveticaNeueLight.ttf') format("truetype"), url('HelveticaNeueLight.woff') format("woff"), url('HelveticaNeueLight.svg') format("svg");
+  src: asset-url('HelveticaNeueLight.eot');
+  src: asset-url('HelveticaNeueLight.eot?#iefix') format("embedded-opentype"), asset-url('HelveticaNeueLight.ttf') format("truetype"), asset-url('HelveticaNeueLight.woff') format("woff"), asset-url('HelveticaNeueLight.svg') format("svg");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'HelveticaNeueMedium';
-  src: url('helveticaneue-medium.eot');
-  src: url('helveticaneue-medium.eot?#iefix') format("embedded-opentype"), url('helveticaneue-medium.ttf') format("truetype"), url('helveticaneue-medium.woff') format("woff"), url('helveticaneue-medium.svg') format("svg");
+  src: asset-url('helveticaneue-medium.eot');
+  src: asset-url('helveticaneue-medium.eot?#iefix') format("embedded-opentype"), asset-url('helveticaneue-medium.ttf') format("truetype"), asset-url('helveticaneue-medium.woff') format("woff"), asset-url('helveticaneue-medium.svg') format("svg");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'HelveticaNeueBold';
-  src: url('helveticaneue-bold.eot');
-  src: url('helveticaneue-bold.eot?#iefix') format("embedded-opentype"), url('helveticaneue-bold.ttf') format("truetype"), url('helveticaneue-bold.woff') format("woff"), url('helveticaneue-bold.svg') format("svg");
+  src: asset-url('helveticaneue-bold.eot');
+  src: asset-url('helveticaneue-bold.eot?#iefix') format("embedded-opentype"), asset-url('helveticaneue-bold.ttf') format("truetype"), asset-url('helveticaneue-bold.woff') format("woff"), asset-url('helveticaneue-bold.svg') format("svg");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'practic_icons';
-  src: url('practic_icons.eot?dutye1');
-  src: url('practic_icons.eot?dutye1#iefix') format("embedded-opentype"), url('practic_icons.ttf?dutye1') format("truetype"), url('practic_icons.woff?dutye1') format("woff"), url('practic_icons.svg?dutye1#practic_icons') format("svg");
+  src: asset-url('practic_icons.eot?dutye1');
+  src: asset-url('practic_icons.eot?dutye1#iefix') format("embedded-opentype"), asset-url('practic_icons.ttf?dutye1') format("truetype"), asset-url('practic_icons.woff?dutye1') format("woff"), asset-url('practic_icons.svg?dutye1#practic_icons') format("svg");
   font-weight: normal;
   font-style: normal;
 }
