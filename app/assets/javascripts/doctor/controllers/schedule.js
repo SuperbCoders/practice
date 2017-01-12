@@ -351,8 +351,29 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     }
     var data = [event.patient.full_name, formattedPhone];
     // console.log(data);
-    // console.log(_.filter(data, function(e) { return !!e }));
-    return _.filter(data, function(e) { return !!e }).join(' ');
+    return _.filter(data, function(e) { return e }).join(' ');
+  }
+
+  function getMinEvent(events){
+    // we need compare start of event because it loads events in a min size batch
+    var events_in_interval = _.filter(events, function(e){
+      // console.log(e.title);
+      // console.log(e.start);
+      // console.log($('#calendar').fullCalendar('getView').intervalEnd);
+      // console.log(e.start < $('#calendar').fullCalendar('getView').intervalEnd);
+      return e.start < $('#calendar').fullCalendar('getView').intervalEnd
+    });
+    // console.log(events_in_interval);
+    // console.log(events_in_interval.length);
+    if (events_in_interval.length) {
+      // console.log(_.min(events_in_interval, function(e) {
+      //   console.log('iterator');
+      //   console.log(e.start);
+      //   return e.start;
+      // }));
+      // return _.min(events_in_interval, function(e) { return e.start });
+      return _.sortBy(events_in_interval, 'start')[0];
+    }
   }
 
   function visits_by_date(start, end, timezone, callback) {
@@ -365,9 +386,9 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       var date_now, i, len;
       date_now = moment(new Date);
       var date_events = [];
-      var event_setted = false;
+      // var event_setted = false;
       for (i = 0, len = events.length; i < len; i++) {
-        event = {};
+        var event = {};
         event.start = moment(events[i].start);
         event.end = moment(events[i].end);
         // event.title = 'test';
@@ -379,11 +400,19 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         event.patient = events[i].patient;
         event.title = getEventTitle(event);
         $scope.event_id++;
-        if (!event_setted && (event.start < $('#calendar').fullCalendar('getView').intervalEnd)) {
-          set_event(event);
-          event_setted = true;
-        }
+        // console.log(event.start);
+        // console.log($('#calendar').fullCalendar('getView').intervalEnd);
+        // console.log(event.start < $('#calendar').fullCalendar('getView').intervalEnd);
+        // if (!event_setted && (event.start < $('#calendar').fullCalendar('getView').intervalEnd)) {
+        //   set_event(event);
+        //   event_setted = true;
+        // }
         date_events.push(event);
+      }
+      var event = getMinEvent(date_events);
+      // console.log(event);
+      if (event) {
+        set_event(event);
       }
       // console.log($scope.set_last_event);
       if ($scope.set_last_event) {
