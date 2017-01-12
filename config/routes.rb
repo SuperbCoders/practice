@@ -2,7 +2,8 @@ Rails.application.routes.draw do
 
   devise_for :doctors, path: 'auth', controllers: { omniauth_callbacks: 'omniauth_callbacks', sessions: 'sessions', registrations: 'registrations' }
   get 'templates(/*url)' => 'application#templates'
-  root 'doctor/cabinet#index', as: :root
+
+  root 'static_pages#landing', as: :root
 
   post 'doctors/new_visit' => 'public/profiles#create_visit'
   scope 'doctors/:username' do
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
 
   namespace :doctor do
     resource :profile, only: [:show, :update]
+    resources :cabinet, only: [:index]
     resources :patients do
       collection do
         post 'search'

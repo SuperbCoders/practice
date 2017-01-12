@@ -1,0 +1,254 @@
+!!!
+%html{:lang => "ru"}
+  %head
+    %title Practic landing page
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %link{:href => "https://fonts.googleapis.com/css?family=Lora:400,700|Noto+Serif:400,700|Open+Sans:400,600,700&subset=cyrillic", :rel => "stylesheet"}/
+
+    = stylesheet_link_tag    'static/landing', media: 'all', 'data-turbolinks-track' => false
+    = javascript_include_tag 'static/landing', 'data-turbolinks-track' => false
+
+
+  %body._land
+    .wrapper
+      / .rect_1024
+      .base
+        .header
+          .section_inner.clearfix
+            .logo_block
+              %a.logo{:href => "#"}
+            .header_controls
+              -#%a.btn_v2.black_btn.auth_btn{:href => } Вход для клиентов
+              = link_to("Вход для клиентов", doctor_cabinet_index_path, class: "btn_v2 black_btn auth_btn")
+        .main_content
+          .section.first_section
+            .section_inner
+              %h1.section_title Все, что нужно для частной врачебной практики
+              %ul.benefits_list
+                %li
+                  .benefit_unit
+                    .benefit_icon
+                      = image_tag("static/landing/benefit_1.png")
+                    %p
+                      Картотека
+                      %br/
+                      пациентов
+                %li
+                  .benefit_unit
+                    .benefit_icon
+                      = image_tag("static/landing/benefit_2.png")
+                    %p
+                      Запись
+                      %br/
+                      на прием
+                %li
+                  .benefit_unit
+                    .benefit_icon
+                      = image_tag("static/landing/benefit_3.png")
+                    %p
+                      Ведение
+                      %br/
+                      записей
+                %li
+                  .benefit_unit
+                    .benefit_icon
+                      = image_tag("static/landing/benefit_4.png")
+                    %p
+                      Мини-сайт
+                      %br/
+                      врача
+            .section_controls
+              -#%a.btn_v1.blue_btn.try_btn{:href => "#"} Попробовать бесплатно
+              = link_to("Попробовать бесплатно", doctor_cabinet_index_path, class: "btn_v1 blue_btn try_btn")
+          .section
+            .section_inner
+              %h2.section_description
+                Практика — это приложение, которое упрощает работу с
+                пациентами для врача, практически, любой специализации.
+              %ul.benefits_list
+                %li
+                  .benefit_unit
+                    .benefit_icon
+                      = image_tag("static/landing/benefit_5.png")
+                    %p
+                      С помощью Практики вы можете вести картотеку пациентов и делать записи в электронную историю
+                      пациента.
+                %li
+                  .benefit_unit
+                    .benefit_icon
+                      = image_tag("static/landing/benefit_6.png")
+                    %p Удобное расписание на каждый день помогает вам спланировать время.
+                %li
+                  .benefit_unit
+                    .benefit_icon
+                      = image_tag("static/landing/benefit_7.png")
+                    %p
+                      Вы сможете за 5 минут создать для себя мини-сайт, на котором пациенту смогут записаться на прием
+                      сами.
+              .tutorial_block._left
+                .tutorial_text
+                  %h3 Пациенты
+                  %p Удобный список ваших пациентов. Все данные о каждом пациенте и его контакты.
+                  %p
+                    Можно добавлять комментарии, которые кроме вас никто не увидит. Можно помечать разных пациентов разными
+                    цветами для удобства.
+                  %p Прошлых пациентов можно перевести в архив. Удобный поиск по имени и телефону.
+                .tutorial_img
+                  = image_tag("static/landing/screen_1.png")
+              .tutorial_block._right
+                .tutorial_text
+                  %h3 Запись на прием
+                  %p
+                    Наглядный календарь для записи пациентов. Вы сами определяете рабочие дни/часы, а также стандартную
+                    длительность приема.
+                  %p
+                    Отображение записей на день, неделю, месяц. Запись легко передвинуть на другое время или отменить.
+                    Отдельно показаны записи через ваш сайт.
+                .tutorial_img
+                  = image_tag("static/landing/screen_2.png")
+              .tutorial_block._left
+                .tutorial_text
+                  %h3 История
+                  %p Современный подход к ведению записей наблюдения пациентов. Удобный ввод данных.
+                  %p
+                    Можно прикреплять файлы или изображения. Набор полей для заполнения вы легко настраиваете сами –
+                    подходит для врача любой специализации.
+                  %p
+                    Распечатка бланка для пациента. В будущем: возможность дать доступ к истории пациента другому
+                    специалисту.
+                .tutorial_img._bg
+                  = image_tag("static/landing/screen_3.png")
+              .tutorial_block._right
+                .tutorial_text
+                  %h3 Мини-сайт
+                  %p
+                    Ваш личный сайт-визитка за 5 минут. На сайте вы публикуете краткую информацию о себе и контакты для
+                    связи.
+                  %p
+                    Через сайт можно автоматизировать запись пациентов на прием, чтобы сократить объем входящих звонков. На
+                    сайте пациент сам сможет выбрать свободное в вашем расписании время и записаться.
+                  %p
+                    Вы видите такую заявку на прием в своем календаре и можете либо подтвердить запись одним кликом, либо
+                    перенести на другое время.
+                .tutorial_img
+                  = image_tag("static/landing/screen_4.png")
+              .price_holder
+                .price_block._demo
+                  .price_img
+                    = image_tag("static/landing/party.png")
+                  %p Первые
+                  .demo_period
+                    %span 6
+                    %span 0
+                  %p
+                    Дней
+                    %br/
+                    бесплатно
+                .price_block
+                  .price_img
+                    = image_tag("static/landing/pie.png")
+                  %p Далее
+                  .demo_period 839₽
+                  %p
+                    В месяц, при оплате
+                    %br/
+                    за год
+                  .price_tip Или 1,000₽ помесячно
+          .footer_holder
+            .section_inner
+              .section_controls
+                -#%a.btn_v1.try_btn.white_btn{:href => "#"} Попробовать бесплатно
+                = link_to("Попробовать бесплатно", doctor_cabinet_index_path, class: "btn_v1 try_btn white_btn")
+              .footer
+                %ul.share_block
+                  %li
+                    %a.btn_v3.white_btn_2.share_btn{:href => "#"}
+                      %span.icon-tw.share_icon
+                      %span Твитнуть
+                  %li
+                    %a.btn_v3.white_btn_2.share_btn{:href => "#"}
+                      %span.icon-fb.share_icon
+                      %span Поделиться
+                .copyright ИП, Осинцев 2017, hello@praktica.cc
+        #login_form.popup_form.checkEmptyBlock{:style => "display:none"}
+          %form{:action => "#", :novalidate => "novalidate"}
+            .form_caption Вход
+            .form_row
+              %ul.soc_auth
+                %li.soc_auth_item
+                  %a.btn_v4.soc_auth_btn.s_auth_vk.vk_btn{:href => "#"} Вконтакте
+                %li.soc_auth_item
+                  %a.btn_v4.soc_auth_btn.s_auth_fb.fb_btn{:href => "#"} Facebook
+            .form_row.text_center
+              .login_tips
+                .mb Вход через email
+            .form_row
+              %label.hidden_input{:autocomplete => "off", :for => "new_patient_email"} Email
+              .input_w
+                %input#new_patient_email.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => "off", :name => "new_patient_email", :placeholder => "Email", :type => "email"}/
+            .form_row
+              %label.hidden_input{:for => "new_patient_describe"}
+                Краткое описание (
+                autocomplete="off" только для вас)
+              .input_w
+                %input#new_patient_describe.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => "off", :name => "new_patient_describe", :placeholder => "Пароль", :type => "password"}/
+            .form_row
+              %button.btn_v4.login_btn.disabled_btn_gray.disableEmpty Войти или зарегистрироваться
+            .form_row.text_center
+              %a.gl_link.gray_link_4{:href => "#"} Забыли пароль?
+        #recovery_form.popup_form{:style => "display:none"}
+          %form{:action => "#", :novalidate => "novalidate"}
+            .recovery_block
+              .form_caption Восстановление пароля
+              .form_row
+                %label.hidden_input{:autocomplete => "off", :for => "new_patient_email"} Email
+                .input_w
+                  %input#new_patient_email.form_input.input_v3.blue_mod.text_center{:autocomplete => "off", :name => "new_patient_email", :placeholder => "Email", :type => "email"}/
+              .form_row
+                %button.btn_v4.login_btn.disabled_btn_gray Восстановить
+              .form_row.text_center
+                %a.gl_link.gray_link_4{:href => "#"} Назад
+        #recovery_success_form.popup_form{:style => "display:none"}
+          %form{:action => "#", :novalidate => "novalidate"}
+            .recovery_block
+              .form_caption Пароль отправлен на почту yaosamo@gmail.com
+              .form_row
+                %button.btn_v4.login_btn.yellow_black_btn Вход в профиль
+        #reg_success_form{:action => "#", :style => "display:none", :title => ""}
+          .popup_form.popup_v1.text_center
+            .msg_header
+              .form_caption
+                Если врач Kanye West не перезвонил вам, уточните время запсии по телефону
+                %br/
+                +7
+                (927) 026-10-20
+              .text_center
+                %a.btn_v4.white_green_btn.cancel_btn{:href => "#"} Отменить приём
+            .msg_footer
+              .form_caption Зарегистрируйтесь, чтобы читать записи врача в вашей мед. карте онлайн
+              .text_center
+                %a.btn_v4.black_blue_btn.cancel_btn{:href => "#"} Перейти в профиль
+        #reg_success_form_2{:action => "#", :style => "display:none", :title => ""}
+          .popup_form.popup_v4.text_center
+            .msg_title
+              Запись
+              %br/
+              направлена врачу
+            .msg_check
+            .msg_text
+              %p
+                Запись на сайте является подтвержденной только после того как вам позвонят. Вы можете
+                позвонить по номеру
+                %br/
+                8-800-322-33-21
+            .text_center
+              %a.btn_v2.white_green_btn_2.cancel_btn{:href => "#"} Отменить приём
+        #promo{:action => "#", :style => "display:none", :title => ""}
+          .popup_form.popup_v4.text_center
+            .promo_image
+              = image_tag("static/landing/pie.png")
+            .promo_title Позвольте пациентам самим записываться к вам онлайн
+            .msg_text
+              Вы сможете давать ссылку на ваш сайт вашим пациентам и они будут записываться сами, вам
+              останется только подтвердить запись
