@@ -79,7 +79,7 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
         $state.go('journal.records', {patient_id: vm.patient_id})
     }
 
-    function addEmptyRecord(e = null) {
+    function addEmptyRecord(e) {
         var tag = '';
         if (e) tag = e.currentTarget.innerText;
         vm.journal.journal_records.push({

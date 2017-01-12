@@ -11,6 +11,11 @@
           %label.change_photo_btn.btn_v1{:for => "doctor_public_photo"}
     .form_row
       .label_holder
+        %label.form_label{:for => "doctor_name"} Username
+      .input_w.size_59
+        %input#doctor_name.form_input.input_v1{'ng-model' => "doctor.username"}/
+    .form_row
+      .label_holder
         %label.form_label{:for => "doctor_specialty"} Специальность
       .input_w.size_59
         %input#doctor_specialty.form_input.input_v1{'ng-model' => "doctor.specialty"}/
@@ -57,7 +62,7 @@
             %span.toggle_text.toggle_false Нет
       .input_w.size_52
         %p
-          %a.gl_link.blue_link{:href => "/doctors/#{current_doctor.username}", target: '_blank'}
+          %a.gl_link.blue_link{"ng-href" => "{{doctor.publicPageLink}}", target: '_blank'}
             %span Посмотреть страницу
         %p Вы можете временно выключить профиль и тогда никто не сможет заходить на страницу врача кроме вас
   .tab_inner.form_row_v1

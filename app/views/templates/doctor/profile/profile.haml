@@ -8,13 +8,6 @@
       .input_w.size_59
         %input#doctor_name.form_input.input_v1{'ng-model' => "doctor.first_name"}/
 
-    / Name
-    .form_row
-      .label_holder
-        %label.form_label{:for => "doctor_name"} Username
-      .input_w.size_59
-        %input#doctor_name.form_input.input_v1{'ng-model' => "doctor.username"}/
-
     / Phone number
     .form_row{'ng-repeat' => "phone in doctor.phones track by $index"}
       .label_holder

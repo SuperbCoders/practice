@@ -38,7 +38,8 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
 
   $scope.save = function() {
     Doctor.save({doctor: $scope.doctor}).$promise.then(function(response) {
-      return $scope.Alerts.messages = response.messages;
+        $scope.doctor.publicPageLink = "/doctors/" + $scope.doctor.username;
+        return $scope.Alerts.messages = response.messages;
     });
     Settings.saveSettings({
       setting: $scope.settings
@@ -47,6 +48,7 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
 
   Doctor.get().$promise.then(function(response) {
     $scope.doctor = response;
+    $scope.doctor.publicPageLink = "/doctors/" + $scope.doctor.username;
     if ($scope.doctor.phones.length <= 0) {
       $scope.add_contact('phone');
     }
