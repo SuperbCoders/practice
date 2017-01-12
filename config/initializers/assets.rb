@@ -4,3 +4,4 @@ Rails.application.config.assets.precompile += %w( doctor.css doctor.js )
 Rails.application.config.assets.precompile += %w( patient.js patient.css )
 Rails.application.config.assets.precompile += %w( public.js public.css )
 Rails.application.config.assets.precompile += %w( static/landing.js static/landing.css )
+Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
