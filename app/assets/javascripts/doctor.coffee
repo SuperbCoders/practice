@@ -10,7 +10,6 @@
 #= require angular
 #= require angular-ui-router
 #= require angular-resource
-#= require angular-mask
 #= require angular-ui-mask
 #= require angular-utils-pagination
 #= require angular-ui-notification
@@ -18,10 +17,11 @@
 #= require moment/locale/ru.js
 #= require angular-base64-upload
 #= require angular-mask
+#= require angular-devise
 #/##=  doctor/includes/angular-base64-upload
 # require ui-autocomplete
-#= require ./doctor/includes/autocomplete
 
+#= require ./doctor/includes/autocomplete
 #= require ./doctor/includes/scripts
 #= require ./doctor/application
 #= require_tree ./doctor/controllers
