@@ -183,7 +183,7 @@ $(function ($) {
     });
 
     body_var.on('click', function (e) {
-      console.log('click');
+      // console.log('click');
         if (!($(e.target).hasClass('notificationBtn') || $(e.target).hasClass('notificationDropdown') || $(e.target).closest('.notificationDropdown').length)) {
             notificationBtn.parent().removeClass('notification_open');
         }

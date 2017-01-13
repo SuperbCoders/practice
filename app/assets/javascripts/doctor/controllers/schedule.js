@@ -101,7 +101,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   function event_after_all_render(view){
-    console.log('event_after_all_render');
+    // console.log('event_after_all_render');
     // console.log(view);
     activateFirstEvent();
   }
@@ -338,7 +338,10 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       $scope.settings.calendar_view = 'week';
     }
     Settings.saveSettings($scope.settings);
-    $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name);
+    // console.log(view.name);
+    // $('.calendarHolder').toggleClass('day_mode', false);
+    // $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name);
+    $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name || 'agendaWeek' === view.name);
     $scope.event = null;
     $scope.patient = null;
   };
