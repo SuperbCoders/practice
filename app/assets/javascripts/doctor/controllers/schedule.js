@@ -104,9 +104,12 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   function event_after_all_render(view){
-    // console.log('event_after_all_render');
+    console.log('event_after_all_render');
     // console.log(view);
-    activateFirstEvent();
+    if (activate_first_event) {
+      activate_first_event = false;
+      activateFirstEvent();
+    }
   }
 
   function event_render(event, element){
@@ -334,7 +337,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
   setTimeline();
 
+  var activate_first_event;
+
   function view_render(view, element) {
+    console.log('view_render');
+
+    activate_first_event = true;
+    // activateFirstEvent();
     if (view.name === 'agendaDay') {
       $scope.settings.calendar_view = 'day';
     } else {
@@ -500,7 +509,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   $scope.inspectNewPatientPhone = function($event){
-    console.log('inspect ' + $scope.new_patient + ' ' + $scope.new_patient.phone + ' ' + $($event.target).val());
+    // console.log('inspect ' + $scope.new_patient + ' ' + $scope.new_patient.phone + ' ' + $($event.target).val());
   }
 
   function day_click(date, jsEvent, view) {
@@ -830,7 +839,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   $scope.myOption2 = function(model) {
-    console.log('complete');
+    // console.log('complete');
     return {
     options: {
       // html: true,
@@ -843,7 +852,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         // element = myOption.element?
         var search = {};
         if (model == 'phone') {
-          console.log('normalize ' + normalizeFormattedPhone(request.term));
+          // console.log('normalize ' + normalizeFormattedPhone(request.term));
           search[model] = normalizeFormattedPhone(request.term);
           if (search[model] == '') return [];
         } else {
@@ -852,7 +861,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         return Patients.autocomplete(search).$promise.then(function(patients) {
           $scope.completions = patients;
           response(_.map(patients, function(e) {
-            console.log('model ' + model);
+            // console.log('model ' + model);
             if (model == 'phone') {
               return {label: formatPhone(e[model]), value: e[model]};
               // return {label: e.full_name, value: e};
@@ -915,7 +924,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   $scope.inputIsEmpty = function($event){
-    console.log('input empty ' + $event.target + '' + $($event.target).val());
+    // console.log('input empty ' + $event.target + '' + $($event.target).val());
   }
 
   $scope.newPatientPhoneInputBlur = function($event){
