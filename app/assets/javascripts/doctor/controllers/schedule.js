@@ -94,6 +94,9 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   function activateFirstEvent(){
     var events = $('#calendar').fullCalendar('clientEvents');
     var event = getMinEvent(events);
+    // _.map(events, function(e) {
+    //   console.log(e.title + ' ' + e.start.toISOString());
+    // });
     // console.log(event);
     if (event) {
       set_event(event);

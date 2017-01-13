@@ -504,13 +504,30 @@ app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope,
       "June": "июня",
       "July": "июля",
       "August": "августа",
-      "September": "Сентября",
+      "September": "сентября",
       "October": "октября",
       "November": "ноября",
       "December": "декабря"
     };
     var date = moment(visit.start_at);
-    return date.format('DD') + ' ' + monts[date.format('MMMM')] + ', в ' + date.format('HH:mm')
+    var en = moment().locale('en');
+    // for (var i = 1; i < 12; i++) {
+    //   var m = en.localeData().months(moment(new Date(2017, i, 1)));
+    //   // console.log(m.format('MMMM'));
+    //   console.log(m);
+    // }
+    // fr.localeData().months(m
+    // var en = moment().locale('en');
+    // var m = en.localeData().months(date);
+    // return date.format('DD') + ' ' + moment(date).lang('en').format('MMMM') + ' ' + monts[date.format('MMMM')] + ', в ' + date.format('HH:mm')
+    // return date.format('DD') + ' ' + m + ' ' + monts[date.format('MMMM')] + ', в ' + date.format('HH:mm')
+    // console.log(1);
+    // console.log(moment(date).locale('en').format('MMMM'));
+    // console.log(2);
+    // console.log(moment(date).format('MMMM'));
+    // console.log(3);
+    return date.format('DD') + ' '+ monts[moment(date).locale('en').format('MMMM')] + ', в ' + date.format('HH:mm');
+    // return date.format('DD') + ' '+ monts[moment(date).locale('en').format('MMMM')) + ', в ' + date.format('HH:mm');
   };
 }
         ]);
