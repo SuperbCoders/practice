@@ -13,7 +13,7 @@
         %label.form_label.fz_20_{:for => "new_patient_name"} Имя пациента
     .form_row
       .input_w.placeholder_mod
-        %input#new_patient_phone.form_input.input_v4.checkEmpty{:type => "tel", :value => "", 'ng-model' => "new_patient.phone", 'ui-autocomplete' => "myOption2('phone')", 'ng-change' => 'removeCompletedPatient()', 'ng-class' => "{ 'completed': completed_patient, 'ng-empty' : !new_patient_phone_input }", 'ng-blur' => 'newPatientPhoneInputBlur($event)', 'ng-trim' => 'false', 'ui-mask' => "+9 (999) 999-99-99", 'ui-options' => "{clearOnBlur: false, addDefaultPlaceholder: false, allowInvalidValue: true}", pattern: '\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}', title: 'Неправильный формат телефона'}/
+        %input#new_patient_phone.form_input.input_v4.checkEmpty{:type => "tel", :value => "", 'ng-model' => "new_patient.phone", 'ui-autocomplete' => "myOption2('phone')", 'ng-change' => 'removeCompletedPatient()', 'ng-class' => "{ 'completed': completed_patient, 'ng-empty' : !new_patient_phone_input }", 'ng-blur' => 'newPatientPhoneInputBlur($event)', 'ng-trim' => 'false', 'ui-mask' => "+9 (999) 999-99-99", 'ui-options' => "{clearOnBlur: false, addDefaultPlaceholder: false, allowInvalidValue: true}", pattern: '\+\d \(\d{3}\) \d{3}-\d{2}-\d{2}', title: 'Неправильный формат телефона'}/
         %label.form_label{:for => "new_patient_phone"} Телефон
     .form_row
       .input_w.placeholder_mod
