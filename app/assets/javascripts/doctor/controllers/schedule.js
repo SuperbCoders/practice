@@ -828,32 +828,26 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   $scope.initReceptionForm();
 
   function normalizeFormattedPhone(phone){
-    return phone.replace(/\+7 \((...)\) (...)-(..)-(..)/, '$1$2$3$4').replace(/_/g, '');
-    // return phone.replace(/\+7 \((...)\) (...)-(..)-(..)/, function(){
-      // return 
-    // });
+    if (typeof phone === 'string') {
+      return phone.replace(/\+(.) \((...)\) (...)-(..)-(..)/, '$1$2$3$4$5').replace(/_/g, '');
+    }
   }
 
   function formatPhone(phone){
-    // console.log('format ' + phone);
-    return phone.replace(/(...)(...)(..)(..)/, '+7 ($1) $2-$3-$4')
+    if (typeof phone === 'string') {
+      return phone.replace(/(.)(...)(...)(..)(..)/, '+$1 ($2) $3-$4-$5')
+    }
   }
 
   $scope.myOption2 = function(model) {
-    // console.log('complete');
     return {
     options: {
-      // html: true,
-      // focusOpen: true,
-      // onlySelectValid: true,
       position: {
         collision: 'none'
       },
       source: function (request, response) {
-        // element = myOption.element?
         var search = {};
         if (model == 'phone') {
-          // console.log('normalize ' + normalizeFormattedPhone(request.term));
           search[model] = normalizeFormattedPhone(request.term);
           if (search[model] == '') return [];
         } else {
@@ -862,10 +856,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         return Patients.autocomplete(search).$promise.then(function(patients) {
           $scope.completions = patients;
           response(_.map(patients, function(e) {
-            // console.log('model ' + model);
             if (model == 'phone') {
               return {label: formatPhone(e[model]), value: e[model]};
-              // return {label: e.full_name, value: e};
             } else {
               return e[model];
             }
@@ -874,9 +866,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       },
       select: function (event, ui) {
         event.preventDefault()
-        // return false;
         $scope.completed_patient = _.find($scope.completions, function(e) {
-          // console.log('normalize ' + normalizeFormattedPhone(ui.item.value));
           return e[model] == ui.item.value;
         });
         $scope.updateCompletedPatient();

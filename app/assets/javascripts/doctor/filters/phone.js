@@ -3,7 +3,7 @@ angular
   .filter('phone', function () {
     return function (phone) {
       if (typeof phone === 'string') {
-        return phone.replace(/(...)(...)(..)(..)/, '+7 ($1) $2-$3-$4')
+        return phone.replace(/(.)(...)(...)(..)(..)/, '+$1 ($2) $3-$4-$5')
       }
     }
   });
