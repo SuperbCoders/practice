@@ -8,7 +8,7 @@
 
     = stylesheet_link_tag    'static/landing', media: 'all', 'data-turbolinks-track' => false
     = javascript_include_tag 'static/landing', 'data-turbolinks-track' => false
-
+    = csrf_meta_tags
 
   %body._land
     .wrapper
@@ -172,29 +172,29 @@
                       %span Поделиться
                 .copyright ИП, Осинцев 2017, hello@praktica.cc
         #login_form.popup_form.checkEmptyBlock{:style => "display:none"}
-          %form{:action => "#", :novalidate => "novalidate"}
+          %form{:novalidate => "novalidate"}
             .form_caption Вход
             .form_row
               %ul.soc_auth
                 %li.soc_auth_item
-                  %a.btn_v4.soc_auth_btn.s_auth_vk.vk_btn{:href => "#"} Вконтакте
+                  %a.btn_v4.soc_auth_btn.s_auth_vk.vk_btn{:href => "/auth/auth/vkontakte"} Вконтакте
                 %li.soc_auth_item
-                  %a.btn_v4.soc_auth_btn.s_auth_fb.fb_btn{:href => "#"} Facebook
+                  %a.btn_v4.soc_auth_btn.s_auth_fb.fb_btn{:href => "/auth/auth/facebook"} Facebook
             .form_row.text_center
               .login_tips
                 .mb Вход через email
             .form_row
               %label.hidden_input{:autocomplete => "off", :for => "new_patient_email"} Email
               .input_w
-                %input#new_patient_email.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => "off", :name => "new_patient_email", :placeholder => "Email", :type => "email"}/
+                %input#sign_in_email.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => "off", :name => "new_patient_email", :placeholder => "Email", :type => "email", "required" => true}/
             .form_row
               %label.hidden_input{:for => "new_patient_describe"}
                 Краткое описание (
                 autocomplete="off" только для вас)
               .input_w
-                %input#new_patient_describe.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => "off", :name => "new_patient_describe", :placeholder => "Пароль", :type => "password"}/
+                %input#sign_in_password.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => "off", :name => "new_patient_describe", :placeholder => "Пароль", :type => "password", "required" => true}/
             .form_row
-              %button.btn_v4.login_btn.disabled_btn_gray.disableEmpty Войти или зарегистрироваться
+              %button#sign_in_button.btn_v4.login_btn.disabled_btn_gray.disableEmpty Войти или зарегистрироваться
             .form_row.text_center
               %a.gl_link.gray_link_4{:href => "#"} Забыли пароль?
         #recovery_form.popup_form{:style => "display:none"}

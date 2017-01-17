@@ -44,5 +44,9 @@ module Practice
 
     # Avatar upload path
     config.upload_path = Rails.root.join('public', 'upload').to_s
+
+    config.to_prepare do
+      DeviseController.respond_to :html, :json
+    end
   end
 end

@@ -5,7 +5,7 @@ class Doctor < ActiveRecord::Base
   include Attachable
   include Alertable
 
-  devise :database_authenticatable, :registerable,  :confirmable, :omniauthable,
+  devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable,
          omniauth_providers: %w(facebook vkontakte)
 
