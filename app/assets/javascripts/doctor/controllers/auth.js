@@ -6,11 +6,11 @@ function AuthController($scope, $http, Auth) {
 
 AuthController.$inject = ['$scope', '$http', 'Auth'];
 angular
-    .module('doctor.practice')
+    .module('practice.doctor')
     .controller('AuthController', AuthController);
 
 angular
-    .module('doctor.practice')
+    .module('practice.doctor')
     .config(function (AuthInterceptProvider) {
        AuthInterceptProvider.interceptAuth(true);
        console.log('intercept config');
