@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'practic_icons';
-  src: url('../fonts/practic_icons.eot?dutye1');
-  src: url('../fonts/practic_icons.eot?dutye1#iefix') format('embedded-opentype'),
-  url('../fonts/practic_icons.ttf?dutye1') format('truetype'),
-  url('../fonts/practic_icons.woff?dutye1') format('woff'),
-  url('../fonts/practic_icons.svg?dutye1#practic_icons') format('svg');
+  src: asset-url('practic_icons.eot?dutye1');
+  src: asset-url('practic_icons.eot?dutye1#iefix') format('embedded-opentype'),
+  asset-url('practic_icons.ttf?dutye1') format('truetype'),
+  asset-url('practic_icons.woff?dutye1') format('woff'),
+  asset-url('practic_icons.svg?dutye1#practic_icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
