@@ -4246,7 +4246,7 @@ $patient_scale_time: 1s;
       color: #b5b5b5;
     }
 
-    &::-moz-placeholder, {
+    &::-moz-placeholder {
       color: #b5b5b5;
     }
 
@@ -4266,7 +4266,7 @@ $patient_scale_time: 1s;
       color: rgba(0, 0, 0, .4);
     }
 
-    &::-moz-placeholder, {
+    &::-moz-placeholder {
       color: rgba(0, 0, 0, .4);
     }
   }
