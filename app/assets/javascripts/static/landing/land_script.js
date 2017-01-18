@@ -1,5 +1,6 @@
 var header = $('.header'), doc = $(document),
     browserWindow = $(window);
+var toggleDialogs;
 
 $(function ($) {
 
@@ -64,13 +65,13 @@ $(function ($) {
                 type: "POST",
                 dataType: "json",
                 data: {
-                    "doctor": {"email": email, "password": password, "remember_me": 1}
+                    "doctor": { "email": email, "password": password, "remember_me": 1 }
                 },
                 success: function (msg) {
                     window.location.replace('/doctor');
                 },
                 error: function (msg) {
-                    console.log("msg");
+                    console.log(msg);
                 }
             });
         }
@@ -81,5 +82,70 @@ $(function ($) {
 
     }
     $('#sign_in_button').on('click', signIn);
+
+    //----------
+
+    var recovery_form = $('#recovery_form').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 400,
+        dialogClass: "dialog_v1 no_close_mod login_form",
+    });
+
+    var recovery_success_form = $('#recovery_success_form').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 400,
+        dialogClass: "dialog_v1 no_close_mod login_form",
+    });
+
+    function openSignInDialog(e) {
+        e.preventDefault();
+        recovery_success_form.dialog('close');
+        login_form.dialog('open');
+    }
+    $('#recovery_success_form button').on('click', openSignInDialog);
+
+    toggleDialogs = function(e) {
+        login_form.dialog('isOpen') ? login_form.dialog('close') : login_form.dialog('open');
+        recovery_form.dialog('isOpen') ? recovery_form.dialog('close') : recovery_form.dialog('open');
+    };
+
+    function recoveryPassword(e) {
+
+        function toggleRecoveryDialogs() {
+            recovery_form.dialog('close');
+            recovery_success_form.dialog('open');
+        }
+
+        function postRequest(email) {
+
+            $.ajax({
+                headers: {
+                    'X-Transaction': 'Recovery Post',
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/auth/password",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    "doctor": { "email": email }
+                },
+                success: function (msg) {
+                    console.log(msg);
+                    toggleRecoveryDialogs();
+                },
+                error: function (msg) {
+                    console.log(msg);
+                }
+            });
+        }
+
+        e.preventDefault();
+        var email = $('#recovery_email').val();
+        postRequest(email);
+    }
+    $('#recovery_button').on('click', recoveryPassword);
+
 });
 

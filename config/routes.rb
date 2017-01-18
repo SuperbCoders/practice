@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  devise_for :doctors, path: 'auth', controllers: { omniauth_callbacks: 'omniauth_callbacks', sessions: 'sessions', registrations: 'registrations' }
+  devise_for :doctors, path: 'auth', controllers: { omniauth_callbacks: 'omniauth_callbacks',
+                                                    sessions: 'sessions',
+                                                    registrations: 'registrations',
+                                                    passwords: 'passwords' }
   get 'templates(/*url)' => 'application#templates'
 
   root 'static_pages#landing', as: :root
