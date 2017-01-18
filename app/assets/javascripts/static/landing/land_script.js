@@ -45,7 +45,7 @@ $(function ($) {
         width: 400,
         dialogClass: "dialog_v1 no_close_mod login_form"
     });
-    if (url.indexOf('?login') != -1) {
+    if (url.indexOf('#login') != -1) {
         login_form.dialog('open');
     }
 
@@ -67,7 +67,7 @@ $(function ($) {
                     "doctor": {"email": email, "password": password, "remember_me": 1}
                 },
                 success: function (msg) {
-                    window.location.replace('/doctor/cabinet');
+                    window.location.replace('/doctor');
                 },
                 error: function (msg) {
                     console.log("msg");

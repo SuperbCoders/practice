@@ -12,7 +12,7 @@ class Doctor::BaseController < ApplicationController
     if doctor_signed_in?
       super
     else
-      redirect_to '/?login'
+      redirect_to '#login'
     end
   end
 

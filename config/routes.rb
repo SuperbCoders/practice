@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   end
 
   namespace :doctor do
+    root 'cabinet#index'
     resource :profile, only: [:show, :update]
     resources :cabinet, only: [:index]
     resources :patients do
