@@ -67,7 +67,7 @@ $(function ($) {
                     "doctor": {"email": email, "password": password, "remember_me": 1}
                 },
                 success: function (msg) {
-                    window.location.replace('/doctor/cabinet');
+                    window.location.replace('/doctor');
                 },
                 error: function (msg) {
                     console.log("msg");
