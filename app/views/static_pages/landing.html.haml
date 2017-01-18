@@ -196,23 +196,23 @@
             .form_row
               %button#sign_in_button.btn_v4.login_btn.disabled_btn_gray.disableEmpty Войти или зарегистрироваться
             .form_row.text_center
-              %a.gl_link.gray_link_4{:href => "#"} Забыли пароль?
-        #recovery_form.popup_form{:style => "display:none"}
+              %a.gl_link.gray_link_4{:href => "#", "onclick" => "toggleDialogs()"} Забыли пароль?
+        #recovery_form.popup_form.checkEmptyBlock{:style => "display:none"}
           %form{:action => "#", :novalidate => "novalidate"}
             .recovery_block
               .form_caption Восстановление пароля
               .form_row
                 %label.hidden_input{:autocomplete => "off", :for => "new_patient_email"} Email
                 .input_w
-                  %input#new_patient_email.form_input.input_v3.blue_mod.text_center{:autocomplete => "off", :name => "new_patient_email", :placeholder => "Email", :type => "email"}/
+                  %input#recovery_email.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => "off", :name => "new_patient_email", :placeholder => "Email", :type => "email"}/
               .form_row
-                %button.btn_v4.login_btn.disabled_btn_gray Восстановить
+                %button#recovery_button.btn_v4.login_btn.disabled_btn_gray.disableEmpty Восстановить
               .form_row.text_center
-                %a.gl_link.gray_link_4{:href => "#"} Назад
+                %a.gl_link.gray_link_4{:href => "#", "onclick" => "toggleDialogs()"} Назад
         #recovery_success_form.popup_form{:style => "display:none"}
           %form{:action => "#", :novalidate => "novalidate"}
             .recovery_block
-              .form_caption Пароль отправлен на почту yaosamo@gmail.com
+              .form_caption Пароль отправлен на почту
               .form_row
                 %button.btn_v4.login_btn.yellow_black_btn Вход в профиль
         #reg_success_form{:action => "#", :style => "display:none", :title => ""}
