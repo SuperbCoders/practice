@@ -62,8 +62,9 @@
             %span.toggle_text.toggle_false Нет
       .input_w.size_52
         %p
-          %a.gl_link.blue_link{"ng-href" => "{{doctor.publicPageLink}}", target: '_blank'}
+          %a.gl_link.blue_link{"ng-if" => "doctor.username", "ng-href" => "{{doctor.publicPageLink}}", target: '_blank'}
             %span Посмотреть страницу
+          %p{"ng-if" => "!doctor.username"} Заполните поле Username и нажмите кнопку сохранить
         %p Вы можете временно выключить профиль и тогда никто не сможет заходить на страницу врача кроме вас
   .tab_inner.form_row_v1
     .form_row
