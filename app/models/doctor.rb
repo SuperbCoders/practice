@@ -67,8 +67,7 @@ class Doctor < ActiveRecord::Base
 
         File.open("#{Rails.application.config.upload_path}/#{new_file_name}", 'wb') { |f|
           if f.write(res.read)
-            relative_name = "/" + Pathname.new(f.path).relative_path_from(Rails.public_path).to_s
-            return update_attributes(avatar: relative_name)
+            return update_attributes(avatar: new_file_name)
           end
         }
       end
@@ -87,21 +86,21 @@ class Doctor < ActiveRecord::Base
     user = identity.doctor
 
     unless user
-      user = Doctor.new
-      user.email = auth.info.email.downcase if auth.info.email
-      user.password = Patient.temporary_password
-      user.username = auth.extra.raw_info.id
+      return user unless auth.info.email
+      user = Doctor.find_or_create_by(email: auth.info.email.downcase) do |user|
+        user.password = Patient.temporary_password
+        user.username = auth.extra.raw_info.id
 
-      case auth.provider
-        when 'facebook'
-          user.avatar_from_url("https://graph.facebook.com/#{auth.extra.raw_info.id}/picture?type=large")
-          user.first_name = auth.info.name
-        when 'vkontakte'
-          user.avatar_from_url(auth.extra.raw_info.photo_200_orig) if auth.extra.raw_info.photo_200_orig
-          user.first_name = auth.info.first_name
-          user.last_name = auth.info.last_name
+        case auth.provider
+          when 'facebook'
+            user.avatar_from_url("https://graph.facebook.com/#{auth.extra.raw_info.id}/picture?type=large")
+            user.first_name = auth.info.name
+          when 'vkontakte'
+            user.avatar_from_url(auth.extra.raw_info.photo_200_orig) if auth.extra.raw_info.photo_200_orig
+            user.first_name = auth.info.first_name
+            user.last_name = auth.info.last_name
+        end
       end
-      user.save
     end
     user
   end
