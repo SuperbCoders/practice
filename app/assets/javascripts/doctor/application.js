@@ -366,6 +366,50 @@ app.directive('initWorkDays', ['$timeout', function ($timeout) {
   }
 }]);
 
+// app.directive('formatPhone', ['$timeout', function ($timeout) {
+//   return {
+//     restrict: 'A',
+//     require: 'ngModel',
+//     priority: -200,
+//     link: function(scope, element, attrs, ngModel) {
+//       // scope.$apply(function(){
+//         console.log('formatPhone '  + ngModel.$modelValue);
+//         // ngModel.$setViewValue("I'm a new value of the model. I've been set using the setViewValue method");
+//         ngModel.$setViewValue("+7 (333) 222-11-11");
+//       // });
+//       // var run = function () {
+//       //   // console.log('init-work-days');
+//       //   init_work_days(element);
+//       // }
+//       // $timeout(run, 0);
+//     }
+//   }
+// }]);
+
+app.directive('formatPhone', ['$timeout', function ($timeout) {
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    priority: -200,
+    link: function(scope, element, attrs, ngModel) {
+      // scope.$apply(function(){
+        console.log('formatPhone '  + ngModel.$modelValue);
+        // ngModel.$setViewValue("I'm a new value of the model. I've been set using the setViewValue method");
+        // ngModel.$setViewValue("+7 (333) 222-11-11");
+      ngModel.$formatters.push(function(value){
+        // return "+7 (333) 222-11-11";
+        return formatPhone(value);
+      });
+      // });
+      // var run = function () {
+      //   // console.log('init-work-days');
+      //   init_work_days(element);
+      // }
+      // $timeout(run, 0);
+    }
+  }
+}]);
+
 app.config(['paginationTemplateProvider', function(paginationTemplateProvider) {
   paginationTemplateProvider.setPath('/templates/doctor/pagination');
 }]);

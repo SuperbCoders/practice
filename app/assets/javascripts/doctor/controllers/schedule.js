@@ -833,12 +833,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     }
   }
 
-  function formatPhone(phone){
-    if (typeof phone === 'string') {
-      return phone.replace(/(.)(...)(...)(..)(..)/, '+$1 ($2) $3-$4-$5')
-    }
-  }
-
   $scope.myOption2 = function(model) {
     return {
     options: {

@@ -18,28 +18,33 @@ function PatientController($scope, $state, $stateParams, Patients) {
   };
 
   $scope.save = function(redirect) {
-    if (redirect == null) {
-      redirect = false;
-    }
-    if (!$scope.patient) {
-      return false;
-    }
-    if ($scope.patient.id) {
-      return $scope.patient.$save().then(function(patient) {
-        return $scope.normalize_patient();
-      });
-    } else {
-      return Patients.create({
-        patient: $scope.patient
-      }).$promise.then(function(result) {
-        if (redirect) {
-          return $state.go('journal.records', {
-            patient_id: result.id
-          });
-        } else {
-          return $state.go('patients.list');
-        }
-      });
+    if ($scope.editPatientForm.$valid) {
+      if (redirect == null) {
+        redirect = false;
+      }
+      if (!$scope.patient) {
+        return false;
+      }
+      if ($scope.patient.id) {
+        $scope.patient.$save().then(function(patient) {
+          if (patient.phones.length == 0) {
+            patient.phones.push({data: ''});
+          }
+          $scope.normalize_patient();
+        });
+      } else {
+        return Patients.create({
+          patient: $scope.patient
+        }).$promise.then(function(result) {
+          if (redirect) {
+            return $state.go('journal.records', {
+              patient_id: result.id
+            });
+          } else {
+            return $state.go('patients.list');
+          }
+        });
+      }
     }
   };
 
@@ -53,6 +58,8 @@ function PatientController($scope, $state, $stateParams, Patients) {
     $('#patient_blood').val($scope.patient.blood).trigger('chosen:updated');
     $('#patient_rhesus').val($scope.patient.rhesus).trigger('chosen:updated');
   };
+
+  // $scope.test_phone = '79998882222';
 
   $('#patient_age').datepicker({
     firstDay: 1,
@@ -80,8 +87,22 @@ function PatientController($scope, $state, $stateParams, Patients) {
     Patients.get({
       id: $stateParams.id
     }).$promise.then(function(patient) {
+      if (patient.phones.length == 0) {
+        patient.phones.push({data: ''});
+      }
+      // patient.phones.forEach(function
+      // patient.phones = _.map(patient.phones, function(phone){
+      //   phone.data = formatPhone(phone.data);
+      //   // phone.data.$formatters.push();// = formatPhone(phone.data);
+      //   return phone;
+      // });
+      // patient.phones[0].data = '+7 (111) 222-22-22';
+      // patient.phones[0].data = '71112222222';
       $scope.patient = patient;
+    // $scope.$apply();
+      // console.log('patient dump 1 ' + patient.phones[0].data);
       $scope.normalize_patient();
+      // console.log('patient dump 2 ' + patient.phones[0].data);
       $('#patient_age').datepicker('setDate', moment($scope.patient.birthday).toDate());
       getAge(moment($('#patient_age').datepicker('getDate')).toString());
       return setTimeout(function() {
