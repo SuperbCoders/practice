@@ -17,7 +17,7 @@
             %tr{'dir-paginate' => "doctor in vm.doctors | itemsPerPage: vm.items_limit"}
               %td {{doctor.name}}
               %td {{doctor.email}}
-              %td {{doctor.c_at | date}}
+              %td {{doctor.created_at | date}}
               %td
                 %a.btn.btn-sm.btn-flat.btn-default
                   %i.fa.fa-pencil

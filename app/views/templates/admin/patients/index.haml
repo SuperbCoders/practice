@@ -17,11 +17,11 @@
             %tr{'dir-paginate' => "patient in vm.patients| itemsPerPage: vm.items_limit"}
               %td {{patient.name}}
               %td {{patient.email}}
-              %td {{patient.c_at | date}}
+              %td {{patient.created_at | date}}
               %td
-                %a
+                %a.btn.btn-sm.btn-flat.btn-default
                   %i.fa.fa-pencil
-                %a
+                %a.btn.btn-sm.btn-flat.btn-default
                   %i.fa.fa-trash
   .box-footer
     .col-xs-12
