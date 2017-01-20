@@ -90,19 +90,10 @@ function PatientController($scope, $state, $stateParams, Patients) {
       if (patient.phones.length == 0) {
         patient.phones.push({data: ''});
       }
-      // patient.phones.forEach(function
-      // patient.phones = _.map(patient.phones, function(phone){
-      //   phone.data = formatPhone(phone.data);
-      //   // phone.data.$formatters.push();// = formatPhone(phone.data);
-      //   return phone;
-      // });
-      // patient.phones[0].data = '+7 (111) 222-22-22';
-      // patient.phones[0].data = '71112222222';
+      // console.log('phones');
+      // console.log(patient.phones);
       $scope.patient = patient;
-    // $scope.$apply();
-      // console.log('patient dump 1 ' + patient.phones[0].data);
       $scope.normalize_patient();
-      // console.log('patient dump 2 ' + patient.phones[0].data);
       $('#patient_age').datepicker('setDate', moment($scope.patient.birthday).toDate());
       getAge(moment($('#patient_age').datepicker('getDate')).toString());
       return setTimeout(function() {

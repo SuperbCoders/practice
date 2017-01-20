@@ -64,8 +64,11 @@ class Doctor::PatientsController < Doctor::BaseController
 
       # Phones
       params[:phones].map { |phone_data|
-        @resource.contacts.find_or_create_by(contact_type: Contact.contact_types[:phone],
-            data: phone_data[:data])
+        if phone_data[:id]
+          @resource.contacts.where(contact_type: Contact.contact_types[:phone], id: phone_data[:id]).first.update(data: phone_data[:data])
+        else
+          @resource.contacts.create(contact_type: Contact.contact_types[:phone], data: phone_data[:data])
+        end
       } if params[:phones]
 
     end
