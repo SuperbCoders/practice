@@ -1,4 +1,4 @@
-function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts, Patients) {
+function JournalController($rootScope, $stateParams, $scope, $state, Journals, Alerts, Dicts, Patients) {
     var vm = this;
     vm.Journals = Journals;
     vm.Dicts = Dicts;
@@ -35,6 +35,7 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
             .$promise
             .then(function (patient) {
                 vm.patient = patient;
+                $rootScope.$title = vm.patient.full_name;
                 $('.patient_status_w .chosen-select').val(vm.patient.cart_color).trigger("chosen:updated");
             })
     }
@@ -231,7 +232,7 @@ function JournalController($stateParams, $scope, $state, Journals, Alerts, Dicts
     })
 }
 
-JournalController.$inject = ['$stateParams','$scope', '$state', 'Journals', 'Alerts', 'Dicts', 'Patients'];
+JournalController.$inject = ['$rootScope', '$stateParams','$scope', '$state', 'Journals', 'Alerts', 'Dicts', 'Patients'];
 angular
     .module('practice.doctor')
     .controller('JournalController', JournalController);

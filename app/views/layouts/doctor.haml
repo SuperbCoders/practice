@@ -2,7 +2,7 @@
 -# %html{:lang => "ru", 'ng-app' => "practice.doctor", :class => "{{bodyClassName}}"}
 %html{:lang => "ru", 'ng-app' => "practice.doctor", 'resize' => true, 'resize-full-calendar' => true }
   %head
-    %title Practic профиль
+    %title{"ng-bind" => "($title || 'Практика')"}
 
     %meta{:charset => "utf-8"}/
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/

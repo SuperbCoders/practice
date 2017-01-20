@@ -1,4 +1,4 @@
-var app = angular.module('practice.doctor', ['ui.router', 'ngMask', 'ui-notification', 'naif.base64', 'ngResource', 'angularUtils.directives.dirPagination', 'angularMoment', 'ui.autocomplete', 'ui.mask', 'Devise']);
+var app = angular.module('practice.doctor', ['ui.router', 'ui.router.title', 'ngMask', 'ui-notification', 'naif.base64', 'ngResource', 'angularUtils.directives.dirPagination', 'angularMoment', 'ui.autocomplete', 'ui.mask', 'Devise']);
 
 this.application = app;
 
@@ -67,7 +67,10 @@ app.config([
       })
       .state('doctor.profile', {
 	url: '/profile',
-	templateUrl: '/templates/doctor/profile/profile.haml'
+	templateUrl: '/templates/doctor/profile/profile.haml',
+          resolve: {
+              $title: function () { return 'Мои данные' }
+          }
         // ,
         // viewContentLoaded: function(){
         //   active_tab(0);
@@ -75,7 +78,10 @@ app.config([
       })
       .state('doctor.public', {
 	url: '/public',
-	templateUrl: '/templates/doctor/profile/public.haml'
+	templateUrl: '/templates/doctor/profile/public.haml',
+          resolve: {
+              $title: function () { return 'Мой публичный профиль' }
+          }
         // ,
         // viewContentLoaded: function(){
         //   active_tab(1);
@@ -83,7 +89,10 @@ app.config([
       })
       .state('doctor.settings', {
 	url: '/settings',
-	templateUrl: '/templates/doctor/profile/settings.haml'
+	templateUrl: '/templates/doctor/profile/settings.haml',
+          resolve: {
+              $title: function () { return 'Настройки' }
+          }
         // ,
         // viewContentLoaded: function(){
         //   active_tab(2);
@@ -91,7 +100,10 @@ app.config([
       })
       .state('doctor.subscription', {
 	url: '/subscription',
-	templateUrl: '/templates/doctor/profile/subscription.haml'
+	templateUrl: '/templates/doctor/profile/subscription.haml',
+          resolve: {
+              $title: function () { return 'Оплата подписки ' }
+          }
         // ,
         // viewContentLoaded: function(){
         //   active_tab(3);
@@ -106,6 +118,7 @@ app.config([
 	templateUrl: '/templates/doctor/patients/list.html',
 	controller: 'PatientsController',
 	resolve: {
+	    $title: function () { return 'Мои пациенты' },
 	  Patients: Patients
 	}
       })
@@ -114,6 +127,7 @@ app.config([
 	templateUrl: '/templates/doctor/patients/add.html',
 	controller: 'PatientController',
 	resolve: {
+        $title: function () { return 'Новый пациент' },
 	  Patients: Patients
 	}
       })
@@ -226,7 +240,8 @@ app.config([
 	      ]);
 	    }
 	  ],
-        Patients: Patients
+        Patients: Patients,
+        $title: function () { return 'Новая запись в карту' }
 	}
       })
       .state('schedule', {
@@ -234,6 +249,7 @@ app.config([
 	templateUrl: '/templates/doctor/schedule/index.html',
 	controller: 'ScheduleController',
 	resolve: {
+	    $title: function () { return 'Мое расписание'; },
 	  Doctor: Doctor,
 	  Patients: Patients,
 	  Visits: [

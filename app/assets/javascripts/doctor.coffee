@@ -9,6 +9,7 @@
 
 #= require angular
 #= require angular-ui-router
+#= require angular-ui-router-title
 #= require angular-resource
 #= require angular-ui-mask
 #= require angular-utils-pagination
