@@ -14,38 +14,38 @@ function PatientsController($scope, $window, Patients) {
     return $('body').removeClass('sub_header_mod');
   });
 
-  $('.chosen-select').chosen({
-    width: '100%',
-    disable_search_threshold: 3
-  }).on('chosen:showing_dropdown', function(evt, params) {
-    var firedEl, niceScrollBlock;
-    firedEl = $(evt.currentTarget);
-    niceScrollBlock = firedEl.next('.chzn-container').find('.chzn-results');
-    if (niceScrollBlock.getNiceScroll().length) {
-      niceScrollBlock.getNiceScroll().resize().show();
-    } else {
-      niceScrollBlock.niceScroll({
-        cursorwidth: 4,
-        cursorborderradius: 2,
-        cursorborder: 'none',
-        bouncescroll: false,
-        autohidemode: false,
-        horizrailenabled: false,
-        railsclass: firedEl.data('rails_class'),
-        railpadding: {
-          top: 0,
-          right: 0,
-          left: 0,
-          bottom: 0
-        }
-      });
-    }
-  }).on('chosen:hiding_dropdown', function(evt, params) {
-    var firedEl, niceScrollBlock;
-    firedEl = $(evt.currentTarget);
-    niceScrollBlock = firedEl.next('.chzn-container').find('.chzn-results');
-    niceScrollBlock.getNiceScroll().hide();
-  });
+  // $('.chosen-select').chosen({
+  //   width: '100%',
+  //   disable_search_threshold: 3
+  // }).on('chosen:showing_dropdown', function(evt, params) {
+  //   var firedEl, niceScrollBlock;
+  //   firedEl = $(evt.currentTarget);
+  //   niceScrollBlock = firedEl.next('.chzn-container').find('.chzn-results');
+  //   if (niceScrollBlock.getNiceScroll().length) {
+  //     niceScrollBlock.getNiceScroll().resize().show();
+  //   } else {
+  //     niceScrollBlock.niceScroll({
+  //       cursorwidth: 4,
+  //       cursorborderradius: 2,
+  //       cursorborder: 'none',
+  //       bouncescroll: false,
+  //       autohidemode: false,
+  //       horizrailenabled: false,
+  //       railsclass: firedEl.data('rails_class'),
+  //       railpadding: {
+  //         top: 0,
+  //         right: 0,
+  //         left: 0,
+  //         bottom: 0
+  //       }
+  //     });
+  //   }
+  // }).on('chosen:hiding_dropdown', function(evt, params) {
+  //   var firedEl, niceScrollBlock;
+  //   firedEl = $(evt.currentTarget);
+  //   niceScrollBlock = firedEl.next('.chzn-container').find('.chzn-results');
+  //   niceScrollBlock.getNiceScroll().hide();
+  // });
 
   $scope.paginationChange = function() {
     $window.scrollTo(0, 0);
@@ -98,7 +98,7 @@ function PatientsController($scope, $window, Patients) {
     if (null_str(patient.email).toLowerCase().indexOf(search_query) != -1)
       return true;
 
-    var phone; // es6 bug? "phone is not defined"
+    var phone;
 
     for (phone of patient.phones)
       if (phone.data.toLowerCase().indexOf(search_query) != -1)
@@ -113,6 +113,10 @@ function PatientsController($scope, $window, Patients) {
   //   else
   //     $scope.fetch();
   // });
+
+  $scope.update_cart_color = function (patient) {
+    Patients.save({id: patient.id, cart_color: patient.cart_color});
+  }
 
   $scope.fetch = function(search_query = undefined) {
     if (search_query != undefined)

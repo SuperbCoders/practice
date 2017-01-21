@@ -183,53 +183,10 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   $scope.$watch('new_patient.cart_color', function(newValue, oldValue){
     if (!oldValue && newValue) {
       $scope.$evalAsync(function() {
-        $scope.card_color_chosen($('#add_patient_form .chosen-select')[0]);
+        card_color_chosen($('#add_patient_form .chosen-select')[0]);
       });
     }
   });
-
-  // $('body').on('click', 'button.fc-prev-button', function() {
-  //   //do something
-  //   console.log('prev');
-  // });
-
-  // $('body').on('click', 'button.fc-next-button', function() {
-  //   //do something
-  //   console.log('next');
-  // });
-
-  // $scope.card_color_chosen_times = 0;
-  $scope.card_color_chosen = function (elem) {
-    // $scope.card_color_chosen_times = $scope.card_color_chosen_times + 1;
-    // console.log('card_color_chosen ' + $scope.card_color_chosen_times + ' ' + $(elem).length);
-    $(elem).chosen({
-      width: '100%',
-      disable_search_threshold: 3
-    }).on('chosen:showing_dropdown', function(evt, params) {
-      var firedEl, niceScrollBlock;
-      firedEl = $(evt.currentTarget);
-      niceScrollBlock = firedEl.next('.chzn-container').find('.chzn-results');
-      if (niceScrollBlock.getNiceScroll().length) {
-        return niceScrollBlock.getNiceScroll().resize().show();
-      } else {
-        niceScrollBlock.niceScroll({
-          cursorwidth: 4,
-          cursorborderradius: 2,
-          cursorborder: 'none',
-          bouncescroll: false,
-          autohidemode: false,
-          horizrailenabled: false,
-          railsclass: firedEl.data('rails_class'),
-          railpadding: {
-            top: 0,
-            right: 0,
-            left: 0,
-            bottom: 0
-          }
-        });
-      }
-    });
-  }
 
   Settings.getSettings().then(function(response) {
     $scope.settings = response;
@@ -248,15 +205,11 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   });
 
   function set_event(event) {
-    // console.log('set_event');
-    // console.log(event);
     $scope.event = event;
     $scope.patient = event.patient;
   }
 
   $scope.createVisit = function($valid) {
-    // console.log($valid);
-    // console.log($scope.addPatientForm.$error);
     if ($valid) {
       var request = {
         visit_data: $scope.new_visit,
