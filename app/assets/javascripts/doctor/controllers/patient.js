@@ -118,6 +118,7 @@ function PatientController($scope, $state, $stateParams, Patients) {
     getAge(moment($('#patient_age').datepicker('getDate')).toString());
     return $scope.patient.birthday = moment($('#patient_age').datepicker('getDate'));
   });
+
   $('.chosen-select').chosen({
     width: '100%',
     disable_search_threshold: 3
