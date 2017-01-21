@@ -65,7 +65,10 @@
               .patient_info_table
                 .other_info_cell
                   .p{'ng-repeat' => "contact in patient.contacts"}
-                    {{contact.data}}
+                    -# {{contact | json}}
+                    %span{'ng-if' => 'contact.contact_type == "phone"'} {{contact.data | phone}}
+                    %span{'ng-if' => 'contact.contact_type != "phone"'} {{contact.data}}
+                    -# {{contact.data}}
                   .p {{patient.email}}
               = render partial: 'templates/doctor/patients/buttons'
 
