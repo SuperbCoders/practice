@@ -17,6 +17,12 @@ function PatientController($scope, $state, $stateParams, Patients) {
     $("#patient_gender_" + g_type).prop('checked', true);
   };
 
+  $scope.update_cart_color = function () {
+    if ($scope.patient.id) {
+      Patients.save({id: $scope.patient.id, cart_color: $scope.patient.cart_color});
+    }
+  }
+
   $scope.save = function(redirect) {
     if ($scope.editPatientForm.$valid) {
       if (redirect == null) {

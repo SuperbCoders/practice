@@ -10,7 +10,7 @@
         .form_row
           .patient_photo_block
             .patient_status_w.chosen_v2.no_search.skipOpen
-              %select.chosen-select{"ng-model" => "patient.cart_color"}
+              %select.chosen-select{"ng-model" => "patient.cart_color", 'ng-change' => 'update_cart_color()'}
                 %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
                 %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
                 %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
