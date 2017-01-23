@@ -77,13 +77,11 @@
           .user_m_down_w
             %ul.user_drop_down_menu
               %li.user_drop_down_item
-                %a.gl_link{:href => "", 'ui-sref' => "doctor.profile"} Профиль
+                %a.gl_link{:href => "", 'ui-sref' => "doctor.profile"} Настройки
                 -# %a.gl_link{:href => "", 'onclick' => "console.log('wtf')"} Профиль
               %li.user_drop_down_item
-                %a.gl_link.blue_link{:href => "/doctors/#{current_doctor.username}", target: '_blank'} Сайт
+                %a.gl_link.blue_link{:href => "/doctors/#{current_doctor.username}", target: '_blank'} Мой сайт
               %li.user_drop_down_item
-                %a.gl_link.openRecovery{:href => "#"}
-                  %span
-                    Техподдержка
+                %a.gl_link.openRecovery{:href => "#"} Техподдержка
               %li.user_drop_down_item
-                %a.gl_link{:href => destroy_doctor_session_path} Выход
+                %a.gl_link{:href => destroy_doctor_session_path} Выйти
