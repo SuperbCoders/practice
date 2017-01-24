@@ -223,12 +223,14 @@ function JournalController($rootScope, $stateParams, $scope, $state, Journals, A
 
     var doc_body = $('body');
     if ($state.includes('journal.records'))doc_body.addClass('body_gray');
-    doc_body.removeClass('sub_header_mod');
+    // console.log('journal add sub_header_mod');
+    // doc_body.removeClass('sub_header_mod');
 
     $scope.$on('$destroy', function () {
         var doc_body = $('body');
         doc_body.removeClass('body_gray');
-        doc_body.addClass('sub_header_mod');
+        // console.log('journal remove sub_header_mod');
+        // doc_body.addClass('sub_header_mod');
     })
 }
 
