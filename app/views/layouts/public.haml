@@ -15,7 +15,7 @@
 
     %script{'type'=>"text/ng-template", 'id'=>"appointments_form"}
       .stage_1{'ng-show' => "vm.stage == 1"}
-        .popup_form.popup_v1
+        .popup_form.popup_v1{"style" => "padding: 20px 60px; border-radius: 10px;"}
           .form_caption
             Для записи заполните
             %br/
@@ -36,7 +36,7 @@
           .form_footer
             %a.btn_v4.appointment_btn.appointmentTimeBtn.yellow_black_btn{"ng-click" => "vm.next_stage()"} Выбрать время записи
       .stage_2{'ng-show' => "vm.stage == 2"}
-        .popup_form.popup_v1
+        .popup_form.popup_v1{"style" => "padding: 20px 60px; border-radius: 10px;"}
           .form_caption_holder
             .form_caption Выберите день и время приема
             .form_tip Кликните в свободную ячейку
@@ -47,7 +47,7 @@
             %button.btn_v4.doctor_btn.appointmentTimeBtn.appointmentTimeBtn2.yellow_black_btn{'ng-click' => "vm.create_visit()"} Записаться
       .stage_3{"ng-show" => "vm.stage == 3"}
         .dialog_green_2
-          .popup_form.popup_v1
+          .popup_form.popup_v1{"style" => "padding: 20px 60px; border-radius: 10px;"}
             .msg_title
               Запись
               %br/
