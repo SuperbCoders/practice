@@ -25,7 +25,7 @@
                 -# .wtf {{patient.avatar}}
                 -# .wtf {{patient.avatar.filetype}}
                 %img{'ng-src' => "{{patient.avatar}}", 'ng-show' => '!patient.avatar.filetype'}
-                %span.patient_avatar_letter{'ng-if' => '!patient.avatar'} {{patient.initials}}
+                %span.patient_avatar_letter{'ng-show' => '!patient.avatar'} {{patient.initials}}
                 -# %span.patient_avatar_letter {{patient.initials}}
                 %label.change_photo_btn.btn_v1{:for => "patient_photo"}
 
