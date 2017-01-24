@@ -40,6 +40,11 @@ function PatientController($scope, $state, $stateParams, Patients) {
           }
           patient.avatar = avatar;
           $scope.normalize_patient();
+          if (redirect) {
+            return $state.go('journal.records', {
+              patient_id: patient.id
+            });
+          }
         });
       } else {
         return Patients.create({
