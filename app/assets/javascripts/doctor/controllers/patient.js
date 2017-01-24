@@ -32,10 +32,13 @@ function PatientController($scope, $state, $stateParams, Patients) {
         return false;
       }
       if ($scope.patient.id) {
+        // Don't reload avatar bc rendering rely on "raw" attribute.
+        var avatar = $scope.patient.avatar;
         $scope.patient.$save().then(function(patient) {
           if (patient.phones.length == 0) {
             patient.phones.push({data: ''});
           }
+          patient.avatar = avatar;
           $scope.normalize_patient();
         });
       } else {
