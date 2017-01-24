@@ -16,17 +16,12 @@
                 %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
                 %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
             %input#patient_photo.hidden_input{:type => "file", 'ng-model' => "patient.avatar"}(base-sixty-four-input)
+              -# .wtf {{patient.avatar}}
+              -# .wtf {{patient.avatar.filetype}}
               .patient_add_avatar
-                -# %img{'ng-src' => "data:{{patient.avatar.filetype}};base64,{{patient.avatar.base64}}", width: '128px', height: '128px', 'ng-if' => 'patient.avatar'}
-                %img{'ng-src' => "data:{{patient.avatar.filetype}};base64,{{patient.avatar.base64}}", 'ng-if' => 'patient.avatar'}
-                -# .wtf {{patient.avatar}}
-                -# .wtf {{patient.avatar.filetype}}
-                -# %img{'ng-src' => "{{patient.avatar}}", width: '128px', height: '128px', 'ng-show' => '!patient.avatar.filetype'}
-                -# .wtf {{patient.avatar}}
-                -# .wtf {{patient.avatar.filetype}}
+                %img{'ng-src' => "data:{{patient.avatar.filetype}};base64,{{patient.avatar.base64}}", 'ng-if' => 'patient.avatar.filetype'}
                 %img{'ng-src' => "{{patient.avatar}}", 'ng-show' => '!patient.avatar.filetype'}
                 %span.patient_avatar_letter{'ng-show' => '!patient.avatar'} {{patient.initials}}
-                -# %span.patient_avatar_letter {{patient.initials}}
                 %label.change_photo_btn.btn_v1{:for => "patient_photo"}
 
         / Фио

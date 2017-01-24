@@ -76,9 +76,9 @@
             / +patient_overview()
             .avatar_clone
               %a.patient_avatar.skipOpen.write2Card{:href => "", 'ui-sref' => "journal.records({patient_id: patient.id})"}
-                %img{'ng-src' => "{{patient.avatar}}", "ng-if" => "patient.avatar != undefined"}/
-                .initials{"ng-if" => "patient.avatar == undefined"}
-                  %span.patient_avatar_letter {{patient.initials}}
+                .avatar
+                  %img{'ng-src' => "{{patient.avatar}}", "ng-if" => "patient.avatar != undefined"}/
+                  %span{"ng-if" => "patient.avatar == undefined"} {{patient.initials}}
 
         / Pagination
         = render partial: 'doctor/shared/pagination_directive'

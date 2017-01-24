@@ -1255,6 +1255,7 @@ a {
   position: absolute;
   width: 50px;
   border-radius: 20px;
+  z-index: 2;
 
   .patient_avatar_letter + &,
   .doctor_photo & {
@@ -1499,9 +1500,8 @@ $patient_scale_time: 1s;
   height: 40px;
   margin: 28px auto 22px;
   border-radius: 100%;
-
+  
   img {
-    @include transition_all(transform .3s);
     width: 40px;
     height: 40px;
     display: block;
@@ -1513,7 +1513,7 @@ $patient_scale_time: 1s;
   }
 
   .patient_card:hover + .avatar_clone & {
-    img {
+    .avatar {
       @include transform_scale(1.2);
     }
   }
@@ -1537,11 +1537,22 @@ $patient_scale_time: 1s;
     margin: 0;
 
     &:hover {
-      img {
+      .avatar {
         @include transform_scale(1.2);
       }
     }
   }
+}
+
+.avatar {
+  @extend %translate3d;
+  @include transition_all(transform .3s);
+  transform-origin: 50% 50%;
+  border-radius: 100%;
+  text-align: center;
+  color: #636363;
+  background: #ececec;
+  line-height: 40px;
 }
 
 .patient_photo_block {
@@ -1552,7 +1563,6 @@ $patient_scale_time: 1s;
     left: 1px;
     top: 22px;
   }
-
 }
 
 .patient_phone {
@@ -1575,11 +1585,12 @@ $patient_scale_time: 1s;
   background: #ececec;
 
   img {
-    /* width: 80px; */
-    /* height: 80px; */
+    width: 80px;
+    height: 80px;
     display: block;
     border-radius: 100%;
-    max-width: 100%;
+    position: relative;
+    z-index: 1;
   }
 }
 
