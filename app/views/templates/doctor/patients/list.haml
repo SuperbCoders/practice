@@ -1,3 +1,4 @@
+-# %span.patient_avatar_letter {{patient.initials}}
 = render 'templates/doctor/patients/search'
 .main_content
   .section_inner
@@ -77,7 +78,7 @@
               %a.patient_avatar.skipOpen.write2Card{:href => "", 'ui-sref' => "journal.records({patient_id: patient.id})"}
                 %img{'ng-src' => "{{patient.avatar}}", "ng-if" => "patient.avatar != undefined"}/
                 .initials{"ng-if" => "patient.avatar == undefined"}
-                  {{patient.initials}}
+                  %span.patient_avatar_letter {{patient.initials}}
 
         / Pagination
         = render partial: 'doctor/shared/pagination_directive'

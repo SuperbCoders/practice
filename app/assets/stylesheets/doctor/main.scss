@@ -1575,10 +1575,11 @@ $patient_scale_time: 1s;
   background: #ececec;
 
   img {
-    width: 80px;
-    height: 80px;
+    /* width: 80px; */
+    /* height: 80px; */
     display: block;
     border-radius: 100%;
+    max-width: 100%;
   }
 }
 

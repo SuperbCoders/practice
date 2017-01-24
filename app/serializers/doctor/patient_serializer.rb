@@ -3,7 +3,7 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
       :blood, :diseases, :habits, :profession, :contract_id,
       :register_date, :avatar, :approved, :archivated, :phone,
       :email, :age, :birthday, :phones, :emails, :rhesus, :initials,
-      :in_archive, :cart_color, :last_visit
+      :in_archive, :cart_color, :last_visit, :errors
 
   has_many :contacts
 
@@ -74,4 +74,9 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
     end
   end
 
+  def errors
+    # byebug
+    object.valid?
+    object.errors.full_messages
+  end
 end

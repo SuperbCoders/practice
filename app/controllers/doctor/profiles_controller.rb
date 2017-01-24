@@ -38,10 +38,12 @@ class Doctor::ProfilesController < Doctor::BaseController
                 data: c_data['data']
               )
             else
-              @resource.contacts.find_or_create_by(
-                contact_type: Contact.contact_types[c_type.to_sym],
-                data: c_data['data']
-              )
+              unless c_data['data'].blank?
+                @resource.contacts.find_or_create_by(
+                  contact_type: Contact.contact_types[c_type.to_sym],
+                  data: c_data['data']
+                )
+              end
             end
           }
         end
@@ -57,21 +59,10 @@ class Doctor::ProfilesController < Doctor::BaseController
 
       # Schedule settings
       schedule_settings_params.map { |work_schedule|
-        # _p1
-        # Rails.logger.debug 'DEBUG 1'
         if work_schedule[:days]
-          # Rails.logger.debug 'DEBUG 2'
           work_schedule[:days].map { |day_schedule|
             next if day_schedule.to_i.zero?
-            # Rails.logger.debug 'DEBUG find_or_create:'
-            # Rails.logger.debug({doctor_id: current_doctor.id, day: day_schedule, start_at: work_schedule[:start_at], finish_at: work_schedule[:finish_at]}.inspect)
             schedule = WorkSchedule.find_or_create_by(doctor_id: current_doctor.id, day: day_schedule, start_at: work_schedule[:start_at], finish_at: work_schedule[:finish_at])
-            if schedule.valid?
-              # Rails.logger.debug 'DEBUG VALID'
-            else
-              # Rails.logger.debug 'DEBUG INVALID'
-              # Rails.logger.debug schedule.errors.inspect
-            end
           }
         end
       }
@@ -83,10 +74,6 @@ class Doctor::ProfilesController < Doctor::BaseController
           if work_schedule[:days]
             work_schedule[:days].map { |day_schedule|
               next if day_schedule.to_i.zero?
-              # Rails.logger.debug 'DEBUG compare:'
-              # Rails.logger.debug "#{w_schedule.day} == #{day_schedule.to_i} => #{w_schedule.day == day_schedule.to_i}"
-              # Rails.logger.debug "#{w_schedule.start_at} == #{work_schedule[:start_at]} => #{w_schedule.start_at == work_schedule[:start_at]}"
-              # Rails.logger.debug "#{w_schedule.finish_at} == #{work_schedule[:finish_at]} => #{w_schedule.finish_at == work_schedule[:finish_at]}"
               if w_schedule.day == day_schedule.to_i && w_schedule.start_at == work_schedule[:start_at] && w_schedule.finish_at == work_schedule[:finish_at]
                 found = true
                 break
@@ -104,6 +91,7 @@ class Doctor::ProfilesController < Doctor::BaseController
       end
     end
 
+    # byebug
     send_json serialize_resource(@resource, resource_serializer), @resource.valid?
   end
 

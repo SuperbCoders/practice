@@ -90,6 +90,8 @@ this.application.factory('Alerts', [
       };
 
       Alerts.prototype.messages = function(messages) {
+        // console.log('messages');
+        // console.trace();
         var alert, i, len, results;
         if (messages) {
           results = [];
@@ -102,6 +104,7 @@ this.application.factory('Alerts', [
       };
 
       Alerts.prototype.errors = function(errors) {
+        // console.log('errors');
         var alert, i, len, results;
         if (errors) {
           results = [];

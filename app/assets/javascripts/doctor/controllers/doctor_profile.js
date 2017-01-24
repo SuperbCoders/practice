@@ -39,7 +39,7 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
   $scope.save = function() {
     Doctor.save({doctor: $scope.doctor}).$promise.then(function(response) {
         $scope.doctor.publicPageLink = "/doctors/" + $scope.doctor.username;
-        return $scope.Alerts.messages = response.messages;
+        // return Alerts.messages = response.messages;
     });
     Settings.saveSettings({
       setting: $scope.settings

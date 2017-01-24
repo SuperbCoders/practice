@@ -63,17 +63,21 @@ class Doctor::PatientsController < Doctor::BaseController
       end
 
       # Phones
+      # byebug
       params[:phones].map { |phone_data|
         if phone_data[:id]
           @resource.contacts.where(contact_type: Contact.contact_types[:phone], id: phone_data[:id]).first.update(data: phone_data[:data])
         else
-          @resource.contacts.create(contact_type: Contact.contact_types[:phone], data: phone_data[:data])
+          unless phone_data[:data].blank?
+            @resource.contacts.create(contact_type: Contact.contact_types[:phone], data: phone_data[:data])
+          end
         end
       } if params[:phones]
 
     end
 
-    send_json serialize_resource(@resource, resource_serializer), true
+    # byebug
+    send_json serialize_resource(@resource, resource_serializer), @resource.valid?
   end
 
   def create
