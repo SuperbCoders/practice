@@ -43,8 +43,10 @@
             %a.gl_link{:href => "", "ng-click" => "deletePatient(event.patient)"}
               %span Удалить
 
-    %a.patient_avatar{:href => "#"}
-      %img{'ng-src' => "{{event.patient.avatar}}", 'ui-sref' => "journal.records({patient_id: event.patient.id})"}/
+    %a.patient_avatar{:href => "#", 'ui-sref' => "journal.records({patient_id: event.patient.id})"}
+      .avatar
+        %img{'ng-src' => "{{event.patient.avatar}}", "ng-if" => "event.patient.avatar != undefined"}/
+        %span{"ng-if" => "event.patient.avatar == undefined"} {{event.patient.initials}}
     .patient_info
       .patient_name
         %a.gl_link.gray_link{:href => "", 'ng-click' => "toggle_patient_info()"}
