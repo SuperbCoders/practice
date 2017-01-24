@@ -43,6 +43,7 @@
           {name: 'profile', method: 'GET', isArray: false},
           {name: 'visits', method: 'GET', isArray: true},
           {name: 'new_visit', method: 'POST', isArray: false}
+          {name: 'remove_visit', method: 'DELETE', isArray: false}
         ]
       ]
 
