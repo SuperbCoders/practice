@@ -3002,6 +3002,7 @@ $patient_scale_time: 1s;
         padding-top: 10px;
 
         input.not_empty + .form_label,
+        input:not(.ng-empty) + .form_label,
         input:focus + .form_label {
           top: -3px;
           font-size: 12px;
@@ -4197,7 +4198,10 @@ $patient_scale_time: 1s;
     @include transition_all(border-color .3s);
     border-radius: 8px;
     border: 1px solid #c2c2c2;
-    padding: 15px 10px;
+    border-bottom: 1px solid #ccc;
+    /* fix ui mask placeholder underline is not visible due to padding too large. */
+    /* padding: 15px 10px; */
+    padding: 14px 10px;
     height: 50px;
     font-size: 16px;
     line-height: 20px;
@@ -5634,6 +5638,8 @@ textarea.form_input.input_v3 {
   @include transition_all(color .3s, background .3s, border-color .3s);
   color: #000;
   border: 1px solid #383838;
+  /* fix gray background in button */
+  background: #fff;
 
   &:hover {
     background: #ffdd4a;
@@ -5907,5 +5913,76 @@ $rectWidth: 1200px;
 
 #chromeperfectpixel-ad {
   display: none !important;
+}
+
+.timeline {
+  position: absolute;
+  left: 59px;
+  border: none;
+  border-top: 1px solid red;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  z-index: 999;
+}
+.ui-dialog {
+  z-index: 9999 !important;
+}
+.ui-autocomplete {
+  z-index: 10000 !important;
+}
+.ui-autocomplete {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  display: none;
+  min-width: 160px;
+  _width: 160px;
+  padding: 4px 0;
+  margin: 2px 0 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border-color: #ccc;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+
+  /* .ui-menu-item > a.ui-corner-all { */
+  .ui-menu-item > a.ui-menu-item-wrapper {
+    display: block;
+    padding: 3px 15px;
+    clear: both;
+    font-weight: normal;
+    line-height: 18px;
+    color: #555555;
+    white-space: nowrap;
+
+    &.ui-state-hover, &.ui-state-active {
+      color: #ffffff;
+      text-decoration: none;
+      background-color: #0088cc;
+      border-radius: 0px;
+      -webkit-border-radius: 0px;
+      -moz-border-radius: 0px;
+      background-image: none;
+    }
+  }
+}
+
+.form_input.completed {
+  background-color: #eeeeff;
 }
 
