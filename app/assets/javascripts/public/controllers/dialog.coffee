@@ -8,6 +8,7 @@ class DialogController
     vm.Doctor = @rootScope.Doctor
     vm.doctor = @rootScope.doctor
     vm.username = @rootScope.username
+    vm.visit = {}
 
     vm.calendar_params =
       firstDay: 1
@@ -81,8 +82,8 @@ class DialogController
 
     vm.Doctor.new_visit(visit).$promise.then((visit) ->
       if visit.errors.length <= 0
-        alert("Вы записаны на #{moment(visit.start).format('lll')}")
-        vm.ngDialog.closeAll()
+        vm.visit = visit
+        vm.stage = 3
       else
         for a in visit.errors
           alert(a)
@@ -127,5 +128,10 @@ class DialogController
 
 
     return
+
+  delete_last_visit: ->
+    vm = @
+    vm.Doctor.remove_visit({id: vm.visit.id})
+    vm.ngDialog.closeAll()
 
 @application.controller 'DialogController', ['$rootScope','$scope', 'ngDialog', DialogController]

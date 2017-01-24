@@ -24,6 +24,11 @@ class Public::ProfilesController < ApplicationController
     render json: serialize_resource(@visit, Doctor::VisitSerializer)
   end
 
+  def remove_visit
+    Visit.destroy(params[:id])
+    head 204
+  end
+
   def visits
     render json: @doctor.public_visits(params[:start], params[:end])
   end

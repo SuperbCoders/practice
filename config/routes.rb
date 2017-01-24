@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   root 'static_pages#landing', as: :root
 
   post 'doctors/new_visit' => 'public/profiles#create_visit'
+  delete 'doctors/remove_visit' => 'public/profiles#remove_visit'
+
   scope 'doctors/:username' do
     get '/' => 'public/profiles#public'
     get 'profile' => 'public/profiles#profile'
