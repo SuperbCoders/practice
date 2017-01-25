@@ -49,15 +49,21 @@ function PatientController($scope, $state, $stateParams, Patients) {
       } else {
         return Patients.create({
           patient: $scope.patient
-        }).$promise.then(function(result) {
-          if (redirect) {
-            return $state.go('journal.records', {
-              patient_id: result.id
-            });
-          } else {
-            return $state.go('patients.list');
+        }).$promise.then(
+          function(result) {
+            // console.log('success');
+            if (redirect) {
+              return $state.go('journal.records', {
+                patient_id: result.id
+              });
+            } else {
+              return $state.go('patients.list');
+            }
+          },
+          function(result) {
+            // console.log('error');
           }
-        });
+        );
       }
     }
   };
