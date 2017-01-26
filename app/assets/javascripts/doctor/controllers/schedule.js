@@ -293,19 +293,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   var activate_first_event;
 
   function view_render(view, element) {
-    console.log('view_render');
-
     activate_first_event = true;
-    // activateFirstEvent();
     if (view.name === 'agendaDay') {
       $scope.settings.calendar_view = 'day';
     } else {
       $scope.settings.calendar_view = 'week';
     }
     Settings.saveSettings($scope.settings);
-    // console.log(view.name);
-    // $('.calendarHolder').toggleClass('day_mode', false);
-    // $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name);
     $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name || 'agendaWeek' === view.name);
     $scope.event = null;
     $scope.patient = null;
@@ -315,7 +309,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     set_event(event);
     event.start_at = event.start;
     event.duration = (event.end - event.start) / 60 / 1000;
-    Visits.save({id: event.real_id, visit: {visit_data: {start_at: event.start_at, duration: event.duration}}});
+    Visits.save({id: event.real_id, visit: {visit_data: {start_at: event.start_at, duration: event.duration}}}).$promise.then(function() {
+      // Refetch because we need to update patient.last_visit value in
+      // this event and all other events of this patient in calendar
+      // view.
+      $scope.set_last_event = event;
+      $('#calendar').fullCalendar('refetchEvents');
+    });
   };
 
   function event_resize(event, delta, revertFunc) {
@@ -410,10 +410,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   function set_preview_patient_button_text() {
-    // nichego delat ne nado tam tekst sa menyaetsa
-    // var date = $scope.event.start_at;
-    // throw
-    // $($scope.add_patient_form).find('.newPatientBtn span').text('Записать на ' + date_format(date) + ', в ' + date.format('HH:mm'));
+    // nichego delat ne nado tam tekst sam menyaetsa
   }
 
   // function scroll_calendar(){
@@ -570,8 +567,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     // dayStart = curTime;
     // dayEnd = curTime;
 
-
-
     timeline.toggle(moment(dayStart).isBefore(moment(curTime)) && moment(curTime).isBefore(moment(dayEnd)));
     curTime = moment(curTime);
     curSeconds = (curTime.hours() - 5) * 60 * 60 + (curTime.minutes() - 45) * 60 + curTime.seconds();
@@ -592,28 +587,17 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   };
 
   function initChangeReceptionTime() {
-    // $("#change_reception_time").click(function(){
-    //   $("#change_reception_time_internal").datepicker('show');
-    // });
-    // $("#change_reception_time_internal").datepicker({
     $("#change_reception_time").datepicker({
       altField: '#change_reception_time_internal',
       altFormat: 'yy-mm-dd',
-      // beforeShow: function(){
-      // },
       firstDay: 1,
-      // changeMonth: true,
-      // changeYear: true,
       yearRange: '1920:2016',
       dateFormat: 'd MM',
       showOn: 'focus',
-      //changeYear: $changeYear,
       defaultDate: +1,
       numberOfMonths: 1,
       showOtherMonths: true,
       unifyNumRows: true,
-      //buttonImage: $buttonImage,
-      //showOn: "both",
       nextText: '',
       prevText: '',
       monthNames: ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"],
@@ -622,10 +606,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
       dayNamesMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
       beforeShow: function (inp, dp) {
-        // $("#change_reception_time").append($(dp.dpDiv));
         $(inp).parent().addClass('dp_opened');
-        // $(dp).datepicker('setDate', new Date(2008,9,03));
-        // $(dp.dpDiv).datepicker('setDate', new Date(2008,9,03));
         $(dp.dpDiv).addClass('change_time_mod');
       },
       onClose: function (inp, dp) {
@@ -650,9 +631,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     var date = $('[name="change_reception_form[date]"]').val();
     var start = $('[name="change_reception_form[start]"]').val();
     var end = $('[name="change_reception_form[end]"]').val();
-    // var val = '' + date + ' ' + start +'Z';
     var val = '' + date + ' ' + start;
-    // return moment.utc(val);
     return moment(val);
   }
 
@@ -881,18 +860,17 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
   $scope.unarchivate = function(patient) {
     patient.in_archive = false;
-    Patients.save(patient);
-    $('#calendar').fullCalendar('refetchEvents');
-    // $scope.event = null;
+    Patients.save(patient).$promise.then(function(response) {
+      $('#calendar').fullCalendar('refetchEvents');
+    });
   };
 
   $scope.archivate = function(patient) {
     if (confirm('Отправить в архив?')) {
       patient.in_archive = true;
-      Patients.save(patient);
-      // patient.$save();
-      $('#calendar').fullCalendar('refetchEvents');
-      // $scope.event = null;
+      Patients.save(patient).$promise.then(function(response) {
+        $('#calendar').fullCalendar('refetchEvents');
+      });
     }
   };
 

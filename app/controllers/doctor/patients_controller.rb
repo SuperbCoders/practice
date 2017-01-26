@@ -63,7 +63,6 @@ class Doctor::PatientsController < Doctor::BaseController
       end
 
       # Phones
-      # byebug
       params[:phones].map { |phone_data|
         if phone_data[:id]
           @resource.contacts.where(contact_type: Contact.contact_types[:phone], id: phone_data[:id]).first.update(data: phone_data[:data])
@@ -76,7 +75,6 @@ class Doctor::PatientsController < Doctor::BaseController
 
     end
 
-    # byebug
     send_json serialize_resource(@resource, resource_serializer), @resource.valid?
   end
 
