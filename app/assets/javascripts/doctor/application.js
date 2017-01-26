@@ -196,7 +196,9 @@ app.config([
 	      ]);
 	    }
 	  ],
-        Patients: Patients
+        Patients: Patients,
+        Visits: Visits,
+        Doctor: Doctor
 	}
       })
       .state('journal.edit', {

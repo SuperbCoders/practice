@@ -27,7 +27,7 @@
           .patient_card_controls.skipOpen
             .patient_info_table
               .controls_cell
-                %a.btn_v2.patient_btn.green_btn{:href => "#"}
+                %a.btn_v2.patient_btn.green_btn{:href => "", "ng-click" => "vm.openAppointmentsDialog()"}
                   %span.mb Записать на прием
           %ul.patient_overview_list
             %li.patient_overview_line
@@ -81,3 +81,5 @@
                 -#    %a.btn_v7.download_btn.white__btn_2{:href => "#"} Скачать
         .appointments_control
           %a.btn_v3.new_appointment_btn.yellow_black_btn.icon-plus.openAppointmentForm_{:href => "#", :ui_sref => "journal.create({patient_id: vm.patient_id})"}
+
+= render 'templates/doctor/patients/two_steps_appointments_dialog'

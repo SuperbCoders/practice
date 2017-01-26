@@ -1,15 +1,19 @@
-function JournalController($rootScope, $stateParams, $scope, $state, Journals, Alerts, Dicts, Patients) {
+function JournalController($rootScope, $stateParams, $scope, $state, Journals, Alerts, Dicts, Patients, Visits, ngDialog, Doctor) {
     var vm = this;
     vm.Journals = Journals;
     vm.Dicts = Dicts;
     vm.Alerts = Alerts;
     vm.Patients = Patients;
+    vm.Visits = Visits;
+    vm.ngDialog = ngDialog;
+    vm.Doctor = Doctor;
     vm.patient_id = $stateParams.patient_id;
     vm.journal_id = $stateParams.journal_id;
     vm.addRecord = addRecord;
     vm.addEmptyRecord = addEmptyRecord;
     vm.removeFileFromList = removeFileFromList;
     vm.removeJournal = removeJournal;
+    vm.openAppointmentsDialog = openAppointmentsDialog;
     vm.journal = {
         journal_records: [{
             tag: '',
@@ -125,6 +129,16 @@ function JournalController($rootScope, $stateParams, $scope, $state, Journals, A
         }
     }
 
+    function openAppointmentsDialog() {
+        ngDialog.open({
+            template: 'appointments_form',
+            controllerAs: 'vm',
+            controller: 'DialogController',
+            scope: $scope
+        })
+    }
+
+
     $('.chosen-select').chosen({
         width: '100%',
         disable_search_threshold: 3
@@ -232,7 +246,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, Journals, A
     })
 }
 
-JournalController.$inject = ['$rootScope', '$stateParams','$scope', '$state', 'Journals', 'Alerts', 'Dicts', 'Patients'];
+JournalController.$inject = ['$rootScope', '$stateParams','$scope', '$state', 'Journals', 'Alerts', 'Dicts', 'Patients', 'Visits', 'ngDialog', 'Doctor'];
 angular
     .module('practice.doctor')
     .controller('JournalController', JournalController);

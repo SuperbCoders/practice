@@ -140,7 +140,6 @@ function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor)
   $scope.fetch();
 
   $scope.openAppointmentsForm = function(patient) {
-      console.log(patient);
       $scope.patient = patient;
       ngDialog.open({
           template: 'appointments_form',
