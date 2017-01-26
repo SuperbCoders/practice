@@ -1,4 +1,4 @@
-var app = angular.module('practice.doctor', ['ui.router', 'ui.router.title', 'ngMask', 'ui-notification', 'naif.base64', 'ngResource', 'angularUtils.directives.dirPagination', 'angularMoment', 'ui.autocomplete', 'ui.mask', 'Devise']);
+var app = angular.module('practice.doctor', ['ui.router', 'ui.router.title', 'ngMask', 'ui-notification', 'naif.base64', 'ngResource', 'angularUtils.directives.dirPagination', 'angularMoment', 'ui.autocomplete', 'ui.mask', 'Devise', 'ngDialog']);
 
 this.application = app;
 
@@ -31,10 +31,23 @@ var Doctor = [
       }
     ]);
   }
-]
+];
+
+var Visits = [
+    'Resources', function(Resources) {
+        return Resources('/doctor/visits/:id', {
+            id: '@id'
+        }, [
+            {
+                method: 'GET',
+                isArray: true
+            }
+        ]);
+    }
+];
 
 app.config([
-  '$httpProvider', '$stateProvider', '$urlRouterProvider', 'NotificationProvider', function($httpProvider, $stateProvider, $urlRouterProvider, NotificationProvider) {
+  '$httpProvider', '$stateProvider', '$urlRouterProvider', 'NotificationProvider', 'ngDialogProvider', function($httpProvider, $stateProvider, $urlRouterProvider, NotificationProvider, ngDialogProvider) {
     NotificationProvider.setOptions({
       delay: 3000,
       startTop: 20,
@@ -49,6 +62,13 @@ app.config([
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
     $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
     $httpProvider.interceptors.push('AlertsMonitor');
+
+    ngDialogProvider.setDefaults({
+        showClose: false,
+        disableAnimation: true,
+        closeByDocument: true,
+        closeByEscape: true
+    });
 
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
     $stateProvider
@@ -119,7 +139,9 @@ app.config([
 	controller: 'PatientsController',
 	resolve: {
 	    $title: function () { return 'Мои пациенты' },
-	  Patients: Patients
+	    Patients: Patients,
+        Visits: Visits,
+        Doctor: Doctor
 	}
       })
       .state('patients.add', {
@@ -174,7 +196,9 @@ app.config([
 	      ]);
 	    }
 	  ],
-        Patients: Patients
+        Patients: Patients,
+        Visits: Visits,
+        Doctor: Doctor
 	}
       })
       .state('journal.edit', {

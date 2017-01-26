@@ -1,4 +1,4 @@
-function PatientsController($scope, $window, Patients) {
+function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor) {
   // console.log($('.newPatientState').length);
   $scope.items_limit = 9;
   $scope.filters = {
@@ -7,6 +7,11 @@ function PatientsController($scope, $window, Patients) {
     unsigned: false
   };
   $scope.search_query = "";
+
+  $scope.Visits = Visits;
+  $scope.Doctor = Doctor;
+  $scope.ngDialog = ngDialog;
+
   $('body').addClass('body_gray');
   console.log('patients add sub_header_mod');
   $('body').addClass('sub_header_mod');
@@ -135,5 +140,19 @@ function PatientsController($scope, $window, Patients) {
   };
 
   $scope.fetch();
+
+  $scope.openAppointmentsForm = function(patient) {
+      $scope.patient = patient;
+      ngDialog.open({
+          template: 'appointments_form',
+          controllerAs: 'vm',
+          controller: 'DialogController',
+          scope: $scope
+      })
+  };
 }
-angular.module('practice.doctor').controller('PatientsController', ['$scope', '$window', 'Patients', PatientsController]);
+
+PatientsController.$inject = ['$scope', '$window', 'Patients', 'ngDialog', 'Visits','Doctor'];
+angular
+    .module('practice.doctor')
+    .controller('PatientsController', PatientsController);
