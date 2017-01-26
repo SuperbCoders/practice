@@ -1,0 +1,17 @@
+%script{'type'=>"text/ng-template", 'id'=>"appointments_form"}
+  .stage_1{'ng-show' => "vm.stage == 1"}
+    .popup_form.popup_v1{"style" => "padding: 20px 60px; border-radius: 10px;"}
+      .form_caption_holder
+        .form_caption Выберите день и время приема
+        .form_tip Кликните в свободную ячейку
+      .form_content
+        .popup_calendar_holder
+          #popup_calendar.calendar_v2
+      .form_footer
+        %button.btn_v4.doctor_btn.appointmentTimeBtn.appointmentTimeBtn2.yellow_black_btn{'ng-click' => "vm.createVisit()"} Записаться
+  .stage_2{"ng-show" => "vm.stage == 2"}
+    .dialog_green_2
+      .popup_form.popup_v1{"style" => "padding: 20px 60px; border-radius: 10px;"}
+        .msg_check
+        .text_center
+          %button.btn_v2.white_green_btn_2.cancel_btn{"ng-click" => "vm.closeDialog()"} Ок

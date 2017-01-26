@@ -1,4 +1,7 @@
 = render 'templates/doctor/patients/search'
+
+= render 'templates/doctor/patients/two_steps_appointments_dialog'
+
 .main_content
   .section_inner
     = render 'templates/doctor/patients/tip'
@@ -70,7 +73,7 @@
                     %span{'ng-if' => 'contact.contact_type != "phone"'} {{contact.data}}
                     -# {{contact.data}}
                   .p {{patient.email}}
-              = render partial: 'templates/doctor/patients/buttons'
+              = render partial: 'templates/doctor/patients/buttons', locals: { patient: "{{patient}}" }
 
             / +patient_overview()
             .avatar_clone

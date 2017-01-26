@@ -18,6 +18,6 @@
 .patient_card_controls.skipOpen{"ng-if" => "patient.last_visit == null"}
   .patient_info_table
     .controls_cell
-      %a.btn_v2.patient_btn.black_yellow_btn{:href => ""}
+      %a.btn_v2.patient_btn.black_yellow_btn{:href => "", "ng-click" => "openAppointmentsForm(patient)"}
         %span.mb Записать на прием
 
