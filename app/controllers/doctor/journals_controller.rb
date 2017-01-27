@@ -37,6 +37,11 @@ class Doctor::JournalsController < Doctor::BaseController
     send_json serialize_resource(@resource, resource_serializer), success
   end
 
+  def print
+    @journal = Journal.find(params[:id])
+    render layout: false
+  end
+
   def resource_scope
     doctor.journals.order(created_at: :desc)
   end

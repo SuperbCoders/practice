@@ -58,7 +58,7 @@
                 %ul.appointment_menu_list
                   %li{"ui-sref" => "journal.edit({journal_id: journal.id})"} Редактировать
                   %li{"ng-click" => "vm.removeJournal($index)"} Удалить
-                  %li Напечатать
+                  %li{"ng-click" => "vm.printJournal(journal)"} Напечатать
                   %li Отправить по почте
                   %li Скачать TXT файл
               .patient_note_date{"ng-bind" => "journal.date"}

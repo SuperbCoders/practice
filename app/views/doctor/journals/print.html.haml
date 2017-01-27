@@ -1,0 +1,28 @@
+!!!
+%html{:lang => "ru"}
+  %head
+    %title Карта пациента
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    = stylesheet_link_tag "doctor/print"
+    :javascript
+      setTimeout(function () {
+            window.print();
+        }, 5);
+  %body.body_white
+    .wrapper
+      .base.print_mod
+        .main_content
+          .section_inner
+            %ul.appointments_list
+              %li
+                .appointment_block
+                  .patient_note_date= l @journal.created_at
+
+                  = render partial: 'doctor/journals/appointment', collection: @journal.journal_records, spacer_template: 'appointments_spacer'
+
+                  .appointment_img
+                    = image_tag "print/print_img.jpg"
+                  .appointment_img
+                    = image_tag "print/print_img.jpg"
+                  .appointment_sign= "— #{@journal.doctor.specialty}, #{@journal.doctor.first_name} #{@journal.doctor.last_name}"
