@@ -37,12 +37,7 @@ var Visits = [
     'Resources', function(Resources) {
         return Resources('/doctor/visits/:id', {
             id: '@id'
-        }, [
-            {
-                method: 'GET',
-                isArray: true
-            }
-        ]);
+        });
     }
 ];
 

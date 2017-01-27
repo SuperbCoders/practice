@@ -68,13 +68,12 @@ function DialogController($scope, $timeout) {
     getDoctor();
 
     function visitsByDate(start, end, timezone, callback) {
-        let paket = {
+        const queryParams = {
             start: start.format(),
             end: end.format()
         };
-        console.log(paket);
-        return vm.Visits.get(paket).$promise.then(function(events) {
-            var event, i, len;
+        return vm.Visits.query(queryParams).$promise.then((events) => {
+            let event, i, len;
             for (i = 0, len = events.length; i < len; i++) {
                 event = events[i];
                 event.editable = false;
@@ -94,8 +93,8 @@ function DialogController($scope, $timeout) {
                 id: vm.patient.id
             }
         };
-        vm.Visits.create({visit: visit}).$promise.then(function(visit) {
-            var a, i, len, ref, results;
+        vm.Visits.create({visit: visit}).$promise.then((visit) => {
+            let a, i, len, ref, results;
             if (visit.errors.length <= 0) {
                 vm.visit = visit;
                 vm.stage = 2;
@@ -109,11 +108,10 @@ function DialogController($scope, $timeout) {
                 return results;
             }
         });
-        return false;
     }
 
     function dayClick(date, jsEvent, view) {
-        var event, i, len, ref, stand_time;
+        let event, i, len, ref, stand_time;
         ref = vm.events;
         for (i = 0, len = ref.length; i < len; i++) {
             event = ref[i];
@@ -148,7 +146,7 @@ function DialogController($scope, $timeout) {
 
     function initCalendar() {
         vm.popup_calendar = undefined;
-        $timeout(function() {
+        $timeout(() => {
             vm.popup_calendar = $('#popup_calendar').fullCalendar(vm.calendar_params);
             return vm.popup_calendar.fullCalendar('render');
         }, 10);
