@@ -21,8 +21,6 @@
 
                   = render partial: 'doctor/journals/appointment', collection: @journal.journal_records, spacer_template: 'appointments_spacer'
 
-                  .appointment_img
-                    = image_tag "print/print_img.jpg"
-                  .appointment_img
-                    = image_tag "print/print_img.jpg"
+                  = render partial: 'doctor/journals/attachment', collection: @journal.attachments
+
                   .appointment_sign= "— #{@journal.doctor.specialty}, #{@journal.doctor.first_name} #{@journal.doctor.last_name}"
