@@ -6,14 +6,14 @@
       .label_holder
         %label.form_label{:for => "doctor_name"} Имя врача
       .input_w.size_59
-        %input#doctor_name.form_input.input_v1{'ng-model' => "doctor.first_name"}/
+        %input#doctor_name.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "doctor.first_name"}/
 
     / Phone number
     .form_row{'ng-repeat' => "phone in doctor.phones track by $index"}
       .label_holder
         %label.form_label{:for => "doctor_phone"} Телефон
       .input_w.size_59.mob_size_85
-        %input#doctor_phone.form_input.input_v1{'ng-model' => "phone.data", "ui-mask" => "+9 (999) 999-99-99"}/
+        %input#doctor_phone.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "phone.data", "ui-mask" => "+9 (999) 999-99-99"}/
       .fl.mob_right{'ng-if' => "$last"} 
         .mb
           %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => "add_contact('phone')"}
@@ -23,7 +23,7 @@
       .label_holder
         %label.form_label{:for => "doctor_email"} Email
       .input_w.size_59.mob_size_85
-        %input#doctor_email.form_input.input_v1{'ng-model' => "doctor.email", type: 'email'}(disabled)/
+        %input#doctor_email.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "doctor.email", type: 'email'}(disabled)/
 
     / .form_row{'ng-repeat' => "email in doctor.emails track by $index"}
     /   .label_holder
@@ -43,7 +43,7 @@
       .pass_change_form.passForm
         %form{:action => "", :novalidate => ""}
           .input_w.size_27
-            %input.form_input.input_v1.passInput{:type => "password", "ng-model" => "doctor.password"}/
+            %input.form_input.input_v1.passInput{:autocomplete => 'off', :type => "password", "ng-model" => "doctor.password"}/
           .input_w.mob_size_43
             %button.btn_v2.black_blue_btn.change_btn.passSaveBtn{'ng-click' => "update_password()"} Сохранить
           .input_w.mob_size_43

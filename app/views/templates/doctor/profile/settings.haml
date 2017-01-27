@@ -21,9 +21,9 @@
           %option{"data-short" => "Сб", "data-title" => "Суббота", :value => "6"} Суббота
           %option{"data-short" => "Вс", "data-title" => "Воскресенье", :value => "7"} Воскресенье
       .input_w.size_15.mob_size_43.mob_pt_5
-        %input.form_input.input_v1{:placeholder => "С", 'ng-model' => "setting.start_at", 'mask' => "29:59"}/
+        %input.form_input.input_v1{:autocomplete => 'off', :placeholder => "С", 'ng-model' => "setting.start_at", 'mask' => "29:59"}/
       .input_w.size_15.mob_size_43.mob_pt_5
-        %input.form_input.input_v1{:placeholder => "До", 'ng-model' => "setting.finish_at", 'mask' => "29:59"}/
+        %input.form_input.input_v1{:autocomplete => 'off', :placeholder => "До", 'ng-model' => "setting.finish_at", 'mask' => "29:59"}/
 
       .fl.mob_right.mob_pt_5
         .mb

@@ -23,7 +23,7 @@
 
         .write_control_item.tag_item.custom_field{id: "new_tag_{{record.pid}}"}
           .input_w
-            %input.form_input.input_v8.addParamVal{:placeholder => "Введите название", "ng-model" => "vm.new_tag"}/
+            %input.form_input.input_v8.addParamVal{:autocomplete => 'off', :placeholder => "Введите название", "ng-model" => "vm.new_tag"}/
           .write_state_control
             .write_state_btn.mod_ok.addTolist{'ng-click' => "vm.create_new_tag(record)"}
 

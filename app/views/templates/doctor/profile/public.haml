@@ -13,17 +13,17 @@
       .label_holder
         %label.form_label{:for => "doctor_name"} Username
       .input_w.size_59
-        %input#doctor_name.form_input.input_v1{'ng-model' => "doctor.username"}/
+        %input#doctor_name.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "doctor.username"}/
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_specialty"} Специальность
       .input_w.size_59
-        %input#doctor_specialty.form_input.input_v1{'ng-model' => "doctor.specialty"}/
+        %input#doctor_specialty.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "doctor.specialty"}/
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_education"} Образование
       .input_w.size_59
-        %input#doctor_education.form_input.input_v1{'ng-model' => "doctor.education"}/
+        %input#doctor_education.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "doctor.education"}/
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_experience"} Опыт работы
@@ -39,7 +39,7 @@
       .label_holder
         %label.form_label{:for => "doctor_contact"} Телефон для записи
       .input_w.size_59
-        %input#doctor_contact.form_input.input_v1{"ng-model" => "doctor.public_phone"}/
+        %input#doctor_contact.form_input.input_v1{:autocomplete => 'off', "ng-model" => "doctor.public_phone"}/
   .tab_inner.form_row_v1
     .form_row.lh_32
       .label_holder
@@ -71,17 +71,17 @@
       .label_holder
         .form_label Социальные сети
       %label.input_w.size_59.soc_input.soc_i_vk
-        %input.form_input.input_v1.socPrefix{"data-prefix" => "vk.com/", :value => "vk.com/", 'ng-model' => "doctor.vk_id"}/
+        %input.form_input.input_v1.socPrefix{:autocomplete => 'off', "data-prefix" => "vk.com/", :value => "vk.com/", 'ng-model' => "doctor.vk_id"}/
     .form_row
       .mob_hidden.label_holder
         .form_label
       %label.input_w.size_59.soc_input.soc_i_tw
-        %input.form_input.input_v1.socPrefix{"data-prefix" => "twitter.com/", :value => "twitter.com/", 'ng-model' => "doctor.twitter_id"}/
+        %input.form_input.input_v1.socPrefix{:autocomplete => 'off', "data-prefix" => "twitter.com/", :value => "twitter.com/", 'ng-model' => "doctor.twitter_id"}/
     .form_row
       .mob_hidden.label_holder
         .form_label
       %label.input_w.size_59.soc_input.soc_i_fb
-        %input.form_input.input_v1.socPrefix{"data-prefix" => "facebook.com/", :value => "facebook.com/", 'ng-model' => "doctor.fb_id"}/
+        %input.form_input.input_v1.socPrefix{:autocomplete => 'off', "data-prefix" => "facebook.com/", :value => "facebook.com/", 'ng-model' => "doctor.fb_id"}/
     .form_row
       .label_holder
         .form_label

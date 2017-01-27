@@ -27,7 +27,7 @@
         / Фио
         .form_row
           %label.input_w
-            %input.form_input.input_v3{:placeholder => "ФИО", 'ng-model' => "patient.full_name", required: 'required'}
+            %input.form_input.input_v3{:autocomplete => 'off', :placeholder => "ФИО", 'ng-model' => "patient.full_name", required: 'required'}
 
         / Комментарий
         .form_row
@@ -37,14 +37,14 @@
         / Номера телефонов
         .form_row.mob_add_mod
           %label.input_w{'ng-repeat' => "phone in patient.phones track by $index"}
-            %input.form_input.input_v3{:type => "tel", :value => "", 'ng-model' => "phone.data", 'ng-class' => "{ 'ng-empty' : false }", 'ng-blur' => '', 'ng-trim' => 'false', 'ui-mask' => "+9 (999) 999-99-99", 'ui-options' => "{clearOnBlur: false, addDefaultPlaceholder: false, allowInvalidValue: true}", 'format-phone' => true, pattern: '\+\d \(\d{3}\) \d{3}-\d{2}-\d{2}', 'ubt-mask-placeholder' => "Телефон клиента"}
+            %input.form_input.input_v3{:autocomplete => 'off', :type => "tel", :value => "", 'ng-model' => "phone.data", 'ng-class' => "{ 'ng-empty' : false }", 'ng-blur' => '', 'ng-trim' => 'false', 'ui-mask' => "+9 (999) 999-99-99", 'ui-options' => "{clearOnBlur: false, addDefaultPlaceholder: false, allowInvalidValue: true}", 'format-phone' => true, pattern: '\+\d \(\d{3}\) \d{3}-\d{2}-\d{2}', 'ubt-mask-placeholder' => "Телефон клиента"}
               .add_btn_holder{"ng-if" => "$last"}
                 %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", "ng-click" => "add_phone()"}
 
         / Email
         .form_row
           %label.input_w
-            %input.form_input.input_v3{type: :email, :placeholder => "Email", 'ng-model' => "patient.email"}
+            %input.form_input.input_v3{:autocomplete => 'off', type: :email, :placeholder => "Email", 'ng-model' => "patient.email"}
 
       / Портрет пациента
       .tab_inner.form_row_v1
@@ -70,21 +70,21 @@
           .label_holder
             %label.form_label{:for => "patient_age"} Дата рождения
           %label.input_w.size_29.datepicker_v1.max_w_300
-            %input#patient_age.form_input.input_v1{"ng-model" => "patient.birthday_text", mask: "39 / 19 / 9999", restict: :reject}
+            %input#patient_age.form_input.input_v1{:autocomplete => 'off', "ng-model" => "patient.birthday_text", mask: "39 / 19 / 9999", restict: :reject}
           %span#patient_age_label.patient_age_val 0 лет
         / Вес
         .form_row
           .label_holder
             %label.form_label{:for => "patient_weight"} Вес
           .input_w.size_59
-            %input#patient_weight.form_input.input_v1{'mask'=>"999", 'mask-restrict'=>'reject', 'mask-clean'=>'true', :placeholder => "80 кг", 'ng-model' => "patient.weight"}
+            %input#patient_weight.form_input.input_v1{:autocomplete => 'off', 'mask'=>"999", 'mask-restrict'=>'reject', 'mask-clean'=>'true', :placeholder => "80 кг", 'ng-model' => "patient.weight"}
 
         / Рост
         .form_row
           .label_holder
             %label.form_label{:for => "patient_height"} Рост
           .input_w.size_59
-            %input#patient_height.form_input.input_v1{'mask'=>"999", 'mask-restrict'=>'reject', 'mask-clean'=>'true', :placeholder => "185 см", 'ng-model' => "patient.height"}
+            %input#patient_height.form_input.input_v1{:autocomplete => 'off', 'mask'=>"999", 'mask-restrict'=>'reject', 'mask-clean'=>'true', :placeholder => "185 см", 'ng-model' => "patient.height"}
 
         / Группа крови
         .form_row
@@ -125,7 +125,7 @@
           .label_holder
             %label.form_label{:for => "patient_profession"} Профессия
           .input_w.size_59
-            %input#patient_profession.form_input.input_v1{'ng-model' => "patient.profession"}
+            %input#patient_profession.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "patient.profession"}
 
       .tab_inner.form_row_v1
 
@@ -134,7 +134,7 @@
           .label_holder
             %label.form_label{:for => "patient_doc_number"} Договор №
           .input_w.size_59
-            %input#patient_doc_number.form_input.input_v1{'ng-model' => "patient.contract_id"}
+            %input#patient_doc_number.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "patient.contract_id"}
 
     .profile_tab_controls
       .section_inner

@@ -13,7 +13,7 @@
           .write_state_btn.mod_rm
       .write_control_item.custom_field
         .input_w
-          %input.form_input.input_v8.addParamVal{:placeholder => "Введите название"}/
+          %input.form_input.input_v8.addParamVal{:autocomplete => 'off', :placeholder => "Введите название"}/
         .write_state_control
           .write_state_btn.mod_ok.addTolist
   .write_content
@@ -62,7 +62,7 @@
           .write_state_btn.mod_rm
       .write_control_item.custom_field
         .input_w
-          %input.form_input.input_v8.addParamVal{:placeholder => "Введите название"}/
+          %input.form_input.input_v8.addParamVal{:autocomplete => 'off', :placeholder => "Введите название"}/
         .write_state_control
           .write_state_btn.mod_ok.addTolist
   .write_content
@@ -92,11 +92,11 @@
 .form_row
   %label.hidden_input{:for => "new_patient_email"} Email
   .input_w
-    %input#new_patient_email.form_input.input_v3.blue_mod.text_center.checkEmpty{:name => "new_patient_email", :placeholder => "Email", :type => "email"}/
+    %input#new_patient_email.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => 'off', :name => "new_patient_email", :placeholder => "Email", :type => "email"}/
 .form_row
   %label.hidden_input{:for => "new_patient_describe"} Краткое описание (только для вас)
   .input_w
-    %input#new_patient_describe.form_input.input_v3.blue_mod.text_center.checkEmpty{:name => "new_patient_describe", :placeholder => "Пароль", :type => "password"}/
+    %input#new_patient_describe.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => 'off', :name => "new_patient_describe", :placeholder => "Пароль", :type => "password"}/
 .form_row
   %button.btn_v4.login_btn.disabled_btn_gray.disableEmpty Войти или зарегистрироваться
 .form_row.text_center
@@ -108,7 +108,7 @@
   .form_row
     %label.hidden_input{:for => "new_patient_email"} Email
     .input_w
-      %input#new_patient_email.form_input.input_v3.blue_mod.text_center{:name => "new_patient_email", :placeholder => "Email", :type => "email"}/
+      %input#new_patient_email.form_input.input_v3.blue_mod.text_center{:autocomplete => 'off', :name => "new_patient_email", :placeholder => "Email", :type => "email"}/
   .form_row
     %button.btn_v4.login_btn.disabled_btn_gray Восстановить
   .form_row.text_center
