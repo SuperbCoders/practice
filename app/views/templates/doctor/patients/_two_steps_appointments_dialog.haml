@@ -12,6 +12,10 @@
   .stage_2{"ng-show" => "vm.stage == 2"}
     .dialog_green_2
       .popup_form.popup_v1{"style" => "padding: 20px 60px; border-radius: 10px;"}
+        .msg_title
+          Запись
+          %br/
+          направлена врачу
         .msg_check
         .text_center
-          %button.btn_v2.white_green_btn_2.cancel_btn{"ng-click" => "vm.closeDialog()"} Ок
+          %button.btn_v2.white_green_btn_2.cancel_btn{"ng-click" => "vm.closeDialog()"} Закрыть
