@@ -145,7 +145,8 @@ function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor)
           template: 'appointments_form',
           controllerAs: 'vm',
           controller: 'DialogController',
-          scope: $scope
+          scope: $scope,
+          preCloseCallback: (value) => { $scope.fetch(); return true }
       })
   };
 }
