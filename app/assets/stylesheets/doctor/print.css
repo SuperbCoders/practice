@@ -1,0 +1,150 @@
+@font-face {
+    font-family: 'HelveticaNeue';
+    src: url(../fonts/HelveticaNeue.eot);
+    src: url(../fonts/HelveticaNeue.eot?#iefix) format("embedded-opentype"), url(../fonts/HelveticaNeue.ttf) format("truetype"), url(../fonts/HelveticaNeue.woff) format("woff"), url(../fonts/HelveticaNeue.svg) format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueLight';
+    src: url(../fonts/HelveticaNeueLight.eot);
+    src: url(../fonts/HelveticaNeueLight.eot?#iefix) format("embedded-opentype"), url(../fonts/HelveticaNeueLight.ttf) format("truetype"), url(../fonts/HelveticaNeueLight.woff) format("woff"), url(../fonts/HelveticaNeueLight.svg) format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueMedium';
+    src: url(../fonts/helveticaneue-medium.eot);
+    src: url(../fonts/helveticaneue-medium.eot?#iefix) format("embedded-opentype"), url(../fonts/helveticaneue-medium.ttf) format("truetype"), url(../fonts/helveticaneue-medium.woff) format("woff"), url(../fonts/helveticaneue-medium.svg) format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueBold';
+    src: url(../fonts/helveticaneue-bold.eot);
+    src: url(../fonts/helveticaneue-bold.eot?#iefix) format("embedded-opentype"), url(../fonts/helveticaneue-bold.ttf) format("truetype"), url(../fonts/helveticaneue-bold.woff) format("woff"), url(../fonts/helveticaneue-bold.svg) format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i, a, input, label, textarea,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body:before, body:after, div:before, div:after, span:before, span:after, object:before, object:after, iframe:before, iframe:after,
+h1:before,
+h1:after, h2:before, h2:after, h3:before, h3:after, h4:before, h4:after, h5:before, h5:after, h6:before, h6:after, p:before, p:after, blockquote:before, blockquote:after, pre:before, pre:after,
+abbr:before,
+abbr:after, address:before, address:after, cite:before, cite:after, code:before, code:after,
+del:before,
+del:after, dfn:before, dfn:after, em:before, em:after, img:before, img:after, ins:before, ins:after, kbd:before, kbd:after, q:before, q:after, samp:before, samp:after,
+small:before,
+small:after, strong:before, strong:after, sub:before, sub:after, sup:before, sup:after, var:before, var:after,
+b:before,
+b:after, i:before, i:after, a:before, a:after, input:before, input:after, label:before, label:after, textarea:before, textarea:after,
+dl:before,
+dl:after, dt:before, dt:after, dd:before, dd:after, ol:before, ol:after, ul:before, ul:after, li:before, li:after,
+fieldset:before,
+fieldset:after, form:before, form:after, label:before, label:after, legend:before, legend:after,
+article:before,
+article:after, aside:before, aside:after, canvas:before, canvas:after, details:before, details:after, figcaption:before, figcaption:after, figure:before, figure:after,
+footer:before,
+footer:after, header:before, header:after, hgroup:before, hgroup:after, menu:before, menu:after, nav:before, nav:after, section:before, section:after, summary:before, summary:after,
+time:before,
+time:after, mark:before, mark:after, audio:before, audio:after, video:before, video:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    background: transparent;
+}
+
+body {
+    font: 18px/1.2 "HelveticaNeue", sans-serif;
+}
+
+.base.print_mod {
+    padding: 20px;
+}
+
+.section_inner {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 920px;
+}
+
+.appointments_list {
+    padding: 0;
+    list-style: none;
+}
+
+.appointment_block .patient_note_date {
+    color: #5b6c78;
+    letter-spacing: .075em;
+    font: 12px "HelveticaNeueMedium", sans-serif;
+}
+
+.appointment_block p {
+    line-height: 1.6;
+    margin: 10px 0 37px;
+}
+
+.appointment_caption {
+    font: 28px "HelveticaNeueBold", sans-serif;
+    padding-top: 42px;
+    margin-bottom: 42px;
+    color: #3b3e40;
+}
+
+.appointment_caption .gl_link {
+    color: #3b3e40;
+}
+
+.appointment_img {
+    margin-bottom: 20px;
+}
+
+.appointment_img img {
+    display: block;
+    max-width: 100%;
+}
+
+.line {
+    height: 1px;
+    background: #d8d8d8;
+}
+
+.appointment_sign {
+    margin-top: 50px;
+}

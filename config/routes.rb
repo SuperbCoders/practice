@@ -28,7 +28,9 @@ Rails.application.routes.draw do
       end
     end
     resources :visits
-    resources :journals
+    resources :journals do
+      get 'print', on: :member
+    end
     resources :dicts
     resource :settings, only: [:show, :update]
   end

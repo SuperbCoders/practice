@@ -226,7 +226,9 @@ app.config([
 	      ]);
 	    }
 	  ],
-        Patients: Patients
+        Patients: Patients,
+        Visits: Visits,
+        Doctor: Doctor
 	}
       })
       .state('journal.create', {
@@ -260,6 +262,8 @@ app.config([
 	    }
 	  ],
         Patients: Patients,
+        Visits: Visits,
+        Doctor: Doctor,
         $title: function () { return 'Новая запись в карту' }
 	}
       })

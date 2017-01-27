@@ -1,4 +1,4 @@
-function JournalController($rootScope, $stateParams, $scope, $state, Journals, Alerts, Dicts, Patients, Visits, ngDialog, Doctor) {
+function JournalController($rootScope, $stateParams, $scope, $state, $window, Journals, Alerts, Dicts, Patients, Visits, ngDialog, Doctor) {
     var vm = this;
     vm.Journals = Journals;
     vm.Dicts = Dicts;
@@ -14,6 +14,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, Journals, A
     vm.removeFileFromList = removeFileFromList;
     vm.removeJournal = removeJournal;
     vm.openAppointmentsDialog = openAppointmentsDialog;
+    vm.printJournal = printJournal;
     vm.journal = {
         journal_records: [{
             tag: '',
@@ -138,6 +139,12 @@ function JournalController($rootScope, $stateParams, $scope, $state, Journals, A
         })
     }
 
+    function printJournal(journal) {
+        var url = "/doctor/journals/" + journal.id + "/print";
+        var windowParams = "menubar=no,location=yes,resizable=yes,scrollbars=no,status=no,width=500,height=400";
+        $window.open(url, "Print", windowParams);
+    }
+
 
     $('.chosen-select').chosen({
         width: '100%',
@@ -248,7 +255,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, Journals, A
     })
 }
 
-JournalController.$inject = ['$rootScope', '$stateParams','$scope', '$state', 'Journals', 'Alerts', 'Dicts', 'Patients', 'Visits', 'ngDialog', 'Doctor'];
+JournalController.$inject = ['$rootScope', '$stateParams','$scope', '$state', '$window', 'Journals', 'Alerts', 'Dicts', 'Patients', 'Visits', 'ngDialog', 'Doctor'];
 angular
     .module('practice.doctor')
     .controller('JournalController', JournalController);
