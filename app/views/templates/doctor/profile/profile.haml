@@ -1,4 +1,5 @@
 #tab_1
+  -# %form.tab_inner.form_row_v1{:name => 'editProfileForm'}
   .tab_inner.form_row_v1
 
     / Name
@@ -13,7 +14,8 @@
       .label_holder
         %label.form_label{:for => "doctor_phone"} Телефон
       .input_w.size_59.mob_size_85
-        %input#doctor_phone.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "phone.data", "ui-mask" => "+9 (999) 999-99-99"}/
+        %input#doctor_phone.form_input.input_v1{:autocomplete => 'off', :type => "tel", :value => "", 'ng-model' => "phone.data", 'ng-class' => "{ 'ng-empty' : false }", 'ng-blur' => '', 'ng-trim' => 'false', 'ui-mask' => "+9 (999) 999-99-99", 'ui-options' => "{clearOnBlur: false, addDefaultPlaceholder: false, allowInvalidValue: true}", 'format-phone' => true, pattern: '\+\d \(\d{3}\) \d{3}-\d{2}-\d{2}', 'ubt-mask-placeholder' => "Телефон клиента"}/
+        -# %input#doctor_phone.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "phone.data", "ui-mask" => "+9 (999) 999-99-99"}/
       .fl.mob_right{'ng-if' => "$last"} 
         .mb
           %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => "add_contact('phone')"}

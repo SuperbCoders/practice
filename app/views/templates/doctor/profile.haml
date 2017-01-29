@@ -1,4 +1,5 @@
-.profile_container
+-# .profile_container
+%form.tab_inner.form_row_v1{:name => 'editProfileForm'}
   .tabHeaderSpacer.profile_tab_header_spacer
     .profile_tab_header.tabHeader{fix_tab_header: true}
       .profile_tab_header_inner
@@ -19,6 +20,7 @@
               %li.tab_item{'ui-sref-active' => "tab_is_active ui-tabs-active ui-state-active", 'ng-click' => "active_tab('subscription')"}
                 %a.tab_link{:href => "", 'ui-sref' => "doctor.subscription"}
                   %span.mb Подписка
+  -# %form.profile_tab_holder{:name => 'editProfileForm'}
   .profile_tab_holder
     .tabBlock{"data-tab-context" => "#tab_list"}
       %div(ui-view)
@@ -31,5 +33,9 @@
       .form_controls
         .fl
           .mb
-            %a.btn_v2.yellow_black_btn.save_btn{:href => "", 'ng-click' => "save()"}
+            -# %a.btn_v2.yellow_black_btn.save_btn{:href => "", 'ng-click' => "save()"}
+            -#   %span.mb Сохранить
+            -# %a.btn_v2.yellow_black_btn.save_btn{:href => "", 'ng-click' => "save()"}
+            -#   %span.mb Сохранить
+            %button.btn_v2.yellow_black_btn.save_btn{:href => "", "ng-click" => "save()"}
               %span.mb Сохранить

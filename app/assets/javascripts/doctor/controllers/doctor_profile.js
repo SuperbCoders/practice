@@ -37,13 +37,15 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
   };
 
   $scope.save = function() {
-    Doctor.save({doctor: $scope.doctor}).$promise.then(function(response) {
+    if ($scope.editProfileForm.$valid) {
+      Doctor.save({doctor: $scope.doctor}).$promise.then(function(response) {
         $scope.doctor.publicPageLink = "/doctors/" + $scope.doctor.username;
         // return Alerts.messages = response.messages;
-    });
-    Settings.saveSettings({
-      setting: $scope.settings
-    });
+      });
+      Settings.saveSettings({
+        setting: $scope.settings
+      });
+    }
   };
 
   Doctor.get().$promise.then(function(response) {
