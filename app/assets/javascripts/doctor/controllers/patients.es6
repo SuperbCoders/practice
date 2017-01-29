@@ -182,6 +182,14 @@ function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor,
       });
     }
   }
+
+  $scope.update_created_by = function(event) {
+    if (confirm('Подтвердить прием?')) {
+      Visits.save({id: event.id, visit: {visit_data: {created_by: 'doctor'}}}).$promise.then(function(response) {
+        $scope.fetch();
+      });
+    }
+  }
 }
 
 PatientsController.$inject = ['$scope', '$window', 'Patients', 'ngDialog', 'Visits', 'Doctor', 'ChangeTime'];
