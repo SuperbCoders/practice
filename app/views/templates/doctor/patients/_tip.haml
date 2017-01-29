@@ -7,7 +7,7 @@
     %li.patient_unit
       .patient_card
         .patient_status_w.chosen_v2.no_search.skipOpen
-          %select.chosen-select
+          %select.chosen-select{'chosen-select' => true}
             %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
             %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
             %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
@@ -52,4 +52,4 @@
         / +patient_overview()
       .avatar_clone
         %a.patient_avatar.skipOpen.write2Card{:href => "#"}
-          %img{:src => "i/user_1.png"}/
+          %img{:src => "#{image_path('i/user_1.png')}"}/
