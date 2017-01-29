@@ -40,7 +40,7 @@
                       %a.gl_link{:href => "javascript:", 'ng-click' => "update_created_by(patient.last_visit)", 'ng-show' => "patient.last_visit && patient.last_visit.created_by != 'doctor'"}
                         %span Подтвердить прием
                     %li.drop_down_item
-                      %a.gl_link{:href => ""}
+                      %a.gl_link{:href => "javascript:", 'ng-click' => "deleteVisit(patient.last_visit)", 'ng-show' => "patient.last_visit"}
                         %span Отказать в  приёме
                     %li.drop_down_item
                       %a.gl_link{:href => "", 'ui-sref' => "journal.create({patient_id: patient.id})"}
