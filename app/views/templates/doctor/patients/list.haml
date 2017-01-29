@@ -37,7 +37,7 @@
                 .drop_down_w
                   %ul.drop_down_menu
                     %li.drop_down_item.active
-                      %a.gl_link{:href => ""}
+                      %a.gl_link{:href => "javascript:", 'ng-click' => "update_created_by(patient.last_visit)", 'ng-show' => "patient.last_visit && patient.last_visit.created_by != 'doctor'"}
                         %span Подтвердить прием
                     %li.drop_down_item
                       %a.gl_link{:href => ""}
