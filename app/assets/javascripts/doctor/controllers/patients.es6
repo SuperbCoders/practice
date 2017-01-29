@@ -164,6 +164,7 @@ function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor,
     visit.duration = ChangeTime.get_change_reception_time_duration();
     Visits.save({id: visit.id, visit: {visit_data: {start_at: visit.start_at, duration: visit.duration}}});
     $('#change_reception_form').dialog('close');
+    $scope.fetch();
   }
 
   $scope.changeReceptionTimeClick = function(event, visit) {
@@ -173,6 +174,14 @@ function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor,
   }
 
   ChangeTime.initReceptionForm();
+
+  $scope.deleteVisit = function(event){
+    if (confirm('Отменить прием?')) {
+      return Visits.remove({id: event.id}).$promise.then(function(response) {
+        $scope.fetch();
+      });
+    }
+  }
 }
 
 PatientsController.$inject = ['$scope', '$window', 'Patients', 'ngDialog', 'Visits', 'Doctor', 'ChangeTime'];
