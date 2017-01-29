@@ -1,5 +1,10 @@
-function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor) {
-  // console.log($('.newPatientState').length);
+function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor, ChangeTime) {
+  $scope.min_time = "05:45:00";
+  $scope.max_time = "22:15:00";
+  $scope.slot_duration = '00:15:00';
+
+  $scope.time_list = ChangeTime.make_time_list($scope);
+
   $scope.items_limit = 9;
   $scope.filters = {
     archivated: false,
@@ -13,11 +18,9 @@ function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor)
   $scope.ngDialog = ngDialog;
 
   $('body').addClass('body_gray');
-  console.log('patients add sub_header_mod');
   $('body').addClass('sub_header_mod');
   $scope.$on('$destroy', function() {
     $('body').removeClass('body_gray');
-    console.log('patients remove sub_header_mod');
     return $('body').removeClass('sub_header_mod');
   });
 
@@ -151,9 +154,28 @@ function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor)
           preCloseCallback: (value) => { $scope.fetch(); return true }
       })
   };
+
+  $scope.change_reception_time_apply = function(){
+    if (!ChangeTime.change_reception_time_valid()) {
+      return;
+    }
+    var visit = $scope.change_reception_visit;
+    visit.start_at = ChangeTime.get_change_reception_time_moment();
+    visit.duration = ChangeTime.get_change_reception_time_duration();
+    Visits.save({id: visit.id, visit: {visit_data: {start_at: visit.start_at, duration: visit.duration}}});
+    $('#change_reception_form').dialog('close');
+  }
+
+  $scope.changeReceptionTimeClick = function(event, visit) {
+    $scope.change_reception_visit = visit;
+    ChangeTime.changeReceptionTimeRun.call(event.currentTarget, $scope);
+    return false;
+  }
+
+  ChangeTime.initReceptionForm();
 }
 
-PatientsController.$inject = ['$scope', '$window', 'Patients', 'ngDialog', 'Visits','Doctor'];
+PatientsController.$inject = ['$scope', '$window', 'Patients', 'ngDialog', 'Visits', 'Doctor', 'ChangeTime'];
 angular
     .module('practice.doctor')
     .controller('PatientsController', PatientsController);
