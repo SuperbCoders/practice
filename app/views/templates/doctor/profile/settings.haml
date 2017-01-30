@@ -26,7 +26,7 @@
       .input_w.size_15.mob_size_43.mob_pt_5
         %input.form_input.input_v1{:autocomplete => 'off', :placeholder => "До", 'ng-model' => "setting.finish_at", 'mask' => "29:59"}/
 
-      .fl.mob_right.mob_pt_5
+      .fl.mob_right.mob_pt_5{'ng-if' => "$last"}
         .mb
           %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => "new_schedule()"}
 
