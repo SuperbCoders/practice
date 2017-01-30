@@ -41,16 +41,6 @@ service('ChangeTime', [function() {
 
   this.get_change_reception_time_duration = get_change_reception_time_duration;
 
-  var is_new_visit = function(visit) {
-    if (visit.id) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  this.is_new_visit = is_new_visit;
-
   this.change_reception_time_valid = function() {
     return get_change_reception_time_duration() > 0;
   }
@@ -94,13 +84,8 @@ service('ChangeTime', [function() {
   var initReceptionFields = function($scope) {
     var visit = $scope.change_reception_visit;
     var start_at, duration;
-    if (is_new_visit(visit)) {
-      start_at = visit.start_at;
-      duration = visit.duration;
-    } else {
-      start_at = moment(visit.start_at);
-      duration = visit.duration.toString();
-    }
+    start_at = moment(visit.start_at);
+    duration = visit.duration.toString();
     $('#change_reception_time').val(shortDate(start_at));
     $('#change_reception_time_internal').val(moment(start_at).format('YYYY-MM-DD'));
     var start = start_at.format('HH:mm');

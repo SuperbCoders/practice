@@ -190,6 +190,11 @@ function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor,
       });
     }
   }
+
+  $scope.$on('$destroy', function(){
+    // console.log('destroy');
+    $('.ui-dialog #change_reception_form').dialog('destroy');
+  });
 }
 
 PatientsController.$inject = ['$scope', '$window', 'Patients', 'ngDialog', 'Visits', 'Doctor', 'ChangeTime'];

@@ -560,21 +560,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     visit.start_at = ChangeTime.get_change_reception_time_moment();
     visit.duration = ChangeTime.get_change_reception_time_duration();
 
-    if (is_new_visit($scope.change_reception_visit)) {
-      set_new_patient_button_text();
-    }
-
     var event, start_at, duration;
-    if (ChangeTime.is_new_visit(visit)) {
-      event = event_by_event_id();
-      start_at = event.start_at;
-      duration = event.duration;
-    } else {
-      event = find_event($scope.event.id);
-      start_at = moment(visit.start_at);
-      duration = visit.duration.toString();
-      Visits.save({id: event.real_id, visit: {visit_data: {start_at: visit.start_at, duration: visit.duration}}});
-    }
+
+    event = find_event($scope.event.id);
+    start_at = moment(visit.start_at);
+    duration = visit.duration.toString();
+    Visits.save({id: event.real_id, visit: {visit_data: {start_at: visit.start_at, duration: visit.duration}}});
+
     event.start = moment(visit.start_at);
     event.end = moment(visit.start_at).add(parseInt(visit.duration), 'm');;
 
