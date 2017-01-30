@@ -684,6 +684,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   $scope.unarchivate = function(patient) {
     patient.in_archive = false;
     Patients.save(patient).$promise.then(function(response) {
+      $scope.set_last_event = event;
       $('#calendar').fullCalendar('refetchEvents');
     });
   };
@@ -692,6 +693,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     if (confirm('Отправить в архив?')) {
       patient.in_archive = true;
       Patients.save(patient).$promise.then(function(response) {
+        $scope.set_last_event = event;
         $('#calendar').fullCalendar('refetchEvents');
       });
     }
