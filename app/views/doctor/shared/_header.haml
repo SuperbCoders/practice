@@ -71,7 +71,7 @@
       .mb
         .user_m_item.wnw.user_menu_w.userMenu
           .menu_avatar
-            = image_tag "/upload/#{current_doctor.avatar}"
+            = image_tag(current_doctor.avatar ? "/upload/#{current_doctor.avatar}" : image_path("default_logo.png"))
           .menu_user_name.mob_hidden
             %b #{current_doctor.name}
           .user_m_down_w
