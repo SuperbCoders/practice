@@ -60,3 +60,20 @@ namespace :bower do
 end
 
 before 'deploy:compile_assets', 'bower:install'
+
+set :faye_pid, "#{deploy_to}/shared/pids/faye.pid"
+set :faye_config, "#{deploy_to}/current/faye.ru"
+namespace :faye do
+  desc "Start Faye"
+  task :start do
+    run "cd #{deploy_to}/current && bundle exec rackup #{faye_config} -s thin -E production -D --pid #{faye_pid}"
+  end
+  desc "Stop Faye"
+  task :stop do
+    run "kill `cat #{faye_pid}` || true"
+  end
+end
+before 'deploy:update_code', 'faye:stop'
+after 'deploy:finalize_update', 'faye:start'
+
+load "config/recipes/faye"
