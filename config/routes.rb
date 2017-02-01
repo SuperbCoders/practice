@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :admins, path: 'admin'
   devise_for :doctors, path: 'auth', controllers: { omniauth_callbacks: 'omniauth_callbacks',
                                                     sessions: 'sessions',
                                                     registrations: 'registrations',
