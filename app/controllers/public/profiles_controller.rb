@@ -21,11 +21,21 @@ class Public::ProfilesController < ApplicationController
 
     logger.info @visit.errors.full_messages
 
+    if @visit.persisted?
+      uri = URI.parse("http://localhost:9292/faye")
+      message = { channel: '/notifications', data: 'Новая запись на прием' }
+      Net::HTTP.post_form(uri, message: message.to_json)
+    end
+
     render json: serialize_resource(@visit, Doctor::VisitSerializer)
   end
 
   def remove_visit
-    Visit.destroy(params[:id])
+    if Visit.destroy(params[:id])
+      uri = URI.parse("http://localhost:9292/faye")
+      message = { channel: '/notifications', data: 'Пациент отменил запись на прием' }
+      Net::HTTP.post_form(uri, message: message.to_json)
+    end
     head 204
   end
 

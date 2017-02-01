@@ -1,11 +1,12 @@
-function NotificationsController($scope, Alerts) {
+function NotificationsController($scope, Alerts, Faye) {
   $scope.notifications = Alerts.alerts();
   $("#notifications").removeClass('notification_open');
-  // console.log('notifications add sub_header_mod');
-  // $('body').addClass('sub_header_mod');
-  // $scope.$on('$destroy', function() {
-  //   return $('body').removeClass('sub_header_mod');
-  // });
+
+  Faye.subscribe("/notifications", function(msg){
+    console.log('subscribe');
+    console.log(msg);
+    Alerts.messages([msg]);
+  });
 }
 
-angular.module('practice.doctor').controller('NotificationsController', ['$scope', 'Alerts', NotificationsController]);
+angular.module('practice.doctor').controller('NotificationsController', ['$scope', 'Alerts', 'Faye', NotificationsController]);

@@ -1,4 +1,4 @@
-var app = angular.module('practice.doctor', ['ui.router', 'ui.router.title', 'ngMask', 'ui-notification', 'naif.base64', 'ngResource', 'angularUtils.directives.dirPagination', 'angularMoment', 'ui.autocomplete', 'ui.mask', 'Devise', 'ngDialog']);
+var app = angular.module('practice.doctor', ['ui.router', 'ui.router.title', 'ngMask', 'ui-notification', 'naif.base64', 'ngResource', 'angularUtils.directives.dirPagination', 'angularMoment', 'ui.autocomplete', 'ui.mask', 'Devise', 'ngDialog', 'faye']);
 
 this.application = app;
 

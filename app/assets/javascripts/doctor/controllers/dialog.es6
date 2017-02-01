@@ -87,6 +87,7 @@ function DialogController($scope, $timeout) {
     }
 
     function createVisit() {
+        console.log('create_visit');
         const visit = {
             visit_data: vm.visit_data,
             completed_patient: {

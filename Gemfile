@@ -43,6 +43,8 @@ gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 gem 'fullcalendar-rails'
 gem 'sprockets-es6'
+gem 'faye', '~> 0.8.2'
+gem 'faye-rails', '~> 1.0.0'
 
 group :development, :test do
   gem 'better_errors'

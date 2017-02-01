@@ -71,6 +71,7 @@ class DialogController
     )
 
   create_visit: ->
+    console.log 'public_visit'
     vm = @
     event = vm.events[0]
 
