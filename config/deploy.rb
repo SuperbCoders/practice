@@ -5,6 +5,7 @@ set :repo_url, 'git@github.com:SuperbCoders/practice.git'
 set :log_level, :debug
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/upload}
+set :application, 'practice'
 
 set :rails_env, fetch(:development)
 
@@ -73,7 +74,8 @@ namespace :faye do
     run "kill `cat #{faye_pid}` || true"
   end
 end
-before 'deploy:update_code', 'faye:stop'
-after 'deploy:finalize_update', 'faye:start'
+before 'deploy:updating', 'faye:stop'
+after 'deploy:updated', 'faye:start'
 
-load "config/recipes/faye"
+load "config/recipes/upload_erb.rb"
+load "config/recipes/faye.rb"
