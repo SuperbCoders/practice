@@ -10,6 +10,10 @@ class DoctorsController {
     fetch() {
         this.Doctors.query(this.filters).$promise.then(doctors => this.doctors = doctors)
     }
+
+    remove(doctor) {
+        this.Doctors.remove(doctor).$promise.then(() => this.fetch())
+    }
 }
 angular
     .module('practice.admin')

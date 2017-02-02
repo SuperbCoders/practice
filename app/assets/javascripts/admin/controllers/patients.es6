@@ -9,6 +9,10 @@ class PatientsController {
     fetch() {
         this.Patients.query(this.filters).$promise.then((patients) => this.patients = patients)
     }
+
+    remove(patient) {
+        this.Doctors.remove(patient).$promise.then(() => this.fetch())
+    }
 }
 
 angular
