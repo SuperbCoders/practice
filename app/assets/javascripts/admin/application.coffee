@@ -60,14 +60,14 @@
         ]
       ]
 
-  # Doctors
+  # Admins
   .state 'admins',
     url: '/admins',
     templateUrl: '/templates/admin/admins/index'
     controller: 'AdminsController',
     controllerAs: 'vm',
     resolve:
-      Doctors: ['Resources', (Resources) ->
+      Admins: ['Resources', (Resources) ->
         Resources '/admin/admins/:id', {id: '@id'}, [
           {method: 'GET', isArray: true}
         ]

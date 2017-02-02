@@ -39,5 +39,6 @@ Rails.application.routes.draw do
     match '/value-lists/:name' => 'value_lists#update', via: [:put, :patch]
     resources :doctors
     resources :patients
+    resources :admins
   end
 end
