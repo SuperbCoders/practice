@@ -1,0 +1,15 @@
+!!!
+%html.no-js{:lang => "ru"}
+  %head
+    %meta{:charset => "UTF-8"}/
+    %meta{:content => "ie=edge", "http-equiv" => "x-ua-compatible"}
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
+
+    %title Панель управления
+
+    = stylesheet_link_tag    'admin', media: 'all', 'data-turbolinks-track' => false
+    = javascript_include_tag 'admin', 'data-turbolinks-track' => false
+    = csrf_meta_tags
+
+  %body.hold-transition.login-page
+    = yield
