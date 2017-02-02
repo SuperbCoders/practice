@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :admins, path: 'admin', controllers: { sessions: 'admin/sessions' }
   devise_for :doctors, path: 'auth', controllers: { omniauth_callbacks: 'omniauth_callbacks',
                                                     sessions: 'sessions',
                                                     registrations: 'registrations',
@@ -42,5 +43,6 @@ Rails.application.routes.draw do
     match '/value-lists/:name' => 'value_lists#update', via: [:put, :patch]
     resources :doctors
     resources :patients
+    resources :admins
   end
 end

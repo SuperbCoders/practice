@@ -6,12 +6,10 @@
       %li.dropdown.user.user-menu
         %a.dropdown-toggle{"data-toggle" => "dropdown", :href => ""}
           %img.user-image{:alt => "User Image", :src => "http://placehold.it/160x160"}
-            %span.hidden-xs User
+            %span.hidden-xs= current_admin.email
         %ul.dropdown-menu
           %li.user-header
             %img.img-circle{:alt => "User Image", :src => "http://placehold.it/160x160"}
-              %p
-                %small В системе с #{DateTime.now}
 
           / Menu Footer
           %li.user-footer
@@ -22,4 +20,4 @@
             .pull-left
               %a.btn.btn-default.btn-flat{:href => ""} Profile
             .pull-right
-              %a.btn.btn-default.btn-flat{:href => "", 'ng-click' => 'sign_out()'} Sign out
+              %a.btn.btn-default.btn-flat{:href => destroy_admin_session_path, } Sign out

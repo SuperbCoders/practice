@@ -1,0 +1,21 @@
+.login-box
+  .login-logo
+    %a{:href => "/"}
+      Практика
+  .login-box-body
+    %p.login-box-msg Введите email и пароль
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .form-group.has-feedback
+        = f.email_field :email, autofocus: true, class: 'form-control'
+        %span.glyphicon.glyphicon-envelope.form-control-feedback
+      .form-group.has-feedback
+        = f.password_field :password, autocomplete: 'off', class: 'form-control'
+        %span.glyphicon.glyphicon-lock.form-control-feedback
+      .row
+        .col-xs-8
+          .checkbox.icheck
+            %label
+              = f.check_box :remember_me
+              Remember Me
+        .col-xs-4
+          = f.submit 'Войти', class: 'btn btn-primary btn-block btn-flat'

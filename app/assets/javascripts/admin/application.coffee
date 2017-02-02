@@ -60,6 +60,19 @@
         ]
       ]
 
+  # Admins
+  .state 'admins',
+    url: '/admins',
+    templateUrl: '/templates/admin/admins/index'
+    controller: 'AdminsController',
+    controllerAs: 'vm',
+    resolve:
+      Admins: ['Resources', (Resources) ->
+        Resources '/admin/admins/:id', {id: '@id'}, [
+          {method: 'GET', isArray: true}
+        ]
+      ]
+
   # Statistic
   .state 'statistic',
     url: '/statistic',

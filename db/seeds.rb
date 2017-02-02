@@ -16,3 +16,7 @@ ValueList.find_or_create_by(name: "Стандартное время прием�
 	list.value_list_items	<< ValueListItem.new(value: 90)
 	list.value_list_items	<< ValueListItem.new(value: 120)
 end
+
+Admin.find_or_create_by(email: 'admin1@example.com') do |admin|
+  admin.password = 'adminadmin'
+end
