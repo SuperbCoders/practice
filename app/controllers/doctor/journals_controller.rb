@@ -42,6 +42,13 @@ class Doctor::JournalsController < Doctor::BaseController
     render layout: false
   end
 
+  def download
+    @journal = Journal.find(params[:id])
+    file_data = @journal.journal_records.map {|r| "#{r.tag}\r\n#{r.body}" }.join("\r\n\r\n")
+    file_name = "#{@journal.patient.full_name.downcase}_#{@journal.created_at.to_formatted_s(:number)}.txt"
+    send_data(file_data, filename: file_name)
+  end
+
   def resource_scope
     doctor.journals.order(created_at: :desc)
   end

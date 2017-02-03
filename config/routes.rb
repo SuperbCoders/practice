@@ -30,7 +30,10 @@ Rails.application.routes.draw do
     end
     resources :visits
     resources :journals do
-      get 'print', on: :member
+      member do
+        get 'print'
+        get 'download'
+      end
     end
     resources :dicts
     resource :settings, only: [:show, :update]

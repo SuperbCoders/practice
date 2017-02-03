@@ -60,7 +60,8 @@
                   %li{"ng-click" => "vm.removeJournal($index)"} Удалить
                   %li{"ng-click" => "vm.printJournal(journal)"} Напечатать
                   %li Отправить по почте
-                  %li Скачать TXT файл
+                  %li
+                    %a{"ng-href" => "/doctor/journals/{{journal.id}}/download"} Скачать TXT файл
               .patient_note_date{"ng-bind" => "journal.date"}
               %div{"ng-repeat" => "record in journal.journal_records"}
                 .appointment_caption
