@@ -23,7 +23,9 @@ namespace :deploy do
   task :seed do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
-        execute :rake, 'db:seed'
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'db:seed'
+        end
       end
     end
   end
