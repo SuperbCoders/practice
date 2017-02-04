@@ -85,6 +85,7 @@ class DialogController
       if visit.errors.length <= 0
         vm.visit = visit
         vm.stage = 3
+        # PrivatePub.publish_to '/notifications', message: 
       else
         for a in visit.errors
           alert(a)

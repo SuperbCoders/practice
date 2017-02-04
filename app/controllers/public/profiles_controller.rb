@@ -1,4 +1,5 @@
 class Public::ProfilesController < ApplicationController
+  # include ActionView::Helpers::JavaScriptHelper
   layout 'public'
 
   before_filter :find_doctor
@@ -22,9 +23,16 @@ class Public::ProfilesController < ApplicationController
     logger.info @visit.errors.full_messages
 
     if @visit.persisted?
-      uri = URI.parse("http://localhost:9292/faye")
-      message = { channel: '/notifications', data: 'Новая запись на прием' }
-      Net::HTTP.post_form(uri, message: message.to_json)
+      # message = {data: 'Новая запись на прием'}
+      message = {message: 'Новая запись на прием'}
+      # message = {a: 'b'}
+      # render partial: 
+      # PrivatePub.publish_to '/notifications', "JSON.parse(\"#{escape_javascript(message.to_json)}\")"
+      # PrivatePub.publish_to '/notifications', to_javascript_hash(message)
+      PrivatePub.publish_to '/notifications', message
+      # uri = URI.parse("http://localhost:9292/faye")
+      # message = { channel: '/notifications', data: 'Новая запись на прием' }
+      # Net::HTTP.post_form(uri, message: message.to_json)
     end
 
     render json: serialize_resource(@visit, Doctor::VisitSerializer)
@@ -32,9 +40,11 @@ class Public::ProfilesController < ApplicationController
 
   def remove_visit
     if Visit.destroy(params[:id])
-      uri = URI.parse("http://localhost:9292/faye")
-      message = { channel: '/notifications', data: 'Пациент отменил запись на прием' }
-      Net::HTTP.post_form(uri, message: message.to_json)
+      message = {message: 'Пациент отменил запись на прием'}
+      PrivatePub.publish_to '/notifications', message
+      # uri = URI.parse("http://localhost:9292/faye")
+      # message = { channel: '/notifications', data: 'Пациент отменил запись на прием' }
+      # Net::HTTP.post_form(uri, message: message.to_json)
     end
     head 204
   end
@@ -88,4 +98,10 @@ class Public::ProfilesController < ApplicationController
     end
 
   end
+
+  private
+
+  # def to_javascript_hash hash
+  #   "JSON.parse(\"#{escape_javascript(hash.to_json)}\")"
+  # end
 end

@@ -10,6 +10,7 @@
     = stylesheet_link_tag    'doctor', media: 'all', 'data-turbolinks-track' => false
     = javascript_include_tag 'doctor', 'data-turbolinks-track' => false
     = csrf_meta_tags
+    = subscribe_to '/notifications'
 
   %body
     .wrapper

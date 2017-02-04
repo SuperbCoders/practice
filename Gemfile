@@ -66,6 +66,7 @@ group :development, :test do
   gem 'capistrano3-unicorn'
   # gem 'capistrano-template'
   # gem 'airbrussh', :require => false
+  gem 'private_pub'
 end
 
 group :test do
