@@ -9,15 +9,17 @@
       .col-xs-12
         %table.table.table-condensed.table-striped.table-hover.table-bordered
           %thead
-            %td Имя
+            %td ФИО
             %td email
+            %td Врач
             %td Дата регистрации
             %td
           %tbody
             %tr{'dir-paginate' => "patient in vm.patients| itemsPerPage: vm.items_limit"}
-              %td {{patient.name}}
-              %td {{patient.email}}
-              %td {{patient.created_at | date}}
+              %td {{ patient.full_name }}
+              %td {{ patient.email }}
+              %td {{ patient.doctor_name }}
+              %td {{ patient.created_at | defaultDateFormat }}
               %td
                 %a.btn.btn-sm.btn-flat.btn-default
                   %i.fa.fa-pencil
