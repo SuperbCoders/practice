@@ -12,12 +12,18 @@
             %td Имя
             %td email
             %td Дата регистрации
+            %td Активен
+            %td Сайт
+            %td Подписка
             %td
           %tbody
             %tr{'dir-paginate' => "doctor in vm.doctors | itemsPerPage: vm.items_limit"}
-              %td {{doctor.name}}
-              %td {{doctor.email}}
-              %td {{doctor.created_at | date}}
+              %td {{ doctor.name }}
+              %td {{ doctor.email }}
+              %td {{ doctor.created_at | defaultDateFormat }}
+              %td {{ doctor['active?'] | yesNo: true }}
+              %td {{ doctor.profile | yesNo: 'profile_open' }}
+              %td Триал
               %td
                 %a.btn.btn-sm.btn-flat.btn-default
                   %i.fa.fa-pencil

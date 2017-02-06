@@ -15,6 +15,9 @@ class DoctorsController {
         this.Doctors.remove(doctor).$promise.then(() => this.fetch())
     }
 }
+
 angular
     .module('practice.admin')
-    .controller('DoctorsController', ['$rootScope', '$scope', 'Doctors', DoctorsController]);
+    .controller('DoctorsController', DoctorsController);
+
+DoctorsController.$inject = ['$rootScope', '$scope', 'Doctors'];

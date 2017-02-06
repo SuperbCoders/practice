@@ -148,6 +148,10 @@ class Doctor < ActiveRecord::Base
     end
   end
 
+  def active?
+    patients.any? || journals.any?
+  end
+
   protected
   def create_identity(oauth_data = nil)
     unless session[:oauth] || oauth_data

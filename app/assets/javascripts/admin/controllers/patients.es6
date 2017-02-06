@@ -17,4 +17,6 @@ class PatientsController {
 
 angular
     .module('practice.admin')
-    .controller('PatientsController', ['$rootScope', '$scope', 'Patients', PatientsController]);
+    .controller('PatientsController', PatientsController);
+
+PatientsController.$inject = ['$rootScope', '$scope', 'Patients'];
