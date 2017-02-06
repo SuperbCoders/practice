@@ -311,12 +311,14 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   };
 
   function getEventTitle(event){
-    var formattedPhone = null;
-    if (event.patient.phone) {
-      formattedPhone = formatPhone(event.patient.phone);
+    if (event.patient) {
+      var formattedPhone = null;
+      if (event.patient.phone) {
+        formattedPhone = formatPhone(event.patient.phone);
+      }
+      var data = [event.patient.full_name, formattedPhone];
+      return _.filter(data, function(e) { return e }).join(' ');
     }
-    var data = [event.patient.full_name, formattedPhone];
-    return _.filter(data, function(e) { return e }).join(' ');
   }
 
   function getMinEvent(events){
@@ -346,7 +348,12 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         event.start = moment(events[i].start);
         event.end = moment(events[i].end);
         event.saved = true;
-        set_event_color(event, events[i].patient.cart_color);
+        // console.log(events);
+        // console.log(i);
+        // console.log(events[i]);
+        if (events[i].patient) {
+          set_event_color(event, events[i].patient.cart_color);
+        }
         event.id = $scope.event_id;
         event.real_id = events[i].id;
         event.orig_event = events[i];

@@ -1,3 +1,4 @@
+console.log('application.js');
 var app = angular.module('practice.doctor', ['ui.router', 'ui.router.title', 'ngMask', 'ui-notification', 'naif.base64', 'ngResource', 'angularUtils.directives.dirPagination', 'angularMoment', 'ui.autocomplete', 'ui.mask', 'Devise', 'ngDialog', 'faye']);
 
 this.application = app;
@@ -20,6 +21,7 @@ var Patients = [
   }
 ];
 
+console.log('application');
 var Doctor = [
   'Resource', function(Resource) {
     return Resource('/doctor/profile', {
@@ -70,7 +72,10 @@ app.config([
       .state('notifications', {
 	url: '/notifications',
 	templateUrl: '/templates/doctor/notifications/list.haml',
-	controller: 'NotificationsController'
+	controller: 'NotificationsController',
+	resolve: {
+	  Doctor: Doctor
+	}
       })
       .state('doctor', {
 	url: '/doctor',
@@ -433,6 +438,22 @@ app.directive('formatPhone', ['$timeout', function ($timeout) {
     link: function(scope, element, attrs, ngModel) {
       ngModel.$formatters.push(function(value){
         return formatPhone(value);
+      });
+    }
+  }
+}]);
+
+app.directive('initFaye', ['$timeout', 'Alerts', 'Faye', 'Doctor1', function ($timeout, Alerts, Faye, Doctor1) {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      Doctor1.get().$promise.then(function(response) {
+        // $scope.doctor = response;
+        console.log('subscribe');
+        Faye.subscribe('/notifications/doctor/' + response.id, function(data){
+          console.log(data);
+          Alerts.messages([data.message]);
+        });
       });
     }
   }

@@ -197,7 +197,8 @@ function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor,
   });
 }
 
-PatientsController.$inject = ['$scope', '$window', 'Patients', 'ngDialog', 'Visits', 'Doctor', 'ChangeTime'];
-angular
-    .module('practice.doctor')
-    .controller('PatientsController', PatientsController);
+// PatientsController.$inject = ['$scope', '$window', 'Patients', 'ngDialog', 'Visits', 'Doctor', 'ChangeTime'];
+// PatientsController.$inject = ['$scope', 'Alerts', 'Faye', 'Doctor'];
+// angular
+    // .module('practice.doctor')
+    // .controller('PatientsController', PatientsController);

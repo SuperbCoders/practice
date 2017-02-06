@@ -23,28 +23,19 @@ class Public::ProfilesController < ApplicationController
     logger.info @visit.errors.full_messages
 
     if @visit.persisted?
-      # message = {data: 'Новая запись на прием'}
-      message = {message: 'Новая запись на прием'}
-      # message = {a: 'b'}
-      # render partial: 
-      # PrivatePub.publish_to '/notifications', "JSON.parse(\"#{escape_javascript(message.to_json)}\")"
-      # PrivatePub.publish_to '/notifications', to_javascript_hash(message)
-      PrivatePub.publish_to '/notifications', message
-      # uri = URI.parse("http://localhost:9292/faye")
-      # message = { channel: '/notifications', data: 'Новая запись на прием' }
-      # Net::HTTP.post_form(uri, message: message.to_json)
+      data = {message: 'Новая запись на прием'}
+      Notification.create doctor_id: @doctor.id, data: data
     end
 
     render json: serialize_resource(@visit, Doctor::VisitSerializer)
   end
 
   def remove_visit
+    doctor_id = Visit.find(params[:id]).doctor_id
     if Visit.destroy(params[:id])
-      message = {message: 'Пациент отменил запись на прием'}
-      PrivatePub.publish_to '/notifications', message
-      # uri = URI.parse("http://localhost:9292/faye")
-      # message = { channel: '/notifications', data: 'Пациент отменил запись на прием' }
-      # Net::HTTP.post_form(uri, message: message.to_json)
+      data = {message: 'Пациент отменил запись на прием'}
+      Rails.logger.debug "doctor_id: #{doctor_id}"
+      Notification.create doctor_id: doctor_id, data: data
     end
     head 204
   end
@@ -72,6 +63,8 @@ class Public::ProfilesController < ApplicationController
   end
 
   def find_doctor
+    Rails.logger.debug "params: #{params}"
+    Rails.logger.debug "params[:username]: #{params[:username]}"
     @doctor = Doctor.find_by(username: params[:username])
   end
 

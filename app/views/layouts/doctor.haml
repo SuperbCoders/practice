@@ -1,6 +1,6 @@
 !!!
 -# %html{:lang => "ru", 'ng-app' => "practice.doctor", :class => "{{bodyClassName}}"}
-%html{:lang => "ru", 'ng-app' => "practice.doctor", 'resize' => true, 'resize-full-calendar' => true }
+%html{:lang => "ru", 'ng-app' => "practice.doctor", 'resize' => true, 'resize-full-calendar' => true, 'init-faye' => true }
   %head
     %title{"ng-bind" => "($title || 'Практика')"}
 
@@ -10,7 +10,7 @@
     = stylesheet_link_tag    'doctor', media: 'all', 'data-turbolinks-track' => false
     = javascript_include_tag 'doctor', 'data-turbolinks-track' => false
     = csrf_meta_tags
-    = subscribe_to '/notifications'
+    -# = subscribe_to '/notifications'
 
   %body
     .wrapper
