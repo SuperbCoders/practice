@@ -41,6 +41,7 @@ module Practice
     config.generators.controller_specs = false
     config.generators.views_specs = false
     config.active_record.raise_in_transactional_callbacks = true
+    config.i18n.fallbacks =[:en]
 
 
     # Avatar upload path
