@@ -26,6 +26,6 @@ class Admin::AdminsController < Admin::BaseController
   end
 
   def permitted_params
-    [ :_id,:id ]
+    [ :_id,:id, :email, :password ]
   end
 end
