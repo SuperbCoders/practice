@@ -6,7 +6,11 @@ class Admin::PatientsController < Admin::BaseController
   before_action :find_resource, only: %w(show update destroy edit)
 
   def resource_scope
-    Patient
+    return Patient unless params.has_key? :q
+    q = params[:q]
+    t = Patient.arel_table
+    Patient.where(t[:full_name].matches("%#{q}%")
+                   .or(t[:email].matches("%#{q}%")))
   end
 
   def resource_serializer
