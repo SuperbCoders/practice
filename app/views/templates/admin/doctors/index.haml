@@ -2,8 +2,8 @@
   .box-header.with-border
     %h3.box-title.lead Врачи
     .box-tools.pull-right
-      %button.btn.btn-box-tool{"data-widget" => "collapse", :type => "button"}
-        %i.fa.fa-minus
+      .input-group.input-group-sm
+        %input.form-control{:type => "text", :placeholder => "Поиск", "ng-change" => "vm.search()", "ng-model" => "vm.query", "ng-model-options" => "{debounce: 500}"}
   .box-body.no-padding
     .row
       .col-xs-12
@@ -12,12 +12,18 @@
             %td Имя
             %td email
             %td Дата регистрации
+            %td Активен
+            %td Сайт
+            %td Подписка
             %td
           %tbody
             %tr{'dir-paginate' => "doctor in vm.doctors | itemsPerPage: vm.items_limit"}
-              %td {{doctor.name}}
-              %td {{doctor.email}}
-              %td {{doctor.created_at | date}}
+              %td {{ doctor.name }}
+              %td {{ doctor.email }}
+              %td {{ doctor.created_at | defaultDateFormat }}
+              %td {{ doctor['active?'] | yesNo: true }}
+              %td {{ doctor.profile | yesNo: 'profile_open' }}
+              %td Триал
               %td
                 %a.btn.btn-sm.btn-flat.btn-default
                   %i.fa.fa-pencil

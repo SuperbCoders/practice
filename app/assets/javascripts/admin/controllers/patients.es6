@@ -1,20 +1,28 @@
 class PatientsController {
-    constructor(rootScope, scope, Patients) {
+    constructor(Patients) {
         this.items_limit = 100;
-        this.filters = {};
+        this.patients = [];
         this.Patients = Patients;
+        this.query = '';
+
         this.fetch();
     }
 
     fetch() {
-        this.Patients.query(this.filters).$promise.then((patients) => this.patients = patients)
+        this.Patients.query().$promise.then(patients => this.patients = patients)
     }
 
     remove(patient) {
-        this.Doctors.remove(patient).$promise.then(() => this.fetch())
+        this.Patients.remove(patient).$promise.then(() => this.fetch())
+    }
+
+    search() {
+        this.Patients.query({q: this.query}).$promise.then(patients => this.patients = patients)
     }
 }
 
 angular
     .module('practice.admin')
-    .controller('PatientsController', ['$rootScope', '$scope', 'Patients', PatientsController]);
+    .controller('PatientsController', PatientsController);
+
+PatientsController.$inject = ['Patients'];

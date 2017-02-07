@@ -1,0 +1,20 @@
+.col-md-6
+  .box.box-info
+    .box-header.with-border
+      %h3.box-title Добавить админа
+    %form.form-horizontal{"ng-submit" => "vm.add()"}
+      .box-body
+        .form-group{"ng-class" => "{'has-error': vm.errors}"}
+          %label.col-sm-2.control-label{:for => "inputEmail3"} Email
+          .col-sm-10
+            %input#inputEmail3.form-control{:placeholder => "Email", :type => "email", :required => true, "ng-model" => "vm.email"}/
+        .form-group
+          %label.col-sm-2.control-label{:for => "inputPassword3"} Пароль
+          .col-sm-10
+            %input#inputPassword3.form-control{:placeholder => "Пароль", :type => "password", :required => true, "ng-model" => "vm.password"}/
+        .form-group.has-error{"ng-show" => "vm.errors"}
+          .col-sm-10
+            %span.help-block{"ng-repeat" => "error in vm.errors", "ng-bind" => "error"}
+      .box-footer
+        %a.btn.btn-default{"ui-sref" => "admins"} Отмена
+        %button.btn.btn-info.pull-right{:type => "submit"} Добавить

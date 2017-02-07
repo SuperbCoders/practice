@@ -12,6 +12,7 @@
 #= require angular-utils-pagination
 #= require angular-ui-notification
 #= require angular-moment
+#= require moment/locale/ru.js
 #= require angular-base64-upload
 #= require admin-lte/dist/js/app
 #= require jquery.slimscroll/jquery.slimscroll

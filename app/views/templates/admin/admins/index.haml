@@ -2,8 +2,8 @@
   .box-header.with-border
     %h3.box-title.lead Админы
     .box-tools.pull-right
-      %button.btn.btn-box-tool{"data-widget" => "collapse", :type => "button"}
-        %i.fa.fa-minus
+      %a.btn.btn-sm.btn-flat.btn-default{"ui-sref" => "add-admin"}
+        %i.fa.fa-plus
   .box-body.no-padding
     .row
       .col-xs-12
@@ -14,8 +14,8 @@
             %td
           %tbody
             %tr{'dir-paginate' => "admin in vm.admins | itemsPerPage: vm.items_limit"}
-              %td {{admin.email}}
-              %td {{admin.created_at | date}}
+              %td {{ admin.email }}
+              %td {{ admin.created_at | defaultDateFormat }}
               %td
                 %a.btn.btn-sm.btn-flat.btn-default
                   %i.fa.fa-pencil

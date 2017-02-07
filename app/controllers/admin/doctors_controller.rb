@@ -6,7 +6,12 @@ class Admin::DoctorsController < Admin::BaseController
   before_action :find_resource, only: %w(show update destroy edit)
 
   def resource_scope
-    Doctor
+    return Doctor unless params.has_key? :q
+    q = params[:q]
+    t = Doctor.arel_table
+    Doctor.where(t[:first_name].matches("%#{q}%")
+                   .or(t[:last_name].matches("%#{q}%"))
+                   .or(t[:email].matches("%#{q}%")))
   end
 
   def resource_serializer
@@ -26,6 +31,6 @@ class Admin::DoctorsController < Admin::BaseController
   end
 
   def permitted_params
-    [ :_id,:id ]
+    [ :_id, :id ]
   end
 end
