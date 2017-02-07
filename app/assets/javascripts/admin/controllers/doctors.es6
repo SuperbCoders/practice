@@ -1,5 +1,5 @@
 class DoctorsController {
-    constructor(rootScope, scope, Doctors) {
+    constructor(Doctors) {
         this.items_limit = 100;
         this.filters = {};
         this.Doctors = Doctors;
@@ -20,4 +20,4 @@ angular
     .module('practice.admin')
     .controller('DoctorsController', DoctorsController);
 
-DoctorsController.$inject = ['$rootScope', '$scope', 'Doctors'];
+DoctorsController.$inject = ['Doctors'];

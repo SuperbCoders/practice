@@ -1,5 +1,5 @@
 class PatientsController {
-    constructor(rootScope, scope, Patients) {
+    constructor(Patients) {
         this.items_limit = 100;
         this.filters = {};
         this.Patients = Patients;
@@ -11,7 +11,7 @@ class PatientsController {
     }
 
     remove(patient) {
-        this.Doctors.remove(patient).$promise.then(() => this.fetch())
+        this.Patients.remove(patient).$promise.then(() => this.fetch())
     }
 }
 
@@ -19,4 +19,4 @@ angular
     .module('practice.admin')
     .controller('PatientsController', PatientsController);
 
-PatientsController.$inject = ['$rootScope', '$scope', 'Patients'];
+PatientsController.$inject = ['Patients'];
