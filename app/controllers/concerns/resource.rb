@@ -85,12 +85,13 @@ module Concerns::Resource
   end
 
   def create
-    send_json @resource, @resource.save
+    result = @resource.save
+    send_json serialize_resource(@resource, resource_serializer), result
   end
 
   def update
     result = @resource.update_attributes(resource_params) if @resource
-    send_json serialize_resource(@resource, resource_serializer),result
+    send_json serialize_resource(@resource, resource_serializer), result
   end
 
   def new
