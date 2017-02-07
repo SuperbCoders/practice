@@ -1,6 +1,9 @@
 .box
   .box-header.with-border
     %h3.box-title.lead Врачи
+    .box-tools.pull-right
+      .input-group.input-group-sm
+        %input.form-control{:type => "text", :placeholder => "Поиск", "ng-change" => "vm.search()", "ng-model" => "vm.query", "ng-model-options" => "{debounce: 500}"}
   .box-body.no-padding
     .row
       .col-xs-12
