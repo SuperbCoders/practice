@@ -17,6 +17,10 @@ ValueList.find_or_create_by(name: "Стандартное время прием�
 	list.value_list_items	<< ValueListItem.new(value: 120)
 end
 
+SystemSettings.find_or_create_by(slug: 'counter_code') do |s|
+  s.name = 'Код счетчика'
+end
+
 Admin.find_or_create_by(email: 'admin1@example.com') do |admin|
   admin.password = 'adminadmin'
 end
