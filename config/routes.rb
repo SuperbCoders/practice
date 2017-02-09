@@ -47,5 +47,7 @@ Rails.application.routes.draw do
     resources :doctors
     resources :patients
     resources :admins
+    get '/system-settings' => 'system_settings#index'
+    match '/system-settings' => 'system_settings#update', via: [:put, :patch]
   end
 end

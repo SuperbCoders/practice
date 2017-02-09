@@ -1,9 +1,12 @@
 .box
   .box-header.with-border
     %h3.box-title.lead Настройки системы
-    .box-tools.pull-right
-      %button.btn.btn-box-tool{"data-widget" => "collapse", :type => "button"}
-        %i.fa.fa-minus
-  .box-body.no-padding
-    .row
-      .col-xs-12
+  %form{"ng-submit" => "vm.save()"}
+    .box-body
+      .row
+        .col-xs-12
+          .form-group
+            %label Код счетчика
+            %textarea.form-control{:rows => 15, "ng-model" => "vm.settings.counter_code"}
+    .box-footer
+      %button.btn.btn-info.pull-right{:type => "submit"} Сохранить

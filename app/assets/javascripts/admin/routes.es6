@@ -105,7 +105,9 @@ angular
             })
             .state('settings.system', {
                 url: '/system',
-                templateUrl: '/templates/admin/settings/system'
+                templateUrl: '/templates/admin/settings/system',
+                controller: 'SystemSettingsController',
+                controllerAs: 'vm'
             });
 
         $urlRouterProvider.otherwise('/doctors');
