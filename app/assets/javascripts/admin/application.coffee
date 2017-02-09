@@ -1,5 +1,6 @@
 @application = angular.module('practice.admin',
-  ['angular-confirm',
+  ['practice.shared',
+    'angular-confirm',
     'angular-loading-bar',
     'ui.router',
     'ui.bootstrap',

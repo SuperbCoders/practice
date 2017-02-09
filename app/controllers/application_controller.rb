@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+
+  include Concerns::CounterCode
+
   before_action { @response = {success: false, messages: [], errors: []} }
   before_action :_set_current_session
   

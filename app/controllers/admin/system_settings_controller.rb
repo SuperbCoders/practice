@@ -1,6 +1,8 @@
 class Admin::SystemSettingsController < Admin::BaseController
   include Concerns::Resource
 
+  skip_before_action :authenticate_admin!, only: :index
+
   def index
     settings = search_proxy.each_with_object({success: true}) { |s, o| o[s[:slug]] = s[:value] }
     send_response settings

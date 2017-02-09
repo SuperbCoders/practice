@@ -1,5 +1,6 @@
 @application = angular.module('practice.public',
-  [ 'ui.router',
+  [ 'practice.shared',
+    'ui.router',
     'ngMask',
     'ui-notification',
     'ngResource',
