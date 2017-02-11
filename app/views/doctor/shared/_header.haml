@@ -13,13 +13,17 @@
     .fr
       .mb.mob_hidden
         #notifications.user_m_item{'ng-controller' => "NotificationsController"}
-          %a.notifications.white_transp_2_btn.new_notification.notificationBtn{:href => ""} {{notifications.length}}
+          -# %a.notifications.white_transp_2_btn.new_notification.notificationBtn{:href => ""} {{(notifications | filter:{unreaded: true}).length}}
+          %a.notifications.white_transp_2_btn.new_notification.notificationBtn{:href => ""} {{unreaded_notifications_length}}
+          -# %a.notifications.white_transp_2_btn.new_notification.notificationBtn{:href => ""} {{notifications.length}}
           .notification_holder
             .notification_dropdown.notificationDropdown
-              %ul.notification_list{'ng-repeat' => "notification in notifications"}
-                %li.notification_item
-                  .notification_img{'ng-show' => "notification.image"}
-                    %img{'ng-src' => "{{notification.image}}"}/
+              %ul.notification_list
+                %li.notification_item{'ng-repeat' => "notification in (unreaded_notifications | filter:{unreaded: true}).slice(0, 5)"}
+                  .notification_img
+                    %img{'ng-src' => "{{notification.patient.avatar}}", "ng-if" => "notification.patient.avatar != undefined"}/
+                    .user_photo{"ng-if" => "notification.patient.avatar == undefined"}
+                      .user_initials {{notification.patient.initials}}
                   .notification_event
                     %p {{ notification.message }}
                     %a.gl_link.gray_link_3{'ng-show'=>"notification.alert_type == 'file'"} отменить

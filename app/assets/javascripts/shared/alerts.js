@@ -1,12 +1,43 @@
 this.application.factory('Alerts', [
-  'Notification', function(Notification) {
+  'Notification', 'Resource', 'Resources', function(Notification, Resource, Resources) {
     var Alerts;
+
+    // Notifications2 = Resources('/doctor/notifications/:id', {name: "@name"});		
+    // var Notification2 = [
+    //   'Resources', function(Resources) {
+    //     return Resources('/doctor/notifications/:id', {
+    //       id: '@id'
+    //     });
+    //   }
+    // ];
+
     Alerts = (function() {
       var alerts;
 
+      alerts = [];
+
       function Alerts() {}
 
-      alerts = [];
+      function getNotifyMessageHtml(alert){
+        console.log(alert);
+        console.log(alert.notification_type);
+        if (alert.notification_type == 'visit_created') {
+          return 'Новая неподтвержденная запись на ' + (alert.visit && alert.visit.start);
+        } else if (alert.notification_type == 'visit_canceled') {
+          return 'Отмена';
+        } else {
+          return 'Неизвестное событие от ' + alert.created_at;
+        }
+      }
+
+      Resources('/doctor/notifications', null, [{method: 'GET', isArray: true}]).query().$promise.then(function(response) {
+        for (i = 0, len = response.length; i < len; i++) {
+          var alert;
+          alert = response[i];
+          alert.message = getNotifyMessageHtml(alert);
+          alerts.push(response[i]);
+        }
+      });
 
       Alerts.prototype.alerts = function() {
         return alerts;
@@ -29,7 +60,7 @@ this.application.factory('Alerts', [
           alert_type: 'file',
           action: 'add'
         };
-        alerts.push(alert);
+        alerts.unshift(alert);
         return this.show_success(alert.message);
       };
 
@@ -41,7 +72,25 @@ this.application.factory('Alerts', [
           alert_type: 'file',
           action: 'add'
         };
-        alerts.push(alert);
+        alerts.unshift(alert);
+        return this.show_success(alert.message);
+      };
+
+      // Alerts.prototype.getNotifyMessageHtml = function(alert) {
+      //   return ' ' + alert.message + ' 1';
+      // }
+
+      Alerts.prototype.notification = function(alert) {
+        // var alert;
+        // alert = {
+        //   message: this.get_notification_text(notification),
+        //   // file: base64_file,
+        //   alert_type: 'success'
+        //   // action: 'add'
+        // };
+        // alerts.unshift(alert);
+        alert.message = getNotifyMessageHtml(alert);
+        alerts.unshift(alert);
         return this.show_success(alert.message);
       };
 
@@ -65,7 +114,7 @@ this.application.factory('Alerts', [
           message: message,
           alert_type: 'success'
         };
-        alerts.push(alert);
+        alerts.unshift(alert);
         return Notification.success(message, {
           positionY: 'top',
           positionX: 'right'
@@ -78,7 +127,7 @@ this.application.factory('Alerts', [
           message: message,
           alert_type: 'error'
         };
-        alerts.push(alert);
+        alerts.unshift(alert);
         return Notification.error(message, {
           positionY: 'top',
           positionX: 'right'
@@ -97,7 +146,7 @@ this.application.factory('Alerts', [
           results = [];
           for (i = 0, len = messages.length; i < len; i++) {
             alert = messages[i];
-            results.push(this.success(alert));
+            results.unshift(this.success(alert));
           }
           return results;
         }
@@ -110,7 +159,7 @@ this.application.factory('Alerts', [
           results = [];
           for (i = 0, len = errors.length; i < len; i++) {
             alert = errors[i];
-            results.push(this.error(alert));
+            results.unshift(this.error(alert));
           }
           return results;
         }

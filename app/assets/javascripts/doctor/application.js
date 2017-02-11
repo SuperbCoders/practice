@@ -39,7 +39,7 @@ var Patients = [
   }
 ];
 
-console.log('application');
+// console.log('application');
 var Doctor = [
   'Resource', function(Resource) {
     return Resource('/doctor/profile', {
@@ -467,10 +467,12 @@ app.directive('initFaye', ['$timeout', 'Alerts', 'Faye', 'Doctor1', function ($t
     link: function(scope, element, attrs) {
       Doctor1.get().$promise.then(function(response) {
         // $scope.doctor = response;
-        console.log('subscribe');
         Faye.subscribe('/notifications/doctor/' + response.id, function(data){
+          console.log('subscribe');
           console.log(data);
-          Alerts.messages([data.message]);
+          // Alerts.messages([data.message]);
+          // Alerts.notification(data.object);
+          Alerts.notification(data);
         });
       });
     }

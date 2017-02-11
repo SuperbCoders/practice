@@ -21,6 +21,7 @@ class Doctor < ActiveRecord::Base
   has_many :work_schedules, dependent: :destroy
   has_many :journals
   has_many :dicts, as: :dictable, dependent: :destroy
+  has_many :notifications
   has_one :setting
 
   after_create :create_identity

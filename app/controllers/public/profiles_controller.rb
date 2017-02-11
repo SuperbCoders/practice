@@ -23,8 +23,7 @@ class Public::ProfilesController < ApplicationController
     logger.info @visit.errors.full_messages
 
     if @visit.persisted?
-      data = {message: 'Новая запись на прием'}
-      Notification.create doctor_id: @doctor.id, data: data
+      Notification.create doctor_id: @doctor.id, patient_id: @visit.patient_id, visit_id: @visit.id, notification_type: 'visit_created', message: 'Новая запись на прием'
     end
 
     render json: serialize_resource(@visit, Doctor::VisitSerializer)
@@ -32,10 +31,10 @@ class Public::ProfilesController < ApplicationController
 
   def remove_visit
     doctor_id = Visit.find(params[:id]).doctor_id
+    patient_id = Visit.find(params[:id]).patient_id
+    start_at = Visit.find(params[:id]).start_at
     if Visit.destroy(params[:id])
-      data = {message: 'Пациент отменил запись на прием'}
-      Rails.logger.debug "doctor_id: #{doctor_id}"
-      Notification.create doctor_id: doctor_id, data: data
+      Notification.create doctor_id: doctor_id, patient_id: patient_id, start_at: start_at, notification_type: 'visit_canceled', message: 'Пациент отменил запись на прием'
     end
     head 204
   end

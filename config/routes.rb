@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     root 'cabinet#index'
     resource :profile, only: [:show, :update]
     resources :cabinet, only: [:index]
+    resources :notifications, only: [:index]
     resources :patients do
       collection do
         post 'search'
