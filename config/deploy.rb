@@ -64,18 +64,20 @@ end
 
 before 'deploy:compile_assets', 'bower:install'
 
-
 # set :faye_pid, "#{deploy_to}/shared/pids/faye.pid"
 # set :faye_config, "#{deploy_to}/current/faye.ru"
-
-set :faye_pid, "#{deploy_to}/shared/pids/faye.pid"
-set :faye_config, "#{deploy_to}/current/faye.ru"
 
 namespace :faye do
   desc "Start Faye"
   task :start do
-    on roles(:app) do
-      execute "cd #{deploy_to}/current && bundle exec rackup #{faye_config} -s thin -E production -D --pid #{fetch(:faye_pid)}"
+    on roles(:web) do
+      set :faye_pid, "#{fetch(:deploy_to)}/shared/pids/faye.pid"
+      set :faye_config, "#{fetch(:deploy_to)}/current/faye.ru"
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :bundle, "exec rackup #{fetch(:faye_config)} -s thin -E production -D --pid #{fetch(:faye_pid)}"
+        end
+      end
     end
   end
   desc "Stop Faye"

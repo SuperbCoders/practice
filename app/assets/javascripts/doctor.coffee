@@ -24,7 +24,7 @@
 #= require ngDialog/js/ngDialog
 #/##=  doctor/includes/angular-base64-upload
 # require ui-autocomplete
-#= require private_pub
+# require private_pub
 
 #= require ./doctor/includes/autocomplete
 #= require ./doctor/includes/scripts
