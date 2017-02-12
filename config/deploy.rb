@@ -82,8 +82,14 @@ namespace :faye do
   end
   desc "Stop Faye"
   task :stop do
-    on roles(:app) do
-      execute "kill `cat #{fetch(:faye_pid)}` || true"
+    on roles(:web) do
+      set :faye_pid, "#{fetch(:deploy_to)}/shared/pids/faye.pid"
+      set :faye_config, "#{fetch(:deploy_to)}/current/faye.ru"
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute "kill `cat #{fetch(:faye_pid)}` || true"
+        end
+      end
     end
   end
 end

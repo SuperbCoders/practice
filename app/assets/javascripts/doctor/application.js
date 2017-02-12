@@ -15,7 +15,8 @@ var app = angular
             'ui.mask',
             'Devise',
             'ngDialog',
-            'faye'
+            'faye',
+            'environment'
         ]
     );
 
@@ -62,7 +63,15 @@ var Visits = [
 ];
 
 app.config([
-  '$httpProvider', '$stateProvider', '$urlRouterProvider', 'NotificationProvider', 'ngDialogProvider', function($httpProvider, $stateProvider, $urlRouterProvider, NotificationProvider, ngDialogProvider) {
+  '$httpProvider', '$stateProvider', '$urlRouterProvider', 'NotificationProvider', 'ngDialogProvider', 'envServiceProvider', function($httpProvider, $stateProvider, $urlRouterProvider, NotificationProvider, ngDialogProvider, envServiceProvider) {
+    envServiceProvider.config({
+      domains: {
+        development: ['localhost', 'dev.local'],
+        production: ['dev-pract.robo-t.ru']
+      }
+    });
+    envServiceProvider.check();
+
     NotificationProvider.setOptions({
       delay: 3000,
       startTop: 20,
@@ -461,7 +470,7 @@ app.directive('formatPhone', ['$timeout', function ($timeout) {
   }
 }]);
 
-app.directive('initFaye', ['$timeout', 'Alerts', 'Faye', 'Doctor1', function ($timeout, Alerts, Faye, Doctor1) {
+app.directive('initFaye', ['$timeout', 'Alerts', 'Faye', 'Doctor1', 'envService', function ($timeout, Alerts, Faye, Doctor1) {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {

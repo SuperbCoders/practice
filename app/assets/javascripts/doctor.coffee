@@ -21,6 +21,7 @@
 #= require angular-devise
 #= require faye
 #= require angular-faye
+#= require angular-environment
 #= require ngDialog/js/ngDialog
 #/##=  doctor/includes/angular-base64-upload
 # require ui-autocomplete

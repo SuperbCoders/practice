@@ -19,8 +19,8 @@ this.application.factory('Alerts', [
       function Alerts() {}
 
       function getNotifyMessageHtml(alert){
-        console.log(alert);
-        console.log(alert.notification_type);
+        // console.log(alert);
+        // console.log(alert.notification_type);
         if (alert.notification_type == 'visit_created') {
           return 'Новая неподтвержденная запись на ' + (alert.visit && alert.visit.start);
         } else if (alert.notification_type == 'visit_canceled') {
