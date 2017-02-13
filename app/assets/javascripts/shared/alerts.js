@@ -136,7 +136,7 @@ this.application.factory('Alerts', [
           message: message,
           alert_type: 'error'
         };
-        alerts.unshift(alert);
+        // alerts.unshift(alert);
         return Notification.error(message, {
           positionY: 'top',
           positionX: 'right'
@@ -155,7 +155,7 @@ this.application.factory('Alerts', [
           results = [];
           for (i = 0, len = messages.length; i < len; i++) {
             alert = messages[i];
-            results.unshift(this.success(alert));
+            // results.unshift(this.success(alert));
           }
           return results;
         }
@@ -168,7 +168,9 @@ this.application.factory('Alerts', [
           results = [];
           for (i = 0, len = errors.length; i < len; i++) {
             alert = errors[i];
-            results.unshift(this.error(alert));
+            // results.unshift(this.error(alert));
+            // results.unshift(alert);
+            this.error(alert);
           }
           return results;
         }

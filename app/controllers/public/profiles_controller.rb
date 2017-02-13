@@ -17,13 +17,14 @@ class Public::ProfilesController < ApplicationController
       @visit = @doctor.visits.new(doctor: @doctor, patient: @patient)
       @visit.start_at = visit_params[:start]
       @visit.duration = visit_params[:duration]
+      @visit.created_by = ''
       @visit.save
     end
 
     logger.info @visit.errors.full_messages
 
     if @visit.persisted?
-      Notification.create doctor_id: @doctor.id, patient_id: @visit.patient_id, visit_id: @visit.id, notification_type: 'visit_created', message: 'Новая запись на прием'
+      Notification.create doctor_id: @doctor.id, patient_id: @visit.patient_id, start_at: @visit.start_at, visit_id: @visit.id, notification_type: 'visit_created', message: 'Новая запись на прием'
     end
 
     render json: serialize_resource(@visit, Doctor::VisitSerializer)

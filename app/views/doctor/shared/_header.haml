@@ -27,8 +27,9 @@
                     .user_photo{"ng-if" => "notification.patient.avatar == undefined"}
                       .user_initials {{notification.patient.initials}}
                   .notification_event
-                    %p {{ notification.message }}
-                    %a.gl_link.gray_link_3{'ng-show'=>"notification.alert_type == 'file'"} отменить
+                    = render partial: 'doctor/shared/notification'
+                    -# %p {{ notification.message }}
+                    -# %a.gl_link.gray_link_3{'ng-show'=>"notification.alert_type == 'file'"} отменить
                 -#%li.notification_item
                 -#  .notification_img
                 -#    %img{:src => "i/notify_img.jpg"}/

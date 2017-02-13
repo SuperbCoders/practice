@@ -21,6 +21,6 @@
           .user_photo{"ng-if" => "notification.patient.avatar == undefined"}
             .user_initials {{notification.patient.initials}}
         .notification_event
-          %p {{notification.message}}
+          = render partial: 'doctor/shared/notification'
 / Pagination
 = render partial: 'doctor/shared/pagination_directive'

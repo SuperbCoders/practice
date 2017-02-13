@@ -101,7 +101,8 @@ app.config([
 	templateUrl: '/templates/doctor/notifications/list.haml',
 	controller: 'Notifications2Controller',
 	resolve: {
-	  Doctor: Doctor
+	  Doctor: Doctor,
+          Visits: Visits
 	}
       })
       .state('doctor', {
