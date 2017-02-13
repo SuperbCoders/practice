@@ -10,6 +10,11 @@ class Doctor::NotificationsController < Doctor::BaseController
   #   resource_scope.where(patient_id: params[:patient_id])
   # end
 
+  def mark_all_readed
+    doctor.notifications.update_all unreaded: false
+    send_json doctor.notifications, true
+  end
+
   def resource_scope
     doctor.notifications.order(created_at: :desc)
   end

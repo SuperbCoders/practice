@@ -39,6 +39,15 @@ this.application.factory('Alerts', [
         }
       });
 
+      Alerts.prototype.mark_all_readed = function() {
+        console.log('mark_all_readed');
+        Resources('/doctor/notifications', null, [{method: 'POST', name: 'mark_all_readed', isArray: true}]).mark_all_readed().$promise.then(function(response) {
+          for (i = 0, len = alerts.length; i < len; i++) {
+            alerts[i].unreaded = false;
+          }
+        });
+      }
+
       Alerts.prototype.alerts = function() {
         return alerts;
       };

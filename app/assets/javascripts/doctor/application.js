@@ -99,7 +99,7 @@ app.config([
       .state('notifications', {
 	url: '/notifications',
 	templateUrl: '/templates/doctor/notifications/list.haml',
-	controller: 'NotificationsController',
+	controller: 'Notifications2Controller',
 	resolve: {
 	  Doctor: Doctor
 	}
