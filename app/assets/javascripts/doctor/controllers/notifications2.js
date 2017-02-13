@@ -3,6 +3,7 @@ function Notifications2Controller($scope, Alerts, Faye, Doctor1, Resources, filt
   $scope.alerts = Alerts;
   // $scope.alerts = '123';
   $scope.notifications = Alerts.alerts();
+  $scope.items_limit = 9;
   Alerts.mark_all_readed();
   // console.log('notifications');
   // console.log($scope.notifications);
