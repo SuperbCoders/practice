@@ -80,6 +80,7 @@ namespace :faye do
       end
     end
   end
+
   desc "Stop Faye"
   task :stop do
     on roles(:web) do
@@ -87,14 +88,18 @@ namespace :faye do
       set :faye_config, "#{fetch(:deploy_to)}/current/faye.ru"
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute "kill `cat #{fetch(:faye_pid)}` || true"
+          execute :kill, "`cat #{fetch(:faye_pid)}` || true"
         end
       end
     end
   end
 end
-before 'deploy:updating', 'faye:stop'
-after 'deploy:updated', 'faye:start'
+
+# before 'deploy:updating', 'faye:stop'
+# after 'deploy:updated', 'faye:start'
+
+after 'deploy:publishing', 'faye:stop'
+after 'deploy:publishing', 'faye:start'
 
 load "config/recipes/upload_erb.rb"
 load "config/recipes/faye.rb"
