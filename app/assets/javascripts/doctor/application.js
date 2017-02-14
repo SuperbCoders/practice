@@ -400,6 +400,8 @@ app.directive('chosenSelect', ['$timeout', function ($timeout) {
     priority: 100,
     link: {
       post: function(scope, element) {
+        console.log('chosen');
+        console.log(element);
         var run = function () {
           // console.log('-- directive');
           // console.log($(element).attr('id'));

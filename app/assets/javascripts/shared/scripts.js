@@ -10,6 +10,8 @@ function formatPhone(phone){
 }
 
 function card_color_chosen(elem) {
+  console.log('card_color_chosen');
+  console.log(elem);
   // $scope.card_color_chosen_times = $scope.card_color_chosen_times + 1;
   // console.log('card_color_chosen ' + $scope.card_color_chosen_times + ' ' + $(elem).length);
   $(elem).chosen({

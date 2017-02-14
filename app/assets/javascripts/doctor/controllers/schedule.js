@@ -351,8 +351,11 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         // console.log(events);
         // console.log(i);
         // console.log(events[i]);
+        // set_event_color(event, events[i].patient.cart_color);
         if (events[i].patient) {
           set_event_color(event, events[i].patient.cart_color);
+        } else {
+          set_event_color(event, '0');
         }
         event.id = $scope.event_id;
         event.real_id = events[i].id;
