@@ -18,23 +18,23 @@ this.application.factory('Alerts', [
 
       function Alerts() {}
 
-      function getNotifyMessageHtml(alert){
-        // console.log(alert);
-        // console.log(alert.notification_type);
-        if (alert.notification_type == 'visit_created') {
-          return 'Новая неподтвержденная запись на ' + (alert.visit && alert.visit.start);
-        } else if (alert.notification_type == 'visit_canceled') {
-          return 'Отмена';
-        } else {
-          return 'Неизвестное событие от ' + alert.created_at;
-        }
-      }
+      // function getNotifyMessageHtml(alert){
+      //   // console.log(alert);
+      //   // console.log(alert.notification_type);
+      //   if (alert.notification_type == 'visit_created') {
+      //     return 'Новая неподтвержденная запись на ' + (alert.visit && alert.visit.start);
+      //   } else if (alert.notification_type == 'visit_canceled') {
+      //     return 'Отмена';
+      //   } else {
+      //     return 'Неизвестное событие от ' + alert.created_at;
+      //   }
+      // }
 
       Resources('/doctor/notifications', null, [{method: 'GET', isArray: true}]).query().$promise.then(function(response) {
         for (i = 0, len = response.length; i < len; i++) {
           var alert;
           alert = response[i];
-          alert.message = getNotifyMessageHtml(alert);
+          // alert.message = getNotifyMessageHtml(alert);
           alerts.push(response[i]);
         }
       });
@@ -98,7 +98,7 @@ this.application.factory('Alerts', [
         //   // action: 'add'
         // };
         // alerts.unshift(alert);
-        alert.message = getNotifyMessageHtml(alert);
+        // alert.message = getNotifyMessageHtml(alert);
         alerts.unshift(alert);
         return this.show_success(alert.message);
       };

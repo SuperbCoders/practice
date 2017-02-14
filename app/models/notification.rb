@@ -13,6 +13,9 @@ class Notification < ActiveRecord::Base
     end
     Rails.logger.debug "serialization: #{Doctor::NotificationSerializer.new(self).as_json.inspect}"
     message = { channel: "/notifications/doctor/#{doctor_id}", data: ActiveModel::Serializer::Adapter::Attributes.new(Doctor::NotificationSerializer.new(self)).as_json }
-    Net::HTTP.post_form(uri, message: message.to_json)
+    # begin
+      Net::HTTP.post_form(uri, message: message.to_json)
+    # rescue StandardError
+    # end
   end
 end

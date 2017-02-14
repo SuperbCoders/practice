@@ -4,4 +4,4 @@
     %span подтвердить
   %span.gl_link.gray_link_3{'ng-show' => "notification.visit && notification.visit.created_by == 'doctor'"}
     %span подтверждена
-%p{'ng-show' => "notification.notification_type == 'visit_canceled'"} Запись от {{notification.start_at | format_date}} отменена пациентом
+%p{'ng-show' => "notification.notification_type == 'visit_canceled'"} Запись на {{notification.start_at | format_date}} отменена пациентом
