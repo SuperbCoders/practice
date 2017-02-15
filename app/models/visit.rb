@@ -28,6 +28,16 @@ class Visit < ActiveRecord::Base
     (start_at + duration.minutes).iso8601
   end
 
+def send_soon_notify!
+  doctor_id = self.doctor_id
+  patient_id = self.patient_id
+  start_at = self.start_at
+  # "message" is needed for popup otherwise it will be failed
+  Notification.create doctor_id: doctor_id, patient_id: patient_id, start_at: start_at, visit: self, notification_type: 'visit_soon', message: 'Скоро начнется новый прием'
+  self.soon_notify_sent = true
+  self.save!
+end
+
   private
 
   def crossed_with_other_visits?

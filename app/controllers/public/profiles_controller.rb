@@ -24,6 +24,7 @@ class Public::ProfilesController < ApplicationController
     logger.info @visit.errors.full_messages
 
     if @visit.persisted?
+      # "message" is needed for popup otherwise it will be failed
       Notification.create doctor_id: @doctor.id, patient_id: @visit.patient_id, start_at: @visit.start_at, visit_id: @visit.id, notification_type: 'visit_created', message: 'Новая запись на прием'
     end
 
@@ -31,10 +32,12 @@ class Public::ProfilesController < ApplicationController
   end
 
   def remove_visit
-    doctor_id = Visit.find(params[:id]).doctor_id
-    patient_id = Visit.find(params[:id]).patient_id
-    start_at = Visit.find(params[:id]).start_at
+    visit = Visit.find(params[:id])
+    doctor_id = visit.doctor_id
+    patient_id = visit.patient_id
+    start_at = visit.start_at
     if Visit.destroy(params[:id])
+      # "message" is needed for popup otherwise it will be failed
       Notification.create doctor_id: doctor_id, patient_id: patient_id, start_at: start_at, notification_type: 'visit_canceled', message: 'Пациент отменил запись на прием'
     end
     head 204

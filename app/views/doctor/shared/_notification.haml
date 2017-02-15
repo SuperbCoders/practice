@@ -1,7 +1,13 @@
-%p{'ng-show' => "notification.notification_type == 'visit_created'"}
-  Новая неподтвержденная запись на {{notification.start_at | format_date}}
-  %a.gl_link.gray_link_3{'ng-show' => "notification.visit && notification.visit.created_by != 'doctor'", :href => "", 'ng-click' => "confirm_visit(notification.visit)"}
-    %span подтвердить
-  %span.gl_link.gray_link_3{'ng-show' => "notification.visit && notification.visit.created_by == 'doctor'"}
-    %span подтверждена
-%p{'ng-show' => "notification.notification_type == 'visit_canceled'"} Запись на {{notification.start_at | format_date}} отменена пациентом
+%p{'ng-switch' => "notification.notification_type"}
+  %span{'ng-switch-when' => "visit_created"}
+    Новая неподтвержденная запись на {{notification.start_at | format_date}}
+    %a.gl_link.gray_link_3{'ng-show' => "notification.visit && notification.visit.created_by != 'doctor'", :href => "", 'ng-click' => "confirm_visit(notification.visit)"}
+      %span подтвердить
+    %span.gl_link.gray_link_3{'ng-show' => "notification.visit && notification.visit.created_by == 'doctor'"}
+      %span подтверждена
+  %span{'ng-switch-when' => "visit_canceled"}
+    Запись на {{notification.start_at | format_date}} отменена пациентом
+  %span{'ng-switch-when' => "visit_soon"}
+    Скоро начнется новый прием
+  %span{'ng-switch-default' => true}
+    {{notification | json}}

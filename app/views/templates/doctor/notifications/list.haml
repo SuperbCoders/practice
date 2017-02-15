@@ -11,11 +11,7 @@
 .section_inner
   .notification_center_holder
     %ul.notification_list
-      -# %li.notification_item{'ng-repeat' => "notification in notifications"}
       %li.notification_item{'dir-paginate' => "notification in notifications | itemsPerPage: items_limit "}
-        -# {{notification}}
-        -# {{notification.patient}}
-        -# {{notification.patient.initials}}
         .notification_img
           %img{'ng-src' => "{{notification.patient.avatar}}", "ng-if" => "notification.patient.avatar != undefined"}/
           .user_photo{"ng-if" => "notification.patient.avatar == undefined"}

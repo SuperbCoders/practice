@@ -25,6 +25,8 @@ require 'capistrano/rails/migrations'
 require 'capistrano3/unicorn'
 # require 'airbrussh/capistrano'
 # require 'capistrano/capistrano_plugin_template'
+require 'capistrano/sidekiq'
+require 'capistrano/sidekiq/monit'
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
