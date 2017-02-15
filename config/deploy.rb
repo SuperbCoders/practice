@@ -8,6 +8,7 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 set :application, 'practice'
 
 set :rails_env, fetch(:development)
+set :sidekiq_monit_use_sudo, false
 
 namespace :deploy do
 

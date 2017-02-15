@@ -26,7 +26,7 @@ require 'capistrano3/unicorn'
 # require 'airbrussh/capistrano'
 # require 'capistrano/capistrano_plugin_template'
 require 'capistrano/sidekiq'
-require 'capistrano/sidekiq/monit'
+# require 'capistrano/sidekiq/monit'
 require 'capistrano/clockwork'
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined

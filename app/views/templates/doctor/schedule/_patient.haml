@@ -1,13 +1,8 @@
--# %pre test
--# %pre {{event && event.saved | json}}
--# %pre {{event | json}}
 %form{:action => "#", :novalidate => "novalidate", 'ng-show' => 'event && event.saved'}
   .patient_card.cardOverview
 
     / Patient status
     .patient_status_w.chosen_v2.no_search.skipOpen
-      -# %select.chosen-select{"ng-model" => "event.patient.cart_color", 'ng-change' => 'update_cart_color()'}
-      -# %select.chosen-select{"ng-model" => "event.patient.cart_color", 'ng-change' => 'update_cart_color()'}
       %select.chosen-select{"ng-model" => "event.patient.cart_color", 'ng-change' => 'update_cart_color()'}
         %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
         %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
@@ -26,7 +21,6 @@
             %a.gl_link{:href => "", 'ng-click' => "deleteVisit(event)"}
               %span Отказать в  приёме
           %li.drop_down_item
-            -# %a.gl_link{:href => "", 'ui-sref' => "journal.add_record({patient_id: event.patient.id})"}
             %a.gl_link{:href => "", 'ui-sref' => "journal.create({patient_id: event.patient.id})"}
               %span Добавить запись в карту
           %li.drop_down_item
@@ -38,9 +32,6 @@
           %li.drop_down_item{"ng-if" => "event.patient.in_archive"}
             %a.gl_link{:href => "", "ng-click" => "unarchivate(event.patient)"}
               %span Вернуть из архива
-          -# %li.drop_down_item
-          -#   %a.gl_link{:href => "", "ng-click" => "archivate(event.patient)"}
-          -#     %span Отправить в архив
           %li.drop_down_item
             %a.gl_link{:href => "", "ng-click" => "deletePatient(event.patient)"}
               %span Удалить
