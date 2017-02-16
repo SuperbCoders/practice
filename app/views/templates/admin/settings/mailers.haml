@@ -1,0 +1,12 @@
+.box
+  .box-header.with-border
+    %h3.box-title.lead Редактировать письмо {{ vm.email.name }}
+  %form{"ng-submit" => "vm.save()"}
+    .box-body
+      .row
+        .col-xs-12
+          .form-group
+            %label Текст письма
+            %textarea.form-control{:rows => 15, "ng-model" => "vm.email.template"}
+    .box-footer
+      %button.btn.btn-info.pull-right{:type => "submit"} Сохранить

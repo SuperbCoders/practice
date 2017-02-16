@@ -43,7 +43,7 @@
           %i.fa.fa-dashboard
           %span Настройки
           %i.fa.fa-angle-left.pull-right
-        %ul.treeview-menu{:style => "display: block;"}
+        %ul.treeview-menu
           %li
             %a{:href => "", 'ui-sref' => "settings.system"}
               %i.fa.fa-circle-o
@@ -52,3 +52,9 @@
             %a{:href => "", 'ui-sref' => "settings.tags"}
               %i.fa.fa-circle-o
               Тэги
+          %li.treeview
+            %a{:href => ""}
+              %i.fa.fa-circle-o
+              %span Письма
+              %i.fa.fa-angle-left.pull-right
+            = render partial: 'admin/shared/sidebar_mails_menu/mailers_menu', collection: @mails_menu_items, as: :item

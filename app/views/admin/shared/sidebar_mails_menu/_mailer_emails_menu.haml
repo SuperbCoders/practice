@@ -1,0 +1,5 @@
+%ul.treeview-menu
+  %li{"ui-sref-active" => "active"}
+    %a{:href => "", "ui-sref" => "settings.mailers({ mailerSlug: '#{mailer_slug}', emailSlug: '#{item[:slug]}' })"}
+      %i.fa.fa-circle-o
+      %span= item[:name]

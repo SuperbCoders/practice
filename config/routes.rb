@@ -46,13 +46,20 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '' => 'index#index'
+
     #справочники
     get '/value-lists/:name' => 'value_lists#show'
     match '/value-lists/:name' => 'value_lists#update', via: [:put, :patch]
+
     resources :doctors
     resources :patients
     resources :admins
+
     get '/system-settings' => 'system_settings#index'
     match '/system-settings' => 'system_settings#update', via: [:put, :patch]
+
+    get '/mail-templates' => 'mail_templates#index'
+    get '/mail-templates/:mailer_slug/:email_slug' => 'mail_templates#show'
+    match '/mail-templates/:mailer_slug/:email_slug' => 'mail_templates#update', via: [:put, :patch]
   end
 end

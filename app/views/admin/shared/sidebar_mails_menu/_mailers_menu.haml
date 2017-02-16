@@ -1,0 +1,7 @@
+%ul.treeview-menu
+  %li
+    %a{:href => ""}
+      %i.fa.fa-circle-o
+      %span= item[:name]
+      %i.fa.fa-angle-left.pull-right
+    = render partial: 'admin/shared/sidebar_mails_menu/mailer_emails_menu', collection: item[:emails], as: :item, locals: { mailer_slug: item[:slug]}

@@ -108,6 +108,12 @@ angular
                 templateUrl: '/templates/admin/settings/system',
                 controller: 'SystemSettingsController',
                 controllerAs: 'vm'
+            })
+            .state('settings.mailers', {
+                url: '/mailers/:mailerSlug/:emailSlug',
+                templateUrl: '/templates/admin/settings/mailers',
+                controller: 'SystemMailersController',
+                controllerAs: 'vm'
             });
 
         $urlRouterProvider.otherwise('/doctors');
