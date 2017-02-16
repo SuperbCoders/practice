@@ -1,7 +1,5 @@
-class Doctor::VisitSerializer < Doctor::BaseSerializer
+class Doctor::Visit1Serializer < Doctor::BaseSerializer
   attributes :end, :duration, :start, :created_by, :active
-
-  belongs_to :patient, serializer: Doctor::PatientSerializer
 
   def active
     # Rails.logger.debug "visit active"

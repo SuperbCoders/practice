@@ -55,7 +55,13 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
   end
 
   def last_visit
-    object.visits.actual.last
+    Rails.logger.debug "last visit #{object.visits.actual.last.inspect}"
+    if object.visits.actual.last
+      ActiveModel::Serializer::Adapter::Attributes.new(Doctor::Visit1Serializer.new(object.visits.actual.last)).as_json
+    else
+      nil
+    end
+    # object.visits.actual.last
   end
 
   def initials

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action { @response = {success: false, messages: [], errors: []} }
   before_action :_set_current_session
-  
+
   def serialize_resources(resources, serializer)
     ActiveModel::SerializableResource.new(
         resources,
