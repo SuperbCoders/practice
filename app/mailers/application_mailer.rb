@@ -1,4 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
   default from: "noreply-dev-pract@onomnenado.ru"
-  layout 'mailer'
+  default template_path: "mailers/#{self.name.underscore}"
+  layout false
 end
