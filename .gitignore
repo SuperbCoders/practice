@@ -36,7 +36,7 @@ rerun.txt
 pickle-email-*.html
 
 /app/views/mailers/*
-!/app/views/mailers/.keep
+!/app/views/mailers/default_templates
 
 # TODO Comment out these rules if you are OK with secrets being uploaded to the repo
 # config/initializers/secret_token.rb
