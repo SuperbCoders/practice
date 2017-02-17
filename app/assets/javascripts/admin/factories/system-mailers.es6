@@ -2,8 +2,8 @@ angular
     .module('practice.admin')
     .factory('SystemMailersService', ['Resources', (Resources) => {
 
-        let mailersResource = Resources('/admin/mail-templates/:mailerSlug/:emailSlug',
-            {mailerSlug: '@mailerSlug', emailSlug: '@emailSlug'});
+        let mailersResource = Resources('/admin/mail-templates/:mailer_slug/:email_slug',
+            { mailer_slug: '@mailer_slug', email_slug: '@email_slug' });
 
         return {
             getEmail: getEmail,
@@ -12,12 +12,12 @@ angular
 
         function getEmail(mailerSlug, emailSlug) {
             return mailersResource
-                .get({mailerSlug: mailerSlug, emailSlug: emailSlug})
+                .get({mailer_slug: mailerSlug, email_slug: emailSlug})
                 .$promise
         }
 
         function saveEmail(mailerSlug, emailSlug, email) {
             return mailersResource
-                .save({mailerSlug: mailerSlug, emailSlug: emailSlug, template: email.template})
+                .save({mailer_slug: mailerSlug, email_slug: emailSlug, template: email.template})
         }
 }]);

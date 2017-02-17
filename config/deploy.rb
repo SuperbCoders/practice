@@ -4,7 +4,7 @@ lock '3.4.0'
 set :repo_url, 'git@github.com:SuperbCoders/practice.git'
 set :log_level, :debug
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/upload app/views/mailers}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/upload app/views/mailers/templates}
 set :application, 'practice'
 
 set :rails_env, fetch(:development)
