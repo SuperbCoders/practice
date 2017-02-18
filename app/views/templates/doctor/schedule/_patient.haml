@@ -54,8 +54,8 @@
     -# 3 {{patient.last_visit != null && patient.last_visit.created_by != 'doctor' && !patient.last_visit.active}}
     -# 4 {{patient.last_visit == null}}
     -# active {{patient.last_visit.active}}
-    {{patient | json}}
-    {{patient.last_visit | json}}
+    -# {{patient | json}}
+    -# {{patient.last_visit | json}}
     .patient_card_controls.skipOpen.patient_ready{"ng-if" => "patient.last_visit.active"}
       .patient_info_table
         .controls_cell

@@ -512,12 +512,48 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   };
 
   $scope.$on('$destroy', function(){
-    // console.log('destroy');
     if ($scope.add_patient_form){
       $scope.add_patient_form.dialog('destroy');
     }
     $('.ui-dialog #first_run_patients').dialog('destroy');
     $('.ui-dialog #change_reception_form').dialog('destroy');
+  });
+
+  // function update_last_visit_active(event, active){
+  // }
+
+  $scope.$on('notification', function(event, notification){
+    console.log('on notification');
+    console.log(notification);
+    var events  = $('#calendar').fullCalendar('clientEvents');
+    var patients = [];
+    console.log('events count ' + events.length);
+    for (var i = 0; i < events.length; ++i) {
+      // if (!_.find(patients, function(patient){
+      //   return patient.id == events[i].patient.id;
+      // })) {
+        patients.push(events[i].patient);
+      // }
+    }
+    console.log('patients count ' + events.length);
+    for (var i = 0; i < patients.length; ++i) {
+      if (patients[i].last_visit) {
+        console.log(patients[i].last_visit.id);
+        console.log(notification.visit.id);
+        if (patients[i].last_visit.id == notification.visit.id){
+          console.log('patient found');
+          // console.log('active ' + notification.visit.active);
+          console.log('notification ' + notification.notification_type);
+          if (notification.notification_type == 'visit_soon') {
+            console.log(true);
+            patients[i].last_visit.active = true;
+          } else if (notification.notification_type == 'visit_end') {
+            console.log(false);
+            patients[i].last_visit.active = false;
+          }
+        }
+      }
+    }
   });
 
   function getCalendarHeight(win) {

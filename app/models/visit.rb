@@ -37,6 +37,15 @@ def send_soon_notify!
   self.update_attribute :soon_notify_sent, true
 end
 
+def send_end_notify!
+  doctor_id = self.doctor_id
+  patient_id = self.patient_id
+  start_at = self.start_at
+  # "message" is needed for popup otherwise it will be failed
+  Notification.create doctor_id: doctor_id, patient_id: patient_id, start_at: start_at, visit: self, notification_type: 'visit_end'
+  self.update_attribute :end_notify_sent, true
+end
+
   private
 
   def crossed_with_other_visits?

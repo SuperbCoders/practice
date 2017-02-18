@@ -1,5 +1,5 @@
 this.application.factory('Alerts', [
-  'Notification', 'Resource', 'Resources', function(Notification, Resource, Resources) {
+  '$rootScope', 'Notification', 'Resource', 'Resources', function($rootScope, Notification, Resource, Resources) {
     var Alerts;
 
     // Notifications2 = Resources('/doctor/notifications/:id', {name: "@name"});		
@@ -90,6 +90,7 @@ this.application.factory('Alerts', [
       // }
 
       Alerts.prototype.notification = function(alert) {
+        console.log('notification');
         // var alert;
         // alert = {
         //   message: this.get_notification_text(notification),
@@ -99,8 +100,15 @@ this.application.factory('Alerts', [
         // };
         // alerts.unshift(alert);
         // alert.message = getNotifyMessageHtml(alert);
-        alerts.unshift(alert);
-        return this.show_success(alert.message);
+        if (!(alert.notification_type == 'visit_end')) {
+          alerts.unshift(alert);
+          this.show_success(alert.message);
+        }
+        console.log('notification');
+        if (alert.notification_type == 'visit_end' || alert.notification_type == 'visit_soon') {
+          console.log('broadcast ' + alert.notification_type);
+          $rootScope.$broadcast('notification', alert);
+        }
       };
 
       Alerts.prototype.show_success = function(message) {

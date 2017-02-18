@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215010227) do
+ActiveRecord::Schema.define(version: 20170216170654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -240,6 +240,7 @@ ActiveRecord::Schema.define(version: 20170215010227) do
     t.string   "created_by",       default: "doctor"
     t.integer  "patient_id"
     t.boolean  "soon_notify_sent", default: false
+    t.boolean  "end_notify_sent",  default: false
   end
 
   add_index "visits", ["doctor_id"], name: "index_visits_on_doctor_id", using: :btree
