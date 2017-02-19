@@ -49,13 +49,6 @@
       .other_info_cell
         %p{'ng-show' => "event.patient.phone"} {{event.patient.phone | phone}}
         %p{'ng-show' => "event.patient.email"} {{event.patient.email}}
-    -# 1 {{patient.last_visit.active}}
-    -# 2 {{patient.last_visit != null && patient.last_visit.created_by == 'doctor' && !patient.last_visit.active}}
-    -# 3 {{patient.last_visit != null && patient.last_visit.created_by != 'doctor' && !patient.last_visit.active}}
-    -# 4 {{patient.last_visit == null}}
-    -# active {{patient.last_visit.active}}
-    -# {{patient | json}}
-    -# {{patient.last_visit | json}}
     .patient_card_controls.skipOpen.patient_ready{"ng-if" => "patient.last_visit.active"}
       .patient_info_table
         .controls_cell
@@ -78,7 +71,6 @@
         .controls_cell
           %a.btn_v2.patient_btn.black_yellow_btn{:href => "", "ng-click" => "openAppointmentsForm(patient)"}
             %span.mb Записать на прием
-
     .patient_overview
       %a.btn_v3.add_patient_line.white__btn{:href => "#", 'ng-click' => '$event.stopPropagation()', 'ui-sref' => "journal.create({patient_id: event.patient.id})"} Добавить запись в карту
       %ul.patient_overview_list
