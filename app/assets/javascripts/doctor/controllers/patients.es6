@@ -191,6 +191,20 @@ function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor,
     }
   }
 
+  $scope.$on('notification', function(event, notification){
+    for (var i = 0; i < $scope.patients.length; ++i) {
+      if ($scope.patients[i].last_visit) {
+        if ($scope.patients[i].last_visit.id == notification.visit.id){
+          if (notification.notification_type == 'visit_soon') {
+            $scope.patients[i].last_visit.active = true;
+          } else if (notification.notification_type == 'visit_end') {
+            $scope.patients[i].last_visit.active = false;
+          }
+        }
+      }
+    }
+  });
+
   $scope.$on('$destroy', function(){
     // console.log('destroy');
     $('.ui-dialog #change_reception_form').dialog('destroy');
