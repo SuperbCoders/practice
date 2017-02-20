@@ -16,6 +16,7 @@ class MailersGathererService
         emails: humanized_mailer_emails(m)
       }
     end
+      .reject { |m| m[:emails].empty? }
   end
 
   def mailers

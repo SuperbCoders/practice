@@ -3,6 +3,14 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters
   before_filter :check_avatar, only: :create
 
+  def create
+    super do |resource|
+      if resource.persisted?
+        DoctorMailer.welcome_email(resource).deliver_later
+      end
+    end
+  end
+
 protected
 
   def check_avatar
