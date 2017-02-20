@@ -252,7 +252,14 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
     if (confirm('Отменить прием?')) {
       return Visits.remove({id: vm.patient.last_visit.id}).$promise.then(function(response) {
         fetchPatientInfo();
-        // $scope.fetch();
+      });
+    }
+  }
+
+  $scope.update_created_by = function(event) {
+    if (confirm('Подтвердить прием?')) {
+      Visits.save({id: event.id, visit: {visit_data: {created_by: 'doctor'}}}).$promise.then(function(response) {
+        fetchPatientInfo();
       });
     }
   }

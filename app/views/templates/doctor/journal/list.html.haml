@@ -44,7 +44,7 @@
           .patient_card_controls.skipOpen.patient_warn{"ng-if" => "vm.patient.last_visit != null && vm.patient.last_visit.created_by != 'doctor' && !vm.patient.last_visit.active"}
             .patient_info_table
               .controls_cell
-                %a.btn_v2.patient_btn.white_white_btn{:href => "", "ng-click" => "update_created_by()"}
+                %a.btn_v2.patient_btn.white_white_btn{:href => "", "ng-click" => "update_created_by(vm.patient.last_visit)"}
                   %span.mb Подтвердить прием на {{getFullVisitString(vm.patient.last_visit)}}
           .patient_card_controls.skipOpen{"ng-if" => "vm.patient.last_visit == null"}
             .patient_info_table
