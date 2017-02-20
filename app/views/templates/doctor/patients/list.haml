@@ -17,9 +17,6 @@
       #tab_1
         %ul.patients_list
           %li.patient_unit{'dir-paginate' => "patient in patients | filter:filter_fn | itemsPerPage: items_limit "}
-            -# .test {{patient | json}}
-            -# .test {{patient.last_visit | json}}
-            -# .test {{patient.last_visit.created_by | json}}
             .patient_card.cardAsideOverview
 
               / Color tag

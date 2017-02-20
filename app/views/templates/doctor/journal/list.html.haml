@@ -10,9 +10,20 @@
               %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
               %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
           / +patient_menu()
+          -# .avatar_clone
+          -#   %a.patient_avatar.skipOpen.write2Card{:href => "", 'ui-sref' => "journal.records({patient_id: patient.id})"}
+          -#     .avatar
+          -#       %img{'ng-src' => "{{patient.avatar}}", "ng-if" => "patient.avatar != undefined"}/
+          -#       %span{"ng-if" => "patient.avatar == undefined"} {{patient.initials}}
           .patient_avatar_holder
+            -# %a.patient_avatar.skipOpen.write2Card{:href => "", 'ui-sref' => "journal.records({patient_id: patient.id})"}
+            -#   .avatar
+            -#     %img{'ng-src' => "{{patient.avatar}}", "ng-if" => "patient.avatar != undefined"}/
+            -#     %span{"ng-if" => "patient.avatar == undefined"} {{patient.initials}}
             %a.patient_avatar{:href => "#"}
-              %img{:src => "i/user_2.png"}/
+              %img{'ng-src' => "{{vm.patient.avatar}}", "ng-if" => "vm.patient.avatar != undefined"}/
+              %span{"ng-if" => "vm.patient.avatar == undefined"} {{vm.patient.initials}}
+            -#   -# %img{:src => "i/user_2.png"}/
             .patient_info
               .patient_name
                 %a.gl_link.gray_link{:href => "#"}
@@ -24,11 +35,6 @@
             .other_info_cell
               %p{"ng-bind" => "vm.patient.phone"}
               %p{"ng-bind" => "vm.patient.email"}
-          -# .patient_card_controls.skipOpen
-          -#   .patient_info_table
-          -#     .controls_cell
-          -#       %a.btn_v2.patient_btn.green_btn{:href => "", "ng-click" => "vm.openAppointmentsDialog()"}
-          -#         %span.mb Записать на прием
           .patient_card_controls.skipOpen.patient_ready{"ng-if" => "vm.patient.last_visit.active"}
             .patient_info_table
               .controls_cell
