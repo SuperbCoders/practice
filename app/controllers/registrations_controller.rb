@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     super do |resource|
       if resource.persisted?
-        DoctorMailer.welcome_email(resource).deliver_later
+        AfterDoctorRegisteredNotifier.run(resource)
       end
     end
   end
