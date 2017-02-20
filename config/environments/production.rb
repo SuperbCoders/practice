@@ -76,4 +76,10 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  Sidekiq.configure_server do |config|
+    config.redis = { url: 'redis://89.208.147.167:6379' }
+  end
+  Sidekiq.configure_client do |config|
+    config.redis = { url: 'redis://89.208.147.167:6379' }
+  end
 end
