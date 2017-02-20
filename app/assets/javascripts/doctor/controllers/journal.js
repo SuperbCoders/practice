@@ -120,7 +120,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
         fetchDicts();
       })
   }
-  
+
   function removeFileFromList(index) {
     var file = vm.journal.attachments[index];
     if (file.id) {
@@ -135,7 +135,8 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
       template: 'appointments_form',
       controllerAs: 'vm',
       controller: 'DialogController',
-      scope: $scope
+      scope: $scope,
+      preCloseCallback: (value) => { fetchPatientInfo(); return true }
     })
   }
 
@@ -247,6 +248,15 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
   // console.log('journal add sub_header_mod');
   // doc_body.removeClass('sub_header_mod');
 
+  $scope.deleteVisit = function(event){
+    if (confirm('Отменить прием?')) {
+      return Visits.remove({id: vm.patient.last_visit.id}).$promise.then(function(response) {
+        fetchPatientInfo();
+        // $scope.fetch();
+      });
+    }
+  }
+
   $scope.$on('$destroy', function () {
     var doc_body = $('body');
     doc_body.removeClass('body_gray');
@@ -259,4 +269,3 @@ JournalController.$inject = ['$rootScope', '$stateParams','$scope', '$state', '$
 angular
   .module('practice.doctor')
   .controller('JournalController', JournalController);
-

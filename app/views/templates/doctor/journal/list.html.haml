@@ -40,7 +40,7 @@
                 %a.btn_v2.patient_btn.white_white_btn{:href => "", "ng-click" => "changeReceptionTimeClick($event, vm.patient.last_visit)"}
                   %span.mb Изменить прием на {{getFullVisitString(vm.patient.last_visit)}}
                 %p
-                  %a.gl_link{href: "#", "ng-click" => "deleteVisit(vm.patient.last_visit)"} Отменить прием
+                  %a.gl_link{href: "javascript:", "ng-click" => "deleteVisit(vm.patient.last_visit)"} Отменить прием
           .patient_card_controls.skipOpen.patient_warn{"ng-if" => "vm.patient.last_visit != null && vm.patient.last_visit.created_by != 'doctor' && !vm.patient.last_visit.active"}
             .patient_info_table
               .controls_cell
