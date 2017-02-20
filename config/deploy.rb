@@ -9,6 +9,7 @@ set :application, 'practice'
 
 set :rails_env, fetch(:development)
 set :sidekiq_monit_use_sudo, false
+set :sidekiq_queue, %w(mailers)
 
 namespace :deploy do
 
