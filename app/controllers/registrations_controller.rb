@@ -6,7 +6,8 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     super do |resource|
       if resource.persisted?
-        AfterDoctorRegisteredNotifier.run(resource)
+        # Doesn't work. Replaced with after_create hook in doctor model.
+        # AfterDoctorRegisteredNotifier.run(resource)
       end
     end
   end
