@@ -25,6 +25,7 @@ class Doctor < ActiveRecord::Base
   has_one :setting
 
   after_create :create_identity
+  after_create :send_notifications
 
   # todo: Пока не ясно нужно вообще это поле или нет.
   # validates_uniqueness_of :username
@@ -174,6 +175,10 @@ class Doctor < ActiveRecord::Base
       oauth_expires_at: Time.at(auth.credentials.expires_at)
     })
 
+  end
+
+  def send_notifications
+    AfterDoctorRegisteredNotifier.run(self)
   end
 
 end

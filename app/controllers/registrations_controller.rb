@@ -3,6 +3,15 @@ class RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters
   before_filter :check_avatar, only: :create
 
+  def create
+    super do |resource|
+      if resource.persisted?
+        # Doesn't work. Replaced with after_create hook in doctor model.
+        # AfterDoctorRegisteredNotifier.run(resource)
+      end
+    end
+  end
+
 protected
 
   def check_avatar

@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  require 'sidekiq/web'
+  authenticate :admin do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   devise_for :admins, path: 'admin', controllers: { sessions: 'admin/sessions' }
   devise_for :doctors, path: 'auth', controllers: { omniauth_callbacks: 'omniauth_callbacks',
                                                     sessions: 'sessions',

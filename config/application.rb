@@ -20,6 +20,8 @@ module Practice
       generate.views false
     end
 
+    config.action_mailer.default_url_options = { host: '//www.practica.cc' }
+
     config.action_view.logger = nil
     config.time_zone = 'Europe/Moscow'
 
@@ -42,6 +44,8 @@ module Practice
     config.generators.views_specs = false
     config.active_record.raise_in_transactional_callbacks = true
     config.i18n.fallbacks =[:en]
+
+    config.active_job.queue_adapter = :sidekiq
 
 
     # Avatar upload path
