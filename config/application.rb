@@ -45,6 +45,8 @@ module Practice
     config.active_record.raise_in_transactional_callbacks = true
     config.i18n.fallbacks =[:en]
 
+    config.active_job.queue_adapter = :sidekiq
+
 
     # Avatar upload path
     config.upload_path = Rails.root.join('public', 'upload').to_s
