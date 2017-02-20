@@ -264,6 +264,16 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
     }
   }
 
+  $scope.$on('notification', function(event, notification){
+    if (vm.patient.last_visit && vm.patient.last_visit.id == notification.visit.id) {
+      if (notification.notification_type == 'visit_soon') {
+        vm.patient.last_visit.active = true;
+      } else if (notification.notification_type == 'visit_end') {
+        vm.patient.last_visit.active = false;
+      }
+    }
+  });
+
   $scope.$on('$destroy', function () {
     var doc_body = $('body');
     doc_body.removeClass('body_gray');
