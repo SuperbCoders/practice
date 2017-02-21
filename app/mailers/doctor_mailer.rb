@@ -25,8 +25,9 @@ class DoctorMailer < ApplicationMailer
     mail(to: doctor.email, subject: 'Мы получили оплату, спасибо!')
   end
 
-  def password_recovery_email(doctor)
+  def password_recovery_email(doctor, token)
     @doctor = doctor
+    @token = token
     mail(to: doctor.email, subject: 'Восстановление пароля от Практики')
   end
 
