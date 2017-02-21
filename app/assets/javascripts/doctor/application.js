@@ -16,7 +16,8 @@ var app = angular
             'Devise',
             'ngDialog',
             'faye',
-            'environment'
+            'environment',
+            'angular-loading-bar'
         ]
     );
 
@@ -63,7 +64,7 @@ var Visits = [
 ];
 
 app.config([
-  '$httpProvider', '$stateProvider', '$urlRouterProvider', 'NotificationProvider', 'ngDialogProvider', 'envServiceProvider', function($httpProvider, $stateProvider, $urlRouterProvider, NotificationProvider, ngDialogProvider, envServiceProvider) {
+  '$httpProvider', '$stateProvider', '$urlRouterProvider', 'NotificationProvider', 'ngDialogProvider', 'envServiceProvider', 'cfpLoadingBarProvider', function($httpProvider, $stateProvider, $urlRouterProvider, NotificationProvider, ngDialogProvider, envServiceProvider, cfpLoadingBarProvider) {
     envServiceProvider.config({
       domains: {
         development: ['localhost', 'dev.local'],
@@ -71,6 +72,11 @@ app.config([
       }
     });
     envServiceProvider.check();
+
+    cfpLoadingBarProvider.includeSpinner = true;
+    cfpLoadingBarProvider.includeBar = false;
+    cfpLoadingBarProvider.spinnerTemplate =
+        '<div class="preloader"><div class="fl spinner6"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div></div>';
 
     NotificationProvider.setOptions({
       delay: 3000,

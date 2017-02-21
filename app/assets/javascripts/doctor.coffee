@@ -23,6 +23,7 @@
 #= require angular-faye
 #= require angular-environment
 #= require ngDialog/js/ngDialog
+#= require angular-loading-bar/build/loading-bar
 #/##=  doctor/includes/angular-base64-upload
 # require ui-autocomplete
 # require private_pub
