@@ -1,0 +1,17 @@
+.login-box
+  .login-logo
+    %span Смена пароля
+  .login-box-body
+    %p.login-box-msg Введите новый пароль дважды
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+      = devise_error_messages!
+      = f.hidden_field :reset_password_token
+      .form-group.has-feedback
+        = f.password_field :password, autofocus: true, class: 'form-control', placeholder: 'Новый пароль'
+        %span.glyphicon.glyphicon-lock.form-control-feedback
+      .form-group.has-feedback
+        = f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control', placeholder: 'Новый пароль еще раз'
+        %span.glyphicon.glyphicon-lock.form-control-feedback
+      .row
+        .col-xs-4
+          = f.submit 'Изменить', class: 'btn btn-primary btn-block btn-flat'
