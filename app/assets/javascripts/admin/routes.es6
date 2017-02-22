@@ -37,6 +37,11 @@ angular
                                 {
                                     method: 'GET',
                                     isArray: true
+                                },
+                                {
+                                    method: 'POST',
+                                    name: 'sign_in_as_doctor',
+                                    isArray: false
                                 }
                             ]);
                         }

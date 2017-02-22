@@ -5,6 +5,12 @@ class Admin::DoctorsController < Admin::BaseController
   before_action :new_resource, only: %w(create new)
   before_action :find_resource, only: %w(show update destroy edit)
 
+  def sign_in_as_doctor
+    doctor = Doctor.find(params[:id])
+    sign_in(:doctor, doctor)
+    head 200
+  end
+
   def resource_scope
     return Doctor unless params.has_key? :q
     q = params[:q]

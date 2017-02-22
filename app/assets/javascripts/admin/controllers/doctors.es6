@@ -19,6 +19,10 @@ class DoctorsController {
     search() {
         this.Doctors.query({q: this.query}).$promise.then(doctors => this.doctors = doctors)
     }
+
+    signInAsDoctor(doctor) {
+        this.Doctors.sign_in_as_doctor({id: doctor.id}).$promise.then(() => window.location = '/doctor')
+    }
 }
 
 angular

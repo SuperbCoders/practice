@@ -56,7 +56,9 @@ Rails.application.routes.draw do
     get '/value-lists/:name' => 'value_lists#show'
     match '/value-lists/:name' => 'value_lists#update', via: [:put, :patch]
 
-    resources :doctors
+    resources :doctors do
+      post 'sign_in_as_doctor', on: :member
+    end
     resources :patients
     resources :admins
 
