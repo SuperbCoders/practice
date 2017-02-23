@@ -280,7 +280,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       $scope.settings.calendar_view = 'week';
     }
     Settings.saveSettings($scope.settings);
-    $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name || 'agendaWeek' === view.name);
+    // $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name || 'agendaWeek' === view.name);
+    $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name);
     $scope.event = null;
     $scope.patient = null;
   };
