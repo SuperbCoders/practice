@@ -8,6 +8,7 @@
   %span{'ng-switch-when' => "visit_canceled"}
     Запись на {{notification.start_at | format_date}} отменена пациентом
   %span{'ng-switch-when' => "visit_soon"}
-    Скоро начнется новый прием
+    -# Скоро начнется новый прием
+    Через 5 минут у вас записан {{notification.patient.full_name}}
   %span{'ng-switch-default' => true}
     {{notification | json}}

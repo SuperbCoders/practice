@@ -33,7 +33,9 @@ def send_soon_notify!
   patient_id = self.patient_id
   start_at = self.start_at
   # "message" is needed for popup otherwise it will be failed
-  Notification.create doctor_id: doctor_id, patient_id: patient_id, start_at: start_at, visit: self, notification_type: 'visit_soon', message: 'Скоро начнется новый прием'
+  # Notification.create doctor_id: doctor_id, patient_id: patient_id, start_at: start_at, visit: self, notification_type: 'visit_soon', message: 'Скоро начнется новый прием'
+  patient = Patient.find patient_id
+  Notification.create doctor_id: doctor_id, patient_id: patient_id, start_at: start_at, visit: self, notification_type: 'visit_soon', message: "Через 5 минут у вас записан #{patient.full_name}"
   self.update_attribute :soon_notify_sent, true
 end
 
