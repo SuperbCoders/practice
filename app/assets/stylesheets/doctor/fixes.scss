@@ -99,3 +99,9 @@ ul.appointment_menu_list li a {
 .patient_block .controls_cell {
   text-align: center;
 }
+.patient_overview {
+  display: none;
+}
+.day_mode .patient_overview {
+  display: block;
+}

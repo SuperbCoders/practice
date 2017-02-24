@@ -479,6 +479,18 @@ app.directive('formatPhone', ['$timeout', function ($timeout) {
   }
 }]);
 
+app.directive('patientInfoFormInit', ['$timeout', function ($timeout) {
+  return {
+    restrict: 'A',
+    // require: 'ngModel',
+    // priority: -200,
+    link: function(scope, element, attrs, ngModel) {
+      console.log('patientInfoFormInit directive');
+      console.log('noop');
+    }
+  }
+}]);
+
 app.directive('initFaye', ['$timeout', 'Alerts', 'Faye', 'Doctor1', 'envService', function ($timeout, Alerts, Faye, Doctor1) {
   return {
     restrict: 'A',
