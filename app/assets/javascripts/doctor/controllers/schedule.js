@@ -222,6 +222,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         // return $scope.visits = _.without($scope.visits, visit);
         $('#calendar').fullCalendar('refetchEvents');
         $scope.event = null;
+        // console.log('view');
+        // console.log('view');
+        // console.log($($scope.calendar).fullCalendar('getView'));
+        // console.log($($scope.calendar).fullCalendar('getView').name);
+        if (!($($scope.calendar).fullCalendar('getView').name == 'agendaDay')) {
+          $('#patient_info_form').dialog('close');
+        }
       });
     }
   }
@@ -321,9 +328,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   };
 
   function init_patient_info_form(){
-    // console.log('init_patient_info_form');
     if (!$scope.patient_info_form){
-      // console.log('positive');
       $scope.patient_info_form = $('#patient_info_form').dialog({
         autoOpen: false,
         modal: true,
@@ -334,48 +339,38 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
           $('.event_open').removeClass('event_open');
         }
       });
-      // console.log($scope.patient_info_form);
-    } else {
-      // console.log('negative');
     }
    }
 
   function show_event(event, e) {
     init_patient_info_form();
-   // body_var.delegate('.fc-event', 'click', function (e) {
-      // console.log('click');
-        var btn = $(this);
+    var btn = $(this);
 
-        btn.addClass('event_open');
-        // console.log(e);
-    // console.log($scope.patient_info_form);
+    btn.addClass('event_open');
     $scope.patient_info_form.dialog("option", "position", {
-            my: "left+15 top-150",
-            of: e,
-            collision: "flip fit",
-            within: '.fc-view-container',
-            using: function (obj, info) {
+      my: "left+15 top-150",
+      of: e,
+      collision: "flip fit",
+      within: '.fc-view-container',
+      using: function (obj, info) {
 
-                // console.log(obj, info);
+        var dialog_form = $(this),
+            cornerY = e.pageY - obj.top - 190;
 
-                var dialog_form = $(this),
-                    cornerY = e.pageY - obj.top - 190;
+        if (info.horizontal != "left") {
+          dialog_form.addClass("flipped_left");
+        } else {
+          dialog_form.removeClass("flipped_left");
+        }
 
-                if (info.horizontal != "left") {
-                    dialog_form.addClass("flipped_left");
-                } else {
-                    dialog_form.removeClass("flipped_left");
-                }
-
-                dialog_form.css({
-                    left: (obj.left || 0) + 'px',
-                    top: obj.top + 'px'
-                }).find('.form_corner').css({
-                    top: Math.min(Math.max(cornerY, -20), dialog_form.height() - 55) + 'px'
-                });
-            }
-        }).dialog('open');
-    // })
+        dialog_form.css({
+          left: (obj.left || 0) + 'px',
+          top: obj.top + 'px'
+        }).find('.form_corner').css({
+          top: Math.min(Math.max(cornerY, -20), dialog_form.height() - 55) + 'px'
+        });
+      }
+    }).dialog('open');
   }
 
   function getEventTitle(event){
@@ -416,10 +411,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         event.start = moment(events[i].start);
         event.end = moment(events[i].end);
         event.saved = true;
-        // console.log(events);
-        // console.log(i);
-        // console.log(events[i]);
-        // set_event_color(event, events[i].patient.cart_color);
         if (events[i].patient) {
           set_event_color(event, events[i].patient.cart_color);
         } else {
