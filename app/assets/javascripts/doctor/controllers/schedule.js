@@ -222,10 +222,6 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         // return $scope.visits = _.without($scope.visits, visit);
         $('#calendar').fullCalendar('refetchEvents');
         $scope.event = null;
-        // console.log('view');
-        // console.log('view');
-        // console.log($($scope.calendar).fullCalendar('getView'));
-        // console.log($($scope.calendar).fullCalendar('getView').name);
         if (!($($scope.calendar).fullCalendar('getView').name == 'agendaDay')) {
           $('#patient_info_form').dialog('close');
         }
@@ -776,6 +772,9 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       Patients.remove(patient).$promise.then(function(response) {
         $('#calendar').fullCalendar('refetchEvents');
         $scope.event = null;
+        if (!($($scope.calendar).fullCalendar('getView').name == 'agendaDay')) {
+          $('#patient_info_form').dialog('close');
+        }
       });
     }
   };
