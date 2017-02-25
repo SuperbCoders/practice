@@ -22,7 +22,7 @@
             -#     %span{"ng-if" => "patient.avatar == undefined"} {{patient.initials}}
             %a.patient_avatar{:href => "#"}
               %img{'ng-src' => "{{vm.patient.avatar}}", "ng-if" => "vm.patient.avatar != undefined"}/
-              %span{"ng-if" => "vm.patient.avatar == undefined"} {{vm.patient.initials}}
+              .patient_avatar_letter{"ng-if" => "vm.patient.avatar == undefined"} {{vm.patient.initials}}
             -#   -# %img{:src => "i/user_2.png"}/
             .patient_info
               .patient_name

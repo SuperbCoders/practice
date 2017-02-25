@@ -1672,11 +1672,10 @@ $patient_scale_time: 1s;
   background: #f9f9f9;
   border: solid #d4d4d4;
   border-width: 1px 0 0;
-  display: block;
 
-  /* .open_card & { */
-  /*   display: block; */
-  /* } */
+  .open_card & {
+    display: block;
+  }
 
   @include respond-to-min($desktop) {
     border-width: 1px;
@@ -2236,6 +2235,7 @@ $patient_scale_time: 1s;
     float: left;
     margin-top: 3px;
     margin-right: 10px;
+    position: relative;
   }
 
   .patient_status_w {
