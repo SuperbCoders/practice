@@ -313,16 +313,10 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   };
 
   function event_click(event, jsEvent, view) {
-    // console.log('event_click');
-    // console.log('view');
-    // console.log(view);
-    // console.log('jsEvent');
-    // console.log(jsEvent);
-    if (view == 'agendaDay') {
-      $scope.$apply(function() {
-        set_event(event);
-      });
-    } else {
+    $scope.$apply(function() {
+      set_event(event);
+    });
+    if (!(view == 'agendaDay')) {
       show_event(event, jsEvent);
     }
   };
