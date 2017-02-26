@@ -1,4 +1,4 @@
-function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings, ValueList, Doctor, ChangeTime) {
+function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings, ValueList, Doctor, ChangeTime, ngDialog) {
   $scope.items_limit = 100;
   $scope.filters = {};
   $scope.win = $(window);
@@ -88,6 +88,10 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     // events: visits_by_date,
     // eventRender: event_render
   };
+
+  $scope.Visits = Visits;
+  $scope.Doctor = Doctor;
+  $scope.ngDialog = ngDialog;
 
   function activateFirstEvent(){
     var events = $('#calendar').fullCalendar('clientEvents');
@@ -797,43 +801,22 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     }
   };
 
-  // var node_modified = function(evt) {
-  //   if(evt.attrName == 'value') {
+  $scope.openAppointmentsForm = function(patient) {
+      $scope.patient = patient;
+      ngDialog.open({
+          template: 'appointments_form',
+          controllerAs: 'vm',
+          controller: 'DialogController',
+          scope: $scope,
+          preCloseCallback: function(value) {
+              console.log('preCloseCallback');
+              $scope.set_last_event = $scope.event;
+              $('#calendar').fullCalendar('refetchEvents');
+              return true;
+          }
+      })
+  };
 
-  //   }
-  // }
-  // var test_close = document.getElementById('new_patient_name');
-  // test_close.addEventListener('DOMAttrModified', node_modified, false);
-
-  // var node = document.getElementById("new_patient_name");
-  // Object.defineProperty(node, 'value', {
-  //   set: function() {
-
-  //     throw new Error('button value modified');
-  //   }
-  // });
-
-  // // select the target node
-  // var target = document.querySelector('#new_patient_name');
-
-  // // create an observer instance
-  // var observer = new MutationObserver(function(mutations) {
-  //   mutations.forEach(function(mutation) {
-  //   });
-  // });
-
-  // // configuration of the observer:
-  // var config = { attributes: true, childList: true, characterData: true }
-
-  // // pass in the target node, as well as the observer options
-  // observer.observe(target, config);
-
-  // // later, you can stop observing
-  // // observer.disconnect();
-
-  // setInterval(function(){
-
-  // }, 1000);
 }
 
-angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Visit', 'Patients', 'Settings', 'ValueList', 'Doctor', 'ChangeTime', ScheduleController]);
+angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Visit', 'Patients', 'Settings', 'ValueList', 'Doctor', 'ChangeTime', 'ngDialog', ScheduleController]);

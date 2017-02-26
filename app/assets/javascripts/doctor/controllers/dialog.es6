@@ -9,10 +9,11 @@ function DialogController($scope, $timeout) {
 
     vm.events = [];
     vm.doctor = {};
-    vm.Doctor = $scope.Doctor || $scope.vm.Doctor;
-    vm.Visits = $scope.Visits || $scope.vm.Visits;
-    vm.patient = $scope.patient || $scope.vm.patient;
-    vm.ngDialog = $scope.ngDialog || $scope.vm.ngDialog;
+
+    vm.Doctor = $scope.Doctor || ($scope.vm && $scope.vm.Doctor);
+    vm.Visits = $scope.Visits || ($scope.vm && $scope.vm.Visits);
+    vm.patient = $scope.patient || ($scope.vm && $scope.vm.patient);
+    vm.ngDialog = $scope.ngDialog || ($scope.vm && $scope.vm.ngDialog);
 
     vm.calendar_params = {
         firstDay: 1,
