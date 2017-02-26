@@ -199,7 +199,7 @@ $(function ($) {
         if (firedEl.hasClass('skipOpen') || !!firedEl.parents('.skipOpen').length) {
 
         } else {
-            patient_card.toggleClass('open_card');
+            // patient_card.toggleClass('open_card');
 
             if (patient_card.closest('.popup_form')) {
                 //console.log('repos');

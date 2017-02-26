@@ -42,7 +42,7 @@
         %span{"ng-if" => "event.patient.avatar == undefined"} {{event.patient.initials}}
     .patient_info
       .patient_name
-        %a.gl_link.gray_link{:href => "", 'ng-click' => "toggle_patient_info()"}
+        %a.gl_link.gray_link{:href => "#", 'ui-sref' => "journal.records({patient_id: event.patient.id})"}
           %span {{event.patient.full_name}}
       %textarea.input_v5.form_input.skipOpen {{ event.patient.comment }}
     .patient_info_table
