@@ -382,36 +382,12 @@ function getCalendarHeight() {
     return calHeight;
 }
 
-app.directive('chosenSelectLoadedDoctor', ['$timeout', function ($timeout) {
-  return {
-    priority: 100,
-    link: function(scope, element) {
-      var run = function () {
-        run_chosen(element);
-      }
-      scope.$on('dataloaded:doctor', function () {
-        // Sometime time selects still don't have data. Set it in the
-        // end of queue twice because selects binding don't even
-        // starting rendering yet. I guess so and seems like it works.
-        $timeout(function() {
-          $timeout(run, 0);
-        }, 0);
-      });
-    }
-  }
-}]);
-
 app.directive('chosenSelect', ['$timeout', function ($timeout) {
   return {
     priority: 100,
     link: {
       post: function(scope, element) {
-        console.log('chosen');
-        console.log(element);
         var run = function () {
-          // console.log('-- directive');
-          // console.log($(element).attr('id'));
-          // console.log($(element).find('option').length);
           run_chosen(element);
         }
         $timeout(run, 0);

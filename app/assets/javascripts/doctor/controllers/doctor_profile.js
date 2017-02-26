@@ -55,17 +55,26 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
       $scope.add_contact('phone');
     }
     if ($scope.doctor.work_schedules.length <= 0) {
-      return $scope.new_schedule();
+      $scope.new_schedule();
     }
-
-    $rootScope.$broadcast('dataloaded:doctor');
+    setTimeout(function() {
+        // console.log('update doctor_before_schedule');
+        // console.log($('#doctor_before_schedule'));
+        $('#doctor_before_schedule').trigger("chosen:updated");
+    }, 200);
   });
 
   ValueList.getList("Стандартное время приема").then(function(response) {
-    return $scope.standartTimeIntervals = response.value_list_items;
+    $scope.standartTimeIntervals = response.value_list_items;
   });
   Settings.getSettings().then(function(response) {
-    return $scope.settings = response;
+    $scope.settings = response;
+
+    setTimeout(function() {
+        // console.log('update doctor_stand_time');
+        // console.log($('#doctor_stand_time'));
+        $('#doctor_stand_time').trigger("chosen:updated");
+    }, 200);
   });
   init_chosen($scope);
 

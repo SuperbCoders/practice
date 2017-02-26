@@ -35,7 +35,8 @@
       .label_holder
         %label.form_label{:for => "doctor_stand_time"} Стандартное время приема
       .input_w.size_27.chosen_v1.no_search
-        %select#doctor_stand_time.chosen-select{'ng-model'=>"settings.standart_shedule_interval","data-placeholder" => "Выберите время приема"}
+        -# {{settings.standart_shedule_interval}}
+        %select#doctor_stand_time.chosen-select{'ng-model'=>"settings.standart_shedule_interval","data-placeholder" => "Выберите время приема", 'chosen-select' => true}
           %option{'ng-repeat' => 'interval in standartTimeIntervals', value: "{{interval.value}}"} {{interval.value}} мин.
 
     / Время записи до приема
@@ -43,5 +44,5 @@
       .label_holder
         %label.form_label{:for => "doctor_before_schedule"} Время записи до приема
       .input_w.size_27.chosen_v1.no_search
-        %select#doctor_before_schedule.chosen-select{'ng-model'=>"doctor.before_schedule", "data-placeholder" => "Выберите время записи", 'ng-options' => "opt.value as opt.name for opt in doctor.doctor_before_schedule"}
+        %select#doctor_before_schedule.chosen-select{'ng-model'=>"doctor.before_schedule", "data-placeholder" => "Выберите время записи", 'ng-options' => "opt.value as opt.name for opt in doctor.doctor_before_schedule", 'chosen-select' => true}
           %option{"data-title" => "", :value => ""}
