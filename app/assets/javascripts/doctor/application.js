@@ -422,26 +422,6 @@ app.directive('initWorkDays', ['$timeout', function ($timeout) {
   }
 }]);
 
-// app.directive('formatPhone', ['$timeout', function ($timeout) {
-//   return {
-//     restrict: 'A',
-//     require: 'ngModel',
-//     priority: -200,
-//     link: function(scope, element, attrs, ngModel) {
-//       // scope.$apply(function(){
-//         console.log('formatPhone '  + ngModel.$modelValue);
-//         // ngModel.$setViewValue("I'm a new value of the model. I've been set using the setViewValue method");
-//         ngModel.$setViewValue("+7 (333) 222-11-11");
-//       // });
-//       // var run = function () {
-//       //   // console.log('init-work-days');
-//       //   init_work_days(element);
-//       // }
-//       // $timeout(run, 0);
-//     }
-//   }
-// }]);
-
 app.directive('formatPhone', ['$timeout', function ($timeout) {
   return {
     restrict: 'A',
@@ -512,67 +492,6 @@ app.config(['paginationTemplateProvider', function(paginationTemplateProvider) {
   paginationTemplateProvider.setPath('/templates/doctor/pagination');
 }]);
 
-// don't know why is not used, so comment it so far
-
-// app.directive('chosenSelect', ['$timeout', function ($timeout) {
-//   return {
-//     link: function ($scope, element, attrs) {
-//       $scope.$on('dataloaded', function () {
-//         $timeout(function () {
-//           $('.chosen-select').chosen({
-//             autohide_results_multiple: false,
-//             allow_single_deselect: true,
-//             width: "100%"
-//           });
-//         }, 0, false);
-//       })
-//     }
-//   };
-// }]);
-
-// app.directive( 'elemReady', function( $parse ) {
-//   return {
-//     restrict: 'A',
-//     link: function( $scope, elem, attrs ) {
-//       elem.ready(function(){
-//         console.log('ready');
-//         active_tab(0);
-//         // $scope.$apply(function(){
-//           // var func = $parse(attrs.elemReady);
-//           // func($scope);
-//         // })
-//       })
-//     }
-//   }
-// });
-
-// app.controller('changeReceptionFormDialogCtrl', function($scope) {
-//   $scope.message = 'Hello Dialog!';
-//   this.onSave = function() {
-//     alert('saved!');
-//   };
-// })
-
-// app.directive('changeReceptionFormDialog', function() {
-//   return {
-//     controller: 'changeReceptionFormDialogCtrl',
-//     link: function(scope, elem, attrs, ctrl) {
-//       elem.dialog({
-//         autoOpen: false,
-//         buttons: {
-//            'Save': function() {
-//               ctrl.onSave();
-//               elem.dialog('close');
-//             }
-//         }
-//       });
-//       scope.$root.openChangeReceptionFormDialog = function() {
-//         elem.dialog('open');
-//       };
-//     }
-//   };
-// });
-
 app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope, $state, $stateParams, $window) {
   // run_debug_ui_route($rootScope);
   // console.log('app.run()');
@@ -614,27 +533,10 @@ app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope,
     return moment(Date["new"]);
   };
 
-  // $rootScope.$on('$stateChangeStart',
-  //                function(event, toState, toParams, fromState, fromParams, options) {
-  //                  console.log('on__stateChangeStart');
-  //                  console.log(toState);
-  //                  // if (toState.
-  //                });
-
   $rootScope.init_chosen = function() {
     $('#doctor_stand_time').chosen();
     $("#doctor_work_days").chosen();
-      // return $('.chosen-select').chosen(
-          // {
-          //     autohide_results_multiple: false,
-          //     allow_single_deselect: true,
-          //     width: "100%",
-          //     className: "form_o_b_item form_o_b_value_edit_mode"
-          // }
-      // );
   };
-
-  // return $rootScope.init_chosen();
 
   $rootScope.getFullVisitString = function(visit){
     var monts = {
@@ -653,23 +555,7 @@ app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope,
     };
     var date = moment(visit.start_at);
     var en = moment().locale('en');
-    // for (var i = 1; i < 12; i++) {
-    //   var m = en.localeData().months(moment(new Date(2017, i, 1)));
-    //   // console.log(m.format('MMMM'));
-    //   console.log(m);
-    // }
-    // fr.localeData().months(m
-    // var en = moment().locale('en');
-    // var m = en.localeData().months(date);
-    // return date.format('DD') + ' ' + moment(date).lang('en').format('MMMM') + ' ' + monts[date.format('MMMM')] + ', в ' + date.format('HH:mm')
-    // return date.format('DD') + ' ' + m + ' ' + monts[date.format('MMMM')] + ', в ' + date.format('HH:mm')
-    // console.log(1);
-    // console.log(moment(date).locale('en').format('MMMM'));
-    // console.log(2);
-    // console.log(moment(date).format('MMMM'));
-    // console.log(3);
     return date.format('DD') + ' '+ monts[moment(date).locale('en').format('MMMM')] + ', в ' + date.format('HH:mm');
-    // return date.format('DD') + ' '+ monts[moment(date).locale('en').format('MMMM')) + ', в ' + date.format('HH:mm');
   };
 }
         ]);
