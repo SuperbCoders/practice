@@ -1,0 +1,144 @@
+.main_content
+  .section.first_section
+    .section_inner
+      .article_v1
+        %h1 Как это работает
+        %h2
+          Практика – это веб-приложение, пользоваться которым не
+          %br/
+          сложнее чем электронной почтой.
+        %p Основные возможности – это ведение записей о пациентах и работа с расписанием приема пациентов.
+        %p
+          %b Пациент и его профиль
+          – при первичном приеме вы вводите основную информацию о пациенте (ФИО, телефон и прочие), которая хранится в картотеке. Можно (и нужно) также заполнять профиль пациента: его физические данные, хронические заболевания и прочее. Все это облегчит вам работу в будущем, когда пациент придет повторно.
+        %p
+          %b Список пациентов
+          формируется из таких заполненных профилей. Все ваши пациенты у вас перед глазами. Для удобства можно добавлять текстовые комментарии и помечать пациентов разными цветами.
+        %p
+          %b Расписание приема
+          поможет вам организовать ваш день. Все записи представлены наглядно. Легко настраивать длительность приема или переносить запись на другое время.
+        %h3 Записать пациента на прием очень просто: вы кликаете нужное время в календаре и вбиваете имя или телефон пациента. Система сама свяжет запись в календаре с историей пациента.
+        %p Также вы можете открыть запись через сайт. То есть ваши пациенты смогут записаться на прием без звонка по телефону. В форме записи пациент выберет доступное у вас и удобное для него время. Вы получите уведомление о такой записи и сможете ее подтвердить, перенести на другое время или отменить. Обо всех изменениях пациент будет уведомлен автоматически.
+        %p
+          %b Ваш личный мини-сайт
+          может служить для вас простой визитной карточкой. Вы просто вводите в анкету базовую информацию о себе (специальность, образование, контакты) и прикладываете фотографию. Сайт будет создан автоматически на основе этих данных. Адрес этого сайта вы сможете сообщить своим пациентам и при желании принимать через него запись.
+      .price_holder
+        .price_block._demo
+          .price_img
+            %img{:src => "i/land/party.png"}/
+          %p Первые
+          .demo_period
+            %span 6
+            %span 0
+          %p
+            Дней
+            %br/
+            бесплатно
+        .price_block
+          .price_img
+            %img{:src => "i/land/pie.png"}/
+          %p Далее
+          .demo_period 839₽
+          %p
+            В месяц, при оплате
+            %br/
+            за год
+          .price_tip Или 1,000₽ помесячно
+  .footer_holder
+    .section_inner
+      .section_controls
+        %a.btn_v1.try_btn.white_btn{:href => "#"} Попробовать бесплатно
+      .footer
+        %ul.share_block
+          %li
+            %a.btn_v3.white_btn_2.share_btn{:href => "#"}
+              %span.icon-tw.share_icon
+              %span Твитнуть
+          %li
+            %a.btn_v3.white_btn_2.share_btn{:href => "#"}
+              %span.icon-fb.share_icon
+              %span Поделиться
+        .copyright
+          %p
+            ИП, Осинцев 2017,
+            %a.clr_white{:href => "mailto:hello@praktica.cc"} hello@praktica.cc
+          %ul.footer_links
+            %li
+              %a.clr_white{:href => "#"} Наши реквизиты
+            %li
+              %a.clr_white{:href => "#"} Оферта и Правила
+#login_form.popup_form.checkEmptyBlock{:style => "display:none"}
+  %form{:action => "#", :novalidate => "novalidate"}
+    .form_caption Вход
+    .form_row
+      %ul.soc_auth
+        %li.soc_auth_item
+          %a.btn_v4.soc_auth_btn.s_auth_vk.vk_btn{:href => "#"} Вконтакте
+        %li.soc_auth_item
+          %a.btn_v4.soc_auth_btn.s_auth_fb.fb_btn{:href => "#"} Facebook
+    .form_row.text_center
+      .login_tips
+        .mb Вход через email
+    .form_row
+      %label.hidden_input{:autocomplete => "off", :for => "new_patient_email"} Email
+      .input_w
+        %input#new_patient_email.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => "off", :name => "new_patient_email", :placeholder => "Email", :type => "email"}/
+    .form_row
+      %label.hidden_input{:for => "new_patient_describe"} Краткое описание ( autocomplete="off" только для вас)
+      .input_w
+        %input#new_patient_describe.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => "off", :name => "new_patient_describe", :placeholder => "Пароль", :type => "password"}/
+    .form_row
+      %button.btn_v4.login_btn.disabled_btn_gray.disableEmpty Войти или зарегистрироваться
+    .form_row.text_center
+      %a.gl_link.gray_link_4{:href => "#"} Забыли пароль?
+#recovery_form.popup_form{:style => "display:none"}
+  %form{:action => "#", :novalidate => "novalidate"}
+    .recovery_block
+      .form_caption Восстановление пароля
+      .form_row
+        %label.hidden_input{:autocomplete => "off", :for => "new_patient_email"} Email
+        .input_w
+          %input#new_patient_email.form_input.input_v3.blue_mod.text_center{:autocomplete => "off", :name => "new_patient_email", :placeholder => "Email", :type => "email"}/
+      .form_row
+        %button.btn_v4.login_btn.disabled_btn_gray Восстановить
+      .form_row.text_center
+        %a.gl_link.gray_link_4{:href => "#"} Назад
+#recovery_success_form.popup_form{:style => "display:none"}
+  %form{:action => "#", :novalidate => "novalidate"}
+    .recovery_block
+      .form_caption Пароль отправлен на почту yaosamo@gmail.com
+      .form_row
+        %button.btn_v4.login_btn.yellow_black_btn Вход в профиль
+#reg_success_form{:action => "#", :style => "display:none", :title => ""}
+  .popup_form.popup_v1.text_center
+    .msg_header
+      .form_caption
+        Если врач Kanye West не перезвонил вам, уточните время запсии по телефону
+        %br/
+        +7 (927) 026-10-20
+      .text_center
+        %a.btn_v4.white_green_btn.cancel_btn{:href => "#"} Отменить приём
+    .msg_footer
+      .form_caption Зарегистрируйтесь, чтобы читать записи врача в вашей мед. карте онлайн
+      .text_center
+        %a.btn_v4.black_blue_btn.cancel_btn{:href => "#"} Перейти в профиль
+#reg_success_form_2{:action => "#", :style => "display:none", :title => ""}
+  .popup_form.popup_v4.text_center
+    .msg_title
+      Запись
+      %br/
+      направлена врачу
+    .msg_check
+    .msg_text
+      %p
+        Запись на сайте является подтвержденной только после того как вам позвонят. Вы можете позвонить по номеру
+        %br/
+        8-800-322-33-21
+    .text_center
+      %a.btn_v2.white_green_btn_2.cancel_btn{:href => "#"} Отменить приём
+#promo{:action => "#", :style => "display:none", :title => ""}
+  .popup_form.popup_v4.text_center
+    .promo_image
+      %img{:src => "i/promo_1.png"}/
+    .promo_title Позвольте пациентам самим записываться к вам онлайн
+    .msg_text Вы сможете давать ссылку на ваш сайт вашим пациентам и они будут записываться сами, вам останется только подтвердить запись
