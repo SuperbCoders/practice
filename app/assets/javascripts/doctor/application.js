@@ -553,7 +553,7 @@ app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope,
       "November": "ноября",
       "December": "декабря"
     };
-    var date = moment(visit.start_at);
+    var date = moment(visit.start);
     var en = moment().locale('en');
     return date.format('DD') + ' '+ monts[moment(date).locale('en').format('MMMM')] + ', в ' + date.format('HH:mm');
   };
