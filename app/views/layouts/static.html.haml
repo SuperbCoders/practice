@@ -18,7 +18,17 @@
           .section_inner.clearfix
             .logo_block
               %a.logo{:href => "#"}
+              %span.phone
+                +7 800 123-45-67
             .header_controls
               -#%a.btn_v2.black_btn.auth_btn{:href => } Вход для клиентов
               = link_to("Вход для клиентов", doctor_cabinet_index_path, class: "btn_v2 black_btn auth_btn")
+            %ul.land_menu
+              %li
+                = link_to("Зачем это", why_path, class: "nav_link")
+              %li
+                = link_to("Как работает", how_path, class: "nav_link")
+              %li
+                %a.nav_link.scrollTo{:href => "#price_section"}
+                  Цены
         = yield

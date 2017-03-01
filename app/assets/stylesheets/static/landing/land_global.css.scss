@@ -15,7 +15,7 @@
   -webkit-box-align: start;
 }
 
-.clearfix:after, .benefits_list:after, .tutorial_block:after, .price_holder:after, .footer_links:after, .footer:after {
+.clearfix:after, .land_menu:after, .benefits_list:after, .tutorial_block:after, .price_holder:after, .footer_links:after, .footer:after {
   position: static;
   display: block;
   height: 0;
@@ -742,8 +742,33 @@ a {
   padding: 0 30px;
 }
 
+.land_menu {
+  margin: 0 300px;
+  text-align: center;
+}
+.land_menu > li {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 15px;
+}
+
+.nav_link {
+  -webkit-transition: color 0.3s;
+  -ms-transition: color 0.3s;
+  transition: color 0.3s;
+  font-size: 15px;
+  color: #000;
+}
+.nav_link:hover {
+  color: #4f61df;
+}
+
 .logo_block {
   float: left;
+}
+.logo_block .phone {
+  font-size: 15px;
+  letter-spacing: .025em;
 }
 
 .header_controls {
