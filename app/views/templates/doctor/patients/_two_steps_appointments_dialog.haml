@@ -19,5 +19,5 @@
         .msg_check
         .text_center
           %button.btn_v2.white_green_btn_2.cancel_btn{"ng-click" => "vm.closeDialog()"} Закрыть
-  .ui-dialog-titlebar-close{"ng-click" => "vm.closeDialog()"}
+  .ui-dialog-titlebar-close{"ng-show" => "vm.stage != 2", "ng-click" => "vm.closeDialog()"}
     .dialog_close_butt_mod_1
