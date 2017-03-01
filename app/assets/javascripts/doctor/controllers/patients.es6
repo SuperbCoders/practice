@@ -151,6 +151,7 @@ function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor,
           controllerAs: 'vm',
           controller: 'DialogController',
           scope: $scope,
+          className: 'ngdialog ngdialog-theme-default dialog_close_butt_mod_1',
           preCloseCallback: (value) => { $scope.fetch(); return true }
       })
   };

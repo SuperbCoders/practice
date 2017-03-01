@@ -93,6 +93,12 @@ class DialogController
 
     false
 
+  close: ->
+    vm = @
+    console.log 'close click'
+    vm.ngDialog.closeAll()
+    false
+
   day_click: (date, jsEvent, view) ->
     vm = view.options.vm
 

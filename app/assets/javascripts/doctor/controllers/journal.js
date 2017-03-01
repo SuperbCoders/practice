@@ -136,6 +136,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
       controllerAs: 'vm',
       controller: 'DialogController',
       scope: $scope,
+      className: 'ngdialog ngdialog-theme-default dialog_close_butt_mod_1',
       preCloseCallback: (value) => { fetchPatientInfo(); return true }
     })
   }

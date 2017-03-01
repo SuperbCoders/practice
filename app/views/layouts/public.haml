@@ -61,4 +61,6 @@
                 {{vm.doctor.public_phone}}
             .text_center
               %button.btn_v2.white_green_btn_2.cancel_btn{"ng-click" => "vm.delete_last_visit()"} Отменить приём
+      .ui-dialog-titlebar-close{"ng-click" => "vm.close()"}
+        .dialog_close_butt_mod_1
     = practice_counter_code

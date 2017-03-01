@@ -808,6 +808,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
           controllerAs: 'vm',
           controller: 'DialogController',
           scope: $scope,
+          className: 'ngdialog ngdialog-theme-default dialog_close_butt_mod_1',
           preCloseCallback: function(value) {
               console.log('preCloseCallback');
               $scope.set_last_event = $scope.event;
