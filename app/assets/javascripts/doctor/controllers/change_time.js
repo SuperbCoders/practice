@@ -84,14 +84,24 @@ service('ChangeTime', [function() {
   var initReceptionFields = function($scope) {
     var visit = $scope.change_reception_visit;
     var start_at, duration;
+    // console.log('change init');
+    // console.log(visit);
+    // console.log(visit.start);
     start_at = moment(visit.start);
     duration = visit.duration.toString();
     $('#change_reception_time').val(shortDate(start_at));
     $('#change_reception_time_internal').val(moment(start_at).format('YYYY-MM-DD'));
     var start = start_at.format('HH:mm');
+    // console.log('start');
+    // console.log(start);
+    // console.log('[name="change_reception_form[start]"] option[value="' + start + '"]');
+    // console.log($('[name="change_reception_form[start]"] option[value="' + start + '"]'));
     $('[name="change_reception_form[start]"] option[value="' + start + '"]').prop('selected', true);
     $('[name="change_reception_form[start]"]').trigger('chosen:updated');
     var end = start_at.add(duration, 'm').format('HH:mm');
+    // console.log('end');
+    // console.log(end);
+    // console.log($('[name="change_reception_form[end]"] option[value="' + end + '"]'));
     $('[name="change_reception_form[end]"] option[value="' + end + '"]').prop('selected', true);
     $('[name="change_reception_form[end]"]').trigger('chosen:updated');
   }

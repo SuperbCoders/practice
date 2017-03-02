@@ -1,3 +1,4 @@
+console.log('chosen');
 /*!
  Chosen, a Select Box Enhancer for jQuery and Prototype
  by Patrick Filler for Harvest, http://getharvest.com
@@ -628,6 +629,7 @@
 
     $.fn.extend({
         chosen: function (options) {
+          console.log('chosennn');
             if (!AbstractChosen.browser_is_supported()) {
                 //return this;
             }

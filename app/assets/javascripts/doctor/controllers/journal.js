@@ -1,4 +1,4 @@
-function JournalController($rootScope, $stateParams, $scope, $state, $window, Journals, Alerts, Dicts, Patients, Visits, ngDialog, Doctor) {
+function JournalController($rootScope, $stateParams, $scope, $state, $window, Journals, Alerts, Dicts, Patients, Visits, ngDialog, Doctor, ChangeTime) {
   var vm = this;
   vm.Journals = Journals;
   vm.Dicts = Dicts;
@@ -23,6 +23,10 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
     attachments: []
   };
   vm.dicts = [];
+
+  $scope.min_time = "05:45:00";
+  $scope.max_time = "22:15:00";
+  $scope.slot_duration = '00:15:00';
 
   fetchDicts();
 
@@ -275,6 +279,31 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
     }
   });
 
+  $scope.time_list = ChangeTime.make_time_list($scope);
+
+  $scope.change_reception_time_apply = function(){
+    if (!ChangeTime.change_reception_time_valid()) {
+      return;
+    }
+    var visit = $scope.change_reception_visit;
+    visit.start_at = ChangeTime.get_change_reception_time_moment();
+    visit.duration = ChangeTime.get_change_reception_time_duration();
+    Visits.save({id: visit.id, visit: {visit_data: {start_at: visit.start_at, duration: visit.duration}}});
+    $('#change_reception_form').dialog('close');
+    fetchPatientInfo();
+  }
+
+  $scope.changeReceptionTimeClick = function(event, visit) {
+    console.log('change click');
+    console.log(event);
+    console.log(visit);
+    $scope.change_reception_visit = visit;
+    ChangeTime.changeReceptionTimeRun.call(event.currentTarget, $scope);
+    return false;
+  }
+
+  ChangeTime.initReceptionForm();
+
   $scope.$on('$destroy', function () {
     var doc_body = $('body');
     doc_body.removeClass('body_gray');
@@ -283,7 +312,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
   })
 }
 
-JournalController.$inject = ['$rootScope', '$stateParams','$scope', '$state', '$window', 'Journals', 'Alerts', 'Dicts', 'Patients', 'Visits', 'ngDialog', 'Doctor'];
+JournalController.$inject = ['$rootScope', '$stateParams','$scope', '$state', '$window', 'Journals', 'Alerts', 'Dicts', 'Patients', 'Visits', 'ngDialog', 'Doctor', 'ChangeTime'];
 angular
   .module('practice.doctor')
   .controller('JournalController', JournalController);
