@@ -84,7 +84,7 @@ service('ChangeTime', [function() {
   var initReceptionFields = function($scope) {
     var visit = $scope.change_reception_visit;
     var start_at, duration;
-    start_at = moment(visit.start_at);
+    start_at = moment(visit.start);
     duration = visit.duration.toString();
     $('#change_reception_time').val(shortDate(start_at));
     $('#change_reception_time_internal').val(moment(start_at).format('YYYY-MM-DD'));
