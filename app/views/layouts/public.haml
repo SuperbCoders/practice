@@ -23,15 +23,15 @@
           .form_content
             .form_row
               .input_w.placeholder_mod
-                %input.form_input.input_v4.checkEmpty{:type => "text", 'ng-model' => "vm.patient.name"}/
+                %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "text", 'ng-model' => "vm.patient.name"}/
                 %label.form_label.fz_20 Введите имя и фамилию
             .form_row
               .input_w.placeholder_mod
-                %input.form_input.input_v4.checkEmpty{:type => "tel", 'ng-model' => "vm.patient.phone"}/
+                %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "tel", 'ng-model' => "vm.patient.phone"}/
                 %label.form_label Телефон
             .form_row
               .input_w.placeholder_mod
-                %input.form_input.input_v4.checkEmpty{"ng-model" => "vm.patient.email"}/
+                %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', "ng-model" => "vm.patient.email"}/
                 %label.form_label Email (если есть, чтобы получить мед. карту)
           .form_footer
             %a.btn_v4.appointment_btn.appointmentTimeBtn.yellow_black_btn{"ng-click" => "vm.next_stage()"} Выбрать время записи
