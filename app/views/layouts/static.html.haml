@@ -17,9 +17,9 @@
         .header
           .section_inner.clearfix
             .logo_block
-              %a.logo{:href => "#"}
+              %a.logo{:href => "/"}
               %span.phone
-                +7 800 123-45-67
+                = practice_phone
             .header_controls
               -#%a.btn_v2.black_btn.auth_btn{:href => } Вход для клиентов
               = link_to("Вход для клиентов", doctor_cabinet_index_path, class: "btn_v2 black_btn auth_btn")

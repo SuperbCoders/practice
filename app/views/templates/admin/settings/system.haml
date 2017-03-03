@@ -7,6 +7,10 @@
         .col-xs-12
           .form-group
             %label Код счетчика
-            %textarea.form-control{:rows => 15, "ng-model" => "vm.settings.counter_code"}
+            %textarea.form-control{:rows => 15, "ng-model" => "vm.settings.counter_code"}.row
+        .col-xs-12
+          .form-group
+            %label Номер телефона Практики
+            %input.form-control{:type => :text, "ng-model" => "vm.settings.practice_phone"}
     .box-footer
       %button.btn.btn-info.pull-right{:type => "submit"} Сохранить

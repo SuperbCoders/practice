@@ -21,7 +21,7 @@ class Admin::SystemSettingsController < Admin::BaseController
   end
 
   def permitted_params
-    [ :_id,:id, :counter_code]
+    [ :_id,:id, :counter_code, :practice_phone]
   end
 
 end

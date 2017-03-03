@@ -17,8 +17,13 @@ ValueList.find_or_create_by(name: "Стандартное время прием�
 	list.value_list_items	<< ValueListItem.new(value: 120)
 end
 
-SystemSettings.find_or_create_by(slug: 'counter_code') do |s|
-  s.name = 'Код счетчика'
+[
+	{ slug: 'counter_code', name: 'Код счетчика' },
+	{ slug: 'practice_phone', name: 'Телефон практики' }
+].each do |s|
+	SystemSettings.find_or_create_by(slug: s[:slug]) do |ns|
+		ns.name = 'Код счетчика'
+	end
 end
 
 Admin.find_or_create_by(email: 'admin1@example.com') do |admin|

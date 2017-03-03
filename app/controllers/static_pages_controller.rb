@@ -2,6 +2,7 @@ class StaticPagesController < ActionController::Base
   layout 'static'
 
   include Concerns::CounterCode
+  include Concerns::LandingData
 
   def landing
     if doctor_signed_in?
