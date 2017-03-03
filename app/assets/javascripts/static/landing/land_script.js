@@ -76,7 +76,12 @@ $(function ($) {
         autoOpen: false,
         modal: true,
         width: 400,
-        dialogClass: "dialog_v1 no_close_mod login_form"
+        dialogClass: "dialog_v1 no_close_mod login_form",
+        open: function () {
+            $('.ui-widget-overlay').bind('click', function () {
+                $('#login_form').dialog('close');
+            })
+        }
     });
     if (url.indexOf('#login') != -1) {
         login_form.dialog('open');
