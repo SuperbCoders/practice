@@ -39,6 +39,10 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
     fetchJournal();
   }
 
+  // fix extra empty node in card color select broke up chosen
+  vm.patient = {};
+  vm.patient.cart_color = '0';
+
   function fetchPatientInfo() {
     vm.Patients.get({id: vm.patient_id})
       .$promise
@@ -151,43 +155,6 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
     $window.open(url, "Print", windowParams);
   }
 
-
-  $('.chosen-select').chosen({
-    width: '100%',
-    disable_search_threshold: 3
-  }).on('chosen:showing_dropdown', function(evt, params) {
-    var firedEl, niceScrollBlock;
-    firedEl = $(evt.currentTarget);
-    niceScrollBlock = firedEl.next('.chzn-container').find('.chzn-results');
-    if (niceScrollBlock.getNiceScroll().length) {
-      return niceScrollBlock.getNiceScroll().resize().show();
-    } else {
-      niceScrollBlock.niceScroll({
-        cursorwidth: 4,
-        cursorborderradius: 2,
-        cursorborder: 'none',
-        bouncescroll: false,
-        autohidemode: false,
-        horizrailenabled: false,
-        railsclass: firedEl.data('rails_class'),
-        railpadding: {
-          top: 0,
-          right: 0,
-          left: 0,
-          bottom: 0
-        }
-      });
-    }
-  });
-
-  $('.patient_status_w .chosen-select').on('change', function (event, selected) {
-    // var patientStatus = $('.chosen-select option[value='+ selected.selected + ']').data('title');
-    if (vm.patient) {
-      vm.patient.cart_color = selected.selected;
-      vm.patient.$save();
-    }
-  });
-
   var subRecordPopup = $('#subrecord_popup').dialog({
     autoOpen: false,
     modal: true,
@@ -294,15 +261,17 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
   }
 
   $scope.changeReceptionTimeClick = function(event, visit) {
-    console.log('change click');
-    console.log(event);
-    console.log(visit);
     $scope.change_reception_visit = visit;
     ChangeTime.changeReceptionTimeRun.call(event.currentTarget, $scope);
     return false;
   }
 
   ChangeTime.initReceptionForm();
+
+  $scope.update_cart_color = function (patient) {
+    console.log('update_cart_color');
+    Patients.save({id: patient.id, cart_color: patient.cart_color});
+  }
 
   $scope.$on('$destroy', function () {
     var doc_body = $('body');

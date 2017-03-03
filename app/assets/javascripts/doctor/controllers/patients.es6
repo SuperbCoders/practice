@@ -116,14 +116,6 @@ function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor,
     return false;
   }
 
-  // $scope.$watch('search_query', function(new_value){
- 
-  //   if (new_value.toString() != "")
-  //     $scope.fetch(new_value);
-  //   else
-  //     $scope.fetch();
-  // });
-
   $scope.update_cart_color = function (patient) {
     Patients.save({id: patient.id, cart_color: patient.cart_color});
   }

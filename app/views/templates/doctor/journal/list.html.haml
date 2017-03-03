@@ -4,26 +4,16 @@
       .patient_block
         .patient_card
           .patient_status_w.chosen_v2.no_search.skipOpen
-            %select.chosen-select
+            %select.chosen-select{"ng-model" => "vm.patient.cart_color", 'chosen-select' => true, 'ng-change' => 'update_cart_color(vm.patient)'}
               %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
               %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
               %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
               %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
           / +patient_menu()
-          -# .avatar_clone
-          -#   %a.patient_avatar.skipOpen.write2Card{:href => "", 'ui-sref' => "journal.records({patient_id: patient.id})"}
-          -#     .avatar
-          -#       %img{'ng-src' => "{{patient.avatar}}", "ng-if" => "patient.avatar != undefined"}/
-          -#       %span{"ng-if" => "patient.avatar == undefined"} {{patient.initials}}
           .patient_avatar_holder
-            -# %a.patient_avatar.skipOpen.write2Card{:href => "", 'ui-sref' => "journal.records({patient_id: patient.id})"}
-            -#   .avatar
-            -#     %img{'ng-src' => "{{patient.avatar}}", "ng-if" => "patient.avatar != undefined"}/
-            -#     %span{"ng-if" => "patient.avatar == undefined"} {{patient.initials}}
             %a.patient_avatar{:href => "#"}
               %img{'ng-src' => "{{vm.patient.avatar}}", "ng-if" => "vm.patient.avatar != undefined"}/
               .patient_avatar_letter{"ng-if" => "vm.patient.avatar == undefined"} {{vm.patient.initials}}
-            -#   -# %img{:src => "i/user_2.png"}/
             .patient_info
               .patient_name
                 %a.gl_link.gray_link{:href => "#"}
@@ -100,14 +90,6 @@
                   .appointment_media.media_mp3
                     .media_name{"ng-bind" => "file.filename"}
                     %a.btn_v7.download_btn.white__btn_2{"target" => "_blank", "download" => "{{file.filename}}", "ng-href" => "{{file.file}}",} Скачать
-                -#%li
-                -#  .appointment_media
-                -#    .appointment_img
-                -#      %img{:src => "i/appointment_media.png"}/
-                -#%li
-                -#  .appointment_media.media_mp3
-                -#    .media_name Analyz-krovi.pdf
-                -#    %a.btn_v7.download_btn.white__btn_2{:href => "#"} Скачать
         .appointments_control
           %a.btn_v3.new_appointment_btn.yellow_black_btn.icon-plus.openAppointmentForm_{:href => "#", :ui_sref => "journal.create({patient_id: vm.patient_id})"}
 

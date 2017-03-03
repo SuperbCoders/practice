@@ -1,4 +1,4 @@
-console.log('chosen');
+// console.log('chosen');
 /*!
  Chosen, a Select Box Enhancer for jQuery and Prototype
  by Patrick Filler for Harvest, http://getharvest.com
@@ -256,6 +256,8 @@ console.log('chosen');
             _ref = this.results_data;
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                 data = _ref[_i];
+              // console.log('data');
+              // console.log(data);
                 data_content = '';
                 if (data.group) {
                     data_content = this.result_add_group(data);
@@ -629,7 +631,7 @@ console.log('chosen');
 
     $.fn.extend({
         chosen: function (options) {
-          console.log('chosennn');
+          // console.log('chosennn');
             if (!AbstractChosen.browser_is_supported()) {
                 //return this;
             }
@@ -709,7 +711,9 @@ console.log('chosen');
             }
             this.results_build();
             this.set_tab_index();
+          // console.log($(this.search_results).attr('style'));
             return this.set_label_behavior();
+          // console.log($(this.search_results).attr('style'));
         };
 
         Chosen.prototype.on_ready = function () {
@@ -832,6 +836,7 @@ console.log('chosen');
 
         Chosen.prototype.container_mousedown = function (evt) {
             // console.log('mousedown');
+          // console.log('open');
             if (!this.is_disabled) {
 
                 if (evt && evt.type === "mousedown" && !this.results_showing) {
@@ -911,6 +916,7 @@ console.log('chosen');
         };
 
         Chosen.prototype.results_build = function () {
+          // console.log('results build');
             this.parsing = true;
             this.selected_option_count = null;
             // console.log(this.form_field);
@@ -940,6 +946,7 @@ console.log('chosen');
         };
 
         Chosen.prototype.result_do_highlight = function (el) {
+          // console.log('do higlight');
             var high_bottom, high_top, maxHeight, visible_bottom, visible_top;
             if (el.length) {
                 this.result_clear_highlight();
@@ -951,8 +958,10 @@ console.log('chosen');
                 high_top = this.result_highlight.position().top + this.search_results.scrollTop();
                 high_bottom = high_top + this.result_highlight.outerHeight();
                 if (high_bottom >= visible_bottom) {
+                  // console.log('scroll top 1');
                     return this.search_results.scrollTop((high_bottom - maxHeight) > 0 ? high_bottom - maxHeight : 0);
                 } else if (high_top < visible_top) {
+                  // console.log('scroll top 2');
                     return this.search_results.scrollTop(high_top);
                 }
             }
@@ -966,6 +975,7 @@ console.log('chosen');
         };
 
         Chosen.prototype.results_show = function () {
+          // console.log('results show');
             if (this.is_multiple && this.max_selected_options <= this.choices_count()) {
                 this.form_field_jq.trigger("chosen:maxselected", {
                     chosen: this
@@ -977,6 +987,8 @@ console.log('chosen');
             this.search_field.focus();
             this.search_field.val(this.search_field.val());
             this.winnow_results();
+          // console.log(this.search_results);
+          // console.log(this.search_results.attr('style'));
             return this.form_field_jq.trigger("chosen:showing_dropdown", {
                 chosen: this
             });
