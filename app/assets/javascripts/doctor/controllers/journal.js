@@ -276,6 +276,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
   $scope.$on('$destroy', function () {
     var doc_body = $('body');
     doc_body.removeClass('body_gray');
+    $('.ui-dialog #change_reception_form').dialog('destroy');
     // console.log('journal remove sub_header_mod');
     // doc_body.addClass('sub_header_mod');
   })
