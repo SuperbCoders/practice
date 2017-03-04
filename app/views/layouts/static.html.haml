@@ -29,10 +29,6 @@
               %li
                 = link_to("Как работает", how_path, class: "nav_link")
               %li
-                - if current_page?(:controller => 'static_pages', :action => 'landing')
-                  %a.nav_link.scrollTo{:href => "#price_section"}
-                    Цены
-                - else
-                  %a.nav_link{:href => root_path(scroll_to: 'price_section')}
-                    Цены
+                %a.nav_link.scrollTo{:href => "#price_section"}
+                  Цены
         = yield

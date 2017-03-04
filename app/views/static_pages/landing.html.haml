@@ -110,28 +110,7 @@
             перенести на другое время.
         .tutorial_img
           = image_tag("static/landing/screen_4.png")
-      #price_section.price_holder
-        .price_block._demo
-          .price_img
-            = image_tag("static/landing/party.png")
-          %p Первые
-          .demo_period
-            %span 6
-            %span 0
-          %p
-            Дней
-            %br/
-            бесплатно
-        .price_block
-          .price_img
-            = image_tag("static/landing/pie.png")
-          %p Далее
-          .demo_period 839₽
-          %p
-            В месяц, при оплате
-            %br/
-            за год
-          .price_tip Или 1,000₽ помесячно
+      = render partial: 'static_pages/price_section'
   .footer_holder
     .section_inner
       .section_controls
