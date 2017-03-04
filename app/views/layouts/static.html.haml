@@ -5,7 +5,7 @@
     %meta{:charset => "utf-8"}/
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
     %link{:href => "https://fonts.googleapis.com/css?family=Lora:400,700|Noto+Serif:400,700|Open+Sans:400,600,700&subset=cyrillic", :rel => "stylesheet"}/
-
+    = render partial: 'layouts/doctor/favicons'
     = stylesheet_link_tag    'static/landing', media: 'all', 'data-turbolinks-track' => false
     = javascript_include_tag 'static/landing', 'data-turbolinks-track' => false
     = csrf_meta_tags

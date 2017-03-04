@@ -6,7 +6,7 @@
     %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
 
     %title Панель управления
-
+    = render partial: 'layouts/doctor/favicons'
     = stylesheet_link_tag    'admin', media: 'all', 'data-turbolinks-track' => false
     = javascript_include_tag 'admin', 'data-turbolinks-track' => false
     = csrf_meta_tags
