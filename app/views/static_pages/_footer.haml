@@ -17,7 +17,7 @@
           ИП, Осинцев 2017,
           %a.clr_white{:href => "mailto:hello@praktica.cc"} hello@praktica.cc
         %ul.footer_links
-          %li
-            %a.clr_white{:href => "#"} Наши реквизиты
-          %li
-            %a.clr_white{:href => "#"} Оферта и Правила
+          %li<
+            = link_to("Наши реквизиты", requisites_path, class: "clr_white")
+          %li<
+            = link_to("Оферта и Правила", "/rules.pdf", class: "clr_white")
