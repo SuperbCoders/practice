@@ -15,4 +15,7 @@ class StaticPagesController < ActionController::Base
 
   def how
   end
+
+  def requisites
+  end
 end

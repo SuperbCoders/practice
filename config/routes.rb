@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   root 'static_pages#landing', as: :root
   get 'why' => 'static_pages#why'
   get 'how' => 'static_pages#how'
+  get 'requisites' => 'static_pages#requisites'
 
   post 'doctors/new_visit' => 'public/profiles#create_visit'
   delete 'doctors/remove_visit' => 'public/profiles#remove_visit'
