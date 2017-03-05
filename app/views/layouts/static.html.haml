@@ -21,7 +21,6 @@
               %span.phone
                 = practice_phone
             .header_controls
-              -#%a.btn_v2.black_btn.auth_btn{:href => } Вход для клиентов
               = link_to("Вход для клиентов", doctor_cabinet_index_path, class: "btn_v2 black_btn auth_btn")
             %ul.land_menu
               %li
@@ -32,3 +31,5 @@
                 %a.nav_link.scrollTo{:href => "#price_section"}
                   Цены
         = yield
+    = render partial: 'static_pages/forms'
+    = practice_counter_code
