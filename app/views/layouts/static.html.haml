@@ -30,6 +30,10 @@
               %li
                 %a.nav_link.scrollTo{:href => "#price_section"}
                   Цены
+              %li
+                = link_to("Наши реквизиты", requisites_path, class: "nav_link")
+              %li
+                = link_to("Оферта и правила", "/rules.pdf", class: "nav_link")
         = yield
     = render partial: 'static_pages/forms'
     = practice_counter_code
