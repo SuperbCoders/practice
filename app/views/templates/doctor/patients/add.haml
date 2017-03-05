@@ -37,7 +37,6 @@
         / Номера телефонов
         .form_row.mob_add_mod
           %label.input_w{'ng-repeat' => "phone in patient.phones track by $index"}
-            -# %input#doctor_phone.form_input.input_v1{:autocomplete => 'off', :type => "tel", :value => "", 'ng-model' => "phone.data", 'ng-class' => "{ 'ng-empty' : false }", 'ng-blur' => '', 'ng-trim' => 'false', 'ui-mask' => "+9 (999) 999-99-99", 'ui-options' => "{clearOnBlur: false, addDefaultPlaceholder: false, allowInvalidValue: true}", 'format-phone' => true, pattern: '\+\d \(\d{3}\) \d{3}-\d{2}-\d{2}', 'ubt-mask-placeholder' => "Телефон клиента"}/
             %input.form_input.input_v3{:autocomplete => 'off', :type => "tel", :value => "", 'ng-model' => "phone.data", 'ng-class' => "{ 'ng-empty' : false }", 'ng-blur' => '', 'ng-trim' => 'false', 'ui-mask' => "+9 (999) 999-99-99", 'ui-options' => "{clearOnBlur: false, addDefaultPlaceholder: false, allowInvalidValue: true}", 'format-phone' => true, pattern: '\+\d \(\d{3}\) \d{3}-\d{2}-\d{2}', 'ubt-mask-placeholder' => "Телефон клиента"}
               .add_btn_holder{"ng-if" => "$last"}
                 %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", "ng-click" => "add_phone()"}
@@ -45,7 +44,7 @@
         / Email
         .form_row
           %label.input_w
-            %input.form_input.input_v3{:autocomplete => 'off', type: :email, :placeholder => "Email", 'ng-model' => "patient.email"}
+            %input.form_input.input_v3{:autocomplete => 'nope', type: :email, :placeholder => "Email", 'ng-model' => "patient.email"}
 
       / Портрет пациента
       .tab_inner.form_row_v1
