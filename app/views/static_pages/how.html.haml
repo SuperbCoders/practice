@@ -24,26 +24,4 @@
           %b Ваш личный мини-сайт
           может служить для вас простой визитной карточкой. Вы просто вводите в анкету базовую информацию о себе (специальность, образование, контакты) и прикладываете фотографию. Сайт будет создан автоматически на основе этих данных. Адрес этого сайта вы сможете сообщить своим пациентам и при желании принимать через него запись.
       = render partial: 'static_pages/price_section'
-  .footer_holder
-    .section_inner
-      .section_controls
-        %a.btn_v1.try_btn.white_btn{:href => "#"} Попробовать бесплатно
-      .footer
-        %ul.share_block
-          %li
-            %a.btn_v3.white_btn_2.share_btn{:href => "#"}
-              %span.icon-tw.share_icon
-              %span Твитнуть
-          %li
-            %a.btn_v3.white_btn_2.share_btn{:href => "#"}
-              %span.icon-fb.share_icon
-              %span Поделиться
-        .copyright
-          %p
-            ИП, Осинцев 2017,
-            %a.clr_white{:href => "mailto:hello@praktica.cc"} hello@praktica.cc
-          %ul.footer_links
-            %li
-              %a.clr_white{:href => "#"} Наши реквизиты
-            %li
-              %a.clr_white{:href => "#"} Оферта и Правила
+  = render partial: 'static_pages/footer'

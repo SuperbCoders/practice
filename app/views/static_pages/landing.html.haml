@@ -111,18 +111,4 @@
         .tutorial_img
           = image_tag("static/landing/screen_4.png")
       = render partial: 'static_pages/price_section'
-  .footer_holder
-    .section_inner
-      .section_controls
-        = link_to("Попробовать бесплатно", doctor_cabinet_index_path, class: "btn_v1 try_btn white_btn")
-      .footer
-        %ul.share_block
-          %li
-            %a.btn_v3.white_btn_2.share_btn{:href => "#"}
-              %span.icon-tw.share_icon
-              %span Твитнуть
-          %li
-            %a.btn_v3.white_btn_2.share_btn{:href => "#"}
-              %span.icon-fb.share_icon
-              %span Поделиться
-        .copyright ИП, Осинцев 2017, hello@praktica.cc
+  = render partial: 'static_pages/footer'
