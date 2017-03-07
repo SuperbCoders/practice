@@ -1,4 +1,5 @@
 #add_patient_form.popup_form.popup_v3{:style => "display:none", "ng-init" => "makeNewPatient()"}
+  -# %input#fake_new_patient_name{:type => "text", style: "position: absolute; top: -100px;", value: "Safari Autofill Me"}/
   .form_corner
   %form{:name => 'addPatientForm'}
     .patient_status_w.chosen_v2.no_search.skipOpen.right_mod
@@ -9,8 +10,10 @@
         %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 12
     .form_row
       .input_w.placeholder_mod
-        %input#new_patient_name.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "text", :value => "", 'ng-model' => "new_patient.full_name", 'ng-required' => "true", 'ui-autocomplete' => "myOption2('full_name')", 'ng-change' => 'removeCompletedPatient()', 'ng-class' => "{ 'completed': completed_patient, 'ng-empty' : !new_patient.full_name }", 'ng-trim' => 'false'}/
-        %label.form_label.fz_20_{:for => "new_patient_name"} Имя пациента
+        -# %input#new_patient_name.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "text", :value => "", 'ng-model' => "new_patient.full_name", 'ng-required' => "true", 'ui-autocomplete' => "myOption2('full_name')", 'ng-change' => 'removeCompletedPatient()', 'ng-class' => "{ 'completed': completed_patient, 'ng-empty' : !new_patient.full_name }", 'ng-trim' => 'false'}/
+        %input#new_patient_n.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "text", :value => "", 'ng-model' => "new_patient.full_name", 'ng-required' => "true", 'ui-autocomplete' => "myOption2('full_name')", 'ng-change' => 'removeCompletedPatient()', 'ng-class' => "{ 'completed': completed_patient, 'ng-empty' : !new_patient.full_name }", 'ng-trim' => 'false'}/
+        -# %label.form_label.fz_20_{:for => "new_patient_name"} Имя пациента
+        %label.form_label.fz_20_{:for => "new_patient_n"} Имя пациента
     .form_row
       .input_w.placeholder_mod
         %input#new_patient_phone.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "tel", :value => "", 'ng-model' => "new_patient.phone", 'ui-autocomplete' => "myOption2('phone')", 'ng-change' => 'removeCompletedPatient()', 'ng-class' => "{ 'completed': completed_patient, 'ng-empty' : !new_patient_phone_input }", 'ng-blur' => 'newPatientPhoneInputBlur($event)', 'ng-trim' => 'false', 'ui-mask' => "+9 (999) 999-99-99", 'ui-options' => "{clearOnBlur: false, addDefaultPlaceholder: false, allowInvalidValue: true}", pattern: '\+\d \(\d{3}\) \d{3}-\d{2}-\d{2}', title: 'Неправильный формат телефона'}/

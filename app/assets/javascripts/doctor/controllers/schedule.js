@@ -553,7 +553,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
             },
             open: function() {
               setTimeout(function() {
-                $('#new_patient_name').focus();
+                // $('#new_patient_name').focus();
+                $('#new_patient_n').focus();
               }, 420); // After 420 ms
             }
           }).dialog('open');

@@ -1,5 +1,6 @@
 .profile_container
   %form{:name => 'editPatientForm'}
+    -# %input{type: :email, :placeholder => "Email", style: "position: absolute; top: -100px;", value: "Safari Autofill Me"}
     .profile_tab_header_inner
       %a.go_back_btn{:href => "", "ui-sref" => "patients.list"}
       %h2.caption_v1.text_center Новая карточка пациента
@@ -44,7 +45,8 @@
         / Email
         .form_row
           %label.input_w
-            %input.form_input.input_v3{:autocomplete => 'nope', type: :email, :placeholder => "Email", 'ng-model' => "patient.email"}
+            -# %input.form_input.input_v3{:autocomplete => 'off', type: :email, :placeholder => "Email", 'ng-model' => "patient.email"}
+            %input.form_input.input_v3{:autocomplete => 'off', :placeholder => "Email", 'ng-model' => "patient.email"}
 
       / Портрет пациента
       .tab_inner.form_row_v1
