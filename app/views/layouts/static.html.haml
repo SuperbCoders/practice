@@ -10,7 +10,7 @@
     = javascript_include_tag 'static/landing', 'data-turbolinks-track' => false
     = csrf_meta_tags
 
-  %body._land
+  %body{class: ("_land" if action_name == 'landing')}
     .wrapper
       / .rect_1024
       .base
