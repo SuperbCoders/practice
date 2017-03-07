@@ -5,6 +5,7 @@
 #= require jquery.nicescroll/dist/jquery.nicescroll.min
 #= require moment
 #= require fullcalendar
+#= require fullcalendar/lang/ru
 #= require lodash/lodash
 
 #= require angular
