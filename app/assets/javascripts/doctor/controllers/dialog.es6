@@ -19,10 +19,6 @@ function DialogController($scope, $timeout) {
         firstDay: 1,
         height: 315,
         eventOverlap: false,
-        monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'οюнь', 'οюль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-        monthNamesShort: ['Янв.', 'Фев.', 'Март', 'Апр.', 'Май', 'οюнь', 'οюль', 'Авг.', 'Сент.', 'Окт.', 'Ноя.', 'Дек.'],
-        dayNames: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-        dayNamesShort: ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'],
         buttonText: {
             prev: ' ',
             next: ' ',
@@ -42,7 +38,7 @@ function DialogController($scope, $timeout) {
         columnFormat: {
             month: 'ddd',
             week: 'ddd, D',
-            day: 'dddd, D'
+            day: 'dddd, LL'
         },
         titleFormat: {
             day: 'MMMM YYYY',
@@ -141,8 +137,7 @@ function DialogController($scope, $timeout) {
                 end_at: event.end,
                 duration: (event.end - event.start) / 60 / 1000
             };
-
-            $(".appointmentTimeBtn").text("Записаться на " + (event.start.format('lll')));
+            $(".appointmentTimeBtn").text("Записать на " + event.start.format('LL'));
         }
     }
 
