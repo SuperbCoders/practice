@@ -23,7 +23,7 @@
             %p{"ng-bind" => "vm.patient.comment"}
           .patient_info_table
             .other_info_cell
-              %p{"ng-bind" => "vm.patient.phone"}
+              %p{"ng-bind" => "vm.patient.phone | phone"}
               %p{"ng-bind" => "vm.patient.email"}
           .patient_card_controls.skipOpen.patient_ready{"ng-if" => "vm.patient.last_visit.active"}
             .patient_info_table
