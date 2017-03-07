@@ -85,7 +85,7 @@
                 .appointment_caption
                   %a.gl_link{:href => "", "ng-bind" => "record.tag", "ui-sref" => "journal.edit({journal_id: journal.id})"}
                 %p{"ng-bind" => "record.body | limitTo: 150"}
-              %ul.appointment_media_list
+              %ul.appointment_media_list{"ng-show" => "journal.attachments.length > 0"}
                 %li{"ng-repeat" => "file in journal.attachments", "ng-show" => "!file.deleted"}
                   .appointment_media.media_mp3
                     .media_name{"ng-bind" => "file.filename"}
