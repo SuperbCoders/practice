@@ -20,11 +20,11 @@ function NotificationsController($scope, Alerts, Faye, Doctor1, Resources, filte
     // console.log($scope.notifications.length);
   });
 
-  $('body').addClass('sub_header_mod');
-  $scope.$on('$destroy', function() {
-    $('body').removeClass('body_gray');
-    return $('body').removeClass('sub_header_mod');
-  });
+  // $('body').addClass('sub_header_mod');
+  // $scope.$on('$destroy', function() {
+  //   $('body').removeClass('body_gray');
+  //   return $('body').removeClass('sub_header_mod');
+  // });
 }
 
 angular.module('practice.doctor').controller('NotificationsController', ['$scope', 'Alerts', 'Faye', 'Doctor1', 'Resources', 'filterFilter', NotificationsController]);
