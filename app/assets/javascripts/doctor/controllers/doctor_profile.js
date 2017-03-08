@@ -40,9 +40,7 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
     if ($scope.editProfileForm.$valid) {
       Doctor.save({doctor: $scope.doctor}).$promise.then(function(response) {
         $scope.doctor.publicPageLink = "/doctors/" + $scope.doctor.username;
-        // console.log(response.messages);
         for (i = 0, len = response.messages.length; i < len; i++) {
-          // console.log('notify');
           Alerts.show_success(response.messages[i]);
         }
       });

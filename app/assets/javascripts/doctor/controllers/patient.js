@@ -1,4 +1,4 @@
-function PatientController($scope, $state, $stateParams, Patients) {
+function PatientController($scope, $state, $stateParams, Patients, Alerts) {
   $scope.add_phone = function() {
     return $scope.patient.phones.push({
       number: ''
@@ -23,6 +23,14 @@ function PatientController($scope, $state, $stateParams, Patients) {
     }
   }
 
+  function show_messages(response){
+    console.log('show_messages');
+    console.log(response);
+    for (i = 0, len = response.messages.length; i < len; i++) {
+      Alerts.show_success(response.messages[i]);
+    }
+  }
+
   $scope.save = function(redirect) {
     if ($scope.editPatientForm.$valid) {
       if (redirect == null) {
@@ -35,6 +43,7 @@ function PatientController($scope, $state, $stateParams, Patients) {
         // Don't reload avatar bc rendering rely on "raw" attribute.
         var avatar = $scope.patient.avatar;
         $scope.patient.$save().then(function(patient) {
+          show_messages(patient);
           if (patient.phones.length == 0) {
             patient.phones.push({data: ''});
           }
@@ -51,7 +60,7 @@ function PatientController($scope, $state, $stateParams, Patients) {
           patient: $scope.patient
         }).$promise.then(
           function(result) {
-            // console.log('success');
+            show_messages(result);
             if (redirect) {
               return $state.go('journal.records', {
                 patient_id: result.id
@@ -169,7 +178,7 @@ function PatientController($scope, $state, $stateParams, Patients) {
 
 }
 
-angular.module('practice.doctor').controller('PatientController', ['$scope', '$state', '$stateParams', 'Patients', PatientController]);
+angular.module('practice.doctor').controller('PatientController', ['$scope', '$state', '$stateParams', 'Patients', 'Alerts', PatientController]);
 
 function getAge(dateString) {
   var age, birthDate, m, today;
