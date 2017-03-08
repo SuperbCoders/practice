@@ -41,10 +41,8 @@
         %img{'ng-src' => "{{event.patient.avatar}}", "ng-if" => "event.patient.avatar != undefined"}/
         %span{"ng-if" => "event.patient.avatar == undefined"} {{event.patient.initials}}
     .patient_info
-      -# %span {{patient.last_visit | json}}
-      -# %span {{getFullVisitString(patient.last_visit) | json}}
       .patient_name
-        %a.gl_link.gray_link{:href => "#", 'ui-sref' => "journal.records({patient_id: event.patient.id})"}
+        %a.gl_link.gray_link{:href => "#", 'ui-sref' => "patients.edit({id: event.patient.id})"}
           %span {{event.patient.full_name}}
       %textarea.input_v5.form_input.skipOpen {{ event.patient.comment }}
     .patient_info_table

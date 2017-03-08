@@ -16,7 +16,7 @@
               .patient_avatar_letter{"ng-if" => "vm.patient.avatar == undefined"} {{vm.patient.initials}}
             .patient_info
               .patient_name
-                %a.gl_link.gray_link{:href => "#"}
+                %a.gl_link.gray_link{:href => "", 'ui-sref' => "patients.edit({id: vm.patient.id})"}
                   %span{"ng-bind" => "vm.patient.full_name"}
               -# .patient_city Москва
           .patient_preview

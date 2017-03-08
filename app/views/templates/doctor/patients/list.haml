@@ -58,7 +58,7 @@
               / Patient info
               .patient_info
                 .patient_name
-                  %a.skipOpen.gl_link.gray_link.write2Card{:href => "", 'ui-sref' => "journal.records({patient_id: patient.id})"}
+                  %a.skipOpen.gl_link.gray_link.write2Card{:href => "", 'ui-sref' => "patients.edit({id: patient.id})"}
                     %span {{patient.full_name}}
                 %p {{patient.comment}}
               .patient_info_table
