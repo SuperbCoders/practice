@@ -439,12 +439,12 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       "June": "июня",
       "July": "июля",
       "August": "августа",
-      "September": "Сентября",
+      "September": "сентября",
       "October": "октября",
       "November": "ноября",
       "December": "декабря"
     }
-    return date.format('DD') + ' ' + monts[date.format('MMMM')]
+    return date.format('DD') + ' ' + monts[date.locale('en').format('MMMM')]
   }
 
   function set_new_patient_button_text() {
