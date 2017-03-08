@@ -11,6 +11,8 @@ this.application.factory('AlertsMonitor', [
         return $q.reject(response);
       },
       response: function(response) {
+        // console.log('response');
+        // console.log(response);
         var Alerts;
         Alerts = $injector.get('Alerts');
         if (response && response.data && response.data.messages && response.data.messages.length > 0) {

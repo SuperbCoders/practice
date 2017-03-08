@@ -163,6 +163,8 @@ this.application.factory('Alerts', [
           results = [];
           for (i = 0, len = messages.length; i < len; i++) {
             alert = messages[i];
+            // console.log('alert');
+            // console.log(alert);
             // results.unshift(this.success(alert));
           }
           return results;
