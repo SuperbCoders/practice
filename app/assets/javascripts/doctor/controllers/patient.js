@@ -1,8 +1,21 @@
 function PatientController($scope, $state, $stateParams, Patients, Alerts) {
   $scope.add_phone = function() {
-    return $scope.patient.phones.push({
+    $scope.patient.phones.push({
       number: ''
     });
+  };
+
+  $scope.remove_phone = function(phone) {
+    var index = -1;
+    for (i = 0, len = $scope.patient.phones.length; i < len; i++) {
+      if ($scope.patient.phones[i] === phone) {
+        index = i;
+        break;
+      }
+    }
+    if (index > -1) {
+      $scope.patient.phones.splice(index, 1);
+    }
   };
 
   $scope.reset_gender = function() {

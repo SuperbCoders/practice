@@ -63,6 +63,13 @@ class Doctor::PatientsController < Doctor::BaseController
       end
 
       # Phones
+      if params[:phones]
+        phone_ids = phone_ids_to_delete params[:phones]
+        phone_ids.each do |phone_id|
+          @resource.contacts.where(contact_type: Contact.contact_types[:phone], id: phone_id).delete_all
+        end
+      end
+
       params[:phones].map { |phone_data|
         if phone_data[:id]
           @resource.contacts.where(contact_type: Contact.contact_types[:phone], id: phone_data[:id]).first.update(data: phone_data[:data])
@@ -186,4 +193,12 @@ class Doctor::PatientsController < Doctor::BaseController
         :cart_color]
   end
 
+  protected
+
+  def phone_ids_to_delete phones
+    received_ids = phones.map { |e| e[:id] }.compact
+    existing_phones = @resource.contacts.where(contact_type: Contact.contact_types[:phone]).all
+    matching_ids = existing_phones.select { |e| received_ids.include? e.id }.map { |e| e.id }
+    existing_phones.map { |e| e.id } - matching_ids
+  end
 end
