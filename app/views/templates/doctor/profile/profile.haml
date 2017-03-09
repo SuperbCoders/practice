@@ -57,9 +57,7 @@
       .input_w
         %input#doctor_photo.hidden_input{:type => "file", 'ng-model' => "doctor.avatar"}(base-sixty-four-input)/
         .doctor_photo
-          %img{'ng-src' => "data:{{doctor.avatar.filetype}};base64,{{doctor.avatar.base64}}", 'ng-if' => 'doctor.avatar'}
-          -# .wtf {{doctor.avatar}}
-          -# .wtf {{doctor.avatar.filetype}}
+          %img{'ng-src' => "data:{{doctor.avatar.filetype}};base64,{{doctor.avatar.base64}}", 'ng-if' => 'doctor.avatar.filetype'}
           %img.doctor_img{'ng-src' => "{{doctor.avatar}}", 'ng-show' => "!doctor.avatar.filetype"}/
           %label.change_photo_btn.btn_v1{:for => "doctor_photo"}
 

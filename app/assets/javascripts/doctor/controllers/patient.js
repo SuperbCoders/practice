@@ -37,8 +37,6 @@ function PatientController($scope, $state, $stateParams, Patients, Alerts) {
   }
 
   function show_messages(response){
-    console.log('show_messages');
-    console.log(response);
     for (i = 0, len = response.messages.length; i < len; i++) {
       Alerts.show_success(response.messages[i]);
     }

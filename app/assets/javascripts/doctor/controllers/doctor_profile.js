@@ -39,6 +39,10 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
   $scope.save = function() {
     if ($scope.editProfileForm.$valid) {
       Doctor.save({doctor: $scope.doctor}).$promise.then(function(response) {
+        // keep images thus they not blink if uploaded
+        response.avatar = $scope.doctor.avatar;
+        response.public_avatar = $scope.doctor.public_avatar;
+        $scope.doctor = response;
         $scope.doctor.publicPageLink = "/doctors/" + $scope.doctor.username;
         for (i = 0, len = response.messages.length; i < len; i++) {
           Alerts.show_success(response.messages[i]);

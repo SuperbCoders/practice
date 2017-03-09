@@ -7,7 +7,7 @@
       .input_w.size_59
         %input#doctor_public_photo.hidden_input{:type => "file", 'ng-model' => "doctor.public_avatar"}(base-sixty-four-input)/
         .doctor_public_photo
-          %img.doctor_img{'ng-src' => "data:{{doctor.public_avatar.filetype}};base64,{{doctor.public_avatar.base64}}", 'ng-if' => 'doctor.public_avatar'}
+          %img.doctor_img{'ng-src' => "data:{{doctor.public_avatar.filetype}};base64,{{doctor.public_avatar.base64}}", 'ng-if' => 'doctor.public_avatar.filetype'}
           %img.doctor_img{'ng-src' => "{{doctor.public_avatar}}", 'ng-show' => "!doctor.public_avatar.filetype"}/
           %label.change_photo_btn.btn_v1{:for => "doctor_public_photo"}
     .form_row
