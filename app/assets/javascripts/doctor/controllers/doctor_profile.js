@@ -36,6 +36,19 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
     }
   };
 
+  $scope.remove_phone = function(phone) {
+    var index = -1;
+    for (i = 0, len = $scope.doctor.phones.length; i < len; i++) {
+      if ($scope.doctor.phones[i] === phone) {
+        index = i;
+        break;
+      }
+    }
+    if (index > -1) {
+      $scope.doctor.phones.splice(index, 1);
+    }
+  };
+
   $scope.save = function() {
     if ($scope.editProfileForm.$valid) {
       Doctor.save({doctor: $scope.doctor}).$promise.then(function(response) {
@@ -64,8 +77,6 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
       $scope.new_schedule();
     }
     setTimeout(function() {
-        // console.log('update doctor_before_schedule');
-        // console.log($('#doctor_before_schedule'));
         $('#doctor_before_schedule').trigger("chosen:updated");
     }, 200);
   });
@@ -73,15 +84,14 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
   ValueList.getList("Стандартное время приема").then(function(response) {
     $scope.standartTimeIntervals = response.value_list_items;
   });
+
   Settings.getSettings().then(function(response) {
     $scope.settings = response;
-
     setTimeout(function() {
-        // console.log('update doctor_stand_time');
-        // console.log($('#doctor_stand_time'));
         $('#doctor_stand_time').trigger("chosen:updated");
     }, 200);
   });
+
   init_chosen($scope);
 
   $scope.addSocial = function(url) {

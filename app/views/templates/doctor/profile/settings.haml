@@ -29,6 +29,9 @@
       .fl.mob_right.mob_pt_5{'ng-if' => "$last"}
         .mb
           %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => "new_schedule()"}
+      .fl.mob_right.mob_pt_5{'ng-if' => "!$last"}
+        .mb
+          %a.rm_row_btn.yellow_black_btn.cloneRowBtn{:href => "", 'ng-click' => ""}
 
     / Стандартное время приема
     .form_row
