@@ -90,10 +90,7 @@ class Doctor::ProfilesController < Doctor::BaseController
             break if found
           end
         }
-        if found
-          # Rails.logger.debug 'DEBUG found'
-        else
-          # Rails.logger.debug 'DEBUG delete'
+        unless found
           w_schedule.delete
         end
       end

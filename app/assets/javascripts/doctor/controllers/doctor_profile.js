@@ -22,6 +22,19 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
     $("#doctor_work_days").chosen();
   };
 
+  $scope.remove_schedule = function(setting) {
+    var index = -1;
+    for (i = 0, len = $scope.doctor.work_schedules.length; i < len; i++) {
+      if ($scope.doctor.work_schedules[i] === setting) {
+        index = i;
+        break;
+      }
+    }
+    if (index > -1) {
+      $scope.doctor.work_schedules.splice(index, 1);
+    }
+  };
+
   $scope.add_contact = function(type) {
     switch (type) {
       case 'phone':
@@ -56,6 +69,12 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
         response.avatar = $scope.doctor.avatar;
         response.public_avatar = $scope.doctor.public_avatar;
         $scope.doctor = response;
+        if ($scope.doctor.phones.length <= 0) {
+          $scope.add_contact('phone');
+        }
+        if ($scope.doctor.work_schedules.length <= 0) {
+          $scope.new_schedule();
+        }
         $scope.doctor.publicPageLink = "/doctors/" + $scope.doctor.username;
         for (i = 0, len = response.messages.length; i < len; i++) {
           Alerts.show_success(response.messages[i]);
@@ -192,9 +211,6 @@ DoctorProfileController.prototype.fix_tab_header = function() {
 // };
 
 function active_tab(tab) {
-
-
-
   var tab = $($('.profile_tab_holder .tab_item')[tab]),
       tabs = tab.parents('.tab_list'),
       tabCursor = tabs.find('.tab_active_cursor');
@@ -216,27 +232,17 @@ function active_tab(tab) {
 };
 
 function set_tab($scope) {
-
-
-
-
-
 };
 
 function init_chosen($scope) {
-
   $scope.$parent.init_chosen();
   if ($('.chosen-select').length) {
-
     $('body').delegate('.chosen_multiple_v1 .extra_control', 'click', function(e) {
-
       var chzn_container, firedEl, option_ind;
-
       firedEl = $(this);
       e.preventDefault();
       chzn_container = firedEl.closest('.chzn-container ');
       option_ind = firedEl.parents('.chzn_item').attr('data-option-array-index') * 1;
-
 
       // angular.element(firedEl.closest('.chzn-container').prev('.chosen-select')[0]).scope()
       // angular.element(document.getElementById('doctor_work_days')).scope()
