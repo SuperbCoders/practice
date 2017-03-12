@@ -11,7 +11,7 @@
               %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
           / +patient_menu()
           .patient_avatar_holder
-            %a.patient_avatar{:href => "#"}
+            %a.patient_avatar{:href => "", 'ui-sref' => "patients.edit({id: vm.patient.id})"}
               %img{'ng-src' => "{{vm.patient.avatar}}", "ng-if" => "vm.patient.avatar != undefined"}/
               .patient_avatar_letter{"ng-if" => "vm.patient.avatar == undefined"} {{vm.patient.initials}}
             .patient_info

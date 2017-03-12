@@ -36,7 +36,7 @@
             %a.gl_link{:href => "", "ng-click" => "deletePatient(event.patient)"}
               %span Удалить
 
-    %a.patient_avatar{:href => "#", 'ui-sref' => "journal.records({patient_id: event.patient.id})"}
+    %a.patient_avatar{:href => "#", 'ui-sref' => "patients.edit({id: event.patient.id})"}
       .avatar
         %img{'ng-src' => "{{event.patient.avatar}}", "ng-if" => "event.patient.avatar != undefined"}/
         %span{"ng-if" => "event.patient.avatar == undefined"} {{event.patient.initials}}
