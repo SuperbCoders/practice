@@ -17,7 +17,8 @@ var app = angular
             'ngDialog',
             'faye',
             'environment',
-            'angular-loading-bar'
+            'angular-loading-bar',
+            'localytics.directives'
         ]
     );
 
@@ -64,7 +65,11 @@ var Visits = [
 ];
 
 app.config([
-  '$httpProvider', '$stateProvider', '$urlRouterProvider', 'NotificationProvider', 'ngDialogProvider', 'envServiceProvider', 'cfpLoadingBarProvider', function($httpProvider, $stateProvider, $urlRouterProvider, NotificationProvider, ngDialogProvider, envServiceProvider, cfpLoadingBarProvider) {
+  '$httpProvider', '$stateProvider', '$urlRouterProvider', 'NotificationProvider', 'ngDialogProvider', 'envServiceProvider', 'cfpLoadingBarProvider', 'chosenProvider', function($httpProvider, $stateProvider, $urlRouterProvider, NotificationProvider, ngDialogProvider, envServiceProvider, cfpLoadingBarProvider, chosenProvider) {
+    chosenProvider.setOption({
+      width: "100%",
+      disable_search_threshold: 3
+    });
     envServiceProvider.config({
       domains: {
         development: ['localhost', 'dev.local'],
