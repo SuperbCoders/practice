@@ -119,9 +119,9 @@ class Doctor::PatientsController < Doctor::BaseController
 
   def autocomplete
     if params[:full_name]
-      patients = current_doctor.patients.includes(:contacts).where('full_name LIKE ?', "%#{params[:full_name]}%")
+      patients = current_doctor.patients.includes(:contacts).where('lower(full_name) LIKE lower(?)', "%#{params[:full_name]}%")
     elsif params[:email]
-      patients = current_doctor.patients.includes(:contacts).where('email LIKE ?', "%#{params[:email]}%")
+      patients = current_doctor.patients.includes(:contacts).where('lower(email) LIKE lower(?)', "%#{params[:email]}%")
     elsif params[:phone]
       contacts = Contact.phone.where(contactable_id: current_doctor.patients.pluck(:id)).where(contactable_type: 'Patient').includes(:contactable).where('data LIKE ?', "%#{params[:phone]}%")
     else
