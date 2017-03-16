@@ -158,7 +158,25 @@ class Doctor < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def initials
+    full_name = [first_name, last_name].compact.join ' '
+    begin
+
+      split = full_name.split(/\s+/)
+
+      if split.size > 1
+        split[-2..-1].map {|x| x[0]}.join("")
+      else
+        split[0][0]
+      end
+
+    rescue Exception => e
+      ""
+    end
+  end
+
   protected
+
   def create_identity(oauth_data = nil)
     unless session[:oauth] || oauth_data
       return
@@ -180,5 +198,4 @@ class Doctor < ActiveRecord::Base
   def send_notifications
     AfterDoctorRegisteredNotifier.run(self)
   end
-
 end

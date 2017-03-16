@@ -13,14 +13,10 @@
     .fr
       .mb.mob_hidden
         #notifications.user_m_item{'ng-controller' => "NotificationsController"}
-          -# %a.notifications.white_transp_2_btn.new_notification.notificationBtn{:href => ""} {{(notifications | filter:{unreaded: true}).length}}
           %a.notifications.white_transp_2_btn.new_notification.notificationBtn{:href => ""} {{unreaded.length}}
-          -# %a.notifications.white_transp_2_btn.new_notification.notificationBtn{:href => ""} {{unreaded_notifications_length}}
-          -# %a.notifications.white_transp_2_btn.new_notification.notificationBtn{:href => ""} {{notifications.length}}
           .notification_holder
             .notification_dropdown.notificationDropdown
               %ul.notification_list
-                -# %li.notification_item{'ng-repeat' => "notification in (unreaded_notifications | filter:{unreaded: true}).slice(0, 5)"}
                 %li.notification_item{'ng-repeat' => "notification in notifications | filter:{unreaded: true} as unreaded", 'ng-if' => "$index < 5"}
                   .notification_img
                     %img{'ng-src' => "{{notification.patient.avatar}}", "ng-if" => "notification.patient.avatar != undefined"}/
@@ -28,64 +24,25 @@
                       .user_initials {{notification.patient.initials}}
                   .notification_event
                     = render partial: 'doctor/shared/notification'
-                    -# %p {{ notification.message }}
-                    -# %a.gl_link.gray_link_3{'ng-show'=>"notification.alert_type == 'file'"} отменить
-                -#%li.notification_item
-                -#  .notification_img
-                -#    %img{:src => "i/notify_img.jpg"}/
-                -#  .notification_event
-                -#    %p
-                -#      Фотография
-                -#      %b rentgen-10-12-2015.jpg
-                -#      удалена,
-                -#      %a.gl_link.gray_link_3{:href => ""}
-                -#        %span отменить
-                -#%li.notification_item
-                -#  .notification_img
-                -#    .user_photo
-                -#      .user_initials К
-                -#  .notification_event
-                -#    %p
-                -#      Новая не подтвержденная запись на 15 февраля в 14:00,
-                -#      %a.gl_link.gray_link_3{:href => ""}
-                -#        %span подтвердить
-                -#%li.notification_item
-                -#  .notification_img
-                -#    .user_photo
-                -#      .user_initials К
-                -#  .notification_event
-                -#    %p
-                -#      Новая не подтвержденная запись на 15 февраля в 14:00,
-                -#      %a.gl_link.gray_link_3{:href => ""}
-                -#        %span подтвердить
-                -#%li.notification_item
-                -#  .notification_img
-                -#    .user_photo
-                -#      .user_initials К
-                -#  .notification_event
-                -#    %p
-                -#      Новая не подтвержденная запись на 15 февраля в 14:00,
-                -#      %a.gl_link.gray_link_3{:href => ""}
-                -#        %span подтвердить
               .text_center
                 %a.gl_link.blue_link{:href => "", 'ui-sref' => "notifications"}
                   %span Все уведомления
-      -#.mb.mob_hidden
-      -#  .user_m_item
-      -#    %a.btn_v1.white_transp_btn.quick_reg_btn{:href => ""} Быстрая запись
-      -# %a#menu_button.menu_humburger{:href => "", 'onclick' => "menu_open()"}
-      -#   %span Меню
       .mb
         .user_m_item.wnw.user_menu_w.userMenu
           .menu_avatar
-            = image_tag(current_doctor.avatar ? "/upload/#{current_doctor.avatar}" : image_path("default_logo.png"))
+            -# = image_tag(current_doctor.avatar ? "/upload/#{current_doctor.avatar}" : image_path("default_logo.png"))
+            - if current_doctor.avatar
+              = image_tag "/upload/#{current_doctor.avatar}"
+            - else
+              .avatar
+                %span= current_doctor.initials
+
           .menu_user_name.mob_hidden
             %b #{current_doctor.name}
           .user_m_down_w
             %ul.user_drop_down_menu
               %li.user_drop_down_item
                 %a.gl_link{:href => "", 'ui-sref' => "doctor.profile"} Настройки
-                -# %a.gl_link{:href => "", 'onclick' => "console.log('wtf')"} Профиль
               %li.user_drop_down_item
                 %a.gl_link.blue_link{:href => "/doctors/#{current_doctor.username}", target: '_blank'} Мой сайт
               %li.user_drop_down_item
