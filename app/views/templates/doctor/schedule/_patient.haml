@@ -37,7 +37,7 @@
               %span Удалить
 
     %a.patient_avatar{:href => "#", 'ui-sref' => "patients.edit({id: event.patient.id})"}
-      .avatar
+      .avatar{'ng-model' => 'patient', 'rnd-bg' => true}
         %img{'ng-src' => "{{event.patient.avatar}}", "ng-if" => "event.patient.avatar != undefined"}/
         %span{"ng-if" => "event.patient.avatar == undefined"} {{event.patient.initials}}
     .patient_info
