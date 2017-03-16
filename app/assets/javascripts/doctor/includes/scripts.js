@@ -255,6 +255,13 @@ function all_dialog_close_gl() {
     //        $this.dialog("close");
     //    }
     //});
+
+    // $('.rndBG').each(function (ind) {
+    //     $(this).css({
+    //         'background-color': '#' + $(this).data('color'),
+    //         'color': '#fff'
+    //     });
+    // });
 }
 
 function init_tabblock() {

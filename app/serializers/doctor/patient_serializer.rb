@@ -3,7 +3,7 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
       :blood, :diseases, :habits, :profession, :contract_id,
       :register_date, :avatar, :approved, :archivated, :phone,
       :email, :age, :birthday, :phones, :emails, :rhesus, :initials,
-      :in_archive, :cart_color, :last_visit, :errors
+      :in_archive, :cart_color, :last_visit, :color, :errors
 
   has_many :contacts
 

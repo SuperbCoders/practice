@@ -427,7 +427,7 @@ app.directive('initWorkDays', ['$timeout', function ($timeout) {
   }
 }]);
 
-app.directive('formatPhone', ['$timeout', function ($timeout) {
+app.directive('formatPhone', [function () {
   return {
     restrict: 'A',
     require: 'ngModel',
@@ -435,6 +435,26 @@ app.directive('formatPhone', ['$timeout', function ($timeout) {
     link: function(scope, element, attrs, ngModel) {
       ngModel.$formatters.push(function(value){
         return formatPhone(value);
+      });
+    }
+  }
+}]);
+
+app.directive('rndBg', [function () {
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    link: function(scope, element, attrs, ngModel) {
+      // console.log(attrs.ngModel);
+      scope.$watch(attrs.ngModel, function(newValue){
+        // console.log('watch occurs');
+        // console.log(newValue);
+        // console.log('rndBg');
+        // console.log('color ' + newValue.color);
+        $(element).css({
+          'background-color': '#' + newValue.color,
+          'color': '#fff'
+        });
       });
     }
   }

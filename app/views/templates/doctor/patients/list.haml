@@ -95,7 +95,8 @@
             / +patient_overview()
             .avatar_clone
               %a.patient_avatar.skipOpen.write2Card{:href => "", 'ui-sref' => "patients.edit({id: patient.id})"}
-                .avatar
+                -# {{patient}}
+                .avatar{'ng-model' => 'patient', 'rnd-bg' => true}
                   %img{'ng-src' => "{{patient.avatar}}", "ng-if" => "patient.avatar != undefined"}/
                   %span{"ng-if" => "patient.avatar == undefined"} {{patient.initials}}
 
