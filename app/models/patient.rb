@@ -15,6 +15,7 @@ class Patient < ActiveRecord::Base
 
   # validates_uniqueness_of :full_name, scope: :doctor_id
 
+  before_create :set_color
   before_destroy :destroy_avatar
 
   [:avatar].map do |attribute_name|
@@ -35,5 +36,9 @@ class Patient < ActiveRecord::Base
 
   def self.temporary_email
     "#{temporary_password}@practice.com"
+  end
+
+  def set_color
+    self.color = Color.get_random_color
   end
 end
