@@ -3,16 +3,13 @@ class Public::ProfilesController < ApplicationController
   layout 'public'
 
   before_filter :find_doctor
+  before_filter :access_filter
   before_filter :find_patient, only: [:create_visit]
 
   def public
-
   end
 
   def create_visit
-    logger.info "Dirty #{params}"
-    logger.info "Visit #{visit_params}"
-
     if @patient
       @visit = @doctor.visits.new(doctor: @doctor, patient: @patient)
       @visit.start_at = visit_params[:start]
@@ -20,14 +17,10 @@ class Public::ProfilesController < ApplicationController
       @visit.created_by = ''
       @visit.save
     end
-
-    logger.info @visit.errors.full_messages
-
     if @visit.persisted?
       # "message" is needed for popup otherwise it will be failed
       Notification.create doctor_id: @doctor.id, patient_id: @visit.patient_id, start_at: @visit.start_at, visit_id: @visit.id, notification_type: 'visit_created', message: 'Новая запись на прием'
     end
-
     render json: serialize_resource(@visit, Doctor::VisitSerializer)
   end
 
@@ -66,14 +59,23 @@ class Public::ProfilesController < ApplicationController
   end
 
   def find_doctor
-    Rails.logger.debug "params: #{params}"
-    Rails.logger.debug "params[:username]: #{params[:username]}"
     @doctor = Doctor.find_by(username: params[:username])
   end
 
-  def find_patient
-    logger.info "Patient #{patient_params}"
+  def access_filter
+    # Rails.logger.debug "access filter"
+    # Rails.logger.debug @doctor
+    # Rails.logger.debug @doctor.profile_open?
+    # Rails.logger.debug current_doctor
+    # Rails.logger.debug current_doctor == @doctor
+    if @doctor && (@doctor.profile_open? || current_doctor == @doctor)
+      # ok
+    else
+      redirect_to root_path
+    end
+  end
 
+  def find_patient
     if patient_params[:email]
       @patient = Patient.find_by(email: patient_params[:email])
       if not @patient
@@ -82,22 +84,12 @@ class Public::ProfilesController < ApplicationController
     else
       @patient = Patient.new(email: Patient.temporary_email, password: Patient.temporary_password)
     end
-
     @patient.full_name = patient_params.fetch(:name, Patient.temporary_email)
-
     if @patient.save
       if patient_params[:phone]
         @patient.contacts.phone.find_or_create_by(data: patient_params[:phone])
       end
-
       @doctor.appointments.find_or_create_by(patient: @patient)
     end
-
   end
-
-  private
-
-  # def to_javascript_hash hash
-  #   "JSON.parse(\"#{escape_javascript(hash.to_json)}\")"
-  # end
 end
