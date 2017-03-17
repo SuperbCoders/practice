@@ -11,11 +11,12 @@
         %button.btn_v4.doctor_btn.appointmentTimeBtn.appointmentTimeBtn2.yellow_black_btn{'ng-click' => "vm.createVisit()"} Записать
   .stage_2{"ng-show" => "vm.stage == 2"}
     .dialog_green_2
-      .popup_form.popup_v1{"style" => "padding: 20px 60px; border-radius: 10px;"}
+      .popup_form.popup_v1{"style" => "padding: 20px 60px; border-radius: 10px; min-height: auto;"}
         .msg_title
-          Запись
-          %br/
-          направлена врачу
+          Вы записали пациента на прием
+          -# Запись
+          -# %br/
+          -# направлена врачу
         .msg_check
         .text_center
           %button.btn_v2.white_green_btn_2.cancel_btn{"ng-click" => "vm.closeDialog()"} Закрыть
