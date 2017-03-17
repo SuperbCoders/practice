@@ -26,6 +26,7 @@ class Doctor < ActiveRecord::Base
 
   after_create :create_identity
   after_create :send_notifications
+  after_create :populate_default_dicts
 
   # todo: Пока не ясно нужно вообще это поле или нет.
   # validates_uniqueness_of :username
@@ -197,5 +198,16 @@ class Doctor < ActiveRecord::Base
 
   def send_notifications
     AfterDoctorRegisteredNotifier.run(self)
+  end
+
+  def populate_default_dicts
+    DictDefaults::DEFAULT.each do |dict|
+      dicts.create(
+        dict_type: 2,
+        dict_value: dict,
+        dictable_id: self.id,
+        dictable_type: 'Doctor'
+      )
+    end
   end
 end
