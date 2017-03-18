@@ -20,8 +20,6 @@ module Practice
       generate.views false
     end
 
-    config.action_mailer.default_url_options = { host: '//www.practica.cc' }
-
     config.action_view.logger = nil
     config.time_zone = 'Europe/Moscow'
 
