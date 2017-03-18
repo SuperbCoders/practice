@@ -1,9 +1,14 @@
+-# %div {{$state.current.name}}
+-# %div {{!(filters.signed == false && filters.unsigned == false && filters.archivated == false)}}
 .patient_tip_holder{'ng-show' => "patients.length == 0"}
-  .patient_tip
+  .patient_tip{{'ng-if' => 'filters.signed == false && filters.unsigned == false && filters.archivated == false'}}
     .patient_tip_arrow
     .tip_title Здесь будут карточки ваших пациентов, выглядеть будут примерно так
     %p Чтобы создать карточку клиента нажмите на желтую кнопку “создать новую карточку”
-  %ul.patients_list
+  .patient_tip{{'ng-if' => '!(filters.signed == false && filters.unsigned == false && filters.archivated == false)'}}
+    -# .patient_tip_arrow
+    .tip_title Сейчас здесь пусто, записей нет
+  %ul.patients_list{{'ng-if' => 'filters.signed == false && filters.unsigned == false && filters.archivated == false'}}
     %li.patient_unit
       .patient_card
         .patient_status_w.chosen_v2.no_search.skipOpen

@@ -1,4 +1,4 @@
-function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor, ChangeTime) {
+function PatientsController($scope, $window, $state, Patients, ngDialog, Visits, Doctor, ChangeTime) {
   $scope.min_time = "05:45:00";
   $scope.max_time = "22:15:00";
   $scope.slot_duration = '00:15:00';
@@ -204,7 +204,7 @@ function PatientsController($scope, $window, Patients, ngDialog, Visits, Doctor,
   });
 }
 
-PatientsController.$inject = ['$scope', '$window', 'Patients', 'ngDialog', 'Visits', 'Doctor', 'ChangeTime'];
+PatientsController.$inject = ['$scope', '$window', '$state', 'Patients', 'ngDialog', 'Visits', 'Doctor', 'ChangeTime'];
 angular
     .module('practice.doctor')
     .controller('PatientsController', PatientsController);
