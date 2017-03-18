@@ -29,7 +29,7 @@ class Doctor < ActiveRecord::Base
   after_create :send_notifications
   after_create :populate_default_dicts
 
-  validates_uniqueness_of :username
+  validates_uniqueness_of :username, allow_blank: true, case_sensitive: false
 
   before_destroy :destroy_avatars
 

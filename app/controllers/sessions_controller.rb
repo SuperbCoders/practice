@@ -9,11 +9,14 @@ class SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     unless Doctor.exists?(email: resource_params[:email])
-      Doctor.create(
+      doctor = Doctor.create(
         resource_params
           .permit(:email, :password)
           .merge({ password_confirmation: resource_params.fetch(:password) })
       )
+      Rails.logger.debug 'create session'
+      Rails.logger.debug doctor.valid?
+      Rails.logger.debug doctor.errors.inspect
     end
     super
   end
