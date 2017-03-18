@@ -5,36 +5,38 @@
       .label_holder
         %label.form_label{:for => "doctor_public_photo"} Фото на сайт
       .input_w.size_59
-        %input#doctor_public_photo.hidden_input{:type => "file", 'ng-model' => "doctor.public_avatar"}(base-sixty-four-input)/
+        -# {{doctor.public_avatar}}
+        %input#doctor_public_photo.hidden_input{:type => "file", 'ng-model' => "doctor.public_avatar", 'ng-required' => "!doctor.public_avatar"}(base-sixty-four-input)/
         .doctor_public_photo
           %img.doctor_img{'ng-src' => "data:{{doctor.public_avatar.filetype}};base64,{{doctor.public_avatar.base64}}", 'ng-if' => 'doctor.public_avatar.filetype'}
           %img.doctor_img{'ng-src' => "{{doctor.public_avatar}}", 'ng-show' => "!doctor.public_avatar.filetype"}/
+          %img.doctor_img{'ng-src' => "/i/user_1.png", 'ng-show' => "!doctor.public_avatar"}/
           %label.change_photo_btn.btn_v1{:for => "doctor_public_photo"}
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_name"} Username
       .input_w.size_59
-        %input#doctor_name.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "doctor.username"}/
+        %input#doctor_name.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "doctor.username", :required => true}/
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_specialty"} Специальность
       .input_w.size_59
-        %input#doctor_specialty.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "doctor.specialty"}/
+        %input#doctor_specialty.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "doctor.specialty", :required => true}/
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_education"} Образование
       .input_w.size_59
-        %input#doctor_education.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "doctor.education"}/
+        %input#doctor_education.form_input.input_v1{:autocomplete => 'off', 'ng-model' => "doctor.education", :required => true}/
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_experience"} Опыт работы
       .input_w.size_59
-        %textarea#doctor_experience.form_input.input_v1{'ng-model' => "doctor.experience"}
+        %textarea#doctor_experience.form_input.input_v1{'ng-model' => "doctor.experience", :required => true}
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_about"} О себе
       .input_w.size_59
-        %textarea#doctor_about.form_input.input_v1{'ng-model' => "doctor.about"}
+        %textarea#doctor_about.form_input.input_v1{'ng-model' => "doctor.about", :required => true}
   .tab_inner.form_row_v1
     .form_row
       .label_holder

@@ -38,15 +38,16 @@ class Doctor::DoctorSerializer < Doctor::BaseSerializer
   end
 
   def avatar
-    return "/upload/#{object.avatar}"
+    "/upload/#{object.avatar}" if object.avatar
   end
 
   def public_avatar
-    if object.try(:public_avatar)
-      return "/upload/#{object.public_avatar}"
-    else
-      "/i/user_1.png"
-    end
+    # if object.try(:public_avatar)
+    #   return "/upload/#{object.public_avatar}"
+    # else
+    #   "/i/user_1.png"
+    # end
+    "/upload/#{object.public_avatar}" if object.public_avatar
   end
 
   def phones
