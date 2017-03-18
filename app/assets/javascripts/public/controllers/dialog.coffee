@@ -121,7 +121,7 @@ class DialogController
       event.end = date.add(stand_time, 'minutes')
       vm.popup_calendar.fullCalendar( 'updateEvent', vm.events[0] )
 
-      $(".appointmentTimeBtn").text("Записаться на #{event.start.format('lll')}")
+      $(".appointmentTimeBtn").text("Записаться на #{formatDateAppointment(event.start)}")
 
     return
 

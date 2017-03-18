@@ -137,7 +137,7 @@ function DialogController($scope, $timeout) {
                 end_at: event.end,
                 duration: (event.end - event.start) / 60 / 1000
             };
-            $(".appointmentTimeBtn").text("Записать на " + event.start.format('LL'));
+            $(".appointmentTimeBtn").text("Записать на " + formatDateAppointment(event.start));
         }
     }
 

@@ -429,27 +429,9 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     });
   };
 
-  function date_format(date) {
-    var monts = {
-      "January": "января",
-      "February": "февраля",
-      "March": "марта",
-      "April": "апреля",
-      "May": "мая",
-      "June": "июня",
-      "July": "июля",
-      "August": "августа",
-      "September": "сентября",
-      "October": "октября",
-      "November": "ноября",
-      "December": "декабря"
-    }
-    return date.format('DD') + ' ' + monts[date.locale('en').format('MMMM')]
-  }
-
   function set_new_patient_button_text() {
     var date = $scope.new_visit.start_at;
-    $($scope.add_patient_form).find('.newPatientBtn span').text('Записать на ' + date_format(date) + ', в ' + date.format('HH:mm'));
+    $($scope.add_patient_form).find('.newPatientBtn span').text('Записать на ' + formatDateAppointment(date));
   }
 
   function calendar_centerX(){

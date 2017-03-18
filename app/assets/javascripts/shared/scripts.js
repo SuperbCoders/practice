@@ -9,6 +9,28 @@ function formatPhone(phone){
   }
 }
 
+function formatDateAppointment(date) {
+  function date_format(date) {
+    var monts = {
+      "January": "января",
+      "February": "февраля",
+      "March": "марта",
+      "April": "апреля",
+      "May": "мая",
+      "June": "июня",
+      "July": "июля",
+      "August": "августа",
+      "September": "сентября",
+      "October": "октября",
+      "November": "ноября",
+      "December": "декабря"
+    }
+    return date.format('DD') + ' ' + monts[date.locale('en').format('MMMM')]
+  }
+
+  return date_format(date) + ', в ' + date.format('HH:mm');
+}
+
 function card_color_chosen(elem) {
   console.log('card_color_chosen');
   console.log(elem);
