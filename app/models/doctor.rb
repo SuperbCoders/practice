@@ -24,12 +24,12 @@ class Doctor < ActiveRecord::Base
   has_many :notifications
   has_one :setting
 
+  before_save :generate_username
   after_create :create_identity
   after_create :send_notifications
   after_create :populate_default_dicts
 
-  # todo: Пока не ясно нужно вообще это поле или нет.
-  # validates_uniqueness_of :username
+  validates_uniqueness_of :username
 
   before_destroy :destroy_avatars
 
@@ -208,6 +208,29 @@ class Doctor < ActiveRecord::Base
         dictable_id: self.id,
         dictable_type: 'Doctor'
       )
+    end
+  end
+
+  def generate_username
+    # Rails.logger.debug 'generate_username'
+    # Rails.logger.debug username.blank?
+    # Rails.logger.debug !first_name.blank?
+    # Rails.logger.debug !last_name.blank?
+    if username.blank? && (!first_name.blank? || !last_name.blank?)
+      # Rails.logger.debug 'generate'
+      username = Translit.convert([first_name, last_name].compact.join(' '), :english)
+      # Rails.logger.debug username
+      username = username.to_s.gsub /[^0-9a-zA-Z_]/, ''
+      username = username.downcase
+      n = 0
+      basename = username
+      while Doctor.where(username: username).count > 0
+        n += 1
+        username = "#{basename}#{n}"
+      end
+      self.username = username
+      # Rails.logger.debug 'generated'
+      # Rails.logger.debug self.username
     end
   end
 end

@@ -46,6 +46,7 @@ gem 'sprockets-es6'
 gem 'faye', '~> 0.8.2'
 gem 'faye-rails', '~> 1.0.0'
 gem 'daemons'
+gem 'translit'
 
 group :development, :test do
   gem 'better_errors'
