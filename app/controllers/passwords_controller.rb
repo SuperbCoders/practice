@@ -18,7 +18,7 @@ class PasswordsController < Devise::PasswordsController
     if successfully_sent?(resource)
       render json: { msg: 'Инструкции отправлены на почту' }
     else
-      render json: { error: 'Повторите попытку позже' }
+      render json: { error: 'Повторите попытку позже' }, status: 403
     end
   end
 
