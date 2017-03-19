@@ -8,7 +8,6 @@ class Doctor::PatientsController < Doctor::BaseController
     if params[:archivated]  == "true"
       @resources = current_doctor.patients.archivated
                    .order('updated_at DESC')
-
     elsif params[:unsigned] == "true"
       @resources = Patient
                    .where(in_archive: false)
@@ -18,15 +17,7 @@ class Doctor::PatientsController < Doctor::BaseController
                    .where(doctor_id: current_doctor.id)
                    .select('DISTINCT patients.*')
                    .order('patients.updated_at DESC')
-
     elsif params[:signed] == "true"
-      # @resources = current_doctor.patients
-      #              .not(:archivated)
-      #              .joins(:visits)
-      #              .merge(Visit.actual)
-      #              .merge(Visit.signeds)
-      #              .all.uniq
-
       @resources = Patient
                    .where(in_archive: false)
                    .joins('INNER JOIN visits ON visits.patient_id = patients.id')
@@ -82,6 +73,9 @@ class Doctor::PatientsController < Doctor::BaseController
 
     end
 
+    if @resource.valid?
+      @resource.add_message t('patient.messages.patient_succefully_updated')
+    end
     send_json serialize_resource(@resource, resource_serializer), @resource.valid?
   end
 
@@ -113,8 +107,10 @@ class Doctor::PatientsController < Doctor::BaseController
       @resource.save
     end
 
+    # if @resource.id?
+    #   @resource.add_message t('patient.messages.patient_succefully_created')
+    # end
     send_json serialize_resource(@resource, Doctor::PatientSerializer), @resource.id?
-    # send_response @response
   end
 
   def autocomplete

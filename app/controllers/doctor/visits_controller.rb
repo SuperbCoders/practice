@@ -34,7 +34,6 @@ class Doctor::VisitsController < Doctor::BaseController
         @patient.contacts.phone.create(data: params[:visit][:patient_data][:phone])
         @response[:visit] = current_doctor.create_visit(visit_params, @patient)
       else
-        logger.info "P-> #{@patient.errors.full_messages}"
         @response[:errors] += @patient.errors.full_messages
       end
     end

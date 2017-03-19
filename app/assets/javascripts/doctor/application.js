@@ -445,13 +445,8 @@ app.directive('rndBg', [function () {
     restrict: 'A',
     require: 'ngModel',
     link: function(scope, element, attrs, ngModel) {
-      // console.log(attrs.ngModel);
       scope.$watch(attrs.ngModel, function(newValue){
-        console.log('watch occurs');
         if (newValue && newValue.color) {
-          // console.log(newValue);
-          // console.log('rndBg');
-          console.log('color ' + newValue.color);
           $(element).css({
             'background-color': '#' + newValue.color,
             'color': '#fff'

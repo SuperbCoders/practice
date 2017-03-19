@@ -96,7 +96,9 @@ class Doctor::ProfilesController < Doctor::BaseController
       end
     end
 
-    # byebug
+    if @resource.valid?
+      @resource.add_message t('doctor.messages.profile_succefully_updated')
+    end
     send_json serialize_resource(@resource, resource_serializer), @resource.valid?
   end
 

@@ -15,6 +15,7 @@ ru:
     messages:
       doctor_succefully_created: Доктор успешно создан
       doctor_succefully_updated: Доктор успешно обновлен
+      profile_succefully_updated: Профиль успешно обновлен
   time:
     am: утра
     formats:

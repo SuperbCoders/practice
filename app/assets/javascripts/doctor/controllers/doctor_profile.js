@@ -76,8 +76,10 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
           $scope.new_schedule();
         }
         $scope.doctor.publicPageLink = "/doctors/" + $scope.doctor.username;
-        for (i = 0, len = response.messages.length; i < len; i++) {
-          Alerts.show_success(response.messages[i]);
+        if (response.messages) {
+          for (i = 0, len = response.messages.length; i < len; i++) {
+            Alerts.show_success(response.messages[i]);
+          }
         }
       });
       Settings.saveSettings({
