@@ -1,4 +1,4 @@
-function JournalController($rootScope, $stateParams, $scope, $state, $window, Journals, Alerts, Dicts, Patients, Visits, ngDialog, Doctor, ChangeTime) {
+function JournalController($rootScope, $stateParams, $scope, $state, $window, Journals, Alerts, Dicts, Patients, Visits, ngDialog, Doctor, ChangeTime, jqueryDialogService) {
   var vm = this;
   vm.Journals = Journals;
   vm.Dicts = Dicts;
@@ -78,7 +78,9 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
       .$promise
       .then(function (response) {
         vm.dicts = _.filter(response.dicts, ['dict_type', 'journal_tag']);
-        vm.journal.journal_records[0].tag = vm.dicts[0].dict_value;
+        if (vm.dicts[0]) {
+          vm.journal.journal_records[0].tag = vm.dicts[0].dict_value;
+        }
       })
   }
 
@@ -155,7 +157,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
     $window.open(url, "Print", windowParams);
   }
 
-  var subRecordPopup = $('#subrecord_popup').dialog({
+  var subRecordPopup = new jqueryDialogService($scope, '#subrecord_popup', {
     autoOpen: false,
     modal: true,
     width: 480,
@@ -168,9 +170,9 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
     close: function (event, ui) {
       body_var.removeClass('overlay_v4');
     }
-  });
+  }).popup();
 
-  var addSubRecordPopup = $('#add_subrecord_popup').dialog({
+  var addSubRecordPopup = new jqueryDialogService($scope, '#add_subrecord_popup', {
     autoOpen: false,
     modal: true,
     width: 700,
@@ -183,7 +185,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
     close: function (event, ui) {
       body_var.removeClass('hide_subrecord_popup');
     }
-  });
+  }).popup();
 
   $('.manageSubRecordPopup').on ('click', function () {
     subRecordPopup.dialog('open');
@@ -207,8 +209,9 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
   });
 
   $('.applySubRecord').on ('click', function () {
+    // console.log('new_saubrecord_item ' + $('.new_saubrecord_item').length);
     var sabRecordItem = $('#new_saubrecord_item');
-    console.log(sabRecordItem.val());
+    // console.log(sabRecordItem.val());
     createDict(sabRecordItem.val());
     addSubRecordPopup.dialog('close');
     sabRecordItem.val('').removeClass('not_empty');
@@ -274,6 +277,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
   }
 
   $scope.$on('$destroy', function () {
+    // console.log('destroy 1');
     var doc_body = $('body');
     doc_body.removeClass('body_gray');
     $('.ui-dialog #change_reception_form').dialog('destroy');
@@ -282,7 +286,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
   })
 }
 
-JournalController.$inject = ['$rootScope', '$stateParams','$scope', '$state', '$window', 'Journals', 'Alerts', 'Dicts', 'Patients', 'Visits', 'ngDialog', 'Doctor', 'ChangeTime'];
+JournalController.$inject = ['$rootScope', '$stateParams','$scope', '$state', '$window', 'Journals', 'Alerts', 'Dicts', 'Patients', 'Visits', 'ngDialog', 'Doctor', 'ChangeTime', 'jqueryDialogService'];
 angular
   .module('practice.doctor')
   .controller('JournalController', JournalController);
