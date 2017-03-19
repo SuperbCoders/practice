@@ -455,6 +455,8 @@ app.directive('rndBg', [function () {
           $(element).css({
             'background-color': '#' + newValue.color,
             'color': '#fff'
+          }).find('.patient_avatar_letter').css({
+            'color': '#fff'
           });
         } else {
           $(element).css({

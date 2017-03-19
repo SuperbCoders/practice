@@ -11,9 +11,9 @@
               %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
           / +patient_menu()
           .patient_avatar_holder
-            %a.patient_avatar{:href => "", 'ui-sref' => "patients.edit({id: vm.patient.id})"}
+            %a.patient_avatar{:href => "", 'ui-sref' => "patients.edit({id: vm.patient.id})", 'ng-model' => 'vm.patient', 'rnd-bg' => true}
               %img{'ng-src' => "{{vm.patient.avatar}}", "ng-if" => "vm.patient.avatar != undefined"}/
-              .patient_avatar_letter{"ng-if" => "vm.patient.avatar == undefined", 'ng-model' => 'vm.patient', 'rnd-bg' => true} {{vm.patient.initials}}
+              .patient_avatar_letter{"ng-if" => "vm.patient.avatar == undefined"} {{vm.patient.initials}}
             .patient_info
               .patient_name
                 %a.gl_link.gray_link{:href => "", 'ui-sref' => "patients.edit({id: vm.patient.id})"}
