@@ -21,7 +21,7 @@ class Doctor::VisitsController < Doctor::BaseController
     if params[:visit][:completed_patient]
       @patient = doctor.patients.find(params[:visit][:completed_patient][:id])
     else
-      @patient = nil
+      @patient = doctor.patients.where('lower(full_name) = lower(?)', params[:visit][:patient_data][:full_name]).first
     end
 
     if @patient
