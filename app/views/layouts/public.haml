@@ -16,7 +16,8 @@
 
     %script{'type'=>"text/ng-template", 'id'=>"appointments_form"}
       .stage_1{'ng-show' => "vm.stage == 1"}
-        .popup_form.popup_v1{"style" => "padding: 20px 60px; border-radius: 10px;"}
+        -# .popup_form.popup_v1{"style" => "padding: 20px 60px; border-radius: 10px;"}
+        %form.popup_form.popup_v1{"style" => "padding: 20px 60px; border-radius: 10px;", :name => 'appointmentsFirstStepForm'}
           .form_caption
             Для записи заполните
             %br/
@@ -24,7 +25,7 @@
           .form_content
             .form_row
               .input_w.placeholder_mod
-                %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "text", 'ng-model' => "vm.patient.name"}/
+                %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "text", 'ng-model' => "vm.patient.name", :required => true}/
                 %label.form_label.fz_20 Введите имя и фамилию
             .form_row
               .input_w.placeholder_mod
@@ -35,7 +36,8 @@
                 %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', "ng-model" => "vm.patient.email"}/
                 %label.form_label Email (если есть, чтобы получить мед. карту)
           .form_footer
-            %a.btn_v4.appointment_btn.appointmentTimeBtn.yellow_black_btn{"ng-click" => "vm.next_stage()"} Выбрать время записи
+            -# %a.btn_v4.appointment_btn.appointmentTimeBtn.yellow_black_btn{"ng-click" => "vm.next_stage()"} Выбрать время записи
+            %button.btn_v4.appointment_btn.appointmentTimeBtn.yellow_black_btn{"ng-click" => "vm.next_stage()"} Выбрать время записи
       .stage_2{'ng-show' => "vm.stage == 2"}
         .popup_form.popup_v1{"style" => "padding: 20px 60px; border-radius: 10px;"}
           .form_caption_holder

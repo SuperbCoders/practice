@@ -71,7 +71,6 @@ class DialogController
     )
 
   create_visit: ->
-    console.log 'public_visit'
     vm = @
     event = vm.events[0]
 
@@ -127,14 +126,14 @@ class DialogController
 
   next_stage: ->
     vm = @
-    vm.stage = 2
-
-    vm.popup_calendar = $('#popup_calendar').fullCalendar(vm.calendar_params)
-    setTimeout(->
-      vm.popup_calendar.fullCalendar('render')
-    , 1)
-
-
+    # console.log 'dialog scope'
+    # console.log vm.scope.appointmentsFirstStepForm
+    if vm.scope.appointmentsFirstStepForm.$valid
+      vm.stage = 2
+      vm.popup_calendar = $('#popup_calendar').fullCalendar(vm.calendar_params)
+      setTimeout(->
+        vm.popup_calendar.fullCalendar('render')
+      , 1)
     return
 
   delete_last_visit: ->
