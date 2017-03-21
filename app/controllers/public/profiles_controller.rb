@@ -78,6 +78,7 @@ class Public::ProfilesController < ApplicationController
       @patient = @doctor.patients.new(email: Patient.temporary_email, password: Patient.temporary_password)
     end
     @patient.full_name = patient_params.fetch(:name, @patient.email)
+    @patient.cart_color = 0
     if @patient.save
       if patient_params[:phone]
         @patient.contacts.phone.find_or_create_by(data: patient_params[:phone])
