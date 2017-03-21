@@ -1,5 +1,5 @@
 .popup_form {
-  &.popup_v3 {
+  &.popup_v3, &.popup_v1 {
     .input_w {
       &.placeholder_mod {
         input:not(.ng-empty) + .form_label {
