@@ -63,26 +63,19 @@ class Public::ProfilesController < ApplicationController
   end
 
   def access_filter
-    # Rails.logger.debug "access filter"
-    # Rails.logger.debug @doctor
-    # Rails.logger.debug @doctor.profile_open?
-    # Rails.logger.debug current_doctor
-    # Rails.logger.debug current_doctor == @doctor
-    if @doctor && (@doctor.profile_open? || current_doctor == @doctor)
-      # ok
-    else
+    unless @doctor && (@doctor.profile_open? || current_doctor == @doctor)
       redirect_to root_path
     end
   end
 
   def find_patient
     if patient_params[:email]
-      @patient = Patient.find_by(email: patient_params[:email])
+      @patient = @doctor.patients.find_by(email: patient_params[:email])
       if not @patient
-        @patient = Patient.new(email: patient_params[:email], password: Patient.temporary_password)
+        @patient = @doctor.patients.new(email: patient_params[:email], password: Patient.temporary_password)
       end
     else
-      @patient = Patient.new(email: Patient.temporary_email, password: Patient.temporary_password)
+      @patient = @doctor.patients.new(email: Patient.temporary_email, password: Patient.temporary_password)
     end
     @patient.full_name = patient_params.fetch(:name, @patient.email)
     if @patient.save
