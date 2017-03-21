@@ -18,7 +18,8 @@ Rails.application.routes.draw do
   get 'requisites' => 'static_pages#requisites'
 
   post 'doctors/new_visit' => 'public/profiles#create_visit'
-  delete 'doctors/remove_visit' => 'public/profiles#remove_visit'
+  # delete 'doctors/remove_visit' => 'public/profiles#remove_visit'
+  delete 'doctors/:username/remove_visit' => 'public/profiles#remove_visit'
 
   scope 'doctors/:username' do
     get '/' => 'public/profiles#public'

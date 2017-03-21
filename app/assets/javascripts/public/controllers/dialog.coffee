@@ -138,7 +138,7 @@ class DialogController
 
   delete_last_visit: ->
     vm = @
-    vm.Doctor.remove_visit({id: vm.visit.id})
+    vm.Doctor.remove_visit({username: vm.username, id: vm.visit.id})
     vm.ngDialog.closeAll()
 
   newPatientPhoneInputBlur: ($event) ->
