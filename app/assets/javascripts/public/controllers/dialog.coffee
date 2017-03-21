@@ -2,7 +2,7 @@ class DialogController
   constructor: (@rootScope, @scope, @ngDialog) ->
     vm = @
     vm.stage = 1
-    vm.patient = {}    
+    vm.patient = {}
     vm.events ||= []
     vm.ngDialog = @ngDialog
     vm.Doctor = @rootScope.Doctor
@@ -84,7 +84,7 @@ class DialogController
       if visit.errors.length <= 0
         vm.visit = visit
         vm.stage = 3
-        # PrivatePub.publish_to '/notifications', message: 
+        # PrivatePub.publish_to '/notifications', message:
       else
         for a in visit.errors
           alert(a)
@@ -140,5 +140,11 @@ class DialogController
     vm = @
     vm.Doctor.remove_visit({id: vm.visit.id})
     vm.ngDialog.closeAll()
+
+  newPatientPhoneInputBlur: ($event) ->
+    vm = @
+    # console.log 'blur'
+    # console.log vm.patient.phone
+    vm.scope.new_patient_phone_input = $($event.target).val()
 
 @application.controller 'DialogController', ['$rootScope','$scope', 'ngDialog', DialogController]

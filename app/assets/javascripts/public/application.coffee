@@ -3,6 +3,7 @@
     'ui.router',
     'ngMask',
     'ui-notification',
+    'ui.mask',
     'ngResource',
     'ngDialog',
     'angularMoment'])

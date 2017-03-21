@@ -25,15 +25,19 @@
           .form_content
             .form_row
               .input_w.placeholder_mod
-                %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "text", 'ng-model' => "vm.patient.name", :required => true}/
+                -# %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "text", 'ng-model' => "vm.patient.name", :required => true}/
+                %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "text", :value => "", 'ng-model' => "vm.patient.full_name", 'ng-required' => "true", 'ng-class' => "{ 'ng-empty' : !vm.patient.full_name }", 'ng-trim' => 'false'}/
                 %label.form_label.fz_20 Введите имя и фамилию
             .form_row
               .input_w.placeholder_mod
-                %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "tel", 'ng-model' => "vm.patient.phone"}/
+                -# %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "tel", 'ng-model' => "vm.patient.phone"}/
+                -# {{new_patient_phone_input}}
+                %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "tel", :value => "", 'ng-model' => "vm.patient.phone", 'ng-class' => "{ 'ng-empty' : !new_patient_phone_input }", 'ng-blur' => 'vm.newPatientPhoneInputBlur($event)', 'ng-trim' => 'false', 'ui-mask' => "+9 (999) 999-99-99", 'ui-options' => "{clearOnBlur: false, addDefaultPlaceholder: false, allowInvalidValue: true}", pattern: '\+\d \(\d{3}\) \d{3}-\d{2}-\d{2}'}/
                 %label.form_label Телефон
             .form_row
               .input_w.placeholder_mod
-                %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', "ng-model" => "vm.patient.email"}/
+                -# %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', "ng-model" => "vm.patient.email"}/
+                %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "email", :value => "", 'ng-model' => "vm.patient.email", 'ng-class' => "{ 'ng-empty' : !vm.patient.email }", 'ng-trim' => 'false', 'ng-model-options' => "{allowInvalid: true}"}/
                 %label.form_label Email (если есть, чтобы получить мед. карту)
           .form_footer
             -# %a.btn_v4.appointment_btn.appointmentTimeBtn.yellow_black_btn{"ng-click" => "vm.next_stage()"} Выбрать время записи
