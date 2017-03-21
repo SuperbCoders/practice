@@ -84,7 +84,7 @@ class Public::ProfilesController < ApplicationController
     else
       @patient = Patient.new(email: Patient.temporary_email, password: Patient.temporary_password)
     end
-    @patient.full_name = patient_params.fetch(:name, Patient.temporary_email)
+    @patient.full_name = patient_params.fetch(:name, @patient.email)
     if @patient.save
       if patient_params[:phone]
         @patient.contacts.phone.find_or_create_by(data: patient_params[:phone])

@@ -26,7 +26,7 @@
             .form_row
               .input_w.placeholder_mod
                 -# %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "text", 'ng-model' => "vm.patient.name", :required => true}/
-                %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "text", :value => "", 'ng-model' => "vm.patient.full_name", 'ng-required' => "true", 'ng-class' => "{ 'ng-empty' : !vm.patient.full_name }", 'ng-trim' => 'false'}/
+                %input.form_input.input_v4.checkEmpty{:autocomplete => 'off', :type => "text", :value => "", 'ng-model' => "vm.patient.name", 'ng-required' => "true", 'ng-class' => "{ 'ng-empty' : !vm.patient.name }", 'ng-trim' => 'false'}/
                 %label.form_label.fz_20 Введите имя и фамилию
             .form_row
               .input_w.placeholder_mod
