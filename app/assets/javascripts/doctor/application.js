@@ -64,6 +64,16 @@ var Visits = [
     }
 ];
 
+function showHeader(){
+  console.log('hideHeader');
+  $('body').removeClass('hidden_header_mod');
+}
+
+function hideHeader(){
+  console.log('hideHeader');
+  $('body').addClass('hidden_header_mod');
+}
+
 app.config([
   '$httpProvider', '$stateProvider', '$urlRouterProvider', 'NotificationProvider', 'ngDialogProvider', 'envServiceProvider', 'cfpLoadingBarProvider', 'chosenProvider', function($httpProvider, $stateProvider, $urlRouterProvider, NotificationProvider, ngDialogProvider, envServiceProvider, cfpLoadingBarProvider, chosenProvider) {
     chosenProvider.setOption({
@@ -273,7 +283,9 @@ app.config([
         Patients: Patients,
         Visits: Visits,
         Doctor: Doctor
-	}
+	},
+        onEnter: hideHeader,
+        onExit: showHeader
       })
       .state('journal.create', {
 	url: '/:patient_id/add',
@@ -309,7 +321,9 @@ app.config([
         Visits: Visits,
         Doctor: Doctor,
         $title: function () { return 'Новая запись в карту' }
-	}
+	},
+        onEnter: hideHeader,
+        onExit: showHeader
       })
       .state('schedule', {
 	url: '/schedule',

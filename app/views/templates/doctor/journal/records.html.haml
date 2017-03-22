@@ -1,6 +1,8 @@
 .main_content
   .section_inner
     .new_appointment_w
+      .logo_block
+        = link_to "", doctor_cabinet_index_path, class: :logo
       %a.appointment_back_btn{:href => "#", :ui_sref => "journal.records({patient_id: vm.patient_id})"}
       .new_appointment_block{"ng-repeat" => "record in vm.journal.journal_records"}
         .input_w
