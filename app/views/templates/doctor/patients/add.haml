@@ -3,40 +3,53 @@
     -# %input{type: :email, :placeholder => "Email", style: "position: absolute; top: -100px;", value: "Safari Autofill Me"}
     .profile_tab_header_inner
       %a.go_back_btn{:href => "", "ui-sref" => "patients.list"}
-      %h2.caption_v1.text_center Новая карточка пациента
     .profile_tab_holder
-      .patient_info_block
+      %h2.caption_v1 Новая карточка пациента
+      -# .patient_info_block
 
         / Header
         .form_row
-          .patient_photo_block
-            .patient_status_w.chosen_v2.no_search.skipOpen
-              %select.chosen-select{"ng-model" => "patient.cart_color", 'ng-change' => 'update_cart_color()'}
-                %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
-                %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
-                %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
-                %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
+          -# .patient_photo_block
+      .tab_inner.form_row_v1._no_bdr
+        .form_row
+          .fl
             .patient_add_avatar{'ng-model' => 'patient', 'rnd-bg' => true}
               %input#patient_photo.hidden_input{:type => "file", 'ng-model' => "patient.avatar"}(base-sixty-four-input)
                 %img{'ng-src' => "data:{{patient.avatar.filetype}};base64,{{patient.avatar.base64}}", 'ng-if' => 'patient.avatar.filetype'}
                 %img{'ng-src' => "{{patient.avatar}}", 'ng-show' => '!patient.avatar.filetype'}
                 %span.patient_avatar_letter{'ng-show' => '!patient.avatar'} {{patient.initials}}
                 %label.change_photo_btn.btn_v1{:for => "patient_photo"}
-
+        .form_row
+          .label_holder
+            %label.form_label Категория клиентов
+          .input_w.size_45.max_w_300
+            .patient_status_w.chosen_v2.no_search.skipOpen.rel_mode
+              %select.chosen-select{"ng-model" => "patient.cart_color", 'ng-change' => 'update_cart_color()'}
+                %option.state_pin.status_blue{"data-title" => "status_blue", :selected => "selected", :value => "0"} 1
+                %option.state_pin.status_green{"data-title" => "status_green", :value => "1"} 2
+                %option.state_pin.status_red{"data-title" => "status_red", :value => "2"} 3
+                %option.state_pin.status_orange{"data-title" => "status_orange", :value => "3"} 4
         / Фио
         .form_row
-          %label.input_w
-            %input.form_input.input_v3{:autocomplete => 'off', :placeholder => "ФИО", 'ng-model' => "patient.full_name", required: 'required'}
+          .label_holder
+            %label.form_label{:for => "patient_fio"} ФИО
+          .input_w.size_59
+            %input#patient_fio.form_input.input_v3{:autocomplete => 'off', :placeholder => "ФИО", 'ng-model' => "patient.full_name", required: 'required'}
 
         / Комментарий
         .form_row
-          %label.input_w
-            %textarea.form_input.input_v3{"ng-model" => "patient.comment", :placeholder => "Краткое описание клиента (этот текст будет видеть только врач)"}
+          .label_holder
+            %label.form_label{:for => "patient_description"}
+              %span.mb Краткое описание клиента (этот текст будет видеть только врач)
+          .input_w.size_59
+            %textarea#patient_description.form_input.input_v3{"ng-model" => "patient.comment", :placeholder => "Краткое описание клиента (этот текст будет видеть только врач)"}
 
         / Номера телефонов
         .form_row.mob_add_mod
-          %label.input_w{'ng-repeat' => "phone in patient.phones track by $index"}
-            %input.form_input.input_v3{:autocomplete => 'off', :type => "tel", :value => "", 'ng-model' => "phone.data", 'ng-class' => "{ 'ng-empty' : false }", 'ng-blur' => '', 'ng-trim' => 'false', 'ui-mask' => "+9 (999) 999-99-99", 'ui-options' => "{clearOnBlur: false, addDefaultPlaceholder: false, allowInvalidValue: true}", 'format-phone' => true, pattern: '\+\d \(\d{3}\) \d{3}-\d{2}-\d{2}', 'ubt-mask-placeholder' => "Телефон клиента"}
+          .label_holder{'ng-repeat-start' => "phone in patient.phones track by $index"}
+            %label.form_label{:for => "patient_phone_{{$index}}"} Телефон клиента
+          .input_w.size_59{'ng-repeat-end' => true}
+            %input.form_input.input_v3{'ng-attr-id' => "patient_phone_{{$index}}", :autocomplete => 'off', :type => "tel", :value => "", 'ng-model' => "phone.data", 'ng-class' => "{ 'ng-empty' : false }", 'ng-blur' => '', 'ng-trim' => 'false', 'ui-mask' => "+9 (999) 999-99-99", 'ui-options' => "{clearOnBlur: false, addDefaultPlaceholder: false, allowInvalidValue: true}", 'format-phone' => true, pattern: '\+\d \(\d{3}\) \d{3}-\d{2}-\d{2}', 'ubt-mask-placeholder' => "Телефон клиента"}
               .add_btn_holder{"ng-if" => "$last"}
                 %a.add_row_btn.yellow_black_btn.cloneRowBtn{:href => "", "ng-click" => "add_phone()"}
               .add_btn_holder{"ng-if" => "!$last"}
@@ -44,9 +57,11 @@
 
         / Email
         .form_row
-          %label.input_w
+          .label_holder
+            %label.form_label{:for => "patient_email"} Email
+          .input_w.size_59
             -# %input.form_input.input_v3{:autocomplete => 'off', type: :email, :placeholder => "Email", 'ng-model' => "patient.email"}
-            %input.form_input.input_v3{:autocomplete => 'off', :placeholder => "Email", 'ng-model' => "patient.email"}
+            %input#patient_email.form_input.input_v3{:autocomplete => 'off', :placeholder => "Email", 'ng-model' => "patient.email"}
 
       / Портрет пациента
       .tab_inner.form_row_v1
