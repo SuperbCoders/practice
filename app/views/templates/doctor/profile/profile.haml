@@ -64,16 +64,16 @@
           %img.doctor_img{'ng-src' => "{{doctor.avatar}}", 'ng-show' => "!doctor.avatar.filetype"}/
           %label.change_photo_btn.btn_v1{:for => "doctor_photo"}
 
-    / Social links
-    .form_row
-      .label_holder
-        %label.form_label Социальные сети
-      .input_w.size_59.mob_size_85
-        %a{href: "{{doctor.vk_id}}", target: :_blank, "ng-if" => "doctor.vk_id != ''"} Вконтакте
-        %br
-        %a{href: "{{vk.doctor.fb_id}}", target: :_blank, "ng-if" => "doctor.fb_id != ''"} Facebook
-      .clearfix
-      %div
-        %button{"ng-click" => "addSocial('#{doctor_omniauth_authorize_url(:vkontakte)}')", "ng-if" => "doctor.vk_id == ''"} Добавить аккаунт ВК
-        %br
-        %button{"ng-click" => "addSocial('#{doctor_omniauth_authorize_url(:facebook)}')", "ng-if" => "doctor.fb_id == ''"} Добавить аккаунт Facebook
+    -# / Social links
+    -# .form_row
+    -#   .label_holder
+    -#     %label.form_label Социальные сети
+    -#   .input_w.size_59.mob_size_85
+    -#     %a{href: "{{doctor.vk_id}}", target: :_blank, "ng-if" => "doctor.vk_id != ''"} Вконтакте
+    -#     %br
+    -#     %a{href: "{{vk.doctor.fb_id}}", target: :_blank, "ng-if" => "doctor.fb_id != ''"} Facebook
+    -#   .clearfix
+    -#   %div
+    -#     %button{"ng-click" => "addSocial('#{doctor_omniauth_authorize_url(:vkontakte)}')", "ng-if" => "doctor.vk_id == ''"} Добавить аккаунт ВК
+    -#     %br
+    -#     %button{"ng-click" => "addSocial('#{doctor_omniauth_authorize_url(:facebook)}')", "ng-if" => "doctor.fb_id == ''"} Добавить аккаунт Facebook
