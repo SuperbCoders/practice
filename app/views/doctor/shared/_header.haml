@@ -10,6 +10,9 @@
         %li.main_m_item{'ui-sref-active' => 'active'}
           %a.gl_link{:href => "", 'ui-sref' => "patients.list"}
             %span Пациенты
+        %li.main_m_item{'ng-class' => "{active: $state.includes('doctor.profile') || $state.includes('doctor.settings') || $state.includes('doctor.public') || $state.includes('doctor.subscription')}"}
+          %a.gl_link{:href => "", 'ui-sref' => "doctor.profile"}
+            %span Настройки
     .fr
       .mb.mob_hidden
         #notifications.user_m_item{'ng-controller' => "NotificationsController"}
