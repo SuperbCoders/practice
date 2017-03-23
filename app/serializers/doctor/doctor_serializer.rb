@@ -9,10 +9,11 @@ class Doctor::DoctorSerializer < Doctor::BaseSerializer
     @schedule = {}
     @result = []
     object.work_schedules.map { |work_schedule|
-      @schedule[work_schedule.start_at] ||= {days: []}
-      @schedule[work_schedule.start_at][:days] << work_schedule.day.to_s
-      @schedule[work_schedule.start_at][:finish_at] = work_schedule.finish_at
-      @schedule[work_schedule.start_at][:start_at] = work_schedule.start_at
+      index = "#{work_schedule.start_at} #{work_schedule.finish_at}"
+      @schedule[index] ||= {days: []}
+      @schedule[index][:days] << work_schedule.day.to_s
+      @schedule[index][:finish_at] = work_schedule.finish_at
+      @schedule[index][:start_at] = work_schedule.start_at
     }
 
     @schedule.each_with_index do |sc, index|
