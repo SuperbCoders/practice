@@ -12,7 +12,7 @@
     = csrf_meta_tags
 
   %body.overlay_v1{'ng-app' => "practice.public"}
-    %div(ui-view)
+    %div.fix_full_height(ui-view)
 
     %script{'type'=>"text/ng-template", 'id'=>"appointments_form"}
       .stage_1{'ng-show' => "vm.stage == 1"}
