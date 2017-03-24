@@ -51,6 +51,11 @@ var Doctor = [
       {
         method: 'GET',
         isArray: false
+      },
+      {
+	method: 'POST',
+	name: 'update_password',
+	isArray: false
       }
     ]);
   }

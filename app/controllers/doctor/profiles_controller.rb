@@ -3,7 +3,7 @@ class Doctor::ProfilesController < Doctor::BaseController
 
   before_action :find_resources, only: %w(index)
   before_action :new_resource, only: %w(create new)
-  before_action :find_resource, only: %w(show update destroy edit)
+  before_action :find_resource, only: %w(show update update_password destroy edit)
 
   def update
     if @resource.update_attributes(resource_params)
@@ -57,14 +57,6 @@ class Doctor::ProfilesController < Doctor::BaseController
         end
       end
 
-      # Password
-      if doctor_password_params[:password]
-        @resource.password = doctor_password_params[:password]
-        if @resource.save
-          sign_in(@resource, bypass: true)
-        end
-      end
-
       # Schedule settings
       schedule_settings_params.map { |work_schedule|
         if work_schedule[:days]
@@ -98,6 +90,16 @@ class Doctor::ProfilesController < Doctor::BaseController
 
     if @resource.valid?
       @resource.add_message t('doctor.messages.profile_succefully_updated')
+    end
+    send_json serialize_resource(@resource, resource_serializer), @resource.valid?
+  end
+
+  def update_password
+    if doctor_password_params[:password]
+      @resource.password = doctor_password_params[:password]
+      if @resource.save
+        sign_in(@resource, bypass: true)
+      end
     end
     send_json serialize_resource(@resource, resource_serializer), @resource.valid?
   end

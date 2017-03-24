@@ -125,9 +125,9 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
       id: $scope.doctor.id,
       password: $scope.doctor.password
     };
-    Doctor.save({doctor: params}).$promise.then(function(response) {
+    Doctor.update_password({doctor: params}).$promise.then(function(response) {
       if (response.errors.length <= 0) {
-        return $scope.hide_pass_form();
+        $scope.hide_pass_form();
       }
     });
   };

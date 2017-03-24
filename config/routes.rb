@@ -29,7 +29,9 @@ Rails.application.routes.draw do
 
   namespace :doctor do
     root 'cabinet#index'
-    resource :profile, only: [:show, :update]
+    resource :profile, only: [:show, :update] do
+      post 'update_password'
+    end
     resources :cabinet, only: [:index]
     resources :notifications, only: [:index] do
       collection do
