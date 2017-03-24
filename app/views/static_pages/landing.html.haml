@@ -71,8 +71,10 @@
             Можно добавлять комментарии, которые кроме вас никто не увидит. Можно помечать разных пациентов разными
             цветами для удобства.
           %p Прошлых пациентов можно перевести в архив. Удобный поиск по имени и телефону.
-        .tutorial_img
-          = image_tag("static/landing/screen_1.png")
+        .tutorial_img.no_retina
+          .tutorial_img_h= image_tag("static/landing/screen_1.jpg")
+        .tutorial_img.retina
+          .tutorial_img_h= image_tag("static/landing/screen_1@2x.jpg")
       .tutorial_block._right
         .tutorial_text
           %h3 Запись на прием
@@ -82,8 +84,10 @@
           %p
             Отображение записей на день, неделю, месяц. Запись легко передвинуть на другое время или отменить.
             Отдельно показаны записи через ваш сайт.
-        .tutorial_img
-          = image_tag("static/landing/screen_2.png")
+        .tutorial_img.no_retina
+          .tutorial_img_h= image_tag("static/landing/screen_2.jpg")
+        .tutorial_img.retina
+          .tutorial_img_h= image_tag("static/landing/screen_2@2x.jpg")
       .tutorial_block._left
         .tutorial_text
           %h3 История
@@ -94,8 +98,10 @@
           %p
             Распечатка бланка для пациента. В будущем: возможность дать доступ к истории пациента другому
             специалисту.
-        .tutorial_img._bg
-          = image_tag("static/landing/screen_3.png")
+        .tutorial_img._bg.no_retina
+          .tutorial_img_h= image_tag("static/landing/screen_3.jpg")
+        .tutorial_img._bg.retina
+          .tutorial_img_h= image_tag("static/landing/screen_3@2x.jpg")
       .tutorial_block._right
         .tutorial_text
           %h3 Мини-сайт
@@ -109,6 +115,10 @@
             Вы видите такую заявку на прием в своем календаре и можете либо подтвердить запись одним кликом, либо
             перенести на другое время.
         .tutorial_img
-          = image_tag("static/landing/screen_4.png")
+          .tutorial_img.no_retina
+            .tutorial_img_h= image_tag("static/landing/screen_4.png")
+          .tutorial_img.retina
+            .tutorial_img_h= image_tag("static/landing/screen_4@2x.png")
+
       = render partial: 'static_pages/price_section'
   = render partial: 'static_pages/footer'
