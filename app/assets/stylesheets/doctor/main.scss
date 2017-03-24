@@ -2828,7 +2828,7 @@ $patient_scale_time: 1s;
   position: relative;
   text-align: center;
   margin-bottom: 20px;
-
+  
   img {
     display: inline-block;
     vertical-align: top;
@@ -2839,6 +2839,7 @@ $patient_scale_time: 1s;
     min-height: 600px;
     width: 50%;
     margin-bottom: 0;
+    overflow: hidden;
 
     img {
       position: absolute;
