@@ -12,12 +12,12 @@
       -#     %a.btn_v3.white_btn_2.share_btn{:href => "#"}
       -#       %span.icon-fb.share_icon
       -#       %span Поделиться
+      %ul.footer_links
+        %li<
+          = link_to("Наши реквизиты", requisites_path, class: "clr_white")
+        %li<
+          = link_to("Оферта и Правила", "/rules.pdf", class: "clr_white")
       .copyright
         %p
           ИП, Осинцев 2017,
           %a.clr_white{:href => "mailto:hello@praktica.cc"} hello@praktica.cc
-        %ul.footer_links
-          %li<
-            = link_to("Наши реквизиты", requisites_path, class: "clr_white")
-          %li<
-            = link_to("Оферта и Правила", "/rules.pdf", class: "clr_white")

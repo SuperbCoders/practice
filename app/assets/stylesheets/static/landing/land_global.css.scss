@@ -738,7 +738,7 @@ a {
   bottom: auto;
 }
 .header._white {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.9);
 }
 .header .section_inner {
   padding: 0 30px;
@@ -1103,6 +1103,7 @@ a {
 
 .footer_links {
   color: #bec3cf;
+  font-size: 15px;
 }
 .footer_links > li {
   float: left;
@@ -1116,6 +1117,12 @@ a {
 }
 .footer_links > li:first-child:before {
   display: none;
+}
+@media only screen and (min-width: 720px) {
+  .footer_links {
+    float: right;
+    line-height: 1;
+  }
 }
 
 .clr_white {
