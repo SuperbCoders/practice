@@ -174,12 +174,12 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
   Settings.getSettings().then(function(response) {
     $scope.settings = response;
-    setTimeout(function() {
-      if (isNaN(parseInt($scope.settings.standart_shedule_interval)) || parseInt($scope.settings.standart_shedule_interval) === 0) {
-        $scope.settings.standart_shedule_interval = prompt("Введите интервал приема", "15");
-        Settings.saveSettings($scope.settings);
-      }
-    }, 0);
+    // setTimeout(function() {
+    //   if (isNaN(parseInt($scope.settings.standart_shedule_interval)) || parseInt($scope.settings.standart_shedule_interval) === 0) {
+    //     $scope.settings.standart_shedule_interval = prompt("Введите интервал приема", "15");
+    //     Settings.saveSettings($scope.settings);
+    //   }
+    // }, 0);
     if (response.calendar_view === 'week') {
       $scope.calendar_options.defaultView = 'agendaWeek';
     }

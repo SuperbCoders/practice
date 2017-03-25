@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317063658) do
+ActiveRecord::Schema.define(version: 20170325113605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -206,7 +206,7 @@ ActiveRecord::Schema.define(version: 20170317063658) do
     t.string   "calendar_view",             default: "day", null: false
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
-    t.string   "standart_shedule_interval"
+    t.string   "standart_shedule_interval", default: "30"
   end
 
   create_table "system_settings", force: :cascade do |t|
