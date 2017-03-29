@@ -23,10 +23,10 @@ staging:
 
 production:
   <<: *defaults
-  username: pract_dev
-  database: pract_dev
+  username: practica
+  database: practica
   host: 89.208.147.167
-  password: WigtotEughWyroj1
+  password: KeteinReivEcsAr7
 
 
 test: &test
