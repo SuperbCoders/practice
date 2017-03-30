@@ -9,7 +9,7 @@ old_pid    = pid_file + '.oldbin'
 worker_processes 1
 timeout 30
 preload_app true
-listen 8091, tcp_nopush: true # порт может быть другой
+listen 8085, tcp_nopush: true # порт может быть другой
 
 pid pid_file
 stderr_path err_log
