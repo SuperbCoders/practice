@@ -1,4 +1,4 @@
-deploy_to  = '/www/dev-pract.onomnenado.ru'
+deploy_to  = '/www/practica.cc'
 rails_root = "#{deploy_to}/current"
 pid_file   = "#{deploy_to}/shared/tmp/pids/unicorn.pid"
 log_file   = "#{rails_root}/log/unicorn.log"

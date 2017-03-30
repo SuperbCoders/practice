@@ -13,13 +13,13 @@ set :sidekiq_queue, %w(mailers)
 
 namespace :deploy do
 
-  before :starting, :bower do
-    on roles(:app), in: :sequence, wait: 5 do
-      within release_path do
-        # execute :rake, 'bower:install'
-      end
-    end
-  end
+  # before :starting, :bower do
+  #   on roles(:app), in: :sequence, wait: 5 do
+  #     within release_path do
+  #       execute :rake, 'bower:install'
+  #     end
+  #   end
+  # end
 
   desc "reload the database with seed data"
   task :seed do
@@ -64,7 +64,7 @@ namespace :bower do
   end
 end
 
-before 'deploy:compile_assets', 'bower:install'
+# before 'deploy:compile_assets', 'bower:install'
 
 # set :faye_pid, "#{deploy_to}/shared/pids/faye.pid"
 # set :faye_config, "#{deploy_to}/current/faye.ru"
