@@ -64,7 +64,7 @@ namespace :bower do
   end
 end
 
-# before 'deploy:compile_assets', 'bower:install'
+before 'deploy:compile_assets', 'bower:install'
 
 # set :faye_pid, "#{deploy_to}/shared/pids/faye.pid"
 # set :faye_config, "#{deploy_to}/current/faye.ru"
