@@ -88,7 +88,8 @@ app.config([
     envServiceProvider.config({
       domains: {
         development: ['localhost', 'dev.local'],
-        production: ['dev-pract.robo-t.ru']
+        staging: ['dev-pract.robo-t.ru'],
+        production: ['practica.cc']
       }
     });
     envServiceProvider.check();

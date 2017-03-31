@@ -6,7 +6,7 @@
 #
 # processname: faye
 # config: faye.ru
-# pidfile: /www/dev-pract.onomnenado.ru/tmp/faye.pid
+# pidfile: /www/practica.cc/tmp/faye.pid
 
 ### BEGIN INIT INFO
 # Provides: faye
@@ -22,12 +22,12 @@
 
 set -e
 
-AS_USER=w3dev-pract
+AS_USER=w3practica
 RAILS_ENV=production
-APP_ROOT=/www/dev-pract.onomnenado.ru/current
+APP_ROOT=/www/practica.cc/current
 FAYE_CONF="faye.ru"
-PID=/www/dev-pract.onomnenado.ru/tmp/faye.pid
-CMD="cd /www/dev-pract.onomnenado.ru/current; RAILS_ENV=$RAILS_ENV bundle exec rackup $FAYE_CONF -s thin -E $RAILS_ENV -D --pid $PID -p 9293"
+PID=/www/practica.cc/tmp/faye.pid
+CMD="cd /www/practica.cc/current; RAILS_ENV=$RAILS_ENV bundle exec rackup $FAYE_CONF -s thin -E $RAILS_ENV -D --pid $PID -p 9293"
 
 set -u
 
