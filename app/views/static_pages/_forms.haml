@@ -13,13 +13,13 @@
     .form_row
       %label.hidden_input{:autocomplete => "off", :for => "new_patient_email"} Email
       .input_w
-        %input#sign_in_email.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => "off", :name => "new_patient_email", :placeholder => "Email", :type => "email", "required" => true}/
+        %input#sign_in_email.form_input.input_v3.blue_mod.text_center.checkEmpty{:name => "new_patient_email", :placeholder => "Email", :type => "email", "required" => true}/
     .form_row
       %label.hidden_input{:for => "new_patient_describe"}
         Краткое описание (
         autocomplete="off" только для вас)
       .input_w
-        %input#sign_in_password.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => "off", :name => "new_patient_describe", :placeholder => "Пароль", :type => "password", "required" => true}/
+        %input#sign_in_password.form_input.input_v3.blue_mod.text_center.checkEmpty{:name => "new_patient_describe", :placeholder => "Пароль", :type => "password", "required" => true}/
     .form_row
       %button#sign_in_button.btn_v4.login_btn.disabled_btn_gray.disableEmpty Войти или зарегистрироваться
     .form_row.text_center
@@ -31,7 +31,7 @@
       .form_row
         %label.hidden_input{:autocomplete => "off", :for => "new_patient_email"} Email
         .input_w
-          %input#recovery_email.form_input.input_v3.blue_mod.text_center.checkEmpty{:autocomplete => "off", :name => "new_patient_email", :placeholder => "Email", :type => "email"}/
+          %input#recovery_email.form_input.input_v3.blue_mod.text_center.checkEmpty{:name => "new_patient_email", :placeholder => "Email", :type => "email"}/
       .form_row
         %button#recovery_button.btn_v4.login_btn.disabled_btn_gray.disableEmpty Восстановить
       .form_row.text_center
