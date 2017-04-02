@@ -311,9 +311,16 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   };
 
   function event_resize(event, delta, revertFunc) {
+    set_event(event);
     event.start_at = event.start;
     event.duration = (event.end - event.start) / 60 / 1000;
-    Visits.save({id: event.real_id, visit: {visit_data: {start_at: event.start_at, duration: event.duration}}});
+    Visits.save({id: event.real_id, visit: {visit_data: {start_at: event.start_at, duration: event.duration}}}).$promise.then(function() {
+      // Refetch because we need to update patient.last_visit value in
+      // this event and all other events of this patient in calendar
+      // view.
+      $scope.set_last_event = event;
+      $('#calendar').fullCalendar('refetchEvents');
+    });
   };
 
   function event_click(event, jsEvent, view) {
