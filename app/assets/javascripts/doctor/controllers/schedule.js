@@ -226,9 +226,13 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         // return $scope.visits = _.without($scope.visits, visit);
         $('#calendar').fullCalendar('refetchEvents');
         $scope.event = null;
+
+        // In week/month view we need to close floating window because
+        // it stops pointing out to event.
         if (!($($scope.calendar).fullCalendar('getView').name == 'agendaDay')) {
           $('#patient_info_form').dialog('close');
         }
+
       });
     }
   }
@@ -654,6 +658,12 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
     $('#calendar').fullCalendar('updateEvent', event);
     $('#change_reception_form').dialog('close');
+
+    // In week/month view we need to close floating window because
+    // it stops pointing out to event.
+    if (!($($scope.calendar).fullCalendar('getView').name == 'agendaDay')) {
+      $('#patient_info_form').dialog('close');
+    }
   }
 
   $scope.changeReceptionTimeClick = function(event, visit) {
