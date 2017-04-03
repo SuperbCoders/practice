@@ -28,6 +28,7 @@ class Doctor < ActiveRecord::Base
   after_create :create_identity
   after_create :send_notifications
   after_create :populate_default_dicts
+  after_create :populate_default_work_schedules
 
   validates_uniqueness_of :username, allow_blank: true, case_sensitive: false
 
@@ -208,6 +209,12 @@ class Doctor < ActiveRecord::Base
         dictable_id: self.id,
         dictable_type: 'Doctor'
       )
+    end
+  end
+
+  def populate_default_work_schedules
+    (1..5).each do |d|
+      work_schedules.create day: d, start_at: '09:00', finish_at: '18:00'
     end
   end
 

@@ -15,9 +15,10 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
 
   $scope.new_schedule = function() {
     $scope.doctor.work_schedules.push({
+      // days: ['1','2','3','4','5'],
       days: [],
-      start_at: '08:00',
-      finish_at: '20:00'
+      start_at: '09:00',
+      finish_at: '18:00'
     });
     $("#doctor_work_days").chosen();
   };
