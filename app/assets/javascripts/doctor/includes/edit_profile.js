@@ -83,22 +83,22 @@ $(function ($) {
     // wtf i this
 
     //
-    console.log(".socPrefix doesn't work reliably?");
+    // console.log(".socPrefix doesn't work reliably?");
 
-    for (var i in inputEvents) $('.socPrefix').on(inputEvents[i], function (e) {
+    // for (var i in inputEvents) $('.socPrefix').on(inputEvents[i], function (e) {
 
-        //console.log(e.shiftKey, e.metaKey, e.altKey, e.ctrlKey, e);
+    //     //console.log(e.shiftKey, e.metaKey, e.altKey, e.ctrlKey, e);
 
-        if (!(e.shiftKey || e.altKey || e.ctrlKey)) {
-            var inp = $(this), inp_val = inp.val(), inp_prefix = inp.attr('data-prefix');
-            var expr = new RegExp('^' + inp_prefix, 'ig');
+    //     if (!(e.shiftKey || e.altKey || e.ctrlKey)) {
+    //         var inp = $(this), inp_val = inp.val(), inp_prefix = inp.attr('data-prefix');
+    //         var expr = new RegExp('^' + inp_prefix, 'ig');
 
-            inp_val = inp_val.replace(expr, '');
-            inp_val = inp_val.replace(/ /g, '');
+    //         inp_val = inp_val.replace(expr, '');
+    //         inp_val = inp_val.replace(/ /g, '');
 
-            inp.val(inp_prefix + inp_val);
-        }
-    });
+    //         inp.val(inp_prefix + inp_val);
+    //     }
+    // });
 
     init_chosen();
 
