@@ -26,10 +26,13 @@
         %li
           %ul.doctor_soc
             %li
-              %a.doc_soc_link.soc_i_vk{:href => "https://{{vm.doctor.vk_id}}", 'ng-show' => "vm.doctor.vk_id"}
+              -# %a.doc_soc_link.soc_i_vk{:href => "https://{{vm.doctor.vk_id}}", 'ng-show' => "vm.doctor.vk_id"}
+              %a.doc_soc_link.soc_i_vk{:href => "{{vm.doctor.vk_id}}", 'ng-show' => "vm.doctor.vk_id"}
             %li
-              %a.doc_soc_link.soc_i_fb{:href => "https://{{vm.doctor.fb_id}}", 'ng-show' => "vm.doctor.fb_id"}
+              -# %a.doc_soc_link.soc_i_fb{:href => "https://{{vm.doctor.fb_id}}", 'ng-show' => "vm.doctor.fb_id"}
+              %a.doc_soc_link.soc_i_fb{:href => "{{vm.doctor.fb_id}}", 'ng-show' => "vm.doctor.fb_id"}
             %li
-              %a.doc_soc_link.soc_i_tw{:href => "https://{{vm.doctor.twitter_id}}", 'ng-show' => 'vm.doctor.twitter_id'}
+              -# %a.doc_soc_link.soc_i_tw{:href => "https://{{vm.doctor.twitter_id}}", 'ng-show' => 'vm.doctor.twitter_id'}
+              %a.doc_soc_link.soc_i_tw{:href => "{{vm.doctor.twitter_id}}", 'ng-show' => 'vm.doctor.twitter_id'}
   .doctor_aside_photo
     %img{'ng-src' => "{{doctor.public_avatar}}"}
