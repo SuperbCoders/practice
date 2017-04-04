@@ -148,6 +148,12 @@ function PatientsController($scope, $window, $state, Patients, ngDialog, Visits,
       })
   };
 
+  function find_patient_by_last_visit(visit) {
+    return _.find($scope.patients, function(p){
+      return p.last_visit == visit;
+    });
+  }
+
   $scope.change_reception_time_apply = function(){
     if (!ChangeTime.change_reception_time_valid()) {
       return;
@@ -157,7 +163,21 @@ function PatientsController($scope, $window, $state, Patients, ngDialog, Visits,
     visit.duration = ChangeTime.get_change_reception_time_duration();
     Visits.save({id: visit.id, visit: {visit_data: {start_at: visit.start_at, duration: visit.duration}}});
     $('#change_reception_form').dialog('close');
-    $scope.fetch();
+    // console.log('apply');
+    // console.log(visit);
+    var patient = find_patient_by_last_visit(visit);
+    if (patient) {
+      // console.log('found');
+      // console.log(patient);
+      Patients.get(patient).$promise.then(function(response) {
+        // console.log('fetched');
+        // console.log(response);
+        var index = _.findIndex($scope.patients, patient);
+        // console.log(index);
+        $scope.patients[index] = response;
+      });
+    }
+    // $scope.fetch();
   }
 
   $scope.changeReceptionTimeClick = function(event, visit) {
