@@ -7,7 +7,6 @@ function Notifications2Controller($scope, Alerts, Faye, Visits, Doctor1, Resourc
 
   $scope.confirm_visit = function(visit) {
     Visits.save({id: visit.id, visit: {visit_data: {created_by: 'doctor'}}}).$promise.then(function(response) {
-      console.log('visit created by doctor');
       visit.created_by = 'doctor';
     });
   }
