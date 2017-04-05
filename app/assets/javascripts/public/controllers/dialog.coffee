@@ -51,6 +51,7 @@ class DialogController
       defaultEventMinutes: 60
       dayClick: @day_click
       events: @visits_by_date
+      eventDrop: @event_drop
 
   visits_by_date: (start, end, timezone, callback) ->
     vm = @options.vm
@@ -140,6 +141,9 @@ class DialogController
     vm = @
     vm.Doctor.remove_visit({username: vm.username, id: vm.visit.id})
     vm.ngDialog.closeAll()
+
+  event_drop: (event, delta, revertFunc, jsEvent, ui, view) ->
+    $(".appointmentTimeBtn").text("Записаться на #{formatDateAppointment(event.start)}")
 
   newPatientPhoneInputBlur: ($event) ->
     vm = @

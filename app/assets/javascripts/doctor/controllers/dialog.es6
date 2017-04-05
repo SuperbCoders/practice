@@ -55,7 +55,8 @@ function DialogController($scope, $timeout) {
         timeFormat: 'H:mm',
         defaultEventMinutes: 60,
         dayClick: vm.dayClick,
-        events: vm.visitsByDate
+        events: vm.visitsByDate,
+        eventDrop: eventDrop
     };
 
     function getDoctor() {
@@ -139,6 +140,10 @@ function DialogController($scope, $timeout) {
             };
             $(".appointmentTimeBtn").text("Записать на " + formatDateAppointment(event.start));
         }
+    }
+
+    function eventDrop(event, delta, revertFunc, jsEvent, ui, view) {
+        $(".appointmentTimeBtn").text("Записать на " + formatDateAppointment(event.start));
     }
 
     function initCalendar() {
