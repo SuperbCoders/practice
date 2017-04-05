@@ -82,6 +82,7 @@ function DoctorProfileController($rootScope, $scope, Alerts, state, stateParams,
             Alerts.show_success(response.messages[i]);
           }
         }
+        $rootScope.$broadcast('updated_doctor_profile');
       });
       Settings.saveSettings({
         setting: $scope.settings

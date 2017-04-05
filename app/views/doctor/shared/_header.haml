@@ -1,4 +1,4 @@
-.header
+.header{'ng-controller' => 'HeaderController'}
   .section_inner.clearfix
     .fl.mob_hidden
       = link_to "", doctor_cabinet_index_path, class: :logo
@@ -33,21 +33,16 @@
       .mb
         .user_m_item.wnw.user_menu_w.userMenu
           .menu_avatar
-            -# = image_tag(current_doctor.avatar ? "/upload/#{current_doctor.avatar}" : image_path("default_logo.png"))
-            - if current_doctor.avatar
-              = image_tag "/upload/#{current_doctor.avatar}"
-            - else
-              .avatar
-                %span= current_doctor.initials
-
+            %img{'ng-src' => "{{doctor.avatar}}", "ng-if" => "doctor.avatar != undefined"}/
+            .avatar{"ng-if" => "doctor.avatar == undefined"} {{doctor.initials}}
           .menu_user_name.mob_hidden
-            #{current_doctor.name}
+            {{doctor.name}}
           .user_m_down_w
             %ul.user_drop_down_menu
               %li.user_drop_down_item
                 %a.gl_link{:href => "", 'ui-sref' => "doctor.profile"} Настройки
               %li.user_drop_down_item
-                %a.gl_link.blue_link{:href => "/doctors/#{current_doctor.username}", target: '_blank'} Мой сайт
+                %a.gl_link.blue_link{:href => "/doctors/{{doctor.username}}", target: '_blank'} Мой сайт
               %li.user_drop_down_item
                 %a.gl_link.openRecovery{:href => "#"} Техподдержка
               %li.user_drop_down_item
