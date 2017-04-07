@@ -118,3 +118,10 @@ ul.appointment_menu_list li a {
 .fix_full_height {
   height: 100%;
 }
+.hidden_input_image_upload {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+}

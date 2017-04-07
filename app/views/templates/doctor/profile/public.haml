@@ -1,21 +1,16 @@
 #tab_3
-  -# %form.tab_inner.form_row_v1{:name => 'editProfileForm'}
   .tab_inner.form_row_v1
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_public_photo"} Фото на сайт
       .input_w.size_59
-        -# {{doctor.public_avatar}}
-        %input#doctor_public_photo.hidden_input{:type => "file", 'ng-model' => "doctor.public_avatar", 'ng-required' => "!doctor.public_avatar"}(base-sixty-four-input)/
         .doctor_public_photo
           %img.doctor_img{'ng-src' => "data:{{doctor.public_avatar.filetype}};base64,{{doctor.public_avatar.base64}}", 'ng-if' => 'doctor.public_avatar.filetype'}
           %img.doctor_img{'ng-src' => "{{doctor.public_avatar}}", 'ng-if' => "doctor.public_avatar && !doctor.public_avatar.filetype"}/
-          -# %img.doctor_img{'ng-src' => "/i/user_1.png", 'ng-show' => "!doctor.public_avatar"}/
           .change_photo_tip
             %p Постарайтесь найти фотографию с&nbsp;хорошим освещением
-            -# label.change_photo_btn.btn_v1(for='doctor_public_photo')
             %label.change_photo_btn.btn_v1{:for => "doctor_public_photo"}
-          -# %label.change_photo_btn.btn_v1{:for => "doctor_public_photo"}
+          %input#doctor_public_photo.hidden_input_image_upload{:type => "file", 'ng-model' => "doctor.public_avatar", 'ng-required' => "!doctor.public_avatar"}(base-sixty-four-input)/
     .form_row
       .label_holder
         %label.form_label{:for => "doctor_name"} Username
