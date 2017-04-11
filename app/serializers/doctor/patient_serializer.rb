@@ -55,7 +55,7 @@ class Doctor::PatientSerializer < Doctor::BaseSerializer
   end
 
   def last_visit
-    if visit = object.visits.actual.order('created_at ASC').first
+    if visit = object.visits.actual.order('start_at ASC').first
       ActiveModel::Serializer::Adapter::Attributes.new(Doctor::Visit1Serializer.new(visit)).as_json
     else
       nil
