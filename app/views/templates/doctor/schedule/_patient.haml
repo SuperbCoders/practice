@@ -18,7 +18,7 @@
             %a.gl_link{:href => "#", 'ng-click' => "update_created_by()", 'ng-hide' => "event.orig_event.created_by == 'doctor'"}
               %span Подтвердить прием
           %li.drop_down_item
-            %a.gl_link{:href => "", 'ng-click' => "deleteVisit(event)"}
+            %a.gl_link{:href => "", 'ng-click' => "deleteVisit(patient.last_visit)"}
               %span Отказать в  приёме
           %li.drop_down_item
             %a.gl_link{:href => "", 'ui-sref' => "journal.create({patient_id: event.patient.id})"}
@@ -60,7 +60,7 @@
           %a.btn_v2.patient_btn.white_white_btn{:href => "", "ng-click" => "changeReceptionTimeClick($event, patient.last_visit)"}
             %span.mb Изменить прием на {{getFullVisitString(patient.last_visit)}}
           %p
-            %a.gl_link{href: "#", "ng-click" => "deleteVisit(event)"} Отменить прием
+            %a.gl_link{href: "#", "ng-click" => "deleteVisit(patient.last_visit)"} Отменить прием
     .patient_card_controls.skipOpen.patient_warn{"ng-if" => "patient.last_visit != null && patient.last_visit.created_by != 'doctor' && !patient.last_visit.active"}
       .patient_info_table
         .controls_cell

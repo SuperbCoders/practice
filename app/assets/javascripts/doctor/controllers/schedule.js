@@ -230,19 +230,31 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     }
   }
 
-  $scope.deleteVisit = function(event){
+  $scope.deleteThisVisit = function(event){
     if (confirm('Отменить прием?')) {
       return Visits.remove({id: event.real_id}).$promise.then(function(response) {
         // return $scope.visits = _.without($scope.visits, visit);
         $('#calendar').fullCalendar('refetchEvents');
         $scope.event = null;
-
         // In week/month view we need to close floating window because
         // it stops pointing out to event.
         if (!($($scope.calendar).fullCalendar('getView').name == 'agendaDay')) {
           $('#patient_info_form').dialog('close');
         }
+      });
+    }
+  }
 
+  $scope.deleteVisit = function(event){
+    if (confirm('Отменить прием?')) {
+      return Visits.remove({id: event.id}).$promise.then(function(response) {
+        $('#calendar').fullCalendar('refetchEvents');
+        $scope.event = null;
+        // In week/month view we need to close floating window because
+        // it stops pointing out to event.
+        if (!($($scope.calendar).fullCalendar('getView').name == 'agendaDay')) {
+          $('#patient_info_form').dialog('close');
+        }
       });
     }
   }
