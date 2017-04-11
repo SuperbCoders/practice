@@ -143,6 +143,16 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     return event;
   }
 
+  // function find_event_by_real_id(real_id) {
+  //   var events  = $('#calendar').fullCalendar('clientEvents');
+  //   var event = undefined;
+  //   for (var i = 0; i < events.length; ++i) {
+  //     if (events[i].real_id == real_id)
+  //       event = events[i];
+  //   }
+  //   return event;
+  // }
+
   function event_by_event_id() {
     var last_id = $scope.event_id - 1;
     return find_event(last_id);
@@ -650,21 +660,20 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       return;
     }
     var visit = $scope.change_reception_visit;
+    // console.log('change time: apply');
+    // console.log(visit);
     visit.start_at = ChangeTime.get_change_reception_time_moment();
     visit.duration = ChangeTime.get_change_reception_time_duration();
+    Visits.save({id: visit.id, visit: {visit_data: {start_at: visit.start_at, duration: visit.duration}}});
 
-    var event, start_at, duration;
+    // var event = find_event_by_real_id(visit.id);
+    // event.start = moment(visit.start_at);
+    // event.end = moment(visit.start_at).add(parseInt(visit.duration), 'm');
 
-    event = find_event($scope.event.id);
-    start_at = moment(visit.start_at);
-    duration = visit.duration.toString();
-    Visits.save({id: event.real_id, visit: {visit_data: {start_at: visit.start_at, duration: visit.duration}}});
-
-    event.start = moment(visit.start_at);
-    event.end = moment(visit.start_at).add(parseInt(visit.duration), 'm');;
-
-    $('#calendar').fullCalendar('updateEvent', event);
+    // $('#calendar').fullCalendar('updateEvent', event);
     $('#change_reception_form').dialog('close');
+
+    $('#calendar').fullCalendar('refetchEvents');
 
     // In week/month view we need to close floating window because
     // it stops pointing out to event.
@@ -674,6 +683,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   $scope.changeReceptionTimeClick = function(event, visit) {
+    console.log('change time: run');
+    console.log(visit);
     $scope.change_reception_visit = visit;
     ChangeTime.changeReceptionTimeRun.call(event.currentTarget, $scope);
     return false;
