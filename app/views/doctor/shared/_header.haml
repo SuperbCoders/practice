@@ -7,7 +7,8 @@
         %li.main_m_item{'ui-sref-active' => 'active'}
           %a.gl_link{:href => "", 'ui-sref' => "schedule"}
             %span Расписание
-        %li.main_m_item{'ui-sref-active' => 'active'}
+        -# %li.main_m_item{'ui-sref-active' => 'active'}
+        %li.main_m_item{'ng-class' => "{active: $state.includes('patients.list') || $state.includes('patients.add') || $state.includes('patients.edit') || $state.includes('journal.records') || $state.includes('journal.edit') || $state.includes('journal.create')}"}
           %a.gl_link{:href => "", 'ui-sref' => "patients.list"}
             %span Пациенты
         %li.main_m_item{'ng-class' => "{active: $state.includes('doctor.profile') || $state.includes('doctor.settings') || $state.includes('doctor.public') || $state.includes('doctor.subscription')}"}
