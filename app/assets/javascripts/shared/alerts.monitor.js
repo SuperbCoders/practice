@@ -7,12 +7,12 @@ this.application.factory('AlertsMonitor', [
         Alerts = $injector.get('Alerts');
         if (response && response.data && response.data.errors && response.data.errors.length > 0) {
           Alerts.errors(response.data.errors);
+        } else {
+          Alerts.errors(['Произошла ошибка']);
         }
         return $q.reject(response);
       },
       response: function(response) {
-        // console.log('response');
-        // console.log(response);
         var Alerts;
         Alerts = $injector.get('Alerts');
         if (response && response.data && response.data.messages && response.data.messages.length > 0) {
