@@ -58,7 +58,7 @@
               / Patient info
               .patient_info
                 .patient_name
-                  %a.skipOpen.gl_link.gray_link.write2Card{:href => "", 'ui-sref' => "patients.edit({id: patient.id})"}
+                  %a.skipOpen.gl_link.gray_link.write2Card{:href => "", 'ui-sref' => "journal.records({patient_id: patient.id})"}
                     %span {{patient.full_name}}
                 %p {{patient.comment}}
               .patient_info_table
@@ -94,7 +94,7 @@
 
             / +patient_overview()
             .avatar_clone
-              %a.patient_avatar.skipOpen.write2Card{:href => "", 'ui-sref' => "patients.edit({id: patient.id})"}
+              %a.patient_avatar.skipOpen.write2Card{:href => "", 'ui-sref' => "journal.records({patient_id: patient.id})"}
                 .avatar{'ng-model' => 'patient', 'rnd-bg' => true}
                   %img{'ng-src' => "{{patient.avatar}}", "ng-if" => "patient.avatar != undefined"}/
                   %span{"ng-if" => "patient.avatar == undefined"} {{patient.initials}}
