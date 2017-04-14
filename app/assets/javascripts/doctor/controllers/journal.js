@@ -84,13 +84,25 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
       })
   }
 
+  function cleanEmptyRecords(records) {
+    return _.filter(records, function(e){
+      if (e.id) {
+        return true;
+      } else if (e.body == '') {
+        return false;
+      } else {
+        return true;
+      }
+    });
+  }
+
   function addRecord() {
     if($state.includes('journal.create')) {
       createJournal();
       return
     }
     vm.journal.patient_id = vm.patient_id;
-    vm.journal.journal_records_attributes = vm.journal.journal_records;
+    vm.journal.journal_records_attributes = cleanEmptyRecords(vm.journal.journal_records);
     Journals.save({id: vm.journal.id}, {journal: vm.journal});
     $state.go('journal.records', {patient_id: vm.patient_id})
   }
@@ -106,7 +118,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
 
   function createJournal() {
     vm.journal.patient_id = vm.patient_id;
-    vm.journal.journal_records_attributes = vm.journal.journal_records;
+    vm.journal.journal_records_attributes = cleanEmptyRecords(vm.journal.journal_records);
     Journals.create({journal: vm.journal})
       .$promise
       .then(function (journal) {

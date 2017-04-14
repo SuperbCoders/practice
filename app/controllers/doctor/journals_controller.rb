@@ -49,6 +49,8 @@ class Doctor::JournalsController < Doctor::BaseController
     send_data(file_data, filename: file_name)
   end
 
+  private
+
   def resource_scope
     doctor.journals.order(created_at: :desc)
   end
@@ -68,5 +70,4 @@ class Doctor::JournalsController < Doctor::BaseController
   def permitted_params
     [:patient_id, journal_records_attributes: [:id, :tag, :body]]
   end
-
 end
