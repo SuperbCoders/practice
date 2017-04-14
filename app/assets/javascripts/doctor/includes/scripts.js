@@ -150,7 +150,10 @@ $(function ($) {
         //notificationTimer = setTimeout(function () {
         //    notificationBtn.parent().removeClass('notification_open');
         //}, 1000);
+    });
 
+    $('.notificationBtn2').on('click', function() {
+        notificationBtn.parent().removeClass('notification_open');
     });
 
     notificationDropdown.on('mousemove', function () {
@@ -175,15 +178,13 @@ $(function ($) {
     });
 
     $('.userMenu').on('click', function (e) {
-      console.log('user menu click');
       html_var.toggleClass('user_menu_open');
         if (!($(e.target).hasClass('user_m_down_w') || $(e.target).closest('.user_m_down_w').length)) {
-          return false;
+          // return false;
         }
     });
 
     body_var.on('click', function (e) {
-      console.log('body click');
         if (!($(e.target).hasClass('notificationBtn') || $(e.target).hasClass('notificationDropdown') || $(e.target).closest('.notificationDropdown').length)) {
             notificationBtn.parent().removeClass('notification_open');
         }
@@ -194,7 +195,6 @@ $(function ($) {
     });
 
     body_var.delegate('.patient_card', 'click', function (e) {
-        console.log('skipOpen');
         var firedEl = $(e.target), patient_card = $(this);
 
         if (firedEl.hasClass('skipOpen') || !!firedEl.parents('.skipOpen').length) {
@@ -203,7 +203,6 @@ $(function ($) {
             // patient_card.toggleClass('open_card');
 
             if (patient_card.closest('.popup_form')) {
-                //console.log('repos');
             }
 
             // return false;

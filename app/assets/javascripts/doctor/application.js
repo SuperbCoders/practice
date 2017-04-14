@@ -69,14 +69,17 @@ var Visits = [
     }
 ];
 
-function showHeader(){
-  console.log('hideHeader');
+function showHeader() {
   $('body').removeClass('hidden_header_mod');
 }
 
-function hideHeader(){
-  console.log('hideHeader');
+function hideHeader() {
   $('body').addClass('hidden_header_mod');
+}
+
+function hideNotificationsMenu() {
+  // notificationBtn = $('.notificationBtn');
+  // notificationBtn.parent().removeClass('notification_open');
 }
 
 app.config([
@@ -130,7 +133,8 @@ app.config([
 	resolve: {
 	  Doctor: Doctor,
           Visits: Visits
-	}
+	},
+        onEnter: hideNotificationsMenu
       })
       .state('doctor', {
 	url: '/doctor',
