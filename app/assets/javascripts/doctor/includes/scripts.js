@@ -304,3 +304,12 @@ function run_chosen(element) {
     //     className: "form_o_b_item form_o_b_value_edit_mode"
     // });
 }
+
+function docScrollTo(pos, speed, callback) {
+
+    $('html,body').animate({'scrollTop': pos}, speed, function () {
+        if (typeof(callback) == 'function') {
+            callback();
+        }
+    });
+}

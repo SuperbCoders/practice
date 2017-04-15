@@ -1,4 +1,4 @@
-function JournalController($rootScope, $stateParams, $scope, $state, $window, Journals, Alerts, Dicts, Patients, Visits, ngDialog, Doctor, ChangeTime, jqueryDialogService) {
+function JournalController($rootScope, $stateParams, $scope, $state, $window, $timeout, Journals, Alerts, Dicts, Patients, Visits, ngDialog, Doctor, ChangeTime, jqueryDialogService) {
   var vm = this;
   vm.Journals = Journals;
   vm.Dicts = Dicts;
@@ -110,10 +110,30 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
   function addEmptyRecord(e) {
     var tag = '';
     if (e) tag = e.currentTarget.innerText;
+
+    // Use ngAnimation to scroll last record here.
+    $rootScope.addEmptyRecord = true;
+
     vm.journal.journal_records.push({
       tag: tag,
       body: ''
     });
+
+    // This works is unappropriate: without timeout this lost its top
+    // position based on user scrolled already or page is freshe reload.
+
+    // With timeout it sometimes visible/sometimes not visible as it
+    // is scrolls down first and then in same moment reset in right
+    // position.
+
+    // Will try ngAnimation now, tested it a little and not see bugs
+    // in it yet. Except it animate pre existing elements too not only
+    // new which I will handle with rootScope variable, see above.
+
+    // setTimeout(function(){
+    //   var newSubrecordBlock = $('.new_appointment_block')[$('.new_appointment_block').length - 1];
+    //   docScrollTo($(document).scrollTop() + $(newSubrecordBlock).height() + 76, 0);
+    // }, 0);
   }
 
   function createJournal() {
@@ -298,7 +318,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, Jo
   })
 }
 
-JournalController.$inject = ['$rootScope', '$stateParams','$scope', '$state', '$window', 'Journals', 'Alerts', 'Dicts', 'Patients', 'Visits', 'ngDialog', 'Doctor', 'ChangeTime', 'jqueryDialogService'];
+JournalController.$inject = ['$rootScope', '$stateParams','$scope', '$state', '$window', '$timeout', 'Journals', 'Alerts', 'Dicts', 'Patients', 'Visits', 'ngDialog', 'Doctor', 'ChangeTime', 'jqueryDialogService'];
 angular
   .module('practice.doctor')
   .controller('JournalController', JournalController);

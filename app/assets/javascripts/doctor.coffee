@@ -19,6 +19,7 @@
 #= require moment/locale/ru.js
 #= require angular-base64-upload
 #= require angular-mask
+#= require angular-animate
 #= require angular-devise
 #= require faye
 #= require angular-faye

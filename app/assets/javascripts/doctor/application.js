@@ -15,6 +15,7 @@ var app = angular
             'ui.mask',
             'Devise',
             'ngDialog',
+            'ngAnimate',
             'faye',
             'environment',
             'angular-loading-bar',
@@ -23,6 +24,18 @@ var app = angular
     );
 
 this.application = app;
+
+app.animation('.new_appointment_block_anim', ['$rootScope', function($rootScope) {
+  return {
+    enter: function(element, doneFn){
+      if ($rootScope.addEmptyRecord) {
+        $rootScope.addEmptyRecord = false;
+        var newSubrecordBlock = $('.new_appointment_block')[$('.new_appointment_block').length - 1];
+        docScrollTo($(document).scrollTop() + $(newSubrecordBlock).height() + 76, 0);
+      }
+    }
+  }
+}]);
 
 var Patients = [
   'Resources', function(Resources) {
