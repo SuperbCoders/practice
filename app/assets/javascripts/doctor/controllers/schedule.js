@@ -349,7 +349,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     $scope.$apply(function() {
       set_event(event);
     });
-    if (!(view == 'agendaDay')) {
+    if (!(view.name == 'agendaDay')) {
       show_event(event, jsEvent);
     }
   };
