@@ -592,11 +592,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   // }
 
   $scope.$on('notification', function(event, notification){
-    console.log('on notification');
-    console.log(notification);
     var events  = $('#calendar').fullCalendar('clientEvents');
     var patients = [];
-    console.log('events count ' + events.length);
     for (var i = 0; i < events.length; ++i) {
       // if (!_.find(patients, function(patient){
       //   return patient.id == events[i].patient.id;
@@ -604,20 +601,12 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         patients.push(events[i].patient);
       // }
     }
-    console.log('patients count ' + events.length);
     for (var i = 0; i < patients.length; ++i) {
       if (patients[i].last_visit) {
-        console.log(patients[i].last_visit.id);
-        console.log(notification.visit.id);
         if (patients[i].last_visit.id == notification.visit.id){
-          console.log('patient found');
-          // console.log('active ' + notification.visit.active);
-          console.log('notification ' + notification.notification_type);
           if (notification.notification_type == 'visit_soon') {
-            console.log(true);
             patients[i].last_visit.active = true;
           } else if (notification.notification_type == 'visit_end') {
-            console.log(false);
             patients[i].last_visit.active = false;
           }
         }
@@ -672,31 +661,22 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       return;
     }
     var visit = $scope.change_reception_visit;
-    // console.log('change time: apply');
-    // console.log(visit);
     visit.start_at = ChangeTime.get_change_reception_time_moment();
     visit.duration = ChangeTime.get_change_reception_time_duration();
-    Visits.save({id: visit.id, visit: {visit_data: {start_at: visit.start_at, duration: visit.duration}}});
+    Visits.save({id: visit.id, visit: {visit_data: {start_at: visit.start_at, duration: visit.duration}}}).$promise.then(function() {
+      $('#change_reception_form').dialog('close');
+      $scope.set_last_event = $scope.event;
+      $('#calendar').fullCalendar('refetchEvents');
 
-    // var event = find_event_by_real_id(visit.id);
-    // event.start = moment(visit.start_at);
-    // event.end = moment(visit.start_at).add(parseInt(visit.duration), 'm');
-
-    // $('#calendar').fullCalendar('updateEvent', event);
-    $('#change_reception_form').dialog('close');
-
-    $('#calendar').fullCalendar('refetchEvents');
-
-    // In week/month view we need to close floating window because
-    // it stops pointing out to event.
-    if (!($($scope.calendar).fullCalendar('getView').name == 'agendaDay')) {
-      $('#patient_info_form').dialog('close');
-    }
+      // In week/month view we need to close floating window because
+      // it stops pointing out to event.
+      if (!($($scope.calendar).fullCalendar('getView').name == 'agendaDay')) {
+        $('#patient_info_form').dialog('close');
+      }
+    });
   }
 
   $scope.changeReceptionTimeClick = function(event, visit) {
-    console.log('change time: run');
-    console.log(visit);
     $scope.change_reception_visit = visit;
     ChangeTime.changeReceptionTimeRun.call(event.currentTarget, $scope);
     return false;
