@@ -821,6 +821,15 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       })
   };
 
+  // $scope.buttonState = function() {
+  //   var event = $scope.event;
+  //   if (event && event.orig_event && event.orig_event.active) {
+  //     return 'ready';
+  //   } else if (event && event.orig_event && event.orig_event.created_by == 'doctor' && !event.orig_event.active) {
+  //     return 'confirm';
+  //   }
+  // };
+
 }
 
 angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Visit', 'Patients', 'Settings', 'ValueList', 'Doctor', 'ChangeTime', 'ngDialog', ScheduleController]);

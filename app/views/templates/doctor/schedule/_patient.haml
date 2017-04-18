@@ -49,28 +49,7 @@
       .other_info_cell
         %p{'ng-show' => "event.patient.phone"} {{event.patient.phone | phone}}
         %p{'ng-show' => "event.patient.email"} {{event.patient.email}}
-    .patient_card_controls.skipOpen.patient_ready{"ng-if" => "event.orig_event.active"}
-      .patient_info_table
-        .controls_cell
-          %a.btn_v2.patient_btn.green_btn{:href => ""}
-            %span.mb Начать прием
-    .patient_card_controls.skipOpen.patient_confirm{"ng-if" => "event.orig_event != null && event.orig_event.created_by == 'doctor' && !event.orig_event.active"}
-      .patient_info_table
-        .controls_cell
-          %a.btn_v2.patient_btn.white_white_btn{:href => "", "ng-click" => "changeReceptionTimeClick($event, event.orig_event)"}
-            %span.mb Изменить прием на {{getFullVisitString(event.orig_event)}}
-          %p
-            %a.gl_link{href: "#", "ng-click" => "deleteVisit(event.orig_event)"} Отменить прием
-    .patient_card_controls.skipOpen.patient_warn{"ng-if" => "event.orig_event != null && event.orig_event.created_by != 'doctor' && !event.orig_event.active"}
-      .patient_info_table
-        .controls_cell
-          %a.btn_v2.patient_btn.white_white_btn{:href => "", "ng-click" => "update_created_by()"}
-            %span.mb Подтвердить прием на {{getFullVisitString(event.orig_event)}}
-    .patient_card_controls.skipOpen{"ng-if" => "event.orig_event == null"}
-      .patient_info_table
-        .controls_cell
-          %a.btn_v2.patient_btn.black_yellow_btn{:href => "", "ng-click" => "openAppointmentsForm(patient)"}
-            %span.mb Записать на прием
+    = render partial: 'templates/doctor/schedule/buttons'
     .patient_overview
       %a.btn_v3.add_patient_line.white__btn{:href => "#", 'ng-click' => '$event.stopPropagation()', 'ui-sref' => "journal.create({patient_id: event.patient.id})"} Добавить запись в карту
       %ul.patient_overview_list
