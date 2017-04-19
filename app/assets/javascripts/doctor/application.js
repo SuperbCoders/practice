@@ -605,23 +605,28 @@ app.run(['$rootScope', '$state', '$stateParams', '$window', function($rootScope,
   };
 
   $rootScope.getFullVisitString = function(visit){
-    var monts = {
-      "January": "января",
-      "February": "февраля",
-      "March": "марта",
-      "April": "апреля",
-      "May": "мая",
-      "June": "июня",
-      "July": "июля",
-      "August": "августа",
-      "September": "сентября",
-      "October": "октября",
-      "November": "ноября",
-      "December": "декабря"
-    };
-    var date = moment(visit.start);
-    // var en = moment().locale('en');
-    return date.format('DD') + ' '+ monts[moment(date).locale('en').format('MMMM')] + ', в ' + date.format('HH:mm');
+    // because ng animate forced us to use ng show instead ng if
+    if (visit) {
+      var monts = {
+        "January": "января",
+        "February": "февраля",
+        "March": "марта",
+        "April": "апреля",
+        "May": "мая",
+        "June": "июня",
+        "July": "июля",
+        "August": "августа",
+        "September": "сентября",
+        "October": "октября",
+        "November": "ноября",
+        "December": "декабря"
+      };
+      var date = moment(visit.start);
+      // var en = moment().locale('en');
+      return date.format('DD') + ' '+ monts[moment(date).locale('en').format('MMMM')] + ', в ' + date.format('HH:mm');
+    } else {
+      return '';
+    }
   };
 }
         ]);
