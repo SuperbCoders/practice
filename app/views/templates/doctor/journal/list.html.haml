@@ -12,8 +12,8 @@
           / +patient_menu()
           .patient_avatar_holder
             %a.patient_avatar{:href => "", 'ng-model' => 'vm.patient', 'rnd-bg' => true}
-              %img{'ng-src' => "{{vm.patient.avatar}}", "ng-if" => "vm.patient.avatar != undefined"}/
-              .patient_avatar_letter{"ng-if" => "vm.patient.avatar == undefined"} {{vm.patient.initials}}
+              %img{'ng-src' => "{{vm.patient.avatar}}", "ng-show" => "vm.patient.avatar != undefined"}/
+              .patient_avatar_letter{"ng-show" => "vm.patient.avatar == undefined"} {{vm.patient.initials}}
             .patient_info
               .patient_name
                 %a.gl_link.gray_link{:href => ""}
@@ -25,24 +25,24 @@
             .other_info_cell
               %p{"ng-bind" => "vm.patient.phone | phone"}
               %p{"ng-bind" => "vm.patient.email"}
-          .patient_card_controls.skipOpen.patient_ready{"ng-if" => "vm.patient.last_visit.active"}
+          .patient_card_controls.skipOpen.patient_ready{"ng-show" => "vm.patient.last_visit.active"}
             .patient_info_table
               .controls_cell
                 %a.btn_v2.patient_btn.green_btn{:href => ""}
                   %span.mb Начать прием
-          .patient_card_controls.skipOpen.patient_confirm{"ng-if" => "vm.patient.last_visit != null && vm.patient.last_visit.created_by == 'doctor' && !vm.patient.last_visit.active"}
+          .patient_card_controls.skipOpen.patient_confirm{"ng-show" => "vm.patient.last_visit != null && vm.patient.last_visit.created_by == 'doctor' && !vm.patient.last_visit.active"}
             .patient_info_table
               .controls_cell
                 %a.btn_v2.patient_btn.white_white_btn{:href => "", "ng-click" => "changeReceptionTimeClick($event, vm.patient.last_visit)"}
                   %span.mb Изменить прием на {{getFullVisitString(vm.patient.last_visit)}}
                 %p
                   %a.gl_link{href: "javascript:", "ng-click" => "deleteVisit(vm.patient.last_visit)"} Отменить прием
-          .patient_card_controls.skipOpen.patient_warn{"ng-if" => "vm.patient.last_visit != null && vm.patient.last_visit.created_by != 'doctor' && !vm.patient.last_visit.active"}
+          .patient_card_controls.skipOpen.patient_warn{"ng-show" => "vm.patient.last_visit != null && vm.patient.last_visit.created_by != 'doctor' && !vm.patient.last_visit.active"}
             .patient_info_table
               .controls_cell
                 %a.btn_v2.patient_btn.white_white_btn{:href => "", "ng-click" => "update_created_by(vm.patient.last_visit)"}
                   %span.mb Подтвердить прием на {{getFullVisitString(vm.patient.last_visit)}}
-          .patient_card_controls.skipOpen{"ng-if" => "vm.patient.last_visit == null"}
+          .patient_card_controls.skipOpen{"ng-show" => "vm.patient.last_visit == null"}
             .patient_info_table
               .controls_cell
                 %a.btn_v2.patient_btn.black_yellow_btn{:href => "", "ng-click" => "vm.openAppointmentsDialog()"}

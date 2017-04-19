@@ -64,29 +64,27 @@
               .patient_info_table
                 .other_info_cell
                   .p{'ng-repeat' => "contact in patient.contacts"}
-                    -# {{contact | json}}
-                    %span{'ng-if' => 'contact.contact_type == "phone"'} {{contact.data | phone}}
-                    %span{'ng-if' => 'contact.contact_type != "phone"'} {{contact.data}}
-                    -# {{contact.data}}
+                    %span{'ng-show' => 'contact.contact_type == "phone"'} {{contact.data | phone}}
+                    %span{'ng-show' => 'contact.contact_type != "phone"'} {{contact.data}}
                   .p {{patient.email}}
-              .patient_card_controls.skipOpen.patient_ready{"ng-if" => "patient.last_visit.active"}
+              .patient_card_controls.skipOpen.patient_ready{"ng-show" => "patient.last_visit.active"}
                 .patient_info_table
                   .controls_cell
                     %a.btn_v2.patient_btn.green_btn{:href => ""}
                       %span.mb Начать прием
-              .patient_card_controls.skipOpen.patient_confirm{"ng-if" => "patient.last_visit != null && patient.last_visit.created_by == 'doctor' && !patient.last_visit.active"}
+              .patient_card_controls.skipOpen.patient_confirm{"ng-show" => "patient.last_visit != null && patient.last_visit.created_by == 'doctor' && !patient.last_visit.active"}
                 .patient_info_table
                   .controls_cell
                     %a.btn_v2.patient_btn.white_white_btn{:href => "", "ng-click" => "changeReceptionTimeClick($event, patient.last_visit)"}
                       %span.mb Изменить прием на {{getFullVisitString(patient.last_visit)}}
                     %p
                       %a.gl_link{href: "javascript:", "ng-click" => "deleteVisit(patient.last_visit); $event.stopPropagation();"} Отменить прием
-              .patient_card_controls.skipOpen.patient_warn{"ng-if" => "patient.last_visit != null && patient.last_visit.created_by != 'doctor' && !patient.last_visit.active"}
+              .patient_card_controls.skipOpen.patient_warn{"ng-show" => "patient.last_visit != null && patient.last_visit.created_by != 'doctor' && !patient.last_visit.active"}
                 .patient_info_table
                   .controls_cell
                     %a.btn_v2.patient_btn.white_white_btn{:href => "", "ng-click" => "update_created_by(patient.last_visit)"}
                       %span.mb Подтвердить прием на {{getFullVisitString(patient.last_visit)}}
-              .patient_card_controls.skipOpen{"ng-if" => "patient.last_visit == null"}
+              .patient_card_controls.skipOpen{"ng-show" => "patient.last_visit == null"}
                 .patient_info_table
                   .controls_cell
                     %a.btn_v2.patient_btn.black_yellow_btn{:href => "", "ng-click" => "openAppointmentsForm(patient)"}

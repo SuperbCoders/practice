@@ -125,6 +125,17 @@ ul.appointment_menu_list li a {
   position: absolute;
   top: 100%;
 }
+
+// fixes buttons flickering/duplicates due to ng animate dependency in
+// conjunction to change ng ifs to ng shows
+
 .ng-hide.ng-hide-animate {
 display: none !important;
+}
+
+// fixes patients cards flickering/duplicates in patients list due to
+// ng animate dependency
+
+.ng-leave, .ng-leave-active {
+  display: none;
 }
