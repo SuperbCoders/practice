@@ -180,7 +180,7 @@ class Doctor < ActiveRecord::Base
   protected
 
   def create_identity(oauth_data = nil)
-    unless session[:oauth] || oauth_data
+    unless (respond_to?(:session) && session[:oauth]) || oauth_data
       return
     end
 

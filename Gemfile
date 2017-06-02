@@ -32,7 +32,7 @@ gem 'validates_timeliness', '3.0.14'
 gem 'devise'
 gem 'sinatra'
 gem 'sidekiq'
-gem 'clockwork'
+# gem 'clockwork'
 gem 'httpclient'
 gem 'redis'
 gem 'figaro'
@@ -48,6 +48,7 @@ gem 'faye-redis'
 gem 'faye-rails', '~> 1.0.0'
 gem 'daemons'
 gem 'translit'
+gem 'russian'
 
 group :development, :test do
   gem 'better_errors'
@@ -72,6 +73,15 @@ group :development, :test do
   # gem 'capistrano-template'
   # gem 'airbrussh', :require => false
   gem 'private_pub'
+  # gem 'selenium-webdriver', '2.52.0'
+  # gem 'selenium-webdriver', '2.53.1'
+  # gem 'selenium-webdriver', '3.4.0'
+  gem 'selenium-webdriver', '2.53.4'
+  gem 'pry'
+  # gem 'pry-debugger'
+  # gem 'pry-stack_explorer'
+  gem 'rspec-retry'
+  gem 'rack_session_access'
 end
 
 group :test do

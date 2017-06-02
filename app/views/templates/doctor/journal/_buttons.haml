@@ -1,0 +1,28 @@
+.patient_card_controls.skipOpen{"ng-show" => "vm.visits.length == 0"}
+  .patient_info_table
+    .controls_cell
+      %a.btn_v2.patient_btn.black_yellow_btn{:href => "", "ng-click" => "vm.openAppointmentsDialog()"}
+        %span.mb Записать на прием
+%div{'ng-show' => 'vm.visits.length != 0', 'ng-repeat' => "visit in vm.visits"}
+  .patient_card_controls.skipOpen.patient_ready{"ng-show" => "visit.active"}
+    .patient_info_table
+      .controls_cell
+        %a.btn_v2.patient_btn.green_btn{:href => ""}
+          %span.mb Начать прием
+  .patient_card_controls.skipOpen.patient_confirm{"ng-show" => "visit != null && visit.created_by == 'doctor' && !visit.active"}
+    .patient_info_table
+      .controls_cell
+        %a.btn_v2.patient_btn.white_white_btn{:href => "", "ng-click" => "changeReceptionTimeClick($event, visit)"}
+          %span.mb Изменить прием на {{getFullVisitString(visit)}}
+        %p
+          %a.gl_link{href: "javascript:", "ng-click" => "deleteVisit(visit)"} Отменить прием
+  .patient_card_controls.skipOpen.patient_warn{"ng-show" => "visit != null && visit.created_by != 'doctor' && !visit.active"}
+    .patient_info_table
+      .controls_cell
+        %a.btn_v2.patient_btn.white_white_btn{:href => "", "ng-click" => "update_created_by(visit)"}
+          %span.mb Подтвердить прием на {{getFullVisitString(visit)}}
+  .patient_card_controls.skipOpen{"ng-show" => "visit == null"}
+    .patient_info_table
+      .controls_cell
+        %a.btn_v2.patient_btn.black_yellow_btn{:href => "", "ng-click" => "vm.openAppointmentsDialog()"}
+          %span.mb Записать на прием

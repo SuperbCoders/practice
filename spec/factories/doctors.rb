@@ -1,7 +1,8 @@
 
 FactoryGirl.define do
-  factory :doctor do
-    email { Faker::Internet.safe_email }
-    password { SecureRandom.hex }
+  factory :doctor_1, class: Doctor do
+    id 1
+    email 'corehook@gmail.com'
+    password 'corehook'
   end
 end

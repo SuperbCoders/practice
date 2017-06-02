@@ -39,6 +39,9 @@ Rails.application.routes.draw do
       end
     end
     resources :patients do
+      member do
+        get 'visits'
+      end
       collection do
         post 'search'
         get 'autocomplete'

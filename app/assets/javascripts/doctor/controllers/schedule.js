@@ -592,6 +592,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   // }
 
   $scope.$on('notification', function(event, notification){
+    // fullCalendarEventsService
     var events  = $('#calendar').fullCalendar('clientEvents');
     var patients = [];
     for (var i = 0; i < events.length; ++i) {

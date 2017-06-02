@@ -42,6 +42,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, $t
   // fix extra empty node in card color select broke up chosen
   vm.patient = {};
   vm.patient.cart_color = '0';
+  vm.visits = [];
 
   function fetchPatientInfo() {
     vm.Patients.get({id: vm.patient_id})
@@ -51,6 +52,11 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, $t
         $rootScope.$title = vm.patient.full_name;
         $('.patient_status_w .chosen-select').val(vm.patient.cart_color).trigger("chosen:updated");
       })
+    vm.Patients.visits({id: vm.patient_id})
+      .$promise
+      .then(function (visits) {
+        vm.visits = visits;
+      });
   }
 
   function fetchPatientJournals() {
@@ -257,7 +263,7 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, $t
 
   $scope.deleteVisit = function(event){
     if (confirm('Отменить прием?')) {
-      return Visits.remove({id: vm.patient.last_visit.id}).$promise.then(function(response) {
+      return Visits.remove({id: event.id}).$promise.then(function(response) {
         fetchPatientInfo();
       });
     }
@@ -272,13 +278,14 @@ function JournalController($rootScope, $stateParams, $scope, $state, $window, $t
   }
 
   $scope.$on('notification', function(event, notification){
-    if (vm.patient.last_visit && vm.patient.last_visit.id == notification.visit.id) {
-      if (notification.notification_type == 'visit_soon') {
-        vm.patient.last_visit.active = true;
-      } else if (notification.notification_type == 'visit_end') {
-        vm.patient.last_visit.active = false;
+    _.remove(vm.visits, function(visit){
+      if (visit.id == notification.visit.id) {
+        if (notification.notification_type == 'visit_soon' ||
+            notification.notification_type == 'visit_end') {
+          return true;
+        }
       }
-    }
+    });
   });
 
   $scope.time_list = ChangeTime.make_time_list($scope);

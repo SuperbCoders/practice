@@ -120,6 +120,16 @@ function PatientsController($scope, $window, $state, Patients, ngDialog, Visits,
     Patients.save({id: patient.id, cart_color: patient.cart_color});
   }
 
+  function reload_patient(patient) {
+    console.log('reload patient');
+    Patients.get(patient).$promise.then(function(response) {
+      var index = _.findIndex($scope.patients, patient);
+      console.log('success');
+      console.log(JSON.stringify(response, null, 2));
+      $scope.patients[index] = response;
+    });
+  }
+
   $scope.fetch = function(search_query = undefined) {
     if (search_query != undefined)
       $scope.filters.query = search_query
@@ -163,21 +173,10 @@ function PatientsController($scope, $window, $state, Patients, ngDialog, Visits,
     visit.duration = ChangeTime.get_change_reception_time_duration();
     Visits.save({id: visit.id, visit: {visit_data: {start_at: visit.start_at, duration: visit.duration}}});
     $('#change_reception_form').dialog('close');
-    // console.log('apply');
-    // console.log(visit);
     var patient = find_patient_by_last_visit(visit);
     if (patient) {
-      // console.log('found');
-      // console.log(patient);
-      Patients.get(patient).$promise.then(function(response) {
-        // console.log('fetched');
-        // console.log(response);
-        var index = _.findIndex($scope.patients, patient);
-        // console.log(index);
-        $scope.patients[index] = response;
-      });
+      reload_patient(patient);
     }
-    // $scope.fetch();
   }
 
   $scope.changeReceptionTimeClick = function(event, visit) {
@@ -205,14 +204,16 @@ function PatientsController($scope, $window, $state, Patients, ngDialog, Visits,
   }
 
   $scope.$on('notification', function(event, notification){
+    console.log('notification');
     for (var i = 0; i < $scope.patients.length; ++i) {
       if ($scope.patients[i].last_visit) {
         if ($scope.patients[i].last_visit.id == notification.visit.id){
-          if (notification.notification_type == 'visit_soon') {
-            $scope.patients[i].last_visit.active = true;
-          } else if (notification.notification_type == 'visit_end') {
-            $scope.patients[i].last_visit.active = false;
-          }
+          // if (notification.notification_type == 'visit_soon') {
+          //   $scope.patients[i].last_visit.active = true;
+          // } else if (notification.notification_type == 'visit_end') {
+          //   $scope.patients[i].last_visit.active = false;
+          // }
+          reload_patient($scope.patients[i]);
         }
       }
     }

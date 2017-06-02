@@ -1,0 +1,6 @@
+
+doctor_1:
+  id: 1
+  email: corehook@gmail.com
+  password: corehook
+  password_confirmation: corehook

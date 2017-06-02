@@ -50,6 +50,11 @@ var Patients = [
 	method: 'GET',
 	name: 'autocomplete',
 	isArray: true
+      },
+      {
+	method: 'GET',
+	name: 'visits',
+	isArray: true
       }
     ]);
   }

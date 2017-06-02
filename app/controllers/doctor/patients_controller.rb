@@ -2,7 +2,7 @@ class Doctor::PatientsController < Doctor::BaseController
   include Concerns::Resource
 
   before_action :new_resource, only: %w(create new)
-  before_action :find_resource, only: %w(show update destroy edit)
+  before_action :find_resource, only: %w(show update destroy edit visits)
 
   def index
     if params[:archivated]  == "true"
@@ -151,6 +151,10 @@ class Doctor::PatientsController < Doctor::BaseController
     end
 
     send_json patients, true
+  end
+
+  def visits
+    send_json serialize_resources(@resource.visits, Doctor::VisitSerializer), true
   end
 
   def resource_scope

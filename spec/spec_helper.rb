@@ -16,32 +16,23 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'factory_girl'
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+require 'rspec/autorun'
+require 'rspec/retry'
+require 'capybara/rspec'
+# require 'capybara/email/rspec'
+require 'rack_session_access/capybara'
+
+Rails.application.config do
+  config.middleware.use RackSessionAccess::Middleware
+end
+
+include Warden::Test::Helpers
+Warden.test_mode!
 
 RSpec.configure do |config|
-
-  config.before(:all) do
-    FactoryGirl.reload
-    FactoryGirl.definition_file_paths = [File.expand_path('../factories', __FILE__)]
-  end
-
-  config.color = true
-  config.tty = true
-  config.formatter = :documentation # :progress, :html, :textmate
-
-  # config.before(:suite) do
-  #   DatabaseCleaner[:mongoid].strategy = :truncation
-  # end
-  #
-  # config.before(:each) do
-  #   DatabaseCleaner[:mongoid].start
-  # end
-  #
-  # config.after(:each) do
-  #   DatabaseCleaner[:mongoid].clean
-  # end
-
-
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -82,9 +73,9 @@ RSpec.configure do |config|
 
   # Limits the available syntax to the non-monkey patched syntax that is
   # recommended. For more details, see:
-  #   - http://rspec.info/blog/2012/06/rspecs-new-expectation-syntax/
+  #   - http://myronmars.to/n/dev-blog/2012/06/rspecs-new-expectation-syntax
   #   - http://www.teaisaweso.me/blog/2013/05/27/rspecs-new-message-expectation-syntax/
-  #   - http://rspec.info/blog/2014/05/notable-changes-in-rspec-3/#zero-monkey-patching-mode
+  #   - http://myronmars.to/n/dev-blog/2014/05/notable-changes-in-rspec-3#new__config_option_to_disable_rspeccore_monkey_patching
   config.disable_monkey_patching!
 
   # Many RSpec users commonly either run the entire suite or an individual
@@ -114,4 +105,79 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  Dir["./spec/support/**/*.rb"].sort.each { |f| require f}
+
+  config.include FactoryGirl::Syntax::Methods
+  config.before(:suite) do
+    FactoryGirl.find_definitions
+  end
+
+  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::TestHelpers, type: :view
+  config.include FeaturesHelpers, type: :feature
+  # config.include ShortcutHelpers
+  # config.include ScenariesHelpers
+  # config.include PageObjects::BookingHelper
+  # config.include MiscHelpers
+  # config.include UtilHelper
+  config.include WaitForAjax, type: :feature
+  # config.include WaitHelper, type: :feature
+  config.verbose_retry = true
+
+  config.before(:each) { ActionMailer::Base.deliveries.clear }
+
+  config.before :each, type: :controller do
+    controller.env['action_controller.instance'] = controller
+  end
+
+  config.after :each, type: :controller do
+    Thread.current['gon'] = nil
+  end
+
+  # if ENV['RAILS_ENV'] == 'test_background'
+  if ENV['TEST_TYPE'] == 'background'
+    require 'capybara/poltergeist'
+    Capybara.javascript_driver = :poltergeist
+    ENV['DISABLE_PRY'] = 'true'
+  end
+
+  config.before(:each) do
+    Timecop.return
+  end
+
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  Capybara.server_host = 'localhost'
+  # Capybara.server_port = 8200
+  Capybara.server_port = 8200
+  Capybara.register_driver :selenium do |app|
+    profile = Selenium::WebDriver::Firefox::Profile.from_name 'test2'
+    Capybara::Selenium::Driver.new( app, :profile => profile)
+  end
+  Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app, window_size: [1300, 1200])
+  end
+  Capybara.register_driver :chrome do |app|
+    Capybara::Selenium::Driver.new( app, :browser => :chrome)
+  end
+  Capybara.javascript_driver = :chrome
 end
