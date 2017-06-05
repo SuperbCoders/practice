@@ -200,7 +200,18 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
   function set_event(event) {
     $scope.event = event;
-    $scope.patient = event.patient;
+    if (event) {
+      $scope.patient = event.patient;
+    } else {
+      $scope.patient = null;
+    }
+    console.log('set_event');
+    console.log(event);
+    if ($($scope.calendar).fullCalendar('getView').name == 'agendaDay' && event) {
+      $('.calendarHolder').addClass('day_mode');
+    } else {
+      $('.calendarHolder').removeClass('day_mode');
+    }
   }
 
   $scope.createVisit = function($valid) {
@@ -235,7 +246,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       return Visits.remove({id: event.real_id}).$promise.then(function(response) {
         // return $scope.visits = _.without($scope.visits, visit);
         $('#calendar').fullCalendar('refetchEvents');
-        $scope.event = null;
+        set_event(null);
         // In week/month view we need to close floating window because
         // it stops pointing out to event.
         if (!($($scope.calendar).fullCalendar('getView').name == 'agendaDay')) {
@@ -249,7 +260,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     if (confirm('Отменить прием?')) {
       return Visits.remove({id: event.id}).$promise.then(function(response) {
         $('#calendar').fullCalendar('refetchEvents');
-        $scope.event = null;
+        set_event(null);
         // In week/month view we need to close floating window because
         // it stops pointing out to event.
         if (!($($scope.calendar).fullCalendar('getView').name == 'agendaDay')) {
@@ -314,9 +325,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     }
     Settings.saveSettings($scope.settings);
     // $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name || 'agendaWeek' === view.name);
-    $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name);
-    $scope.event = null;
-    $scope.patient = null;
+    // $('.calendarHolder').toggleClass('day_mode', 'agendaDay' === view.name);
+    set_event(null);
   };
 
   function event_drop(event, delta, revertFunc, jsEvent, ui, view) {
@@ -779,7 +789,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     if (confirm('Удалить пациента?')) {
       Patients.remove(patient).$promise.then(function(response) {
         $('#calendar').fullCalendar('refetchEvents');
-        $scope.event = null;
+        set_event(null);
         if (!($($scope.calendar).fullCalendar('getView').name == 'agendaDay')) {
           $('#patient_info_form').dialog('close');
         }

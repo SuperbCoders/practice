@@ -32,7 +32,6 @@ gem 'validates_timeliness', '3.0.14'
 gem 'devise'
 gem 'sinatra'
 gem 'sidekiq'
-gem 'clockwork'
 gem 'httpclient'
 gem 'redis'
 gem 'figaro'
@@ -49,6 +48,11 @@ gem 'faye-rails', '~> 1.0.0'
 gem 'daemons'
 gem 'translit'
 gem 'russian'
+
+# not work in rspec for some reason
+group :development, :staging, :production do
+  gem 'clockwork'
+end
 
 group :development, :test do
   gem 'better_errors'
