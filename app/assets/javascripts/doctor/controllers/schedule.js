@@ -1,4 +1,4 @@
-function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings, ValueList, Doctor, ChangeTime, ngDialog) {
+function ScheduleController($scope, $timeout, $compile, Visits, Visit, Patients, Settings, ValueList, Doctor, ChangeTime, ngDialog) {
   $scope.items_limit = 100;
   $scope.filters = {};
   $scope.win = $(window);
@@ -84,9 +84,9 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     eventClick: event_click,
     viewRender: view_render,
     eventAfterAllRender: event_after_all_render,
-    events: visits_by_date
+    events: visits_by_date,
     // events: visits_by_date,
-    // eventRender: event_render
+    eventRender: event_render
   };
 
   $scope.Visits = Visits;
@@ -94,14 +94,18 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   $scope.ngDialog = ngDialog;
 
   function activateFirstEvent(){
-    var events = $('#calendar').fullCalendar('clientEvents');
-    var event = getMinEvent(events);
-    // _.map(events, function(e) {
-    //   console.log(e.title + ' ' + e.start.toISOString());
-    // });
-    // console.log(event);
-    if (event) {
-      set_event(event);
+    var view = $('#calendar').fullCalendar('getView').name;
+    if (view == 'agendaDay') {
+      var events = $('#calendar').fullCalendar('clientEvents');
+      var event = getMinEvent(events);
+      // _.map(events, function(e) {
+      //   console.log(e.title + ' ' + e.start.toISOString());
+      // });
+      // console.log(event);
+      if (event) {
+        set_event(event);
+      }
+      $('#calendar').fullCalendar('rerenderEvents');
     }
   }
 
@@ -118,6 +122,11 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     // element.find('.fc-event-title').append("<br/>" + event.description);
     // element.find('.fc-content').append("<br/>" + 'test');
     // element.find('.fc-content').append('<div>test</div>');
+    if (event) {
+      // element.attr('data-event-id', event._id);
+      // element.attr('data-event-id', event.id);
+      element.attr('data-event-id', event.id);
+    }
   }
 
   Doctor.get().$promise.then(function(response) {
@@ -159,8 +168,12 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   }
 
   function set_event_color(event, color_value) {
-    var colors = {"0": "#3eb6e3", "1": "#30c36d", "2": "#f63f3f", "3": "#f5cd1d"};
-    event.color = colors[color_value];
+    // var colors = {"0": "#3eb6e3", "1": "#30c36d", "2": "#f63f3f", "3": "#f5cd1d"};
+    var colors = {"0": "status_blue", "1": "status_green", "2": "status_red", "3": "status_orange"};
+    // event.color = colors[color_value];
+    // reset
+    // event.color = null;
+    event.className = colors[color_value];
   }
 
   $scope.$watch('new_patient.cart_color', function(new_value){
@@ -169,8 +182,9 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
       return;
     if (!new_value)
       return;
-    var colors = {"0": "#3eb6e3", "1": "#30c36d", "2": "#f63f3f", "3": "#f5cd1d"};
-    last_event.color = colors[new_value];
+    // var colors = {"0": "#3eb6e3", "1": "#30c36d", "2": "#f63f3f", "3": "#f5cd1d"};
+    // last_event.color = colors[new_value];
+    set_event_color(last_event, new_value);
     $('#calendar').fullCalendar('updateEvent', last_event);
   });
 
@@ -198,15 +212,54 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     $scope.calendar;
   });
 
-  function set_event(event) {
+  function toggle_event_class(class_array, class_toggle, add_or_remove_flag) {
+    console.log('class_array ');
+    console.log(class_array);
+    if (typeof class_array == 'string') {
+      class_array = [class_array];
+    }
+    if (add_or_remove_flag) {
+      if (!_.includes(class_array, class_toggle)) {
+         class_array.push(class_toggle);
+      }
+    } else {
+      _.remove(class_array, function(e) { return e == class_toggle });
+      console.log('remove');
+      console.log(class_array);
+    }
+    // console.log('new event class');
+    // console.log(class_array);
+    return class_array;
+  }
+
+  function set_event(event, jsEvent) {
+    // console.log(event);
+    $('#calendar .fc-event').removeClass('event_open');
+    if (event) {
+      // console.log(event);
+      // $timeout(function(){
+      //   $('.fc-event[data-event-id=' + event.id + ']').addClass('event_open');
+      //   console.log($('.fc-event[data-event-id=' + event.id + ']'));
+      // });
+    }
+    if (jsEvent) {
+      $(jsEvent.currentTarget).addClass('event_open');
+    }
+    // console.log('set_event');
+    // console.log(event);
+    if ($scope.event) {
+      $scope.event.className = toggle_event_class($scope.event.className, 'event_open', false);
+    }
     $scope.event = event;
     if (event) {
       $scope.patient = event.patient;
+      $scope.event.className = toggle_event_class($scope.event.className, 'event_open', true);
     } else {
       $scope.patient = null;
     }
-    console.log('set_event');
-    console.log(event);
+    // $('#calendar').fullCalendar('render');
+    // $('#calendar').fullCalendar('render');
+    // $('#calendar').fullCalendar('rerenderEvents');
     if ($($scope.calendar).fullCalendar('getView').name == 'agendaDay' && event) {
       $('.calendarHolder').addClass('day_mode');
     } else {
@@ -356,8 +409,9 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
   };
 
   function event_click(event, jsEvent, view) {
+    // console.log(jsEvent);
     $scope.$apply(function() {
-      set_event(event);
+      set_event(event, jsEvent);
     });
     if (!(view.name == 'agendaDay')) {
       show_event(event, jsEvent);
@@ -383,7 +437,9 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
     init_patient_info_form();
     var btn = $(this);
 
-    btn.addClass('event_open');
+    // console.log('btn');
+    // console.log(btn);
+    // btn.addClass('event_open');
     $scope.patient_info_form.dialog("option", "position", {
       my: "left+15 top-150",
       of: e,
@@ -461,6 +517,7 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
         $scope.event_id++;
         date_events.push(event);
       }
+      console.log('reload');
       if ($scope.set_last_event) {
         if (event = _.find(date_events, function(e) { return $scope.set_last_event.real_id == e.real_id })){
           set_event(event);
@@ -536,7 +593,8 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
           event = {
             start: moment(date),
             end: moment(date).add(parseInt(stDuration), 'm'),
-            color: "#3eb6e3",
+            className: 'status_blue',
+            // color: "#3eb6e3",
             saved: false
           };
 
@@ -843,4 +901,4 @@ function ScheduleController($scope, $compile, Visits, Visit, Patients, Settings,
 
 }
 
-angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$compile', 'Visits', 'Visit', 'Patients', 'Settings', 'ValueList', 'Doctor', 'ChangeTime', 'ngDialog', ScheduleController]);
+angular.module('practice.doctor').controller('ScheduleController', ['$scope', '$timeout', '$compile', 'Visits', 'Visit', 'Patients', 'Settings', 'ValueList', 'Doctor', 'ChangeTime', 'ngDialog', ScheduleController]);

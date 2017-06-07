@@ -536,6 +536,23 @@ app.directive('initFaye', ['$timeout', 'Alerts', 'Faye', 'Doctor1', 'envService'
   }
 }]);
 
+// app.directive('calendarEventClickAnimation', ['$timeout', function($timeout){
+//   return {
+//     restrict: 'A',
+//     link: function(scope, element, attrs) {
+//       $timeout(function(){
+//         console.log('calendar event click animation handler');
+//         $(element).on('click', function(){
+//           console.log('event click 1');
+//         });
+//         $(element).on('click', '.fc-event', function(){
+//           console.log('event click 2');
+//         });
+//       });
+//     }
+//   }
+// }]);
+
 (function () {
   'use strict';
   app.directive("ubtMaskPlaceholder", ubtMaskPlaceholder);

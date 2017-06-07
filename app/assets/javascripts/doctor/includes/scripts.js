@@ -194,6 +194,11 @@ $(function ($) {
         }
     });
 
+  // console.log('wtf1');
+  //   body_var.delegate('.fc-event', 'click', function (e) {
+  //     console.log('fc-event click test');
+  //   });
+
     body_var.delegate('.patient_card', 'click', function (e) {
         var firedEl = $(e.target), patient_card = $(this);
 
