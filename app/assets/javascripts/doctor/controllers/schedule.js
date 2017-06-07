@@ -287,6 +287,7 @@ function ScheduleController($scope, $timeout, $compile, Visits, Visit, Patients,
           last_event.title = getEventTitle(event);
           $('#calendar').fullCalendar('updateEvent', last_event);
           set_event(last_event);
+          $('#calendar').fullCalendar('rerenderEvents');
         });
         // $('#calendar').fullCalendar('refetchEvents');
         $scope.add_patient_form.dialog('close');
@@ -593,7 +594,7 @@ function ScheduleController($scope, $timeout, $compile, Visits, Visit, Patients,
           event = {
             start: moment(date),
             end: moment(date).add(parseInt(stDuration), 'm'),
-            className: 'status_blue',
+            className: ['status_blue', 'event_open'],
             // color: "#3eb6e3",
             saved: false
           };
