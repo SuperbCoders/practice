@@ -44,7 +44,8 @@
       .patient_name
         %a.gl_link.gray_link{:href => "#", 'ui-sref' => "journal.records({patient_id: event.patient.id})"}
           %span {{event.patient.full_name}}
-      %textarea.input_v5.form_input.skipOpen {{ event.patient.comment }}
+      {{ event.patient.comment }}
+      %textarea.input_v5.form_input.skipOpen{'ng-model' => 'event.patient.comment', 'model' => 'event.patient', 'patient-card-comment-auto-save' => true} {{ event.patient.comment }}
     .patient_info_table
       .other_info_cell
         %p{'ng-show' => "event.patient.phone"} {{event.patient.phone | phone}}

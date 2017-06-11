@@ -125,7 +125,6 @@ angular.module('ui.autocomplete', [])
             eventsName = ['change', 'close', 'create', 'focus', 'open', 'response', 'search', 'select'];
 
           var unregisterWatchModel = scope.$watch(attr.ngModel, function (value) {
-            console.log('watch ' + value + ', isobject ' + isObject(ngModel));
             ngModel = value;
             if (isObject(ngModel)) {
               // not only primitive type ngModel, you can also use object type ngModel!
@@ -169,10 +168,8 @@ angular.module('ui.autocomplete', [])
             },
             change: function (event, ui) {
               // update view value and Model value
-              console.log('ui-autocomplete ' + valueMethod());
               var value = valueMethod(),
                 selected = false;
-              console.log('change ' + value);
 
               if (selectItem && selectItem.item && (value.indexOf(selectItem.item.value) !== -1)) {
                 value = selectItem.item.value;
@@ -224,7 +221,6 @@ angular.module('ui.autocomplete', [])
           }
 
           function autoFocusHandler() {
-            console.log('auto focus handler');
             if (autocomplete.options.focusOpen && !status) {
               element.autocomplete('search', '');
             }

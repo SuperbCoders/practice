@@ -13,6 +13,7 @@ defaults: &defaults
 development:
   <<: *defaults
   database: practice_dev
+  # database: practice_test
 
 staging:
   <<: *defaults

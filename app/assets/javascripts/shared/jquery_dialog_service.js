@@ -1,5 +1,3 @@
-
-// angular.module('blah').factory('blahService', function() {
 this.application.factory('jqueryDialogService', function() {
 
   //constructor

@@ -1,5 +1,4 @@
 window.menu_open = function() {
-  // console.log('menu_open');
   $("html").addClass('menu_open');
 };
 
@@ -32,10 +31,6 @@ function formatDateAppointment(date) {
 }
 
 function card_color_chosen(elem) {
-  console.log('card_color_chosen');
-  console.log(elem);
-  // $scope.card_color_chosen_times = $scope.card_color_chosen_times + 1;
-  // console.log('card_color_chosen ' + $scope.card_color_chosen_times + ' ' + $(elem).length);
   $(elem).chosen({
     width: '100%',
     disable_search_threshold: 3

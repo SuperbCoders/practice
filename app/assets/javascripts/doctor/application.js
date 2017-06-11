@@ -1,4 +1,4 @@
-console.log('application.js');
+// console.log('application.js');
 var app = angular
     .module('practice.doctor',
         [
@@ -36,29 +36,6 @@ app.animation('.new_appointment_block_anim', ['$rootScope', function($rootScope)
     }
   }
 }]);
-
-var Patients = [
-  'Resources', function(Resources) {
-    return Resources('/doctor/patients/:id', {
-      id: '@id'
-    }, [
-      {
-	method: 'GET',
-	isArray: true
-      },
-      {
-	method: 'GET',
-	name: 'autocomplete',
-	isArray: true
-      },
-      {
-	method: 'GET',
-	name: 'visits',
-	isArray: true
-      }
-    ]);
-  }
-];
 
 // console.log('application');
 var Doctor = [
@@ -216,7 +193,7 @@ app.config([
 	controller: 'PatientsController',
 	resolve: {
 	    $title: function () { return 'Мои пациенты' },
-	    Patients: Patients,
+	    Patients: 'Patients',
         Visits: Visits,
         Doctor: Doctor
 	}
@@ -227,7 +204,7 @@ app.config([
 	controller: 'PatientController',
 	resolve: {
         $title: function () { return 'Новый пациент' },
-	  Patients: Patients
+	  Patients: 'Patients'
 	}
       })
       .state('patients.edit', {
@@ -236,7 +213,7 @@ app.config([
 	controller: 'PatientController',
 	controllerAs: 'vm',
 	resolve: {
-	  Patients: Patients
+	  Patients: 'Patients'
 	}
       })
       .state('journal', {
@@ -273,7 +250,7 @@ app.config([
 	      ]);
 	    }
 	  ],
-        Patients: Patients,
+        Patients: 'Patients',
         Visits: Visits,
         Doctor: Doctor
 	}
@@ -308,7 +285,7 @@ app.config([
 	      ]);
 	    }
 	  ],
-        Patients: Patients,
+        Patients: 'Patients',
         Visits: Visits,
         Doctor: Doctor
 	},
@@ -345,7 +322,7 @@ app.config([
 	      ]);
 	    }
 	  ],
-        Patients: Patients,
+        Patients: 'Patients',
         Visits: Visits,
         Doctor: Doctor,
         $title: function () { return 'Новая запись в карту' }
@@ -360,7 +337,7 @@ app.config([
 	resolve: {
 	    $title: function () { return 'Мое расписание'; },
 	  Doctor: Doctor,
-	  Patients: Patients,
+	  Patients: 'Patients',
 	  Visits: [
 	    'Resources', function(Resources) {
 	      return Resources('/doctor/visits/:id', {
@@ -509,11 +486,7 @@ app.directive('rndBg', [function () {
 app.directive('patientInfoFormInit', ['$timeout', function ($timeout) {
   return {
     restrict: 'A',
-    // require: 'ngModel',
-    // priority: -200,
     link: function(scope, element, attrs, ngModel) {
-      console.log('patientInfoFormInit directive');
-      console.log('noop');
     }
   }
 }]);
@@ -523,12 +496,7 @@ app.directive('initFaye', ['$timeout', 'Alerts', 'Faye', 'Doctor1', 'envService'
     restrict: 'A',
     link: function(scope, element, attrs) {
       Doctor1.get().$promise.then(function(response) {
-        // $scope.doctor = response;
         Faye.subscribe('/notifications/doctor/' + response.id, function(data){
-          console.log('subscribe');
-          console.log(data);
-          // Alerts.messages([data.message]);
-          // Alerts.notification(data.object);
           Alerts.notification(data);
         });
       });
@@ -536,22 +504,76 @@ app.directive('initFaye', ['$timeout', 'Alerts', 'Faye', 'Doctor1', 'envService'
   }
 }]);
 
-// app.directive('calendarEventClickAnimation', ['$timeout', function($timeout){
+// app.directive('patientCardCommentAutoSave', ['$timeout', '$rootScope', 'Patients', function($timeout, $rootScope, Patients){
 //   return {
 //     restrict: 'A',
-//     link: function(scope, element, attrs) {
-//       $timeout(function(){
-//         console.log('calendar event click animation handler');
-//         $(element).on('click', function(){
-//           console.log('event click 1');
-//         });
-//         $(element).on('click', '.fc-event', function(){
-//           console.log('event click 2');
-//         });
+//     require: 'ngModel',
+//     scope: {
+//       ngModel: '=ngModel',
+//       model: '=model',
+//     },
+//     link: function(scope, element, attrs, ctrl){
+//       var saved = false;
+//       var timeout = undefined;
+//       var delay = 1;
+//       function save() {
+//         console.log('auto save ' + scope.model.id + ' ' + scope.ngModel);
+//         Patients.save({id: scope.model.id, comment: scope.ngModel});
+//         $rootScope.$broadcast('refetchEvents');
+//       }
+//       ctrl.$viewChangeListeners.push(function(){
+//         console.log('auto save ngModel ' + scope.ngModel);
+//         if (timeout) {
+//           $timeout.cancel(timeout);
+//         }
+//         timeout = $timeout(save, delay * 1000);
 //       });
 //     }
 //   }
 // }]);
+
+app.directive('patientCardCommentAutoSave', ['$timeout', '$rootScope', 'Patients', function($timeout, $rootScope, Patients){
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    scope: {
+      ngModel: '=ngModel',
+      model: '=model',
+    },
+    link: function(scope, element, attrs, ctrl){
+      var saved = false;
+      var timeout = undefined;
+      var delay = 1;
+      var model_id, ngModel;
+      function save() {
+        console.log('auto save ' + model_id + ' ' + ngModel);
+        Patients.save({id: model_id, comment: ngModel});
+        model_id = null;
+        ngModel = null;
+        $rootScope.$broadcast('refetchEvents');
+      }
+      $rootScope.$on('schedulePatientChanged', function(){
+        if (timeout) {
+          $timeout.cancel(timeout);
+          if (model_id) {
+            save();
+          }
+        }
+      });
+      ctrl.$viewChangeListeners.push(function(){
+        $timeout(function(){
+          model_id = scope.model.id;
+          ngModel = scope.ngModel;
+          console.log('auto save ngModel ' + ngModel);
+          if (timeout) {
+            $timeout.cancel(timeout);
+          }
+          timeout = $timeout(save, delay * 1000);
+        }, 0);
+      });
+    }
+  }
+}]);
 
 (function () {
   'use strict';
